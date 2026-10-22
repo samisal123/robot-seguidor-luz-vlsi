@@ -1,0 +1,34 @@
+# Quartus: todo lo generado (el proyecto se recrea con quartus/crear_proyecto.tcl)
+quartus/db/
+quartus/incremental_db/
+quartus/qdb/
+quartus/output_files/
+quartus/greybox_tmp/
+quartus/tmp-clearbox/
+quartus/*.qpf
+quartus/*.qsf
+quartus/*.qws
+quartus/*.rpt
+quartus/*.summary
+quartus/*.smsg
+quartus/*.done
+quartus/*.jdi
+quartus/*.pin
+quartus/*.sld
+quartus/*.qdf
+*.bak
+
+# Simulacion
+sim/work/
+sim/*.wlf
+sim/transcript
+sim/*.vcd
+sim/*.ghw
+*.cf
+
+# Watcher
+watcher.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
