@@ -32,3 +32,6 @@ watcher.log
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Proyectos temporales de sintetizar_modulo.sh
+quartus/mod/
