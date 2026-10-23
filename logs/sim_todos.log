@@ -1,0 +1,16 @@
+sim/tb_debounce.vhd:128:9:@269011750ns:(report note): tb_debounce: OK
+== tb_debounce: PASA
+sim/tb_hcsr04.vhd:174:9:@151346030ns:(report note): tb_hcsr04: OK
+== tb_hcsr04: PASA
+sim/tb_motor_if.vhd:134:9:@132012750ns:(report note): tb_motor_if: OK
+== tb_motor_if: PASA
+sim/tb_pwm_8b.vhd:103:9:@1177790ns:(report note): tb_pwm_8b: OK
+== tb_pwm_8b: PASA
+sim/tb_robot_top.vhd:50:9:@190ns:(report note): tb_robot_top: OK
+== tb_robot_top: PASA
+sim/tb_seg7_disp.vhd:165:9:@31351ns:(report note): tb_seg7_disp: OK
+== tb_seg7_disp: PASA
+sim/tb_sync_2ff.vhd:60:9:@711ns:(report note): tb_sync_2ff: OK
+== tb_sync_2ff: PASA
+sim/tb_tick_gen.vhd:87:9:@4009070ns:(report note): tb_tick_gen: OK
+== tb_tick_gen: PASA

@@ -3,10 +3,10 @@
 ## Estado
 
 - **Actualizado:** 2026-10-22
-- **Fase:** Semana 1 (propuesta y diagramas)
-- **Hecho:** estructura del repo, plan, arquitectura, notas de hardware y smoke test (`rtl/robot_top.vhd`) listo para compilar; analiza limpio en VHDL-93 y su testbench `sim/tb_robot_top.vhd` pasa en GHDL 4.1.
-- **Siguiente:** verificar el entorno de la PC (TAREA-002), compilar el smoke test (TAREA-003) y escribir los módulos de infraestructura (TAREA-004).
-- **Bloqueos:** decisiones de hardware pendientes (TAREA-005).
+- **Fase:** Semana 2 (infraestructura), adelantada
+- **Hecho:** entorno de la PC verificado (TAREA-002: Quartus 25.1std.0, GHDL 4.1.0 instalado en el usuario, sin Questa). El smoke test compila en Quartus sin errores (TAREA-003). Hay 7 módulos de infraestructura (`tick_gen`, `sync_2ff`, `debounce`, `pwm_8b`, `motor_if`, `hcsr04`, `seg7_disp`), cada uno con su testbench pasando en GHDL y sintetizando en Quartus (TAREA-004).
+- **Siguiente:** `ultra_sched` y `ldr_dir` (TAREA-006), y el top de banco con pines (TAREA-007).
+- **Bloqueos:** decisiones de hardware pendientes (TAREA-005); TAREA-007 depende de ellas.
 
 ## Objetivo
 
@@ -44,9 +44,13 @@ La fecha real de entrega está por confirmar (TAREA-005).
 
 | Módulo | Casos |
 |---|---|
-| `pwm_8b` | duty 0, 1, 128 y 255 con ancho de pulso exacto; periodo de 51.2 µs |
-| `debounce` | rebotes de 2 ms se filtran; un nivel estable de 20 ms pasa |
-| `hcsr04` | eco de 580 µs da 10 cm; sin eco da timeout y distancia máxima |
+| `tick_gen` | periodos exactos de 1 µs, 58 µs y 1 ms; pulsos de un ciclo |
+| `sync_2ff` | el cambio aparece en el segundo flanco, en cualquier fase |
+| `pwm_8b` | duty 0, 1, 64, 128 y 255 con ancho de pulso exacto; periodo de 51.2 µs; cambio de duty sin glitch |
+| `debounce` | rebotes de 2 ms y un pulso de 15 ms se filtran; un nivel estable pasa entre 19 y 20 ms |
+| `motor_if` | pausa de PAUSA_MS al invertir; nunca IN1 = IN2 = 1 |
+| `hcsr04` | eco de 580 µs da 10 cm; sin eco, eco largo o ECHO pegado dan timeout y 511 |
+| `seg7_disp` | los 256 duty y las distancias 0 a 511 se leen bien en los displays |
 | `ultra_sched` | los 4 sensores se disparan por turnos, sin traslape |
 | `ldr_dir` | cada combinación de 4 bits da la dirección esperada |
 | `stall_detect` | sin cambio en N s levanta atasco; con avance no |
@@ -79,7 +83,7 @@ La fecha real de entrega está por confirmar (TAREA-005).
 ## Reparto
 
 - Claude en la nube: RTL, testbenches y documentación.
-- Claude Code en la PC: compila, simula y reporta (ver `COORDINACION.md`).
+- Claude Code en la PC: compila, simula y reporta; desde el 2026-10-22 también escribe RTL y testbenches (ver `COORDINACION.md`).
 - Equipo: compras, armado, cableado, calibración, pruebas físicas y video.
 
 En la evaluación el profesor pregunta a cada integrante, así que todos deben poder explicar cada módulo. Antes de la entrega se hace un repaso completo con `docs/ARQUITECTURA.md`.

@@ -19,6 +19,8 @@ Canal único entre **Claude (nube)**, que escribe código y documentación, y **
 
 Claude Code sigue `tools/PROMPT_CLAUDE_CODE.md`. Lo despierta `tools/watcher.sh` (Linux) o `tools/watcher.ps1` (Windows).
 
+**Cambio del 2026-10-22:** por indicación del equipo, Claude Code en la PC también escribe RTL, testbenches y docs (hizo TAREA-004). Las reglas de evidencia siguen igual: todo resultado sale de una ejecución real y queda en `resultados/` y `logs/`.
+
 ### Para Claude nube (cada sesión empieza sin memoria)
 
 1. Leer `README.md`, la sección Estado de `docs/PLAN.md` y este archivo.
@@ -30,10 +32,12 @@ Claude Code sigue `tools/PROMPT_CLAUDE_CODE.md`. Lo despierta `tools/watcher.sh`
 ## Tareas
 
 - [x] TAREA-001 @claude-nube: Estructura del repo, plan, arquitectura, hardware y coordinación
-- [ ] TAREA-002 @claude-code: Verificar el entorno de la PC
-- [ ] TAREA-003 @claude-code: Compilar el smoke test en Quartus
-- [ ] TAREA-004 @claude-nube: Revisar 002 y 003; escribir los módulos de infraestructura con testbench
+- [x] TAREA-002 @claude-code: Verificar el entorno de la PC
+- [x] TAREA-003 @claude-code: Compilar el smoke test en Quartus
+- [x] TAREA-004 @claude-code: Módulos de infraestructura con testbench (hecha en la PC)
 - [ ] TAREA-005 @equipo: Confirmar las decisiones pendientes de hardware
+- [ ] TAREA-006 @claude-code: `ultra_sched` y `ldr_dir` con testbench
+- [ ] TAREA-007 @claude-code: Top de banco (Nivel 2) con `quartus/pines.tcl`
 
 ---
 
@@ -57,9 +61,9 @@ Objetivo: confirmar que la cadena completa de Quartus funciona por línea de com
 4. Guarda la salida completa en `logs/TAREA-003.log`.
 5. En la hoja de resultado: la línea final de éxito o los errores, el número de warnings y el contenido de `quartus/output_files/robot.fit.summary`.
 
-## TAREA-004 @claude-nube: Módulos de infraestructura
+## TAREA-004 @claude-code: Módulos de infraestructura
 
-Después de revisar 002 y 003: `tick_gen`, `sync_2ff`, `debounce`, `pwm_8b`, `motor_if`, `hcsr04` y `seg7_disp` en `rtl/`, cada uno con su testbench en `sim/`, y nuevas tareas `@claude-code` para simularlos y compilarlos.
+`tick_gen`, `sync_2ff`, `debounce`, `pwm_8b`, `motor_if`, `hcsr04` y `seg7_disp` en `rtl/`, cada uno con su testbench en `sim/`. Cada módulo se simula con `sim/correr.sh <modulo>` y se sintetiza aislado con `quartus/sintetizar_modulo.sh <modulo> [dependencias]`. Resultado en `resultados/TAREA-004.md`.
 
 ## TAREA-005 @equipo: Confirmar decisiones de hardware
 
@@ -70,3 +74,17 @@ Responder en la sección Decisiones pendientes de `docs/HARDWARE.md` o en el cha
 3. ¿Los motores traen encoder?
 4. Para detectar la meta: segundo LM339 o ADC de la MAX 10.
 5. Fecha real de entrega y nombres del equipo.
+
+## TAREA-006 @claude-code: `ultra_sched` y `ldr_dir`
+
+1. `ultra_sched`: turna 4 instancias de `hcsr04` cada 30 ms (un `start` a la vez, sin traslape) y guarda las 4 distancias. Testbench: orden de disparo, separación de 30 ms y ningún traslape de TRIG.
+2. `ldr_dir`: 4 bits de luz (frente, izquierda, derecha, atrás) → `dir_luz`, `hay_luz`, `luz_cerca`. Testbench: las 16 combinaciones.
+3. Simular, sintetizar aislado y reportar en `resultados/TAREA-006.md`.
+
+## TAREA-007 @claude-code: Top de banco (Nivel 2)
+
+Depende de TAREA-005 (tarjeta y driver confirmados).
+
+1. `quartus/pines.tcl` con KEY, SW, LEDR, HEX y GPIO según el manual de la DE10-Lite y la tabla de `docs/HARDWARE.md`.
+2. Un top de banco que muestre los sensores en LEDR y HEX y saque PWM fijo por los pines de motor, para medir con osciloscopio.
+3. Compilar sin el Critical Warning de pines. No programar la tarjeta sin confirmación del equipo.

@@ -4,7 +4,7 @@ Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un robot
 
 ## Estado
 
-Semana 1: propuesta, arquitectura, plan de pruebas y smoke test de la cadena de Quartus. Detalle en [docs/PLAN.md](docs/PLAN.md#estado).
+Semana 2: módulos de infraestructura (ticks, sincronizador, debounce, PWM, interfaz de motor, HC-SR04 y displays), cada uno con testbench pasando en GHDL y sintetizando en Quartus. Detalle en [docs/PLAN.md](docs/PLAN.md#estado) y evidencia en [resultados/](resultados/).
 
 ## Estructura
 
@@ -30,6 +30,13 @@ quartus_pgm -m jtag -o "p;output_files/robot.sof"    # programa la DE10-Lite
 ```
 
 Después de correr el script, el proyecto también se abre en la interfaz de Quartus con `quartus/robot.qpf`.
+
+Simulación con GHDL (todos los testbenches, o solo los que se nombren):
+
+```bash
+sim/correr.sh
+sim/correr.sh pwm_8b hcsr04
+```
 
 ## Documentación
 
