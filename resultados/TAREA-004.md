@@ -42,3 +42,22 @@ Dedicated logic registers : 2
 Total pins : 3
 Embedded Multiplier 9-bit elements : 0
 ```
+
+## debounce
+
+Simulación (GHDL 4.1.0): PASA. Log: `logs/sim_debounce.log`
+
+```
+sim/tb_debounce.vhd:128:9:@269011750ns:(report note): tb_debounce: OK
+== tb_debounce: PASA
+```
+
+Síntesis (quartus_map, módulo como top): OK. Log: `logs/map_debounce.log`
+
+```
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+Total logic elements : 14
+Dedicated logic registers : 8
+Total pins : 7
+Embedded Multiplier 9-bit elements : 0
+```
