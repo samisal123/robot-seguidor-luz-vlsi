@@ -1,0 +1,62 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Copyright (C) 2025  Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, the Altera Quartus Prime License Agreement,
+    Info: the Altera IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Altera and sold by Altera or its authorized distributors.  Please
+    Info: refer to the Altera Software License Subscription Agreements 
+    Info: on the Quartus Prime software download page.
+    Info: Processing started: Thu Oct 22 21:31:56 2026
+Info: Command: quartus_map seg7_disp
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd
+    Info (12022): Found design unit 1: seg7_disp-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 38
+    Info (12023): Found entity 1: seg7_disp File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 19
+Info (12127): Elaborating entity "seg7_disp" for the top level hierarchy
+Info (278001): Inferred 2 megafunctions from design logic
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "Mult1" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 85
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 85
+Info (12130): Elaborated megafunction instantiation "lpm_mult:Mult1" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 85
+Info (12133): Instantiated megafunction "lpm_mult:Mult1" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 85
+    Info (12134): Parameter "LPM_WIDTHA" = "8"
+    Info (12134): Parameter "LPM_WIDTHB" = "7"
+    Info (12134): Parameter "LPM_WIDTHP" = "15"
+    Info (12134): Parameter "LPM_WIDTHR" = "15"
+    Info (12134): Parameter "LPM_WIDTHS" = "1"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "YES"
+    Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
+Info (12131): Elaborated megafunction instantiation "lpm_mult:Mult1|multcore:mult_core", which is child of megafunction instantiation "lpm_mult:Mult1" File: /home/samuel/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mult.tdf Line: 309
+Info (12131): Elaborated megafunction instantiation "lpm_mult:Mult1|multcore:mult_core|mpar_add:padder", which is child of megafunction instantiation "lpm_mult:Mult1" File: /home/samuel/altera_lite/25.1std/quartus/libraries/megafunctions/multcore.tdf Line: 229
+Info (12131): Elaborated megafunction instantiation "lpm_mult:Mult1|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]", which is child of megafunction instantiation "lpm_mult:Mult1" File: /home/samuel/altera_lite/25.1std/quartus/libraries/megafunctions/mpar_add.tdf Line: 78
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_arg.tdf
+    Info (12023): Found entity 1: add_sub_arg File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/mod/seg7_disp/db/add_sub_arg.tdf Line: 23
+Info (12131): Elaborated megafunction instantiation "lpm_mult:Mult1|altshift:external_latency_ffs", which is child of megafunction instantiation "lpm_mult:Mult1" File: /home/samuel/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mult.tdf Line: 352
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "hex0[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+    Warning (13410): Pin "hex1[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+    Warning (13410): Pin "hex2[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+    Warning (13410): Pin "hex4[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+    Warning (13410): Pin "hex5[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 285 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 35 input pins
+    Info (21059): Implemented 48 output pins
+    Info (21061): Implemented 202 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 6 warnings
+    Info: Peak virtual memory: 436 megabytes
+    Info: Processing ended: Thu Oct 22 21:32:04 2026
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:19
