@@ -32,9 +32,13 @@ fallos=0
 for m in "$@"; do
     archivos=""
     for d in $(deps "$m") "$m"; do archivos="$archivos $RTL/$d.vhd"; done
+    # Pasa solo si no hubo assert de error y el testbench llego a su
+    # report final; --stop-time corta un testbench que se quede colgado
     if "$GHDL" -a --workdir="$WORK" $archivos "$SIM/tb_$m.vhd" &&
        "$GHDL" -e --workdir="$WORK" "tb_$m" &&
-       "$GHDL" -r --workdir="$WORK" "tb_$m" --assert-level=error; then
+       "$GHDL" -r --workdir="$WORK" "tb_$m" --assert-level=error --stop-time=2sec \
+           > "$WORK/tb_$m.out" 2>&1; ok=$?; cat "$WORK/tb_$m.out"; [ $ok -eq 0 ] &&
+       grep -q "tb_$m: OK" "$WORK/tb_$m.out"; then
         echo "== tb_$m: PASA"
     else
         echo "== tb_$m: FALLA"
