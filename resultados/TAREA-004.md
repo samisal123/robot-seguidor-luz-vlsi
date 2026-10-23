@@ -23,3 +23,22 @@ Dedicated logic registers : 25
 Total pins : 5
 Embedded Multiplier 9-bit elements : 0
 ```
+
+## sync_2ff
+
+Simulación (GHDL 4.1.0): PASA. Log: `logs/sim_sync_2ff.log`
+
+```
+sim/tb_sync_2ff.vhd:60:9:@711ns:(report note): tb_sync_2ff: OK
+== tb_sync_2ff: PASA
+```
+
+Síntesis (quartus_map, módulo como top): OK. Log: `logs/map_sync_2ff.log`
+
+```
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+Total logic elements : 2
+Dedicated logic registers : 2
+Total pins : 3
+Embedded Multiplier 9-bit elements : 0
+```
