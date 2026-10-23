@@ -80,3 +80,22 @@ Dedicated logic registers : 21
 Total pins : 11
 Embedded Multiplier 9-bit elements : 0
 ```
+
+## motor_if
+
+Simulación (GHDL 4.1.0): PASA. Log: `logs/sim_motor_if.log`
+
+```
+sim/tb_motor_if.vhd:134:9:@132012750ns:(report note): tb_motor_if: OK
+== tb_motor_if: PASA
+```
+
+Síntesis (quartus_map, módulo como top): OK. Log: `logs/map_motor_if.log`
+
+```
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+Total logic elements : 19
+Dedicated logic registers : 11
+Total pins : 8
+Embedded Multiplier 9-bit elements : 0
+```
