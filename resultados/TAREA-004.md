@@ -118,3 +118,30 @@ Dedicated logic registers : 46
 Total pins : 18
 Embedded Multiplier 9-bit elements : 0
 ```
+
+## seg7_disp
+
+Simulación (GHDL 4.1.0): PASA. Log: `logs/sim_seg7_disp.log`
+
+```
+sim/tb_seg7_disp.vhd:165:9:@31351ns:(report note): tb_seg7_disp: OK
+== tb_seg7_disp: PASA
+```
+
+Síntesis (quartus_map, módulo como top): OK. Log: `logs/map_seg7_disp.log`
+
+```
+Warning (13024): Output pins are stuck at VCC or GND
+Warning (13410): Pin "hex0[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+Warning (13410): Pin "hex1[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+Warning (13410): Pin "hex2[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+Warning (13410): Pin "hex4[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+Warning (13410): Pin "hex5[7]" is stuck at VCC File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/seg7_disp.vhd Line: 99
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 6 warnings
+Total logic elements : 202
+Dedicated logic registers : 43
+Total pins : 83
+Embedded Multiplier 9-bit elements : 0
+```
+
+Los 5 warnings 13410 son los puntos decimales de HEX0, HEX1, HEX2, HEX4 y HEX5, fijos en apagado por diseño (solo HEX3 usa el punto, en modo distancia).
