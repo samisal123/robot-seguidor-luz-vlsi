@@ -99,3 +99,22 @@ Dedicated logic registers : 11
 Total pins : 8
 Embedded Multiplier 9-bit elements : 0
 ```
+
+## hcsr04
+
+Simulación (GHDL 4.1.0): PASA. Log: `logs/sim_hcsr04.log`
+
+```
+sim/tb_hcsr04.vhd:174:9:@151346030ns:(report note): tb_hcsr04: OK
+== tb_hcsr04: PASA
+```
+
+Síntesis (quartus_map, módulo como top): OK. Log: `logs/map_hcsr04.log`
+
+```
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+Total logic elements : 83
+Dedicated logic registers : 46
+Total pins : 18
+Embedded Multiplier 9-bit elements : 0
+```
