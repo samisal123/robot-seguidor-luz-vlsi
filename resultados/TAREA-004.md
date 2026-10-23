@@ -61,3 +61,22 @@ Dedicated logic registers : 8
 Total pins : 7
 Embedded Multiplier 9-bit elements : 0
 ```
+
+## pwm_8b
+
+Simulación (GHDL 4.1.0): PASA. Log: `logs/sim_pwm_8b.log`
+
+```
+sim/tb_pwm_8b.vhd:103:9:@1177790ns:(report note): tb_pwm_8b: OK
+== tb_pwm_8b: PASA
+```
+
+Síntesis (quartus_map, módulo como top): OK. Log: `logs/map_pwm_8b.log`
+
+```
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+Total logic elements : 34
+Dedicated logic registers : 21
+Total pins : 11
+Embedded Multiplier 9-bit elements : 0
+```
