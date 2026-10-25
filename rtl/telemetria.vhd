@@ -2,9 +2,9 @@
 -- telemetria.vhd
 -- Bitacora por UART (115200 8N1 por defecto). Cada PERIODO_MS, y
 -- ademas cada vez que la FSM reporta un evento, manda una linea
--- de 43 caracteres:
+-- de 52 caracteres:
 --
---   E2 V1 F045 I120 D--- A033 L1010 C0 P66 66<CR><LF>
+--   E2 V1 F045 I120 D--- A033 L1010 C0 P66 66 S012 013<CR><LF>
 --
 --   E  estado (0 INICIO .. 6 META)      V  ultimo evento
 --   F  distancia frente en cm           I  diagonal izquierda
@@ -13,6 +13,9 @@
 --   L  LDR frente, izquierda, derecha, atras ('1' = luz)
 --   C  luz cerca al frente
 --   P  % de duty izquierdo y derecho (duty * 100 / 256)
+--   S  velocidad medida por los encoders izquierdo y derecho
+--      (transiciones por ventana de 50 ms; sirve para calibrar
+--      VMAX del PI)
 --
 -- Los valores se copian al empezar la linea, asi una linea nunca
 -- mezcla datos de dos momentos.
@@ -41,12 +44,14 @@ entity telemetria is
         cerca    : in  std_logic;
         duty_l   : in  std_logic_vector(7 downto 0);
         duty_r   : in  std_logic_vector(7 downto 0);
+        vel_l    : in  std_logic_vector(9 downto 0);
+        vel_r    : in  std_logic_vector(9 downto 0);
         tx       : out std_logic
     );
 end entity telemetria;
 
 architecture rtl of telemetria is
-    constant LARGO : natural := 43;
+    constant LARGO : natural := 52;
 
     type t_fase is (REPOSO, ENVIA, ESPERA_OCUPADO, ESPERA_LIBRE);
     signal fase    : t_fase := REPOSO;
@@ -60,6 +65,7 @@ architecture rtl of telemetria is
     signal c_luz       : std_logic_vector(3 downto 0) := (others => '0');
     signal c_cer       : std_logic := '0';
     signal c_dl, c_dr  : std_logic_vector(7 downto 0) := (others => '0');
+    signal c_vl, c_vr  : std_logic_vector(8 downto 0) := (others => '0');
 
     signal dato    : std_logic_vector(7 downto 0);
     signal enviar  : std_logic := '0';
@@ -121,14 +127,27 @@ architecture rtl of telemetria is
         end case;
     end function;
 
+    -- Velocidad de 10 bits limitada a 511 para mostrarla con 3 digitos
+    function a_9 (v : std_logic_vector(9 downto 0)) return std_logic_vector is
+    begin
+        if v(9) = '1' then
+            return "111111110";   -- 510
+        else
+            return v(8 downto 0);
+        end if;
+    end function;
+
     signal pct_l, pct_r : unsigned(11 downto 0);
+    signal bcd_vl, bcd_vr : unsigned(11 downto 0);
 begin
 
-    pct_l <= a_bcd(porcentaje(c_dl));
-    pct_r <= a_bcd(porcentaje(c_dr));
+    pct_l  <= a_bcd(porcentaje(c_dl));
+    pct_r  <= a_bcd(porcentaje(c_dr));
+    bcd_vl <= a_bcd(unsigned(c_vl));
+    bcd_vr <= a_bcd(unsigned(c_vr));
 
     -- Caracter que toca enviar
-    process (idx, c_est, c_ev, c_dist, c_luz, c_cer, pct_l, pct_r)
+    process (idx, c_est, c_ev, c_dist, c_luz, c_cer, pct_l, pct_r, bcd_vl, bcd_vr)
     begin
         case idx is
             when 0  => dato <= x"45";                                 -- E
@@ -155,8 +174,15 @@ begin
             when 37 => dato <= ascii(pct_l(3 downto 0));
             when 39 => dato <= ascii(pct_r(7 downto 4));
             when 40 => dato <= ascii(pct_r(3 downto 0));
-            when 41 => dato <= x"0D";                                 -- CR
-            when 42 => dato <= x"0A";                                 -- LF
+            when 42 => dato <= x"53";                                 -- S
+            when 43 => dato <= ascii(bcd_vl(11 downto 8));
+            when 44 => dato <= ascii(bcd_vl(7 downto 4));
+            when 45 => dato <= ascii(bcd_vl(3 downto 0));
+            when 47 => dato <= ascii(bcd_vr(11 downto 8));
+            when 48 => dato <= ascii(bcd_vr(7 downto 4));
+            when 49 => dato <= ascii(bcd_vr(3 downto 0));
+            when 50 => dato <= x"0D";                                 -- CR
+            when 51 => dato <= x"0A";                                 -- LF
             when others => dato <= x"20";                             -- espacio
         end case;
     end process;
@@ -197,6 +223,8 @@ begin
                             c_cer  <= cerca;
                             c_dl   <= duty_l;
                             c_dr   <= duty_r;
+                            c_vl   <= a_9(vel_l);
+                            c_vr   <= a_9(vel_r);
                             fase   <= ENVIA;
                         end if;
                     when ENVIA =>

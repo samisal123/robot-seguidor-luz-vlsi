@@ -3,7 +3,7 @@
 -- CLK_HZ = 1 MHz, BAUD = 100000 (10 ciclos por bit), tick_1ms
 -- cada 1000 ciclos y PERIODO_MS = 10. Un receptor UART en el
 -- testbench junta los caracteres y compara la linea completa:
---   "E2 V1 F045 I120 D--- A033 L1010 C0 P66 66" & CR & LF
+--   "E2 V1 F045 I120 D--- A033 L1010 C0 P66 66 S012 013" & CR & LF
 -- Despues revisa que un evento dispare una linea extra antes del
 -- siguiente periodo y que la linea refleje los datos nuevos.
 -- ============================================================
@@ -29,6 +29,8 @@ architecture sim of tb_telemetria is
     signal cerca    : std_logic := '0';
     signal duty_l   : std_logic_vector(7 downto 0) := std_logic_vector(to_unsigned(170, 8));
     signal duty_r   : std_logic_vector(7 downto 0) := std_logic_vector(to_unsigned(170, 8));
+    signal vel_l    : std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(12, 10));
+    signal vel_r    : std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(13, 10));
     signal tx       : std_logic;
     signal fin      : boolean := false;
 
@@ -38,8 +40,8 @@ architecture sim of tb_telemetria is
 
     constant CR : character := character'val(13);
     constant LF : character := character'val(10);
-    constant ESPERADA1 : string := "E2 V1 F045 I120 D--- A033 L1010 C0 P66 66" & CR & LF;
-    constant ESPERADA2 : string := "E3 V3 F012 I120 D--- A033 L1010 C1 P00 99" & CR & LF;
+    constant ESPERADA1 : string := "E2 V1 F045 I120 D--- A033 L1010 C0 P66 66 S012 013" & CR & LF;
+    constant ESPERADA2 : string := "E3 V3 F012 I120 D--- A033 L1010 C1 P00 99 S510 000" & CR & LF;
 
     function dist4 (a, b, c, d : natural) return std_logic_vector is
     begin
@@ -70,7 +72,8 @@ begin
         generic map (CLK_HZ => 1_000_000, BAUD => 100_000, PERIODO_MS => 10)
         port map (clk => clk, rst => rst, tick_1ms => tick_1ms, ev_nuevo => ev_nuevo,
                   estado => estado, evento => evento, dist => dist, luz => luz,
-                  cerca => cerca, duty_l => duty_l, duty_r => duty_r, tx => tx);
+                  cerca => cerca, duty_l => duty_l, duty_r => duty_r,
+                  vel_l => vel_l, vel_r => vel_r, tx => tx);
 
     -- Receptor UART: arma la linea hasta el LF
     receptor : process
@@ -117,6 +120,8 @@ begin
         cerca  <= '1';
         duty_l <= (others => '0');
         duty_r <= (others => '1');
+        vel_l  <= (others => '1');      -- 1023 se muestra como 510
+        vel_r  <= (others => '0');
         t0 := now;
         wait until rising_edge(clk);
         ev_nuevo <= '1';
