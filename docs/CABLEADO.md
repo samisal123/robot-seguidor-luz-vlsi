@@ -102,6 +102,7 @@ OUT (pin 2, 1, 14 o 13) --+--> LDR_VE[i]
 - Con más luz la LDR baja su resistencia, el nodo baja de voltaje y, cuando queda abajo del cursor, la salida del LM339 se libera y el pull-up la sube a 3.3 V. Así **alto = hay luz**, que es lo que espera `ldr_dir` (`LUZ_ACTIVA = '1'`).
 - Si se arma al revés (LDR arriba y resistencia abajo), la lógica se invierte: se corrige cambiando `LUZ_ACTIVA` a `'0'` en `ldr_dir`, sin tocar el cableado.
 - La salida del LM339 es de colector abierto: sin el pull-up no hay alto. La FPGA tiene además un pull-up débil interno en esas entradas, pero no sustituye al de 10 kΩ.
+- **El cursor de cada potenciómetro debe quedar abajo de 3.5 V.** Con VCC de 5 V, el LM339 solo compara bien si al menos una de sus entradas está entre 0 y VCC − 1.5 V. El nodo de la LDR sí puede subir casi a 5 V en la oscuridad; mientras el umbral esté abajo de 3.5 V la salida es correcta.
 - Cada LDR va dentro de un tubo opaco (popote negro o termofit) para que vea solo su dirección.
 
 **Luz cerca (meta):** el nodo de la LDR del frente también va a IN− del comparador 1 del LM339 #2 (pin 4), con un quinto potenciómetro en IN+ (pin 5) calibrado más bajo. Su salida (pin 2), con su pull-up de 10 kΩ a 3.3 V, va a `LDR_CERCA`. Los otros 3 comparadores del LM339 #2 se quedan sin usar (entradas a GND).
