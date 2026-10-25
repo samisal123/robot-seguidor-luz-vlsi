@@ -35,9 +35,14 @@ Claude Code sigue `tools/PROMPT_CLAUDE_CODE.md`. Lo despierta `tools/watcher.sh`
 - [x] TAREA-002 @claude-code: Verificar el entorno de la PC
 - [x] TAREA-003 @claude-code: Compilar el smoke test en Quartus
 - [x] TAREA-004 @claude-code: Módulos de infraestructura con testbench (hecha en la PC)
-- [ ] TAREA-005 @equipo: Confirmar las decisiones pendientes de hardware
-- [ ] TAREA-006 @claude-code: `ultra_sched` y `ldr_dir` con testbench
-- [ ] TAREA-007 @claude-code: Top de banco (Nivel 2) con `quartus/pines.tcl`
+- [x] TAREA-005 @equipo: Confirmar las decisiones pendientes de hardware (resueltas en `docs/HARDWARE.md`; falta la fecha de entrega y los nombres)
+- [x] TAREA-006 `ultra_sched` y `ldr_dir` con testbench (la hizo @claude-nube)
+- [x] TAREA-007 Top con `quartus/pines.tcl` (la hizo @claude-nube; el top completo sirve de banco con SW8 en 0)
+- [x] TAREA-008 @claude-nube: Navegación, extras, top completo, pines y documentación de armado
+- [ ] TAREA-009 @claude-code: Compilar el diseño completo en Quartus
+- [ ] TAREA-010 @equipo: Comprar y armar (`docs/MATERIALES.md`, `docs/CABLEADO.md`)
+- [ ] TAREA-011 @equipo: Banco, calibración y arena (`docs/PRUEBAS_FISICAS.md`)
+- [ ] TAREA-012 @equipo: Diagrama de bloques en el Block Editor, reporte y video
 
 ---
 
@@ -88,3 +93,34 @@ Depende de TAREA-005 (tarjeta y driver confirmados).
 1. `quartus/pines.tcl` con KEY, SW, LEDR, HEX y GPIO según el manual de la DE10-Lite y la tabla de `docs/HARDWARE.md`.
 2. Un top de banco que muestre los sensores en LEDR y HEX y saque PWM fijo por los pines de motor, para medir con osciloscopio.
 3. Compilar sin el Critical Warning de pines. No programar la tarjeta sin confirmación del equipo.
+
+## TAREA-006 y TAREA-007
+
+Las hizo @claude-nube el 2026-10-25 junto con TAREA-008. Ver `resultados/TAREA-008.md`.
+
+## TAREA-008 @claude-nube: Navegación, extras, top completo y pines
+
+`obst_eval`, `stall_detect`, `fsm_nav`, `drive_cmd`, `encoder_vel`, `pi_ctrl`, `uart_tx`, `telemetria`, `vga_debug`, `robot_top` completo, `quartus/pines.tcl` (del Golden Top de Terasic), `compilar.sh`, `programar.sh` y los documentos de materiales, cableado y pruebas físicas. Verificado con GHDL: 19 testbenches, prueba del sistema completo, 26 mutaciones detectadas y `ghdl --synth`. Resultado en `resultados/TAREA-008.md`. Falta compilar en Quartus (TAREA-009).
+
+## TAREA-009 @claude-code: Compilar el diseño completo en Quartus
+
+No programes la tarjeta.
+
+1. `git pull`
+2. `sim/correr.sh` y confirma que los 19 testbenches pasan (tarda unos 2 minutos).
+3. `quartus/compilar.sh` (crea el proyecto con `pines.tcl` y compila todo).
+4. En `resultados/TAREA-009.md`: las líneas de éxito o los errores, todos los Critical Warning, los warnings agrupados por tipo, el contenido de `quartus/output_files/robot.fit.summary` y el Fmax de `clk50`. Copia `logs/compilacion.log`.
+5. Si la compilación falla, corrige lo mínimo en `rtl/` o `quartus/`, vuelve a correr `sim/correr.sh`, documenta el cambio y su causa en la hoja, y haz commit por separado.
+6. Esperado: 0 errores, sin Critical Warning de pines sin asignar, Fmax muy arriba de 50 MHz. Son normales los warnings de `ENC_L[1]` y `ENC_R[1]` sin usar (el top está en modo de un canal).
+
+## TAREA-010 @equipo: Comprar y armar
+
+Lista con precios en `docs/MATERIALES.md` y conexiones pin por pin en `docs/CABLEADO.md`. Antes de conectar las pilas, la lista de revisión al final de `CABLEADO.md`.
+
+## TAREA-011 @equipo: Banco, calibración y arena
+
+Seguir `docs/PRUEBAS_FISICAS.md` en orden y llenar la tabla de corridas. Los valores calibrados se cambian en los generics que indica esa guía.
+
+## TAREA-012 @equipo: Diagrama, reporte y video
+
+Diagrama de bloques en el Block Editor según el manual del profesor (guía en `docs/ARQUITECTURA.md`), reporte con arquitectura, FSM, verificación, recursos, resultados y límites, datasheets como anexos, y video de 5 minutos o menos.
