@@ -2,11 +2,11 @@
 
 ## Estado
 
-- **Actualizado:** 2026-10-22
-- **Fase:** Semana 2 (infraestructura), adelantada
-- **Hecho:** entorno de la PC verificado (TAREA-002: Quartus 25.1std.0, GHDL 4.1.0 instalado en el usuario, sin Questa). El smoke test compila en Quartus sin errores (TAREA-003). Hay 7 módulos de infraestructura (`tick_gen`, `sync_2ff`, `debounce`, `pwm_8b`, `motor_if`, `hcsr04`, `seg7_disp`), cada uno con su testbench pasando en GHDL y sintetizando en Quartus (TAREA-004).
-- **Siguiente:** `ultra_sched` y `ldr_dir` (TAREA-006), y el top de banco con pines (TAREA-007).
-- **Bloqueos:** decisiones de hardware pendientes (TAREA-005); TAREA-007 depende de ellas.
+- **Actualizado:** 2026-10-25
+- **Fase:** diseño digital completo; falta compilarlo en Quartus en la PC y todo lo físico.
+- **Hecho:** los 20 módulos de `rtl/` (sensores, FSM de 7 estados, motores, PI, UART, VGA y el top con los 110 pines de la DE10-Lite). 19 testbenches pasan en GHDL, incluida una prueba del robot completo con modelos de los sensores (arranque, búsqueda, seguimiento, esquiva y meta). Los testbenches detectaron los 26 errores que se les metieron a propósito. `ghdl --synth` sintetiza todo sin latches. Evidencia en `resultados/TAREA-008.md`.
+- **Siguiente:** compilar el diseño completo en Quartus en la PC (TAREA-009); comprar y armar ([MATERIALES.md](MATERIALES.md), [CABLEADO.md](CABLEADO.md)); calibrar y probar ([PRUEBAS_FISICAS.md](PRUEBAS_FISICAS.md)).
+- **Bloqueos:** ninguno en el diseño. Falta la fecha real de entrega y los nombres del equipo.
 
 ## Objetivo
 
@@ -51,12 +51,22 @@ La fecha real de entrega está por confirmar (TAREA-005).
 | `motor_if` | pausa de PAUSA_MS al invertir; nunca IN1 = IN2 = 1 |
 | `hcsr04` | eco de 580 µs da 10 cm; sin eco, eco largo o ECHO pegado dan timeout y 511 |
 | `seg7_disp` | los 256 duty y las distancias 0 a 511 se leen bien en los displays |
-| `ultra_sched` | los 4 sensores se disparan por turnos, sin traslape |
-| `ldr_dir` | cada combinación de 4 bits da la dirección esperada |
-| `stall_detect` | sin cambio en N s levanta atasco; con avance no |
-| `fsm_nav` | luz al frente, luz atrás, obstáculo, esquina, atasco y meta |
+| `ultra_sched` | orden 0, 1, 2, 3 cada 30 ms; nunca dos TRIG a la vez; distancias y sin eco |
+| `ldr_dir` | las 16 combinaciones de LDR; un pulso corto no pasa el filtro; luz cerca; polaridad invertida |
+| `obst_eval` | umbral e histéresis de cada sensor; sin eco = libre; 0 cm = obstáculo; lado libre |
+| `stall_detect` | atasco justo a los N ms; avance real lo evita; cambios de DELTA_CM y ecos intermitentes no cuentan; parado nunca |
+| `fsm_nav` | arranque, búsqueda con tramo, seguimiento con cada dirección, esquiva y rodeo, esquina con y sin reversa, atasco, luz perdida, meta junto a la lámpara, giro máximo y paro con KEY0 |
+| `drive_cmd` | duty final de cada acción; rampa de 8 por ms; nunca invierte una rueda en movimiento |
+| `encoder_vel` | cuadratura y un canal; un cambio simultáneo de A y B no cuenta |
+| `pi_ctrl` | lazo abierto; con planta 30 % más débil o 40 % más fuerte llega a la consigna; saturación |
+| `uart_tx` | trama 8N1 exacta; un envío con el transmisor ocupado se ignora |
+| `telemetria` | línea completa caracter por caracter; un evento dispara una línea extra con datos nuevos |
+| `vga_debug` | HSYNC, línea, VSYNC y cuadro exactos; colores en zonas conocidas |
+| `robot_top` | sistema completo con modelos de HC-SR04 y LDR: estados en HEX5, sentido y duty medidos en los pines del driver, LEDs y bitácora UART |
 
-**Nivel 2, banco (FPGA sin chasis).** LEDs y displays muestran cada sensor en vivo; el PWM se mide con osciloscopio (frecuencia y duty).
+Se corren todos con `sim/correr.sh` (unos 2 minutos).
+
+**Nivel 2, banco (FPGA en el robot, ruedas al aire).** LEDs, displays, bitácora UART y VGA muestran cada sensor en vivo; el PWM se mide con osciloscopio (frecuencia y duty). Pasos en [PRUEBAS_FISICAS.md](PRUEBAS_FISICAS.md).
 
 **Nivel 3, robot en arena.** Seguir luz sin obstáculos, obstáculo único, esquina, atasco forzado y arena completa. Se registran 5 corridas con tiempo a la meta y número de choques.
 
@@ -83,7 +93,7 @@ La fecha real de entrega está por confirmar (TAREA-005).
 ## Reparto
 
 - Claude en la nube: RTL, testbenches y documentación.
-- Claude Code en la PC: compila, simula y reporta; desde el 2026-10-22 también escribe RTL y testbenches (ver `COORDINACION.md`).
+- Claude Code en la PC: compila en Quartus, simula y reporta; desde el 2026-10-22 también puede escribir RTL y testbenches (ver `COORDINACION.md`).
 - Equipo: compras, armado, cableado, calibración, pruebas físicas y video.
 
 En la evaluación el profesor pregunta a cada integrante, así que todos deben poder explicar cada módulo. Antes de la entrega se hace un repaso completo con `docs/ARQUITECTURA.md`.
