@@ -1,0 +1,16 @@
+# ghdl --synth --std=93c (GHDL 4.1.0), 2026-10-25 14:13:08
+ultra_sched: OK (696 lineas de netlist; avisos: 0)
+ldr_dir: OK (388 lineas de netlist; avisos: 0)
+obst_eval: OK (281 lineas de netlist; avisos: 0)
+stall_detect: OK (556 lineas de netlist; avisos: 0)
+fsm_nav: OK (1342 lineas de netlist; avisos: 0)
+drive_cmd: OK (383 lineas de netlist; avisos: 0)
+encoder_vel: OK (185 lineas de netlist; avisos: 0)
+pi_ctrl: OK (270 lineas de netlist; avisos: 0)
+uart_tx: OK (169 lineas de netlist; avisos: 0)
+telemetria: OK (4980 lineas de netlist; avisos: 0)
+vga_debug: OK (1791 lineas de netlist; avisos: 0)
+robot_top: OK (14996 lineas de netlist; avisos: 4)
+
+Avisos (todos del atributo de Quartus en sync_2ff, que GHDL no usa):
+rtl/sync_2ff.vhd:32:15:warning: unhandled attribute "altera_attribute" [-Wunhandled-attribute]

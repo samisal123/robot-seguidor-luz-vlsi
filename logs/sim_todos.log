@@ -1,16 +1,42 @@
-sim/tb_debounce.vhd:128:9:@269011750ns:(report note): tb_debounce: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_debounce.vhd:128:9:@269011750ns:(report note): tb_debounce: OK
 == tb_debounce: PASA
-sim/tb_hcsr04.vhd:174:9:@151346030ns:(report note): tb_hcsr04: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_drive_cmd.vhd:105:9:@16235ns:(report note): tb_drive_cmd: OK
+== tb_drive_cmd: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_encoder_vel.vhd:105:9:@1625ns:(report note): tb_encoder_vel: OK
+== tb_encoder_vel: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_fsm_nav.vhd:226:9:@312325ns:(report note): tb_fsm_nav: OK
+== tb_fsm_nav: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_hcsr04.vhd:174:9:@151346030ns:(report note): tb_hcsr04: OK
 == tb_hcsr04: PASA
-sim/tb_motor_if.vhd:134:9:@132012750ns:(report note): tb_motor_if: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_ldr_dir.vhd:132:9:@6870ns:(report note): tb_ldr_dir: OK
+== tb_ldr_dir: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_motor_if.vhd:134:9:@132012750ns:(report note): tb_motor_if: OK
 == tb_motor_if: PASA
-sim/tb_pwm_8b.vhd:103:9:@1177790ns:(report note): tb_pwm_8b: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_obst_eval.vhd:67:9:@1080ns:(report note): tb_obst_eval: OK
+== tb_obst_eval: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_pi_ctrl.vhd:97:9:@18115ns:(report note): tb_pi_ctrl: OK
+== tb_pi_ctrl: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_pwm_8b.vhd:103:9:@1177790ns:(report note): tb_pwm_8b: OK
 == tb_pwm_8b: PASA
-sim/tb_robot_top.vhd:50:9:@190ns:(report note): tb_robot_top: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_robot_top.vhd:224:9:@2425399750ns:(report note): tb_robot_top: OK
 == tb_robot_top: PASA
-sim/tb_seg7_disp.vhd:165:9:@31351ns:(report note): tb_seg7_disp: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_seg7_disp.vhd:165:9:@31351ns:(report note): tb_seg7_disp: OK
 == tb_seg7_disp: PASA
-sim/tb_sync_2ff.vhd:60:9:@711ns:(report note): tb_sync_2ff: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_stall_detect.vhd:156:9:@17075ns:(report note): tb_stall_detect: OK
+== tb_stall_detect: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_sync_2ff.vhd:60:9:@711ns:(report note): tb_sync_2ff: OK
 == tb_sync_2ff: PASA
-sim/tb_tick_gen.vhd:87:9:@4009070ns:(report note): tb_tick_gen: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_telemetria.vhd:131:9:@20852500ns:(report note): tb_telemetria: OK
+== tb_telemetria: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_tick_gen.vhd:87:9:@4009070ns:(report note): tb_tick_gen: OK
 == tb_tick_gen: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_uart_tx.vhd:91:9:@247500ns:(report note): tb_uart_tx: OK
+== tb_uart_tx: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_ultra_sched.vhd:126:9:@152012750ns:(report note): tb_ultra_sched: OK
+== tb_ultra_sched: PASA
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_vga_debug.vhd:100:9:@104025930ns:(report note): tb_vga_debug: OK
+== tb_vga_debug: PASA
+
+real	2m2.291s
+user	1m24.607s
+sys	0m36.596s
