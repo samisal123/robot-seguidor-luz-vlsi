@@ -100,7 +100,7 @@ Las hizo @claude-nube el 2026-10-25 junto con TAREA-008. Ver `resultados/TAREA-0
 
 ## TAREA-008 @claude-nube: Navegación, extras, top completo y pines
 
-`obst_eval`, `stall_detect`, `fsm_nav`, `drive_cmd`, `encoder_vel`, `pi_ctrl`, `uart_tx`, `telemetria`, `vga_debug`, `robot_top` completo, `quartus/pines.tcl` (del Golden Top de Terasic), `compilar.sh`, `programar.sh` y los documentos de materiales, cableado y pruebas físicas. Verificado con GHDL: 19 testbenches, prueba del sistema completo, 26 mutaciones detectadas y `ghdl --synth`. Resultado en `resultados/TAREA-008.md`. Falta compilar en Quartus (TAREA-009).
+`obst_eval`, `stall_detect`, `fsm_nav`, `drive_cmd`, `encoder_vel`, `pi_ctrl`, `uart_tx`, `telemetria`, `vga_debug`, `robot_top` completo, `quartus/pines.tcl` (del Golden Top de Terasic), `compilar.sh`, `programar.sh` y los documentos de materiales, cableado y pruebas físicas. Verificado con GHDL: 19 testbenches, prueba del sistema completo, 30 mutaciones detectadas y `ghdl --synth`. Resultado en `resultados/TAREA-008.md`. Falta compilar en Quartus (TAREA-009).
 
 ## TAREA-009 @claude-code: Compilar el diseño completo en Quartus
 

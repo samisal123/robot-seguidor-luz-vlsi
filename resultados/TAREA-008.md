@@ -34,7 +34,7 @@ sim/tb_pwm_8b.vhd:103:9:@1177790ns:(report note): tb_pwm_8b: OK
 == tb_pwm_8b: PASA
 sim/tb_robot_top.vhd:224:9:@2425399750ns:(report note): tb_robot_top: OK
 == tb_robot_top: PASA
-sim/tb_seg7_disp.vhd:165:9:@31351ns:(report note): tb_seg7_disp: OK
+sim/tb_seg7_disp.vhd:168:9:@62711ns:(report note): tb_seg7_disp: OK
 == tb_seg7_disp: PASA
 sim/tb_stall_detect.vhd:156:9:@17075ns:(report note): tb_stall_detect: OK
 == tb_stall_detect: PASA
@@ -50,14 +50,15 @@ sim/tb_ultra_sched.vhd:126:9:@152012750ns:(report note): tb_ultra_sched: OK
 == tb_ultra_sched: PASA
 sim/tb_vga_debug.vhd:100:9:@104025930ns:(report note): tb_vga_debug: OK
 == tb_vga_debug: PASA
-real	1m55.344s
 ```
+
+Sola, la regresión tarda unos 2 minutos; esta última corrida tardó más porque corría junto con las pruebas de mutación.
 
 `tb_robot_top` simula el robot completo a 2 MHz durante 2.4 s de tiempo del robot: modelos de los 4 HC-SR04 que responden a su TRIG, LDR y comparador de cerca manejados por el testbench. Revisa el estado en HEX5, el evento en HEX4, el sentido en AIN/BIN, el duty medido en PWMA y PWMB durante un periodo completo, los LEDs y la última línea de la bitácora UART decodificada.
 
 ## Los testbenches detectan errores
 
-Cada testbench se corrió contra una copia del módulo con un error metido a propósito. Las 26 mutaciones hicieron fallar su testbench:
+Cada testbench se corrió contra una copia del módulo con un error metido a propósito. Las 30 mutaciones hicieron fallar su testbench:
 
 | Módulo | Error metido |
 |---|---|
@@ -67,11 +68,12 @@ Cada testbench se corrió contra una copia del módulo con un error metido a pro
 | `ldr_dir` | frente-izquierda sale como frente-derecha; izquierda y derecha sin frente sale como izquierda |
 | `drive_cmd` | giro a la izquierda con la rueda equivocada; invierte el sentido sin frenar |
 | `ultra_sched` | se salta el sensor 3; dispara dos sensores a la vez |
-| `pi_ctrl` | signo del error invertido; sin saturación |
+| `pi_ctrl` | signo del error invertido; sin saturación (las dos, antes y después de dividirlo en etapas) |
 | `encoder_vel` | cuenta cambios simultáneos de A y B |
 | `uart_tx` | manda el MSB primero; baudios incorrectos |
-| `telemetria` | etiqueta I cambiada; sin eco no muestra guiones; velocidad derecha tomada de la izquierda |
-| `vga_debug` | HSYNC de 95 pixeles; color de estado cambiado |
+| `telemetria` | etiqueta I cambiada; sin eco no muestra guiones; velocidad derecha tomada de la izquierda; distancia del frente tomada de la diagonal |
+| `seg7_disp` | % izquierdo tomado del derecho; sin eco no muestra guiones |
+| `vga_debug` | HSYNC de 95 pixeles; color de estado cambiado; sincronías cruzadas en la etapa B |
 
 Las primeras dos mutaciones de DELTA_CM no se detectaban con la primera versión de `tb_stall_detect`; se reforzó el caso 3 (lecturas a +-DELTA_CM de la referencia y el atasco tiene que llegar justo a los N ms) y desde entonces se detectan.
 
@@ -80,7 +82,8 @@ Las primeras dos mutaciones de DELTA_CM no se detectaban con la primera versión
 `ghdl --synth` no sustituye a Quartus, pero confirma que todo es sintetizable y que no hay latches. Log: `logs/ghdl_synth.log`.
 
 ```
-# ghdl --synth --std=93c (GHDL 4.1.0), 2026-10-25 14:21 hora de CDMX
+# ghdl --synth --std=93c (GHDL 4.1.0), 2026-10-25 14:56 hora de CDMX
+seg7_disp: OK (avisos: 0, latches: 0)
 ultra_sched: OK (avisos: 0, latches: 0)
 ldr_dir: OK (avisos: 0, latches: 0)
 obst_eval: OK (avisos: 0, latches: 0)
@@ -97,6 +100,16 @@ robot_top: OK (avisos: 4, latches: 0)
 Avisos de robot_top (todos del atributo de Quartus en sync_2ff, que GHDL no usa):
 rtl/sync_2ff.vhd:32:15:warning: unhandled attribute "altera_attribute" [-Wunhandled-attribute]
 ```
+
+## Ajustes de tiempos
+
+Sin Quartus no hay reporte de tiempos, así que se partieron en etapas registradas las cadenas que podían pasar de 20 ns a 50 MHz:
+
+- `seg7_disp` y `telemetria`: multiplicación por 100 y conversión a decimal (double dabble) en registros separados del decodificador y del multiplexor de caracteres.
+- `vga_debug`: la etapa A calcula qué zona toca cada pixel y la etapa B elige el color por prioridad; las sincronías pasan por las mismas dos etapas.
+- `pi_ctrl`: medida a unidades de duty, error con integrador y corrección en 3 etapas.
+
+Las pruebas de estos módulos se repitieron después del cambio (incluida la de sistema) y siguen pasando; `tb_seg7_disp` ahora espera 4 flancos en lugar de 2 por la latencia nueva.
 
 ## Pendiente
 

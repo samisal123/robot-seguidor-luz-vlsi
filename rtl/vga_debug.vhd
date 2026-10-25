@@ -18,6 +18,9 @@
 --     magenta reversa).
 --   Cuadro rojo cuando el robot esta en ESCAPE (atasco).
 -- Sincronias negativas (modo 640 x 480).
+-- Dos etapas registradas: A calcula que zona toca cada pixel y B
+-- elige el color; las sincronias pasan por las mismas dos etapas,
+-- asi que color y sincronias quedan alineados.
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -60,8 +63,6 @@ architecture rtl of vga_debug is
     signal pix_en : std_logic := '0';
     signal hc     : natural range 0 to H_TOT - 1 := 0;
     signal vc     : natural range 0 to V_TOT - 1 := 0;
-    signal r, g, b : std_logic_vector(3 downto 0) := (others => '0');
-    signal hs, vs  : std_logic := '1';
 
     subtype t_rgb is std_logic_vector(11 downto 0);
     constant NEGRO    : t_rgb := x"000";
@@ -119,26 +120,41 @@ architecture rtl of vga_debug is
     begin
         return x >= x0 and x < x1 and y >= y0 and y < y1;
     end function;
+    -- Etapa A: banderas de cada zona para el pixel (hc, vc)
+    signal a_vis, a_banda, a_digito    : std_logic := '0';
+    signal a_marca, a_barra            : std_logic_vector(3 downto 0) := (others => '0');
+    signal a_gris, a_rojo              : std_logic_vector(3 downto 0) := (others => '0');
+    signal a_marco, a_ldr_f, a_ldr_i   : std_logic := '0';
+    signal a_ldr_d, a_ldr_t            : std_logic := '0';
+    signal a_luz                       : std_logic_vector(3 downto 0) := (others => '0');
+    signal a_dl, a_dr, a_dir_l, a_dir_r : std_logic := '0';
+    signal a_base, a_atasco            : std_logic := '0';
+    signal a_color                     : t_rgb := (others => '0');
+    signal a_hs, a_vs                  : std_logic := '1';
+
+    -- Etapa B: color final y sincronias
+    signal r, g, b : std_logic_vector(3 downto 0) := (others => '0');
+    signal hs, vs  : std_logic := '1';
+
+    function bit_de (c : boolean) return std_logic is
+    begin
+        if c then
+            return '1';
+        else
+            return '0';
+        end if;
+    end function;
 begin
 
+    -- Contadores de pixel y linea (avanzan cada 2 ciclos)
     process (clk)
-        variable x, y  : natural range 0 to 1023;
-        variable c     : t_rgb;
-        variable y0    : natural range 0 to 1023;
-        variable alto  : natural range 0 to 255;
     begin
         if rising_edge(clk) then
             pix_en <= not pix_en;
             if rst = '1' then
                 hc <= 0;
                 vc <= 0;
-                hs <= '1';
-                vs <= '1';
-                r  <= (others => '0');
-                g  <= (others => '0');
-                b  <= (others => '0');
             elsif pix_en = '1' then
-                -- contadores
                 if hc = H_TOT - 1 then
                     hc <= 0;
                     if vc = V_TOT - 1 then
@@ -149,84 +165,119 @@ begin
                 else
                     hc <= hc + 1;
                 end if;
+            end if;
+        end if;
+    end process;
 
-                -- sincronias (negativas)
-                if hc >= H_VIS + H_FP and hc < H_VIS + H_FP + H_SY then
-                    hs <= '0';
-                else
-                    hs <= '1';
-                end if;
-                if vc >= V_VIS + V_FP and vc < V_VIS + V_FP + V_SY then
-                    vs <= '0';
-                else
-                    vs <= '1';
-                end if;
+    -- Etapa A: que zona del tablero toca el pixel actual. Va en un
+    -- registro aparte del color para que comparaciones y prioridades
+    -- no queden en el mismo ciclo de 20 ns.
+    process (clk)
+        variable x, y : natural range 0 to 1023;
+        variable y0   : natural range 0 to 1023;
+        variable alto : natural range 0 to 255;
+    begin
+        if rising_edge(clk) then
+            x := hc;
+            y := vc;
+            a_vis <= bit_de(hc < H_VIS and vc < V_VIS);
+            a_hs  <= bit_de(not (hc >= H_VIS + H_FP and hc < H_VIS + H_FP + H_SY));
+            a_vs  <= bit_de(not (vc >= V_VIS + V_FP and vc < V_VIS + V_FP + V_SY));
 
-                -- color del pixel (hc, vc)
-                x := hc;
-                y := vc;
-                c := NEGRO;
-                if hc < H_VIS and vc < V_VIS then
-                    if y < 70 then
-                        c := color_estado(estado);
-                        if dentro(x, y, 20, 5, 56, 65) and segmento(estado, x - 20, y - 5) then
-                            c := BLANCO;
-                        elsif dentro(x, y, 80, 5, 116, 65) and segmento(evento, x - 80, y - 5) then
+            a_banda  <= bit_de(y < 70);
+            a_digito <= bit_de((dentro(x, y, 20, 5, 56, 65) and segmento(estado, x - 20, y - 5)) or
+                               (dentro(x, y, 80, 5, 116, 65) and segmento(evento, x - 80, y - 5)));
+            a_color  <= color_estado(estado);
+
+            for i in 0 to 3 loop
+                y0 := 90 + 50 * i;
+                a_marca(i) <= bit_de(y >= y0 and y < y0 + 30 and x >= 20 and x < 50);
+                a_barra(i) <= bit_de(y >= y0 and y < y0 + 30 and x >= 60 and x < 60 + d(dist, i));
+                a_gris(i)  <= bit_de(d(dist, i) = DIST_SIN_ECO);
+                a_rojo(i)  <= obs(i);
+            end loop;
+
+            a_marco <= bit_de(dentro(x, y, 156, 296, 204, 344) and cerca = '1');
+            a_ldr_f <= bit_de(dentro(x, y, 160, 300, 200, 340));
+            a_ldr_i <= bit_de(dentro(x, y, 110, 350, 150, 390));
+            a_ldr_d <= bit_de(dentro(x, y, 210, 350, 250, 390));
+            a_ldr_t <= bit_de(dentro(x, y, 160, 400, 200, 440));
+            a_luz   <= luz;
+
+            alto := to_integer(unsigned(duty_l));
+            a_dl <= bit_de(x >= 400 and x < 440 and y < 460 and y >= 460 - alto);
+            alto := to_integer(unsigned(duty_r));
+            a_dr <= bit_de(x >= 480 and x < 520 and y < 460 and y >= 460 - alto);
+            a_dir_l <= dir_l;
+            a_dir_r <= dir_r;
+            a_base  <= bit_de(dentro(x, y, 390, 460, 530, 462));
+            a_atasco <= bit_de(dentro(x, y, 560, 300, 620, 360) and estado = E_ESCAPE);
+        end if;
+    end process;
+
+    -- Etapa B: color por prioridad (lo ultimo que se asigna gana)
+    process (clk)
+        variable c : t_rgb;
+    begin
+        if rising_edge(clk) then
+            if rst = '1' then
+                hs <= '1';
+                vs <= '1';
+                r  <= (others => '0');
+                g  <= (others => '0');
+                b  <= (others => '0');
+            else
+                hs <= a_hs;
+                vs <= a_vs;
+                c  := NEGRO;
+                if a_vis = '1' then
+                    if a_banda = '1' then
+                        c := a_color;
+                        if a_digito = '1' then
                             c := BLANCO;
                         end if;
                     end if;
 
-                    -- barras de distancia
                     for i in 0 to 3 loop
-                        y0 := 90 + 50 * i;
-                        if y >= y0 and y < y0 + 30 then
-                            if x >= 20 and x < 50 then
-                                c := GRIS;                    -- marca del sensor
-                            elsif x >= 60 and x < 60 + d(dist, i) then
-                                if d(dist, i) = DIST_SIN_ECO then
-                                    c := GRIS;
-                                elsif obs(i) = '1' then
-                                    c := ROJO;
-                                else
-                                    c := VERDE;
-                                end if;
+                        if a_marca(i) = '1' then
+                            c := GRIS;                    -- marca del sensor
+                        elsif a_barra(i) = '1' then
+                            if a_gris(i) = '1' then
+                                c := GRIS;
+                            elsif a_rojo(i) = '1' then
+                                c := ROJO;
+                            else
+                                c := VERDE;
                             end if;
                         end if;
                     end loop;
 
-                    -- cruz de LDR
-                    if dentro(x, y, 156, 296, 204, 344) and cerca = '1' then
-                        c := BLANCO;                          -- marco de luz cerca
+                    if a_marco = '1' then
+                        c := BLANCO;                      -- marco de luz cerca
                     end if;
-                    if dentro(x, y, 160, 300, 200, 340) then
-                        if luz(L_FRENTE) = '1' then c := AMARILLO; else c := GRIS; end if;
-                    elsif dentro(x, y, 110, 350, 150, 390) then
-                        if luz(L_IZQ) = '1' then c := AMARILLO; else c := GRIS; end if;
-                    elsif dentro(x, y, 210, 350, 250, 390) then
-                        if luz(L_DER) = '1' then c := AMARILLO; else c := GRIS; end if;
-                    elsif dentro(x, y, 160, 400, 200, 440) then
-                        if luz(L_ATRAS) = '1' then c := AMARILLO; else c := GRIS; end if;
+                    if a_ldr_f = '1' then
+                        if a_luz(L_FRENTE) = '1' then c := AMARILLO; else c := GRIS; end if;
+                    elsif a_ldr_i = '1' then
+                        if a_luz(L_IZQ) = '1' then c := AMARILLO; else c := GRIS; end if;
+                    elsif a_ldr_d = '1' then
+                        if a_luz(L_DER) = '1' then c := AMARILLO; else c := GRIS; end if;
+                    elsif a_ldr_t = '1' then
+                        if a_luz(L_ATRAS) = '1' then c := AMARILLO; else c := GRIS; end if;
                     end if;
 
-                    -- barras de duty (base en y = 460)
-                    alto := to_integer(unsigned(duty_l));
-                    if x >= 400 and x < 440 and y < 460 and y >= 460 - alto then
-                        if dir_l = '1' then c := AZUL; else c := MAGENTA; end if;
+                    if a_dl = '1' then
+                        if a_dir_l = '1' then c := AZUL; else c := MAGENTA; end if;
                     end if;
-                    alto := to_integer(unsigned(duty_r));
-                    if x >= 480 and x < 520 and y < 460 and y >= 460 - alto then
-                        if dir_r = '1' then c := AZUL; else c := MAGENTA; end if;
+                    if a_dr = '1' then
+                        if a_dir_r = '1' then c := AZUL; else c := MAGENTA; end if;
                     end if;
-                    if dentro(x, y, 390, 460, 530, 462) then
+                    if a_base = '1' then
                         c := GRIS;
                     end if;
-
-                    -- atasco
-                    if dentro(x, y, 560, 300, 620, 360) and estado = E_ESCAPE then
+                    if a_atasco = '1' then
                         c := ROJO;
                     end if;
                 end if;
-
                 r <= c(11 downto 8);
                 g <= c(7 downto 4);
                 b <= c(3 downto 0);
