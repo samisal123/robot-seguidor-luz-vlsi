@@ -112,14 +112,13 @@ architecture rtl of telemetria is
         end if;
     end function;
 
-    -- Caracter j (0, 1 o 2) de una distancia de la linea
-    function dist_char (d : std_logic_vector(8 downto 0); j : natural) return std_logic_vector is
-        variable bcd : unsigned(11 downto 0);
+    -- Caracter j (0, 1 o 2) de una distancia ya convertida a BCD
+    function dist_char (bcd : unsigned(11 downto 0); sin_eco : std_logic; j : natural)
+        return std_logic_vector is
     begin
-        if d = "111111111" then
+        if sin_eco = '1' then
             return x"2D";                         -- '-'
         end if;
-        bcd := a_bcd(unsigned(d));
         case j is
             when 0      => return ascii(bcd(11 downto 8));
             when 1      => return ascii(bcd(7 downto 4));
@@ -137,17 +136,40 @@ architecture rtl of telemetria is
         end if;
     end function;
 
-    signal pct_l, pct_r : unsigned(11 downto 0);
-    signal bcd_vl, bcd_vr : unsigned(11 downto 0);
+    type t_bcd4 is array (0 to 3) of unsigned(11 downto 0);
+    signal bcd_d          : t_bcd4 := (others => (others => '0'));
+    signal sin_d          : std_logic_vector(3 downto 0) := (others => '1');
+    signal p_l, p_r       : unsigned(8 downto 0) := (others => '0');
+    signal pct_l, pct_r   : unsigned(11 downto 0) := (others => '0');
+    signal bcd_vl, bcd_vr : unsigned(11 downto 0) := (others => '0');
 begin
 
-    pct_l  <= a_bcd(porcentaje(c_dl));
-    pct_r  <= a_bcd(porcentaje(c_dr));
-    bcd_vl <= a_bcd(unsigned(c_vl));
-    bcd_vr <= a_bcd(unsigned(c_vr));
+    -- Conversiones a decimal en etapas registradas. Los datos de la
+    -- linea no cambian mientras se envia y los digitos se usan miles
+    -- de ciclos despues de la copia, asi que la latencia no importa y
+    -- el camino mas largo no pasa por el multiplexor ni la UART.
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            for i in 0 to 3 loop
+                bcd_d(i) <= a_bcd(unsigned(c_dist(9 * i + 8 downto 9 * i)));
+                if c_dist(9 * i + 8 downto 9 * i) = "111111111" then
+                    sin_d(i) <= '1';
+                else
+                    sin_d(i) <= '0';
+                end if;
+            end loop;
+            p_l    <= porcentaje(c_dl);
+            p_r    <= porcentaje(c_dr);
+            pct_l  <= a_bcd(p_l);
+            pct_r  <= a_bcd(p_r);
+            bcd_vl <= a_bcd(unsigned(c_vl));
+            bcd_vr <= a_bcd(unsigned(c_vr));
+        end if;
+    end process;
 
     -- Caracter que toca enviar
-    process (idx, c_est, c_ev, c_dist, c_luz, c_cer, pct_l, pct_r, bcd_vl, bcd_vr)
+    process (idx, c_est, c_ev, bcd_d, sin_d, c_luz, c_cer, pct_l, pct_r, bcd_vl, bcd_vr)
     begin
         case idx is
             when 0  => dato <= x"45";                                 -- E
@@ -155,13 +177,13 @@ begin
             when 3  => dato <= x"56";                                 -- V
             when 4  => dato <= ascii('0' & unsigned(c_ev));
             when 6  => dato <= x"46";                                 -- F
-            when 7 to 9   => dato <= dist_char(c_dist(8 downto 0), idx - 7);
+            when 7 to 9   => dato <= dist_char(bcd_d(0), sin_d(0), idx - 7);
             when 11 => dato <= x"49";                                 -- I
-            when 12 to 14 => dato <= dist_char(c_dist(17 downto 9), idx - 12);
+            when 12 to 14 => dato <= dist_char(bcd_d(1), sin_d(1), idx - 12);
             when 16 => dato <= x"44";                                 -- D
-            when 17 to 19 => dato <= dist_char(c_dist(26 downto 18), idx - 17);
+            when 17 to 19 => dato <= dist_char(bcd_d(2), sin_d(2), idx - 17);
             when 21 => dato <= x"41";                                 -- A
-            when 22 to 24 => dato <= dist_char(c_dist(35 downto 27), idx - 22);
+            when 22 to 24 => dato <= dist_char(bcd_d(3), sin_d(3), idx - 22);
             when 26 => dato <= x"4C";                                 -- L
             when 27 => dato <= ascii_bit(c_luz(L_FRENTE));
             when 28 => dato <= ascii_bit(c_luz(L_IZQ));

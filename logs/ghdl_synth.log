@@ -1,4 +1,5 @@
-# ghdl --synth --std=93c (GHDL 4.1.0), 2026-10-25 14:21 hora de CDMX
+# ghdl --synth --std=93c (GHDL 4.1.0), 2026-10-25 14:56 hora de CDMX
+seg7_disp: OK (avisos: 0, latches: 0)
 ultra_sched: OK (avisos: 0, latches: 0)
 ldr_dir: OK (avisos: 0, latches: 0)
 obst_eval: OK (avisos: 0, latches: 0)

@@ -10,7 +10,7 @@
 --   HEX5 estado, HEX4 evento, HEX3 numero de sensor con punto,
 --   HEX2-HEX0 distancia en cm sin ceros a la izquierda;
 --   511 (timeout del HC-SR04) se muestra como "---".
--- Salidas registradas.
+-- Salidas registradas; las conversiones van en etapas (ver abajo).
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -86,12 +86,30 @@ architecture rtl of seg7_disp is
         return "00" & p(14 downto 8);   -- 9 bits para a_bcd
     end function;
 
-    signal pct_l, pct_r, dist_bcd : unsigned(11 downto 0);
+    signal p_l, p_r                : unsigned(8 downto 0) := (others => '0');
+    signal pct_l, pct_r, dist_bcd : unsigned(11 downto 0) := (others => '0');
+    signal sin_eco                : std_logic := '0';
 begin
 
-    pct_l    <= a_bcd(porcentaje(duty_l));
-    pct_r    <= a_bcd(porcentaje(duty_r));
-    dist_bcd <= a_bcd(unsigned(dist_cm));
+    -- Conversiones en etapas registradas (multiplicacion, luego BCD)
+    -- para no encadenar multiplicador, double dabble y decodificador
+    -- en un solo ciclo de 20 ns. El % llega 3 ciclos despues del
+    -- duty y la distancia 2; en un display no se nota.
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            p_l      <= porcentaje(duty_l);
+            p_r      <= porcentaje(duty_r);
+            pct_l    <= a_bcd(p_l);
+            pct_r    <= a_bcd(p_r);
+            dist_bcd <= a_bcd(unsigned(dist_cm));
+            if dist_cm = "111111111" then
+                sin_eco <= '1';
+            else
+                sin_eco <= '0';
+            end if;
+        end if;
+    end process;
 
     process (clk)
         variable c, d, u : unsigned(3 downto 0);
@@ -110,7 +128,7 @@ begin
                 c := dist_bcd(11 downto 8);
                 d := dist_bcd(7 downto 4);
                 u := dist_bcd(3 downto 0);
-                if dist_cm = "111111111" then
+                if sin_eco = '1' then
                     hex2 <= '1' & GUION;
                     hex1 <= '1' & GUION;
                     hex0 <= '1' & GUION;

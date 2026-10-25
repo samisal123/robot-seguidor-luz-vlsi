@@ -8,6 +8,7 @@
 4. **Un módulo por archivo, un testbench por módulo** y una prueba de sistema del robot completo con modelos de los sensores.
 5. **Puertos solo `std_logic` y `std_logic_vector`**, para que el Block Editor de Quartus genere el símbolo de cada módulo. Las 4 distancias viajan juntas en un vector de 36 bits (sensor `i` en los bits `9i+8` a `9i`). Los códigos de estado, acción y evento tienen nombre en `rtl/robot_pkg.vhd`.
 6. **Reset síncrono** desde KEY1 (más un reset de encendido de 16 ciclos). KEY0 arranca y detiene el recorrido.
+7. **Cadenas largas en etapas registradas** para cerrar tiempos a 50 MHz: la conversión a decimal de los displays y de la bitácora (multiplicación y double dabble), el tablero VGA (zonas en una etapa, color en otra) y el PI (medida, integrador y corrección en 3 etapas). La latencia extra es de 1 a 3 ciclos, invisible en un display o en un lazo de 50 ms.
 
 ## Diagrama de bloques
 

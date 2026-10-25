@@ -80,10 +80,13 @@ begin
         variable pl, pr : natural;
         variable txt    : string(1 to 3);
 
+        -- Las conversiones van en etapas: el % de duty tarda 3 ciclos
+        -- y el display uno mas; se esperan 4 flancos
         procedure esperar is
         begin
-            wait until rising_edge(clk);
-            wait until rising_edge(clk);
+            for k in 1 to 4 loop
+                wait until rising_edge(clk);
+            end loop;
             wait for 1 ns;
         end procedure;
     begin

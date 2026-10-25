@@ -20,7 +20,7 @@
 == tb_pwm_8b: PASA
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_robot_top.vhd:224:9:@2425399750ns:(report note): tb_robot_top: OK
 == tb_robot_top: PASA
-/home/claude/robot-seguidor-luz-vlsi/sim/tb_seg7_disp.vhd:165:9:@31351ns:(report note): tb_seg7_disp: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_seg7_disp.vhd:168:9:@62711ns:(report note): tb_seg7_disp: OK
 == tb_seg7_disp: PASA
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_stall_detect.vhd:156:9:@17075ns:(report note): tb_stall_detect: OK
 == tb_stall_detect: PASA
@@ -37,6 +37,6 @@
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_vga_debug.vhd:100:9:@104025930ns:(report note): tb_vga_debug: OK
 == tb_vga_debug: PASA
 
-real	1m55.344s
-user	1m18.357s
-sys	0m35.834s
+real	12m9.656s
+user	11m24.977s
+sys	0m34.934s

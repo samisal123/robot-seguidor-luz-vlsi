@@ -4,7 +4,7 @@
 
 - **Actualizado:** 2026-10-25
 - **Fase:** diseño digital completo; falta compilarlo en Quartus en la PC y todo lo físico.
-- **Hecho:** los 20 módulos de `rtl/` (sensores, FSM de 7 estados, motores, PI, UART, VGA y el top con los 110 pines de la DE10-Lite). 19 testbenches pasan en GHDL, incluida una prueba del robot completo con modelos de los sensores (arranque, búsqueda, seguimiento, esquiva y meta). Los testbenches detectaron los 26 errores que se les metieron a propósito. `ghdl --synth` sintetiza todo sin latches. Evidencia en `resultados/TAREA-008.md`.
+- **Hecho:** los 20 módulos de `rtl/` (sensores, FSM de 7 estados, motores, PI, UART, VGA y el top con los 110 pines de la DE10-Lite). 19 testbenches pasan en GHDL, incluida una prueba del robot completo con modelos de los sensores (arranque, búsqueda, seguimiento, esquiva y meta). Los testbenches detectaron los 30 errores que se les metieron a propósito. Las cadenas largas (conversión a decimal, VGA y PI) van en etapas registradas para cerrar tiempos a 50 MHz. `ghdl --synth` sintetiza todo sin latches. Evidencia en `resultados/TAREA-008.md`.
 - **Siguiente:** compilar el diseño completo en Quartus en la PC (TAREA-009); comprar y armar ([MATERIALES.md](MATERIALES.md), [CABLEADO.md](CABLEADO.md)); calibrar y probar ([PRUEBAS_FISICAS.md](PRUEBAS_FISICAS.md)).
 - **Bloqueos:** ninguno en el diseño. Falta la fecha real de entrega y los nombres del equipo.
 

@@ -44,45 +44,68 @@ architecture rtl of pi_ctrl is
     constant ESCALA : positive := 2 ** SHIFT;
     constant K_INV  : positive := 65536 / VMAX;   -- medida -> duty, en 1/256
 
+    signal med_d  : natural range 0 to 511 := 0;    -- etapa 1
+    signal e_r    : integer range -511 to 255 := 0; -- etapa 2
     signal integ  : integer range -I_MAX to I_MAX := 0;
-    signal corr   : integer range -255 to 255 := 0;
+    signal corr   : integer range -255 to 255 := 0; -- etapa 3
+    signal act1, act2 : std_logic := '0';
     signal s_duty : natural range 0 to 255 := 0;
 begin
 
+    -- El calculo va en 3 etapas registradas (medida a unidades de
+    -- duty; error e integrador; correccion) para que ningun camino
+    -- encadene el multiplicador con sumas y saturaciones en un solo
+    -- ciclo de 20 ns. La correccion queda lista 3 ciclos despues de
+    -- actualizar, mucho antes de la siguiente medicion (50 ms).
     process (clk)
-        variable obj   : natural range 0 to 255;
-        variable med_d : natural range 0 to 511;
-        variable e     : integer range -511 to 255;
-        variable i_n   : integer range -I_MAX - 2048 to I_MAX + 2048;
-        variable c_n   : integer range -65536 to 65536;
-        variable u     : integer range -255 to 510;
+        variable obj : natural range 0 to 255;
+        variable m   : natural;
+        variable e   : integer range -511 to 255;
+        variable i_n : integer range -I_MAX - 1024 to I_MAX + 1024;
+        variable c_n : integer range -65536 to 65536;
+        variable u   : integer range -255 to 510;
     begin
         if rising_edge(clk) then
-            obj := to_integer(unsigned(objetivo));
+            obj  := to_integer(unsigned(objetivo));
+            act1 <= actualizar;
+            act2 <= act1;
+
+            -- Etapa 1: medida en unidades de duty
+            m := (to_integer(unsigned(medida)) * K_INV) / 256;
+            if m > 511 then
+                med_d <= 511;
+            else
+                med_d <= m;
+            end if;
+
             if rst = '1' or habilitado = '0' or obj = 0 then
+                e_r   <= 0;
                 integ <= 0;
                 corr  <= 0;
-            elsif actualizar = '1' then
-                if (to_integer(unsigned(medida)) * K_INV) / 256 > 511 then
-                    med_d := 511;
-                else
-                    med_d := (to_integer(unsigned(medida)) * K_INV) / 256;
+            else
+                -- Etapa 2: error e integrador con antiwindup
+                if act1 = '1' then
+                    e   := obj - med_d;
+                    e_r <= e;
+                    i_n := integ + KI * e;
+                    if i_n > I_MAX then
+                        integ <= I_MAX;
+                    elsif i_n < -I_MAX then
+                        integ <= -I_MAX;
+                    else
+                        integ <= i_n;
+                    end if;
                 end if;
-                e   := obj - med_d;
-                i_n := integ + KI * e;
-                if i_n > I_MAX then
-                    i_n := I_MAX;
-                elsif i_n < -I_MAX then
-                    i_n := -I_MAX;
-                end if;
-                integ <= i_n;
-                c_n := (KP * e + i_n) / ESCALA;
-                if c_n > 255 then
-                    corr <= 255;
-                elsif c_n < -255 then
-                    corr <= -255;
-                else
-                    corr <= c_n;
+                -- Etapa 3: correccion
+                if act2 = '1' then
+                    c_n := (KP * e_r + integ) / ESCALA;
+                    if c_n > 255 then
+                        corr <= 255;
+                    elsif c_n < -255 then
+                        corr <= -255;
+                    else
+                        corr <= c_n;
+                    end if;
                 end if;
             end if;
 
