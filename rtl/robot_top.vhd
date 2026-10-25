@@ -19,7 +19,8 @@
 --   LEDR9 latido de 1 Hz. En META parpadean todos.
 -- Displays: HEX5 estado, HEX4 ultimo evento, HEX3-2 y HEX1-0
 --   % de duty izq y der (o distancia con SW9).
--- UART_TX: bitacora a 115200 8N1 (ver telemetria.vhd).
+-- UART_TX: bitacora a 115200 8N1 con estado, sensores, duty y
+--   velocidad de los encoders (ver telemetria.vhd).
 -- VGA: tablero de depuracion (ver vga_debug.vhd).
 -- ============================================================
 library ieee;
@@ -298,7 +299,8 @@ begin
         generic map (CLK_HZ => CLK_HZ, BAUD => BAUD)
         port map (clk => clk, rst => rst, tick_1ms => tick_1ms, ev_nuevo => ev_nuevo,
                   estado => estado, evento => evento, dist => dist, luz => luz,
-                  cerca => luz_cerca, duty_l => duty_l, duty_r => duty_r, tx => UART_TX);
+                  cerca => luz_cerca, duty_l => duty_l, duty_r => duty_r,
+                  vel_l => vel_l, vel_r => vel_r, tx => UART_TX);
 
     u_vga : entity work.vga_debug
         port map (clk => clk, rst => rst, estado => estado, evento => evento, luz => luz,
