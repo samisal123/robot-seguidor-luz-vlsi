@@ -19,6 +19,7 @@
 3. **El VCC lógico del TB6612FNG va a 3.3 V**, para que las señales de la FPGA cuenten como alto.
 4. **Tierra común** entre pilas, driver, sensores, USB-TTL y la tarjeta.
 5. **Polaridad de las LDR:** con la LDR del nodo a GND y la resistencia fija a 5 V, más luz da alto a la salida del comparador. Si se arma al revés, se cambia `LUZ_ACTIVA` en `ldr_dir`.
+6. **Umbrales del LM339 abajo de 3.5 V:** con VCC de 5 V solo compara bien si al menos una entrada está entre 0 y VCC − 1.5 V; por eso el cursor de cada potenciómetro se calibra abajo de 3.5 V.
 
 El cableado completo, pin por pin, está en [CABLEADO.md](CABLEADO.md) y la lista de compras con precios en [MATERIALES.md](MATERIALES.md).
 
@@ -44,3 +45,4 @@ El cableado completo, pin por pin, está en [CABLEADO.md](CABLEADO.md) y la list
 - [L293D, STMicroelectronics: descripción del producto y datasheet](https://www.st.com/content/st_com/en/products/motor-drivers/brushed-dc-motor-drivers/l293d.html)
 - [Manual de usuario de la DE10-Lite (Terasic)](https://cw.fel.cvut.cz/wiki/_media/courses/b2m37mam/tutorials/dev_kits/de10-lite_user_manual.pdf): header GPIO, voltajes y alimentación
 - [Golden Top de la DE10-Lite](https://github.com/janaite/fpga-de10lite-golden-top): asignación de pines de la FPGA
+- [LM339, Texas Instruments](https://www.ti.com/document-viewer/LM339/datasheet/GUID-7CC8453B-302C-468D-AF47-4D3DA618CCA4): rango de modo común de 0 a VCC − 1.5 V
