@@ -1,0 +1,79 @@
+# Regresion de los 26 testbenches de modulo: sh sim/correr.sh (todos menos sinte_top)
+# GHDL 4.1.0, 27 de octubre de 2026
+
+sim/tb_adsr.vhd:281:9:@16707131ns:(report note): tb_adsr: OK
+== tb_adsr: PASA
+sim/tb_audio_salida.vhd:272:9:@101652590ns:(report note): A: 65 muestras del seno reproducidas exactas en el PWM
+sim/tb_audio_salida.vhd:301:9:@101652590ns:(report note): B: clic de 2.465792e1 ms a 2.9832644950124686e3 Hz; silencio exacto hasta 100 ms
+sim/tb_audio_salida.vhd:326:9:@126218470ns:(report note): C: tremolo de 50 a 43 en 1200 muestras
+sim/tb_audio_salida.vhd:357:9:@294512990ns:(report note): D: eco exacto 8192 muestras despues (168 ms) a la mitad
+sim/tb_audio_salida.vhd:381:9:@464507350ns:(report note): E: tremolo (50 a 43) y eco (66 en la muestra 8192)
+sim/tb_audio_salida.vhd:405:9:@564007470ns:(report note): F: clip encendido 99088 us despues de la saturacion
+sim/tb_audio_salida.vhd:420:9:@564050510ns:(report note): tb_audio_salida: OK
+== tb_audio_salida: PASA
+sim/tb_base_tiempo.vhd:98:9:@5037130ns:(report note): tb_base_tiempo: OK
+== tb_base_tiempo: PASA
+sim/tb_control.vhd:308:9:@11891ns:(report note): tb_control: OK
+== tb_control: PASA
+sim/tb_dds.vhd:119:9:@1017731ns:(report note): tb_dds: OK
+== tb_dds: PASA
+sim/tb_debounce.vhd:128:9:@269011750ns:(report note): tb_debounce: OK
+== tb_debounce: PASA
+sim/tb_display_hex.vhd:178:9:@711ns:(report note): tb_display_hex: OK
+== tb_display_hex: PASA
+sim/tb_eco.vhd:174:9:@1990171ns:(report note): azar: 24876 muestras, 2041 saturadas
+sim/tb_eco.vhd:198:9:@3972271ns:(report note): tb_eco: OK
+== tb_eco: PASA
+sim/tb_entradas_placa.vhd:116:9:@360010250ns:(report note): tb_entradas_placa: OK
+== tb_entradas_placa: PASA
+sim/tb_forma_onda.vhd:149:9:@5242971ns:(report note): tb_forma_onda: OK
+== tb_forma_onda: PASA
+sim/tb_gestor_voces.vhd:276:9:@2196691ns:(report note): tb_gestor_voces: OK
+== tb_gestor_voces: PASA
+sim/tb_interfaz_teclados.vhd:132:9:@688031ns:(report note): tb_interfaz_teclados: OK
+== tb_interfaz_teclados: PASA
+sim/tb_leds_estado.vhd:130:9:@30471ns:(report note): tb_leds_estado: OK
+== tb_leds_estado: PASA
+sim/tb_metronomo.vhd:259:13:@640510ns:(report note): tempo 0 (60 BPM): 8 intervalos de 1000 ms, acentos en 0, 4 y 8
+sim/tb_metronomo.vhd:259:13:@1067630ns:(report note): tempo 1 (90 BPM): 8 intervalos de 667 ms, acentos en 0, 4 y 8
+sim/tb_metronomo.vhd:259:13:@1387870ns:(report note): tempo 2 (120 BPM): 8 intervalos de 500 ms, acentos en 0, 4 y 8
+sim/tb_metronomo.vhd:259:13:@1644110ns:(report note): tempo 3 (150 BPM): 8 intervalos de 400 ms, acentos en 0, 4 y 8
+sim/tb_metronomo.vhd:210:13:@2084870ns:(report note): clic: 1204 muestras = 2.465792e1 ms, 147 cruces por cero = 2.9832644950124686e3 Hz
+sim/tb_metronomo.vhd:210:13:@2212710ns:(report note): clic: 1204 muestras = 2.465792e1 ms, 98 cruces por cero = 1.9888429966749793e3 Hz
+sim/tb_metronomo.vhd:310:9:@2252790ns:(report note): tb_metronomo: OK
+== tb_metronomo: PASA
+sim/tb_mezclador.vhd:153:9:@2305431ns:(report note): casos revisados: 57608
+sim/tb_mezclador.vhd:154:9:@2305431ns:(report note): tb_mezclador: OK
+== tb_mezclador: PASA
+sim/tb_reset_encendido.vhd:43:9:@3991ns:(report note): tb_reset_encendido: OK
+== tb_reset_encendido: PASA
+sim/tb_salida_pwm.vhd:96:9:@1346640ns:(report note): periodos revisados: 263
+sim/tb_salida_pwm.vhd:114:9:@1357520ns:(report note): tb_salida_pwm: OK
+== tb_salida_pwm: PASA
+sim/tb_secuenciador.vhd:373:9:@5390251ns:(report note): tb_secuenciador: OK
+== tb_secuenciador: PASA
+sim/tb_selector_notas.vhd:42:9:@4ns:(report note): tb_selector_notas: OK
+== tb_selector_notas: PASA
+sim/tb_sync_2ff.vhd:60:9:@711ns:(report note): tb_sync_2ff: OK
+== tb_sync_2ff: PASA
+sim/tb_teclado_scan.vhd:219:9:@399830ns:(report note): tb_teclado_scan: OK
+== tb_teclado_scan: PASA
+sim/tb_teclas_notas.vhd:175:9:@11411ns:(report note): tb_teclas_notas: OK
+== tb_teclas_notas: PASA
+sim/tb_tremolo.vhd:186:9:@3082991ns:(report note): tremolo: min = 1007, max = 2000, profundidad = 4.9650000000000005e-1
+sim/tb_tremolo.vhd:201:13:@3082991ns:(report note): periodo del LFO = 9799 muestras = 4.9829702010409225 Hz
+sim/tb_tremolo.vhd:201:13:@3082991ns:(report note): periodo del LFO = 9800 muestras = 4.982461734693878 Hz
+sim/tb_tremolo.vhd:231:9:@3482991ns:(report note): tb_tremolo: OK
+== tb_tremolo: PASA
+sim/tb_vga_ui.vhd:687:13:@116153950ns:(report note): tb_vga_ui: OK
+== tb_vga_ui: PASA
+sim/tb_volumen.vhd:120:9:@1311251ns:(report note): casos revisados: 32779
+sim/tb_volumen.vhd:121:9:@1311251ns:(report note): tb_volumen: OK
+== tb_volumen: PASA
+sim/tb_voz.vhd:182:9:@1154711ns:(report note): tb_voz: OK
+== tb_voz: PASA
+
+real	3m26.941s
+user	2m33.804s
+sys	0m49.021s
+salida: 0
