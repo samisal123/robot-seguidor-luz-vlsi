@@ -1,0 +1,69 @@
+/*
+Simbolo de interfaz_teclados para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/interfaz_teclados.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 272 128)
+	(text "interfaz_teclados" (rect 5 0 124 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 112 36 124)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 21 12)(font "Arial" ))
+		(text "clk" (rect 21 27 42 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rst" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst" (rect 21 43 42 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "tick_1ms" (rect 0 0 56 12)(font "Arial" ))
+		(text "tick_1ms" (rect 21 59 77 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "tec1_col[3..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "tec1_col[3..0]" (rect 21 75 119 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "tec2_col[3..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "tec2_col[3..0]" (rect 21 91 119 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 272 32)
+		(output)
+		(text "tec1_fil[3..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "tec1_fil[3..0]" (rect 153 27 251 39)(font "Arial" ))
+		(line (pt 272 32)(pt 256 32)(line_width 3))
+	)
+	(port
+		(pt 272 48)
+		(output)
+		(text "tec2_fil[3..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "tec2_fil[3..0]" (rect 153 43 251 55)(font "Arial" ))
+		(line (pt 272 48)(pt 256 48)(line_width 3))
+	)
+	(port
+		(pt 272 64)
+		(output)
+		(text "teclas[31..0]" (rect 0 0 91 12)(font "Arial" ))
+		(text "teclas[31..0]" (rect 160 59 251 71)(font "Arial" ))
+		(line (pt 272 64)(pt 256 64)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 256 112)(line_width 1))
+	)
+)

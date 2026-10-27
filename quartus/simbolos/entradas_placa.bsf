@@ -1,0 +1,69 @@
+/*
+Simbolo de entradas_placa para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/entradas_placa.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 208 128)
+	(text "entradas_placa" (rect 5 0 103 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 112 36 124)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 21 12)(font "Arial" ))
+		(text "clk" (rect 21 27 42 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rst" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst" (rect 21 43 42 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "tick_1ms" (rect 0 0 56 12)(font "Arial" ))
+		(text "tick_1ms" (rect 21 59 77 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "key[1..0]" (rect 0 0 63 12)(font "Arial" ))
+		(text "key[1..0]" (rect 21 75 84 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "sw[9..0]" (rect 0 0 56 12)(font "Arial" ))
+		(text "sw[9..0]" (rect 21 91 77 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 208 32)
+		(output)
+		(text "accion" (rect 0 0 42 12)(font "Arial" ))
+		(text "accion" (rect 145 27 187 39)(font "Arial" ))
+		(line (pt 208 32)(pt 192 32)(line_width 1))
+	)
+	(port
+		(pt 208 48)
+		(output)
+		(text "metro_btn" (rect 0 0 63 12)(font "Arial" ))
+		(text "metro_btn" (rect 124 43 187 55)(font "Arial" ))
+		(line (pt 208 48)(pt 192 48)(line_width 1))
+	)
+	(port
+		(pt 208 64)
+		(output)
+		(text "modo[1..0]" (rect 0 0 70 12)(font "Arial" ))
+		(text "modo[1..0]" (rect 117 59 187 71)(font "Arial" ))
+		(line (pt 208 64)(pt 192 64)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 192 112)(line_width 1))
+	)
+)

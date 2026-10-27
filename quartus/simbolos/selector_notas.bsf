@@ -1,0 +1,41 @@
+/*
+Simbolo de selector_notas para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/selector_notas.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 288 96)
+	(text "selector_notas" (rect 5 0 103 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 80 36 92)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "estado_sec[1..0]" (rect 0 0 112 12)(font "Arial" ))
+		(text "estado_sec[1..0]" (rect 21 27 133 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "vivo[20..0]" (rect 0 0 77 12)(font "Arial" ))
+		(text "vivo[20..0]" (rect 21 43 98 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "grabado[20..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "grabado[20..0]" (rect 21 59 119 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 288 32)
+		(output)
+		(text "pedidas[20..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "pedidas[20..0]" (rect 169 27 267 39)(font "Arial" ))
+		(line (pt 288 32)(pt 272 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 272 80)(line_width 1))
+	)
+)

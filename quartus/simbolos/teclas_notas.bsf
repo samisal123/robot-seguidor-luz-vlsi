@@ -1,0 +1,62 @@
+/*
+Simbolo de teclas_notas para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/teclas_notas.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 240 112)
+	(text "teclas_notas" (rect 5 0 89 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 96 36 108)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 21 12)(font "Arial" ))
+		(text "clk" (rect 21 27 42 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rst" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst" (rect 21 43 42 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "teclas[31..0]" (rect 0 0 91 12)(font "Arial" ))
+		(text "teclas[31..0]" (rect 21 59 112 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "octava[2..0]" (rect 0 0 84 12)(font "Arial" ))
+		(text "octava[2..0]" (rect 21 75 105 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 240 32)
+		(output)
+		(text "notas[20..0]" (rect 0 0 84 12)(font "Arial" ))
+		(text "notas[20..0]" (rect 135 27 219 39)(font "Arial" ))
+		(line (pt 240 32)(pt 224 32)(line_width 3))
+	)
+	(port
+		(pt 240 48)
+		(output)
+		(text "func[7..0]" (rect 0 0 70 12)(font "Arial" ))
+		(text "func[7..0]" (rect 149 43 219 55)(font "Arial" ))
+		(line (pt 240 48)(pt 224 48)(line_width 3))
+	)
+	(port
+		(pt 240 64)
+		(output)
+		(text "ultima[6..0]" (rect 0 0 84 12)(font "Arial" ))
+		(text "ultima[6..0]" (rect 135 59 219 71)(font "Arial" ))
+		(line (pt 240 64)(pt 224 64)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 224 96)(line_width 1))
+	)
+)

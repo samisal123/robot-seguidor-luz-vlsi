@@ -1,0 +1,55 @@
+/*
+Simbolo de gestor_voces para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/gestor_voces.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 272 112)
+	(text "gestor_voces" (rect 5 0 89 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 96 36 108)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 21 12)(font "Arial" ))
+		(text "clk" (rect 21 27 42 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rst" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst" (rect 21 43 42 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "conjunto[20..0]" (rect 0 0 105 12)(font "Arial" ))
+		(text "conjunto[20..0]" (rect 21 59 126 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "activas[2..0]" (rect 0 0 91 12)(font "Arial" ))
+		(text "activas[2..0]" (rect 21 75 112 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 272 32)
+		(output)
+		(text "notas_v[20..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "notas_v[20..0]" (rect 153 27 251 39)(font "Arial" ))
+		(line (pt 272 32)(pt 256 32)(line_width 3))
+	)
+	(port
+		(pt 272 48)
+		(output)
+		(text "gates[2..0]" (rect 0 0 77 12)(font "Arial" ))
+		(text "gates[2..0]" (rect 174 43 251 55)(font "Arial" ))
+		(line (pt 272 48)(pt 256 48)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 256 96)(line_width 1))
+	)
+)
