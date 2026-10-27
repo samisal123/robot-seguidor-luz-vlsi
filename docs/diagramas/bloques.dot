@@ -1,0 +1,55 @@
+// Diagrama de bloques del sintetizador (el mismo circuito que quartus/sintetizador.bdf).
+// base_tiempo (tick_fs, tick_1ms) y reset_encendido alimentan a todos los bloques.
+digraph bloques {
+    graph [rankdir=LR, fontname="Helvetica", fontsize=12, nodesep=0.3, ranksep=0.5, pad=0.25, bgcolor="white"];
+    node  [shape=box, style="rounded,filled", fillcolor="#eef3fb", color="#2f5597", fontname="Helvetica", fontsize=11, margin="0.12,0.06"];
+    edge  [fontname="Helvetica", fontsize=9, color="#4a5560", arrowsize=0.7];
+
+    T1 [label="Teclado 1\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
+    T2 [label="Teclado 2\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
+    PL [label="SW9-SW8\nKEY0, KEY1", fillcolor="#fff4e8", color="#b5651d"];
+
+    subgraph cluster_fpga {
+        label="FPGA MAX 10 (DE10-Lite): reloj unico de 50 MHz con tick_fs (48.8 kHz) y tick_1ms"; style="rounded"; color="#2f5597"; fontcolor="#2f5597";
+        IT  [label="interfaz_teclados\nbarrido + antirrebote"];
+        EP  [label="entradas_placa\nsync + antirrebote"];
+        TN  [label="teclas_notas\n3 notas + funciones"];
+        CT  [label="control\nmodos y parametros", fillcolor="#e8f1e4", color="#2e7d32"];
+        SQ  [label="secuenciador\nmemoria 256 x 37", fillcolor="#fdecea", color="#b03a2e"];
+        SL  [label="selector_notas"];
+        GV  [label="gestor_voces"];
+        V0  [label="voz 0\nDDS + onda + ADSR"];
+        V1  [label="voz 1\nDDS + onda + ADSR"];
+        V2  [label="voz 2\nDDS + onda + ADSR"];
+        AU  [label="audio_salida\nmezcla, tremolo, eco,\nvolumen, metronomo, PWM", fillcolor="#e9f6ec", color="#1e7b34"];
+        DH  [label="display_hex"];
+        VG  [label="vga_ui\n640 x 480"];
+        LE  [label="leds_estado"];
+    }
+
+    RC  [label="filtro RC\nPAM8403, bocina", fillcolor="#fff4e8", color="#b5651d"];
+    HX  [label="HEX0-HEX5", fillcolor="#fff4e8", color="#b5651d"];
+    MON [label="monitor VGA", fillcolor="#fff4e8", color="#b5651d"];
+    LD  [label="LEDR0-LEDR9", fillcolor="#fff4e8", color="#b5651d"];
+
+    {rank=source; T1; T2; PL}
+    {rank=sink; RC; HX; MON; LD}
+
+    T1 -> IT; T2 -> IT; PL -> EP;
+    IT -> TN [label="teclas"];
+    TN -> CT [label="func"];
+    EP -> CT [label="modo, accion, metro"];
+    TN -> SQ [label="vivo"];
+    CT -> SQ [label="ordenes"];
+    TN -> SL [label="vivo"];
+    SQ -> SL [label="grabado"];
+    SL -> GV [label="pedidas"];
+    GV -> V0; GV -> V1; GV -> V2;
+    CT -> V0 [style=dashed, label="forma, ADSR"]; CT -> V1 [style=dashed]; CT -> V2 [style=dashed];
+    V0 -> AU; V1 -> AU; V2 -> AU;
+    CT -> AU [label="volumen, efecto, tempo", style=dashed];
+    AU -> RC [label="AUDIO_PWM"];
+    CT -> DH [style=dashed]; SQ -> DH [style=dashed]; DH -> HX;
+    CT -> VG [style=dashed]; GV -> VG [style=dashed]; SQ -> VG [style=dashed]; VG -> MON;
+    AU -> LE [label="beat, clip", style=dashed]; LE -> LD;
+}

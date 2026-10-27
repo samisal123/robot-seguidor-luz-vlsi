@@ -1,0 +1,25 @@
+// FSM del secuenciador (rtl/secuenciador.vhd)
+digraph secuenciador {
+    graph [rankdir=LR, fontname="Helvetica", nodesep=0.6, ranksep=1.0, pad=0.3, bgcolor="white"];
+    node  [shape=box, style="rounded,filled", fillcolor="#eef3fb", color="#2f5597", fontname="Helvetica-Bold", fontsize=13, width=1.4, height=0.6];
+    edge  [fontname="Helvetica", fontsize=10, color="#404040", arrowsize=0.8];
+
+    inicio [shape=point, width=0.15, fillcolor=black];
+    ESPERA   [label="ESPERA\nsalida = silencio"];
+    GRABANDO [label="GRABANDO\nmide el evento en curso", fillcolor="#fdecea", color="#b03a2e"];
+    LEER     [label="LEER\nRAM(dir = p)"];
+    CARGAR   [label="CARGAR\nsalida = notas(p)\ndur = duracion(p)"];
+    TOCAR    [label="TOCAR\nespera la duracion", fillcolor="#e9f6ec", color="#1e7b34"];
+
+    inicio -> ESPERA;
+    ESPERA -> GRABANDO [label="cmd_grabar\neventos = 0, inicio = t_ms"];
+    GRABANDO -> GRABANDO [label="cambia el conjunto:\nguarda (notas, ms), inicio = t_ms\n\n65 535 ms: guarda y sigue"];
+    GRABANDO -> ESPERA [label="cmd_parar: guarda el ultimo\no se guardo el evento 256"];
+    ESPERA -> LEER [label="cmd_reproducir\ny eventos > 0\np = 0"];
+    LEER -> CARGAR;
+    CARGAR -> TOCAR;
+    TOCAR -> LEER [label="t_ms - inicio = dur\ny quedan eventos:\np = p + 1, inicio = inicio + dur"];
+    TOCAR -> ESPERA [label="fin del ultimo evento\no cmd_parar"];
+    LEER -> ESPERA [label="cmd_parar", style=dashed];
+    CARGAR -> ESPERA [label="cmd_parar", style=dashed];
+}

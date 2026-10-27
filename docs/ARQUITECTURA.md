@@ -1,178 +1,223 @@
-# Arquitectura
+# Arquitectura del sintetizador
 
 ## Decisiones de diseño
 
-1. **Un solo reloj.** Todo corre a 50 MHz. Los tiempos lentos (1 µs, 58 µs, 1 ms) salen de pulsos de habilitación de un ciclo generados en `tick_gen`, no de relojes divididos. Así no hay cruces de dominio ni problemas de temporización.
-2. **Toda entrada externa pasa por un sincronizador de 2 flip-flops** (LDR, ecos, encoders, botones y switches) antes de usarse.
-3. **Parámetros por `generic`:** umbrales de distancia, tiempos de la FSM, velocidades y N del atasco se ajustan en la arena sin reescribir lógica.
-4. **Un módulo por archivo, un testbench por módulo** y una prueba de sistema del robot completo con modelos de los sensores.
-5. **Puertos solo `std_logic` y `std_logic_vector`**, para que el Block Editor de Quartus genere el símbolo de cada módulo. Las 4 distancias viajan juntas en un vector de 36 bits (sensor `i` en los bits `9i+8` a `9i`). Los códigos de estado, acción y evento tienen nombre en `rtl/robot_pkg.vhd`.
-6. **Reset síncrono** desde KEY1 (más un reset de encendido de 16 ciclos). KEY0 arranca y detiene el recorrido.
-7. **Cadenas largas en etapas registradas** para cerrar tiempos a 50 MHz: la conversión a decimal de los displays y de la bitácora (multiplicación y double dabble), el tablero VGA (zonas en una etapa, color en otra) y el PI (medida, integrador y corrección en 3 etapas). La latencia extra es de 1 a 3 ciclos, invisible en un display o en un lazo de 50 ms.
+1. **Un solo reloj de 50 MHz.** Los tiempos lentos salen de pulsos de habilitación de un ciclo de `base_tiempo`: `tick_fs` cada 1024 ciclos (la muestra de audio, Fs = 48 828.125 Hz) y `tick_1ms`. No hay relojes divididos ni cruces de dominio.
+2. **Toda entrada externa pasa por un sincronizador de 2 flip-flops** (columnas de los teclados, botones y switches) y después por un antirrebote.
+3. **Un módulo por archivo, un testbench por módulo**, más una prueba del sistema completo con modelos de los teclados (ver [PRUEBAS.md](PRUEBAS.md)).
+4. **Puertos solo `std_logic` y `std_logic_vector`**, para que Quartus genere el símbolo de cada módulo y el nivel superior sea un diagrama de bloques (`quartus/sintetizador.bdf`), como en el material del curso "Creación y uso de bloques en Quartus". Los códigos de modos, estados, formas de onda y efectos tienen nombre en `rtl/synth_pkg.vhd`.
+5. **Los parámetros cambian en operación** (forma de onda, envolvente, volumen, tempo, efecto, octava): son registros de `control`, no constantes; no hace falta volver a sintetizar.
+6. **Cadenas largas en etapas registradas**: la multiplicación de cada voz, la cadena de audio (9 ciclos de 1024 disponibles por muestra) y la VGA (3 etapas) cierran tiempos a 50 MHz.
 
 ## Diagrama de bloques
 
-Guía para el diagrama oficial, que se arma en el Block Editor de Quartus con los símbolos de cada módulo (`File > Create/Update > Create Symbol Files for Current File`, según el manual "Creación y uso de bloques en Quartus").
+![Diagrama de bloques](img/bloques.png)
 
-```mermaid
-flowchart LR
-    CLK[Reloj 50 MHz] --> TICK[tick_gen]
-    KEY[KEY y SW] --> SYK[sync_2ff + debounce]
-    LDR[4 LDR + LM339<br/>+ comparador de cerca] --> SY1[sync_2ff]
-    SY1 --> DIR[ldr_dir]
-    US[4 HC-SR04] <--> SCH[ultra_sched<br/>4 x hcsr04]
-    SCH --> OBS[obst_eval]
-    SCH --> STL[stall_detect]
-    DIR --> FSM[fsm_nav]
-    OBS --> FSM
-    STL --> FSM
-    SYK --> FSM
-    FSM -- moviendo --> STL
-    FSM -- accion --> CMD[drive_cmd]
-    ENC[Encoders] --> VEL[encoder_vel x2]
-    CMD --> PI[pi_ctrl x2]
-    VEL --> PI
-    PI --> PWM[pwm_8b x2]
-    PWM --> MIF[motor_if x2]
-    MIF --> DRV[TB6612FNG + motores]
-    FSM --> DSP[seg7_disp y LEDR]
-    FSM --> TEL[telemetria<br/>uart_tx]
-    FSM --> VGA[vga_debug]
-    TICK -.-> SCH
-    TICK -.-> FSM
+El nivel superior existe en dos formas equivalentes, generadas por `tools/genera_top.py` a partir de una sola descripción de la red:
+
+- `quartus/sintetizador.bdf`: diagrama de bloques del Block Editor, nivel superior del proyecto de Quartus.
+- `rtl/sinte_top.vhd`: el mismo circuito en VHDL estructural, para simular el sistema completo con GHDL.
+
+| Bloque | Archivo | Función |
+|---|---|---|
+| Reset de encendido | `reset_encendido.vhd` | `rst` durante los primeros 16 ciclos |
+| Base de tiempo | `base_tiempo.vhd` | `tick_fs` (48 828 Hz) y `tick_1ms` |
+| Entradas de la tarjeta | `entradas_placa.vhd` | KEY0 y KEY1 a pulsos, SW9-SW8 a modo (sync + antirrebote de 20 ms) |
+| Interfaz de teclados | `interfaz_teclados.vhd`, `teclado_scan.vhd` | barrido de los dos teclados 4 × 4, filas en colector abierto, antirrebote de 20 ms por tecla |
+| Teclas a notas | `teclas_notas.vhd` | hasta 3 notas presionadas, pulsos de las teclas A-D y última nota |
+| Unidad de control | `control.vhd` | modos, parámetros del sonido y órdenes al secuenciador |
+| Secuenciador | `secuenciador.vhd`, `memoria_eventos.vhd` | graba y reproduce hasta 256 eventos |
+| Selector | `selector_notas.vhd` | notas en vivo o grabadas hacia las voces |
+| Gestor de voces | `gestor_voces.vhd` | reparte hasta 3 notas entre 3 voces |
+| Voz (× 3) | `voz.vhd`, `dds.vhd`, `forma_onda.vhd`, `adsr.vhd` | DDS, forma de onda, envolvente ADSR y producto |
+| Salida de audio | `audio_salida.vhd`, `mezclador.vhd`, `tremolo.vhd`, `eco.vhd`, `volumen.vhd`, `metronomo.vhd`, `salida_pwm.vhd` | mezcla, efectos, volumen, metrónomo y PWM |
+| Displays | `display_hex.vhd` | modo, octava, nota, eventos y parámetros en HEX0-HEX5 |
+| VGA | `vga_ui.vhd`, `fuente_5x7.vhd` | pantalla de 640 × 480 con el estado completo |
+| LEDs | `leds_estado.vhd` | voces, metrónomo, grabación, reproducción, efectos y saturación |
+
+## Entradas
+
+### Teclados
+
+Dos teclados de membrana 4 × 4. Las tres primeras columnas tocan notas en orden cromático y la cuarta son funciones:
+
+```
+ 1  2  3  A        C   C#  D   | A
+ 4  5  6  B   ->   D#  E   F   | B
+ 7  8  9  C        F#  G   G#  | C
+ *  0  #  D        A   A#  B   | D
 ```
 
-Con SW2 en 0 (o sin encoders), `pi_ctrl` deja pasar el duty de `drive_cmd` tal cual (lazo abierto).
+El teclado 1 toca la octava base (2 a 6, inicia en 4) y el teclado 2 la siguiente: **dos octavas cromáticas completas** a la vez, y con las teclas de octava se recorre de C2 a B7.
 
-## Módulos
+`teclado_scan` activa una fila por milisegundo en los dos teclados a la vez (`'0'` en la fila activa, alta impedancia en las demás) y lee las 8 columnas, que tienen pull-up. Cada una de las 32 teclas tiene su propio antirrebote: cambia de estado tras 5 lecturas seguidas iguales (20 ms). Como el teclado no tiene diodos, tres teclas en esquinas de un rectángulo producen una cuarta fantasma; con acordes de 3 notas de teclados distintos o filas distintas no pasa.
 
-Todos escritos, con testbench pasando en GHDL y síntesis revisada con `ghdl --synth` (ver `resultados/TAREA-004.md` y `resultados/TAREA-008.md`).
+`teclas_notas` convierte el estado de las teclas en:
 
-| Módulo | Función | Entradas → salidas principales |
-|---|---|---|
-| `robot_pkg` | Constantes: códigos de estado, acción, dirección de luz y evento | |
-| `tick_gen` | Pulsos de 1 µs, 58 µs y 1 ms | clk → tick_1us, tick_58us, tick_1ms |
-| `sync_2ff` | Sincroniza entradas asíncronas (genérico WIDTH) | d → q |
-| `debounce` | Filtra botones y switches (20 ms) | raw, tick_1ms → clean, rise, fall |
-| `pwm_8b` | PWM de 8 bits a 19.53 kHz; el duty nuevo entra al inicio del periodo | duty(7:0) → pwm |
-| `motor_if` | Dirección y enable para el driver, con pausa de 50 ms al invertir el giro | dir, pwm → IN1, IN2, EN |
-| `hcsr04` | Un sensor: TRIG de 10 µs, mide ECHO en cm, timeout de 25 ms | start, echo → trig, dist_cm(8:0), valid, timeout |
-| `ultra_sched` | Turna los 4 sensores cada 30 ms, sin traslape | echo(3:0) → trig(3:0), dist(35:0), nuevo(3:0), sin_eco(3:0) |
-| `ldr_dir` | Filtra las 4 LDR y el comparador de cerca; da la dirección de la luz | ve(3:0), cerca → luz(3:0), dir_luz, hay_luz, luz_cerca |
-| `obst_eval` | Distancias → banderas de obstáculo con histéresis; lado más libre | dist(35:0) → obs(3:0), lado_libre |
-| `stall_detect` | Atasco: se manda mover pero ninguna distancia válida cambia en 3 s | moviendo, dist, nuevo → atasco |
-| `fsm_nav` | FSM principal de 7 estados | luz, obstáculos, atasco, arranque → estado, accion, evento |
-| `drive_cmd` | Acción → sentido y duty por rueda, con rampa | accion, habilitado → dir_l, duty_l, dir_r, duty_r |
-| `encoder_vel` | Velocidad de una rueda: transiciones por ventana de 50 ms | a, b → vel(9:0), listo |
-| `pi_ctrl` | Extra: PI de velocidad con prealimentación y antiwindup | objetivo, medida → duty |
-| `seg7_disp` | Estado, evento y % de duty en HEX5 a HEX0; distancia con SW9 | estado, evento, duty, dist → HEX5..HEX0 |
-| `uart_tx` | Transmisor UART 8N1 | dato, enviar → tx, ocupado |
-| `telemetria` | Bitácora por UART cada 200 ms y en cada evento | estado, evento, dist, luz, duty → tx |
-| `vga_debug` | Extra: tablero de 640 × 480 a 60 Hz | estado, sensores, duty → VGA |
-| `robot_top` | Integra todo y conecta los pines de la DE10-Lite | |
+- `notas`: hasta 3 notas pedidas, de grave a aguda (7 bits cada una, `n = 12 · octava + semitono`, A4 = 57, 0 = vacía). Con más de 3 teclas se quedan las 3 más graves.
+- `func`: pulso de un ciclo al presionar A, B, C o D de cada teclado.
+- `ultima`: la última nota presionada, para los displays.
 
-## FSM principal (`fsm_nav`)
-
-```mermaid
-stateDiagram-v2
-    [*] --> INICIO
-    INICIO --> BUSCAR: KEY0
-    BUSCAR --> SEGUIR: hay luz
-    BUSCAR --> ESQUIVA: obstáculo durante el tramo
-    SEGUIR --> BUSCAR: sin luz T_PERDIDA
-    SEGUIR --> ESQUIVA: obstáculo al frente o en diagonal (sin luz cerca)
-    SEGUIR --> ESQUINA: frente y ambas diagonales ocupadas
-    SEGUIR --> META: luz cerca T_META
-    ESQUIVA --> SEGUIR: rodeo terminado con luz
-    ESQUIVA --> BUSCAR: rodeo terminado sin luz
-    ESQUIVA --> ESQUINA: no despeja en T_GIRO_MAX
-    ESQUIVA --> META: luz cerca T_META
-    ESQUINA --> SEGUIR: giro terminado con luz
-    ESQUINA --> BUSCAR: giro terminado sin luz
-    BUSCAR --> ESCAPE: atasco
-    SEGUIR --> ESCAPE: atasco
-    ESQUIVA --> ESCAPE: atasco
-    ESQUINA --> ESCAPE: atasco
-    ESCAPE --> BUSCAR: maniobra terminada
-    META --> INICIO: KEY0
-```
-
-KEY0 también detiene al robot desde cualquier estado (vuelve a INICIO).
-
-| Código (HEX5) | Estado | Qué hace | Acción de motores |
-|---|---|---|---|
-| 0 | INICIO | Espera KEY0 | PARO |
-| 1 | BUSCAR | Gira despacio en su lugar 3 s; si no ve luz y el frente está libre, avanza un tramo de 1.2 s y vuelve a girar | BUSCA, luego AVANZA |
-| 2 | SEGUIR | Avanza corrigiendo el rumbo según la LDR que ve luz. Junto a la lámpara (luz cerca y base al frente) se detiene y espera la meta | AVANZA, CURVA, GIRO o PARO |
-| 3 | ESQUIVA | Gira hacia el lado libre (lejos de la diagonal ocupada, o hacia la diagonal con más distancia) hasta que el frente y esa diagonal se despejan, mínimo 150 ms; luego avanza 700 ms para rodear | GIRO, luego AVANZA |
-| 4 | ESQUINA | Reversa 400 ms si atrás está libre y gira unos 135° (900 ms, se calibra) | REVERSA, luego GIRO |
-| 5 | ESCAPE | Reversa 600 ms si atrás está libre y gira hacia un lado al azar (LFSR) entre 0.5 y 1.2 s | REVERSA, luego GIRO |
-| 6 | META | Se detiene y parpadean todos los LEDs | PARO |
-
-Eventos (HEX4 y UART): 1 luz encontrada, 2 luz perdida, 3 obstáculo, 4 esquina, 5 atasco, 6 meta.
-
-**Por qué la meta va antes que la evasión:** junto al foco, el sensor del frente ve la base de la lámpara como obstáculo. Si la FSM esquivara, nunca llegaría. Con luz cerca no esquiva; y si ya estaba esquivando, la luz cerca sostenida también cuenta como meta.
-
-### Acciones (`fsm_nav` → `drive_cmd`)
-
-| Acción | Rueda izquierda | Rueda derecha |
-|---|---|---|
-| PARO | 0 | 0 |
-| AVANZA | adelante 170 | adelante 170 |
-| CURVA_IZQ / CURVA_DER | adelante 80 / 170 | adelante 170 / 80 |
-| GIRO_IZQ / GIRO_DER | atrás 150 / adelante 150 | adelante 150 / atrás 150 |
-| REVERSA | atrás 140 | atrás 140 |
-| BUSCA | atrás 110 | adelante 110 |
-
-Los duty (de 0 a 255) son generics de `drive_cmd`. El duty sube o baja 8 por ms, y antes de invertir una rueda la rampa la lleva a 0; `motor_if` agrega 50 ms con el motor libre.
-
-### Dirección de la luz (`ldr_dir`)
-
-| LDR con luz | Dirección | Acción en SEGUIR |
-|---|---|---|
-| frente sola, o frente con izquierda y derecha | FRENTE | AVANZA |
-| frente e izquierda | FRENTE_IZQ | CURVA_IZQ |
-| frente y derecha | FRENTE_DER | CURVA_DER |
-| izquierda (sin derecha) | IZQ | GIRO_IZQ |
-| derecha (sin izquierda) | DER | GIRO_DER |
-| izquierda y derecha sin frente | FRENTE | AVANZA |
-| solo atrás | ATRAS | GIRO_IZQ |
-| ninguna | NINGUNA | AVANZA mientras corre T_PERDIDA |
-
-## Interfaz en la tarjeta
+### Botones y switches
 
 | Control | Función |
 |---|---|
-| KEY0 | Arranca o detiene el recorrido |
-| KEY1 | Reset |
-| SW1 y SW0 | Sensor que se muestra con SW9 (0 frente, 1 diagonal izq, 2 diagonal der, 3 atrás) |
-| SW2 | Control PI con encoders (extra); en 0, lazo abierto |
-| SW7 | Prueba de motores: ambas ruedas adelante, sin importar la FSM |
-| SW8 | Motores habilitados (STBY del driver). En 0 el robot piensa pero no se mueve: modo banco |
-| SW9 | Displays en modo distancia |
+| SW9-SW8 | modo: 00 interpretación, 01 grabación, 10 reproducción, 11 configuración |
+| KEY0 | en grabación inicia o finaliza; en reproducción inicia o detiene |
+| KEY1 | enciende o apaga el metrónomo |
 
-| Salida | Muestra |
+## Unidad de control
+
+![Modos de operación](img/modos.png)
+
+`control` guarda los parámetros y decide qué hace cada tecla de función según el modo:
+
+| Tecla | Interpretación, grabación y reproducción | Configuración |
+|---|---|---|
+| Teclado 1, A / B | octava − / + (2 a 6) | valor − / + del parámetro elegido |
+| Teclado 1, C | siguiente forma de onda | parámetro anterior |
+| Teclado 1, D | siguiente efecto | parámetro siguiente |
+| Teclado 2, A / B | volumen − / + (0 a 4) | valor − / + |
+| Teclado 2, C / D | tempo − / + | parámetro anterior / siguiente |
+
+Parámetros (en configuración se recorren en este orden):
+
+| # | Parámetro | Valores (0 a 3, o 0 a 4) | Inicial |
+|---|---|---|---|
+| 0 | Forma | cuadrada, triangular, sierra, seno | cuadrada |
+| 1 | Attack | 2, 50, 200, 800 ms | 2 ms |
+| 2 | Decay | 50, 200, 600, 1500 ms | 200 ms |
+| 3 | Sustain | 25, 50, 75, 100 % | 75 % |
+| 4 | Release | 20, 150, 500, 1500 ms | 150 ms |
+| 5 | Volumen | silencio, 25, 50, 75, 100 % | 75 % |
+| 6 | Tempo | 60, 90, 120, 150 BPM | 120 BPM |
+| 7 | Efecto | ninguno, trémolo, eco, los dos | ninguno |
+
+Attack, decay y release son tiempos de escala completa (de 0 a 255 o al revés); sustain es un nivel. En configuración los valores se quedan en sus límites; con las teclas directas, forma y efecto dan la vuelta.
+
+Órdenes al secuenciador: KEY0 en grabación manda `cmd_grabar` (si está en espera) o `cmd_parar` (si graba); en reproducción, `cmd_reproducir` o `cmd_parar`. Cambiar de modo a mitad de una grabación o reproducción también manda `cmd_parar`. El metrónomo suena en interpretación y grabación y se calla mientras se reproduce una secuencia.
+
+## Secuenciador y memoria
+
+Un **evento** es un conjunto de notas que se mantuvo igual (hasta 3 notas, o silencio si no hay ninguna) y su duración en milisegundos. Así quedan grabadas notas, acordes y silencios con sus duraciones, en orden.
+
+Formato de cada palabra de `memoria_eventos` (RAM de 256 × 37 bits, 2 bloques M9K):
+
+| Bits | Contenido |
 |---|---|
-| HEX5 | Código de estado |
-| HEX4 | Último evento |
-| HEX3 y HEX2 | % de duty de la rueda izquierda (duty × 100 / 256, de 0 a 99) |
-| HEX1 y HEX0 | % de duty de la rueda derecha |
-| con SW9 | HEX3 número de sensor (con punto) y HEX2 a HEX0 su distancia en cm; "---" si no hubo eco |
-| LEDR0 a LEDR3 | LDR con luz: frente, izquierda, derecha, atrás |
-| LEDR4 a LEDR7 | Obstáculo: frente, diagonal izquierda, diagonal derecha, atrás |
-| LEDR8 | En ESCAPE (atasco) |
-| LEDR9 | Latido de 1 Hz |
-| Todos | Parpadean a 4 Hz en META |
-| UART (GPIO, 115200 8N1) | Línea `E2 V1 F045 I120 D--- A033 L1010 C0 P66 66 S012 013` cada 200 ms y en cada evento: estado, evento, distancias (frente, diag izq, diag der, atrás), LDR, luz cerca, % de duty y velocidad de los encoders |
-| VGA | Banda del color del estado con estado y evento, barras de distancia (verde libre, rojo obstáculo, gris sin eco), cruz de LDR, barras de duty y cuadro de atasco |
+| 36..30 | nota 3 (0 = vacía) |
+| 29..23 | nota 2 |
+| 22..16 | nota 1 |
+| 15..0 | duración en ms (1 a 65 535) |
 
-## Cálculos clave
+Capacidad: 256 eventos (la especificación pide 64). Un evento de más de 65.5 s se guarda como dos.
 
-- **PWM:** f = 50 MHz / (10 × 256) = 19.53 kHz, arriba de los 18 kHz pedidos, con 8 bits de resolución.
-- **HC-SR04:** distancia en cm = tiempo de eco en µs / 58, así que contar periodos de 58 µs da los cm directamente. `hcsr04` arranca su propio contador de 58 µs en el flanco de subida del eco, adelantado medio periodo, y así obtiene round(t/58): un eco de 580 µs da 10 cm exactos. Timeout de 25 ms después del TRIG (unos 4.3 m); sin eco, la distancia sale como 511. Con turnos de 30 ms, los 4 sensores se leen cada 120 ms.
-- **Debounce:** 20 ms estables, contados con el tick de 1 ms. Las LDR usan un filtro de 10 ms.
-- **Obstáculo:** frente a menos de 25 cm, diagonales a menos de 18 cm, atrás a menos de 12 cm; la bandera baja 5 cm arriba del umbral.
-- **Atasco:** mientras la FSM ordena moverse, si en 3 s ninguna distancia válida cambia más de 3 cm. Un eco que aparece y desaparece (511 contra un valor) no cuenta como avance.
-- **UART:** 50 MHz / 115200 = 434 ciclos por bit (error de 0.006 %). Una línea de 52 caracteres tarda 4.5 ms.
-- **VGA:** 640 × 480 a 60 Hz con pixel de 25 MHz (cada 2 ciclos de 50 MHz): línea de 800 pixeles, cuadro de 525 líneas, sincronías negativas.
-- **PI:** la medida se pasa a unidades de duty con `med_duty = medida × 256 / VMAX`; corrección = (4·e + integral) / 16 con integral += 2·e. Es estable si la rueda real da entre la mitad y el doble de VMAX (probado en `tb_pi_ctrl`).
+![FSM del secuenciador](img/fsm_secuenciador.png)
+
+- **ESPERA**: salida en silencio. `cmd_grabar` borra la secuencia anterior y pasa a GRABANDO; `cmd_reproducir` con eventos guardados pasa a LEER.
+- **GRABANDO**: cuando cambia el conjunto de notas, guarda el evento que termina (notas y ms) y empieza a medir el siguiente. `cmd_parar` guarda el último y vuelve a ESPERA; al guardar el evento 256 (memoria llena) también.
+- **LEER → CARGAR → TOCAR**: lee el evento, pone sus notas en la salida y espera su duración; luego el siguiente. Después del último, la salida queda en silencio y regresa a ESPERA.
+
+La base de tiempo del secuenciador es un contador libre de milisegundos (`t_ms`); `inicio` guarda el milisegundo en que empezó el evento actual y la duración es `t_ms - inicio`. Al reproducir, el evento siguiente empieza en `inicio + duración`, así la latencia de la máquina (2 ciclos por evento) no pierde ticks ni acumula error: la reproducción dura exactamente lo que la grabación (verificado en simulación).
+
+En reproducción las voces toman las notas del secuenciador (`selector_notas`); lo que se toque encima no suena. Los parámetros del sonido sí se pueden cambiar mientras se reproduce.
+
+## Generación de audio
+
+### Voces
+
+Hay **3 voces independientes** (polifonía), cada una con su DDS y su ADSR:
+
+```
+nota -> ROM de incrementos -> DDS (24 bits) -> forma_onda --+
+                                                             x -> muestra (8 bits con signo)
+gate ------------------------------> ADSR (24 bits) --------+
+```
+
+**DDS.** Un acumulador de fase de 24 bits suma un incremento en cada muestra: `fase = fase + inc (mod 2^24)`. La frecuencia es `f = inc · Fs / 2^24`, con resolución de 0.0029 Hz. Los incrementos de las 12 notas de la octava 7 están en `synth_pkg` (`inc = f · 2^24 / Fs`, por ejemplo B7: 3951.07 Hz → 1 357 576); las octavas de abajo se obtienen dividiendo entre 2 por octava. Con eso se arma una ROM de 128 incrementos. El error máximo contra la afinación temperada (A4 = 440 Hz) es menor a 0.01 %. Cambiar de nota solo cambia el incremento; la fase sigue sin saltos.
+
+**Formas de onda** (de los bits altos de la fase, sin memoria salvo el seno):
+
+| Forma | Cálculo |
+|---|---|
+| Cuadrada | +127 si `fase(23) = 0`, −127 si no |
+| Triangular | `fase(22..15) − 128` subiendo en la primera mitad, `127 − fase(22..15)` bajando en la segunda |
+| Sierra | `fase(23..16) − 128` |
+| Seno | tabla de 256 puntos indexada con `fase(23..16)` |
+
+**Envolvente ADSR.** Acumulador de 24 bits; el nivel son sus 8 bits altos (0 a 255). Avanza una vez por muestra con un paso por etapa: para recorrer la escala completa en T ms, `paso = 2^24 / (T · Fs / 1000) = 343 597 / T`.
+
+![FSM del ADSR](img/fsm_adsr.png)
+
+Al soltar la nota en cualquier etapa pasa a LIBERACIÓN desde el nivel actual; si se vuelve a presionar durante la liberación, ataca desde ese nivel (sin regresar a 0, sin chasquido). Si el sustain cambia mientras se sostiene una nota, el nivel va al nuevo valor con la pendiente del decay.
+
+**Producto.** `muestra = onda · nivel / 256`, en un multiplicador embebido de 9 bits.
+
+### Gestor de voces
+
+Cada ciclo suelta (gate = 0) toda voz cuya nota ya no se pide, conservando la nota para que la liberación suene a la misma frecuencia, y asigna la primera nota pedida sin voz a una voz libre con esta preferencia: la que ya tenía esa nota (se volvió a presionar durante su liberación), una en reposo, o cualquiera libre. Con 3 voces y máximo 3 notas, siempre hay voz para cada nota. Un acorde completo queda repartido en 3 ciclos (60 ns).
+
+### Cadena de salida (`audio_salida`)
+
+```
+voz0..2 -> mezclador -> trémolo -> eco -> volumen -> (+ clic del metrónomo) -> PWM
+```
+
+Formato interno de 12 bits con signo (la muestra de 8 bits con 4 bits de fracción, escala completa ±2032). Todo avanza con `tick_fs`; la muestra final está lista 9 ciclos después y el PWM la toma al empezar su siguiente periodo.
+
+| Etapa | Funcionamiento |
+|---|---|
+| Mezclador | `(voz0 + voz1 + voz2) / 2` con saturación; una voz a escala completa da media escala y solo un acorde de 3 voces en fase llega a saturar |
+| Trémolo | LFO triangular de 4.98 Hz; la ganancia va de 1.0 a 0.5 |
+| Eco | `y[n] = x[n] + y[n − 8192] / 2` con saturación: el eco llega 168 ms después y cada repetición vale la mitad. RAM de 8192 × 12 bits en bloques M9K |
+| Volumen | `y = x · vol / 4`, vol de 0 (silencio) a 4 (100 %), con corrimientos y sumas |
+| Metrónomo | clic cuadrado de 2 kHz (3 kHz en el acento) de 24.7 ms con caída lineal; no pasa por el volumen ni por los efectos, para que se distinga de las notas |
+| PWM | 8 bits a 195.3 kHz (`50 MHz / 256`), ciclo de trabajo = muestra + 128 |
+
+`clip` se enciende 100 ms cuando alguna etapa satura (LEDR9).
+
+### Metrónomo
+
+Cuenta milisegundos y marca un tiempo cada 1000, 667, 500 o 400 ms (60, 90, 120, 150 BPM), con acento en el primero de cada 4. Al encenderlo, el primer tiempo es inmediato. Es independiente de las voces: tiene su propio generador del clic y se suma al final de la cadena. El tiempo se ve en LEDR4 y en la VGA (verde, rojo en el acento).
+
+### Etapa analógica
+
+El PWM sale por el pin 31 del header a un filtro RC de dos etapas (1 kΩ y 10 nF cada una, −3 dB en unos 6 kHz y −44 dB a 195 kHz), un capacitor de 10 µF que quita la DC, un divisor de 1/11 y el amplificador PAM8403, que mueve una bocina de 8 Ω. Detalle en [CABLEADO.md](CABLEADO.md).
+
+## Interfaz de usuario
+
+### Displays (HEX5 a HEX0)
+
+| Modo | HEX5-HEX4 | HEX3-HEX0 |
+|---|---|---|
+| Interpretación | `In` | `o` + octava base, y la última nota (letra y octava; el punto indica sostenido: `C.5` = C#5) |
+| Grabación | `Gr` | eventos grabados |
+| Reproducción | `rP` | número del evento que suena (eventos guardados en espera) |
+| Configuración | `CF` | parámetro (`Fo`, `At`, `dE`, `Su`, `rE`, `Uo`, `tE`, `EF`) y su valor |
+
+### LEDs
+
+LEDR0-2 voces sonando, LEDR3 metrónomo encendido, LEDR4 tiempo del metrónomo, LEDR5 grabando, LEDR6 reproduciendo, LEDR7 memoria llena, LEDR8 efecto activo, LEDR9 saturación.
+
+### VGA (640 × 480 a 60 Hz)
+
+![Pantalla VGA en los 4 modos (cuadros capturados en simulación con sim/captura_vga.vhd)](img/vga_modos.png)
+
+`vga_ui` dibuja con pixel de 25 MHz y una tubería de 3 etapas; las entradas se copian una vez por cuadro, así nunca se ve un cuadro partido:
+
+- Banda superior con el nombre del modo (color por modo), estado del metrónomo, tempo en BPM y un foco que destella en cada tiempo.
+- Piano de dos octavas desde la octava base; las teclas que suenan se pintan del color de su voz.
+- Panel de parámetros (en configuración se resalta el elegido), dibujo de un periodo de la forma de onda elegida y panel de voces con la nota y una barra del nivel de su envolvente.
+- Secuenciador: estado, eventos guardados (n/256), barra de avance o de memoria usada y posición.
+
+## Recursos y tiempos
+
+Se llenan con la compilación de Quartus en la PC del laboratorio (`quartus/compilar.sh`); ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus).
+
+## Limitaciones conocidas
+
+- Polifonía de 3 notas: con más teclas presionadas se quedan las 3 más graves.
+- Teclado sin diodos: tres teclas en esquinas de un rectángulo del mismo teclado agregan una cuarta fantasma.
+- El secuenciador guarda las notas, no los cambios de parámetros: la reproducción usa la forma, envolvente, volumen y efecto que estén en ese momento.
+- La reproducción no se mezcla con lo que se toque en vivo.
+- PWM de 8 bits: el ruido de cuantización es audible a volumen muy bajo; el filtro RC de 2 etapas deja pasar algo del armónico de 195 kHz, que la bocina no reproduce.

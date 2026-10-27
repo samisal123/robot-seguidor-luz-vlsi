@@ -1,0 +1,24 @@
+// FSM de la envolvente ADSR (rtl/adsr.vhd). Avanza una vez por muestra (tick_fs)
+digraph adsr {
+    graph [rankdir=LR, fontname="Helvetica", nodesep=1.1, ranksep=1.1, pad=0.3, bgcolor="white"];
+    node  [shape=box, style="rounded,filled", fillcolor="#eef3fb", color="#2f5597", fontname="Helvetica-Bold", fontsize=13, width=1.4, height=0.6];
+    edge  [fontname="Helvetica", fontsize=10, color="#404040", arrowsize=0.8];
+
+    inicio [shape=point, width=0.15, fillcolor=black];
+    REPOSO      [label="REPOSO\nnivel = 0, activa = 0"];
+    ATAQUE      [label="ATAQUE\nnivel + paso_attack"];
+    DECAIMIENTO [label="DECAIMIENTO\nnivel - paso_decay"];
+    SOSTENIDO   [label="SOSTENIDO\nnivel -> sustain"];
+    LIBERACION  [label="LIBERACION\nnivel - paso_release", fillcolor="#fdf3e6", color="#a85d00"];
+
+    inicio -> REPOSO;
+    REPOSO -> ATAQUE [label="gate = 1"];
+    ATAQUE -> DECAIMIENTO [label="nivel = 255"];
+    DECAIMIENTO -> SOSTENIDO [label="nivel = sustain"];
+    ATAQUE -> LIBERACION [label="gate = 0"];
+    DECAIMIENTO -> LIBERACION [label="gate = 0"];
+    SOSTENIDO -> LIBERACION [label="gate = 0"];
+    LIBERACION -> ATAQUE [label="gate = 1\n(ataca desde el nivel actual)"];
+    LIBERACION -> REPOSO [label="nivel = 0"];
+    {rank=same; DECAIMIENTO; LIBERACION}
+}

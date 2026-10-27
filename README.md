@@ -1,78 +1,68 @@
-# Robot móvil seguidor de luz con evasión de obstáculos
+# Sintetizador musical digital en FPGA
 
-Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un robot de máximo 20 × 20 × 20 cm encuentra un foco en una arena de 1 m × 1.7 m con obstáculos y llega a él de forma autónoma. Toda la lógica de control está en VHDL sobre una FPGA MAX 10 (tarjeta DE10-Lite).
+Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un sintetizador que se toca con dos teclados matriciales, genera las notas por síntesis digital directa (DDS) con envolvente ADSR, graba y reproduce secuencias, tiene metrónomo y suena por una bocina. Toda la lógica está en VHDL sobre una FPGA MAX 10 (tarjeta DE10-Lite); afuera solo hay un filtro RC y un amplificador PAM8403.
+
+![Diagrama de bloques](docs/img/bloques.png)
 
 ## Qué hace
 
-- **Sensores:** 4 LDR con comparadores LM339 para la dirección de la luz, un quinto comparador para saber cuándo llegó al foco, y 4 HC-SR04 (frente, diagonales y atrás) disparados por turnos.
-- **Control:** FSM de 7 estados (INICIO, BUSCAR, SEGUIR, ESQUIVA, ESQUINA, ESCAPE, META), detección de atasco a los 3 s con maniobra de escape al azar.
-- **Motores:** 2 motores DC con PWM de 8 bits a 19.53 kHz por un TB6612FNG, con rampa y pausa al invertir el giro.
-- **Visualización:** estado, evento y % de duty en los displays; sensores en los LEDs; bitácora por UART a 115200.
-- **Extras:** control PI de velocidad con encoders y tablero de depuración por VGA (640 × 480).
+- **Teclado:** dos teclados 4 × 4, cada uno con 12 notas cromáticas (dos octavas a la vez) y 4 teclas de función. Octava base de 2 a 6.
+- **Síntesis:** 3 voces simultáneas, cada una con su acumulador de fase de 24 bits (DDS) y su envolvente ADSR. Formas de onda cuadrada, triangular, sierra y seno.
+- **Envolvente ADSR:** 4 tiempos de attack, 4 de decay, 4 niveles de sustain y 4 tiempos de release, modificables en operación.
+- **Volumen digital:** 4 niveles más silencio, independiente de la envolvente.
+- **Modos:** interpretación, grabación, reproducción y configuración (SW9-SW8).
+- **Secuenciador:** graba hasta 256 eventos (notas, acordes y silencios con su duración en ms) en una RAM interna y los reproduce con la misma duración.
+- **Metrónomo:** 60, 90, 120 y 150 BPM, con acento cada 4 tiempos y un clic que no pasa por los efectos ni el volumen.
+- **Efectos:** trémolo y eco (RAM de 8192 muestras, 168 ms).
+- **Interfaz:** displays de 7 segmentos, LEDs y una pantalla VGA de 640 × 480 con el modo, un piano que muestra las notas que suenan, los parámetros, la forma de onda, las voces y el secuenciador.
+- **Salida:** PWM de 8 bits a 195.3 kHz, filtro RC de 2 etapas, PAM8403 y bocina de 8 Ω.
 
-## Estado
-
-El diseño digital está completo y verificado en simulación: 19 testbenches pasan en GHDL, incluida una prueba del robot completo con modelos de los sensores. Falta compilarlo en Quartus en la PC, armar el robot y calibrarlo en la arena. Detalle en [docs/PLAN.md](docs/PLAN.md#estado) y evidencia en [resultados/](resultados/).
+Características de nivel implementadas: polifonía de tres voces, efectos digitales (trémolo y eco) e interfaz gráfica VGA.
 
 ## Estructura
 
 | Carpeta | Contenido |
 |---|---|
-| `rtl/` | VHDL sintetizable (VHDL-93), un módulo por archivo; el top es `robot_top.vhd` |
-| `sim/` | Testbenches y `correr.sh` para GHDL |
-| `quartus/` | Scripts que generan y compilan el proyecto, pines y restricciones de tiempo |
-| `docs/` | Plan, arquitectura y FSM, hardware, materiales, cableado y pruebas físicas |
-| `resultados/`, `logs/` | Evidencia de compilaciones y simulaciones |
-| `tools/` | Automatización del flujo de trabajo entre la nube y la PC |
+| `rtl/` | VHDL sintetizable (VHDL-93), un módulo por archivo |
+| `sim/` | Un testbench por módulo, prueba del sistema completo, modelos y `correr.sh` para GHDL |
+| `quartus/` | Scripts que crean y compilan el proyecto, diagrama de bloques del nivel superior (`sintetizador.bdf`), símbolos, pines y restricciones de tiempo |
+| `docs/` | Arquitectura y FSM, cableado, materiales, pruebas y diagramas |
+| `tools/` | `genera_top.py`, que genera el nivel superior (`.bdf` y `.vhd`) |
 
 ## Cómo reproducir
 
-Requisitos: Quartus Prime Lite con soporte para MAX 10 (se probó con 25.1std), y GHDL para simular.
+Requisitos: Quartus Prime Lite con soporte para MAX 10 (se usó 25.1std) y GHDL para simular.
 
 ```bash
 git clone https://github.com/samisal123/robot-seguidor-luz-vlsi.git
 cd robot-seguidor-luz-vlsi
-quartus/compilar.sh     # crea el proyecto, compila y muestra recursos y Fmax
-quartus/programar.sh    # carga el .sof en la DE10-Lite por USB-Blaster
+sh quartus/compilar.sh     # crea el proyecto, compila y muestra recursos y Fmax
+sh quartus/programar.sh    # carga el .sof en la DE10-Lite por USB-Blaster
 ```
 
-`compilar.sh` corre `quartus_sh -t crear_proyecto.tcl` y `quartus_sh --flow compile robot`; después, el proyecto también se abre en la interfaz de Quartus con `quartus/robot.qpf`.
+`compilar.sh` corre `quartus_sh -t crear_proyecto.tcl` y `quartus_sh --flow compile sintetizador`. Después el proyecto se abre en la interfaz de Quartus con `quartus/sintetizador.qpf`; el nivel superior es el diagrama de bloques `sintetizador.bdf`.
 
 Simulación con GHDL (todos los testbenches, o solo los que se nombren):
 
 ```bash
-sim/correr.sh
-sim/correr.sh fsm_nav robot_top
+sh sim/correr.sh
+sh sim/correr.sh secuenciador adsr
 ```
-
-Bitácora del robot en la PC (con un convertidor USB-TTL en el header, ver [cableado](docs/CABLEADO.md#uart-extra)):
-
-```bash
-python3 -m serial.tools.miniterm /dev/ttyUSB0 115200
-```
-
-## Uso
-
-| Control | Función |
-|---|---|
-| KEY0 | Arranca o detiene el recorrido |
-| KEY1 | Reset |
-| SW8 | Motores habilitados (en 0, modo banco: piensa pero no se mueve) |
-| SW7 | Prueba de motores: ambas ruedas adelante |
-| SW2 | Control PI con encoders |
-| SW9, SW1-SW0 | Displays en modo distancia del sensor elegido |
-
-HEX5 muestra el estado (0 INICIO, 1 BUSCAR, 2 SEGUIR, 3 ESQUIVA, 4 ESQUINA, 5 ESCAPE, 6 META). Todos los controles y salidas están en [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md#interfaz-en-la-tarjeta).
 
 ## Documentación
 
-- [Plan, cronograma y pruebas](docs/PLAN.md)
-- [Arquitectura, módulos y FSM](docs/ARQUITECTURA.md)
-- [Hardware y decisiones](docs/HARDWARE.md)
-- [Lista de materiales con precios](docs/MATERIALES.md)
-- [Cableado pin por pin](docs/CABLEADO.md)
-- [Pruebas físicas y calibración](docs/PRUEBAS_FISICAS.md)
+- [Arquitectura, módulos y máquinas de estados](docs/ARQUITECTURA.md)
+- [Cableado: teclados, audio y VGA](docs/CABLEADO.md)
+- [Materiales](docs/MATERIALES.md)
+- [Pruebas: simulación, compilación y pruebas en la tarjeta](docs/PRUEBAS.md)
 
-## Equipo
+## Uso rápido
 
-Por completar.
+| Control | Función |
+|---|---|
+| SW9-SW8 | 00 interpretación, 01 grabación, 10 reproducción, 11 configuración |
+| KEY0 | grabación: iniciar / finalizar; reproducción: iniciar / detener |
+| KEY1 | metrónomo encendido / apagado |
+| Teclado 1, A B C D | octava −, octava +, forma siguiente, efecto siguiente |
+| Teclado 2, A B C D | volumen −, volumen +, tempo −, tempo + |
+| Configuración | A / B cambian el valor, C / D eligen el parámetro (forma, attack, decay, sustain, release, volumen, tempo, efecto) |
