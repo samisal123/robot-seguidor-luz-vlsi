@@ -1,0 +1,10 @@
+flowchart TB
+    SW{"SW9 SW8"}
+    SW -- "0 0" --> INT["INTERPRETACION<br/>tocar en vivo"]
+    SW -- "0 1" --> GRA["GRABACION<br/>KEY0: iniciar / finalizar"]
+    SW -- "1 0" --> REP["REPRODUCCION<br/>KEY0: iniciar / detener"]
+    SW -- "1 1" --> CONF["CONFIGURACION<br/>A/B valor, C/D parametro"]
+    GRA -- "KEY0" --> SG["secuenciador:<br/>GRABANDO"]
+    REP -- "KEY0" --> SR["secuenciador:<br/>REPRODUCIENDO"]
+    SG -- "KEY0, memoria llena<br/>o cambio de modo" --> ESP["secuenciador:<br/>ESPERA"]
+    SR -- "KEY0, fin de la secuencia<br/>o cambio de modo" --> ESP
