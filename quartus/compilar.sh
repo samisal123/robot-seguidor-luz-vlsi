@@ -5,7 +5,8 @@
 # fitter, ensamblador y analisis de tiempos). Deja el log en
 # logs/compilacion.log y muestra el resumen.
 #
-# Uso: quartus/compilar.sh
+# Uso: sh quartus/compilar.sh             (nivel superior: sintetizador.bdf)
+#      sh quartus/compilar.sh sinte_top   (nivel superior: rtl/sinte_top.vhd)
 # Si quartus_sh no esta en el PATH, se busca en ~/altera_lite y
 # ~/intelFPGA_lite.
 # ============================================================
@@ -21,20 +22,21 @@ if ! command -v quartus_sh >/dev/null 2>&1; then
 fi
 command -v quartus_sh >/dev/null 2>&1 || { echo "No encuentro quartus_sh"; exit 1; }
 
+mkdir -p "$Q/../logs"
 cd "$Q"
-quartus_sh -t crear_proyecto.tcl > /dev/null || { echo "Fallo crear_proyecto.tcl"; exit 1; }
-quartus_sh --flow compile robot > "$LOG" 2>&1
+quartus_sh -t crear_proyecto.tcl "$@" > /dev/null || { echo "Fallo crear_proyecto.tcl"; exit 1; }
+quartus_sh --flow compile sintetizador > "$LOG" 2>&1
 estado=$?
 
 grep -E "was successful|was unsuccessful|^Error|Critical Warning" "$LOG"
 echo
-if [ -f output_files/robot.fit.summary ]; then
-    echo "==== Recursos (output_files/robot.fit.summary) ===="
-    cat output_files/robot.fit.summary
+if [ -f output_files/sintetizador.fit.summary ]; then
+    echo "==== Recursos (output_files/sintetizador.fit.summary) ===="
+    cat output_files/sintetizador.fit.summary
 fi
-if [ -f output_files/robot.sta.rpt ]; then
+if [ -f output_files/sintetizador.sta.rpt ]; then
     echo "==== Fmax ===="
-    grep -A 8 "Fmax Summary" output_files/robot.sta.rpt | head -14
+    grep -A 8 "Fmax Summary" output_files/sintetizador.sta.rpt | head -14
 fi
 echo
 echo "Log completo: logs/compilacion.log"

@@ -1,7 +1,7 @@
 #!/bin/sh
 # ============================================================
 # programar.sh
-# Carga output_files/robot.sof en la DE10-Lite por el USB-Blaster.
+# Carga output_files/sintetizador.sof en la DE10-Lite por el USB-Blaster.
 # La configuracion se pierde al apagar la tarjeta.
 # Uso: quartus/programar.sh   (despues de quartus/compilar.sh)
 # ============================================================
@@ -16,6 +16,6 @@ if ! command -v quartus_pgm >/dev/null 2>&1; then
 fi
 
 cd "$Q"
-[ -f output_files/robot.sof ] || { echo "Primero compila: quartus/compilar.sh"; exit 1; }
+[ -f output_files/sintetizador.sof ] || { echo "Primero compila: quartus/compilar.sh"; exit 1; }
 quartus_pgm -l
-quartus_pgm -m jtag -o "p;output_files/robot.sof"
+quartus_pgm -m jtag -o "p;output_files/sintetizador.sof"
