@@ -1,6 +1,6 @@
 -- ============================================================
 -- tb_debounce.vhd
--- Verifica debounce (N_MS = 20) con tick_gen real a 2 MHz, de
+-- Verifica debounce (N_MS = 20) con base_tiempo real a 2 MHz, de
 -- modo que los tiempos son milisegundos reales:
 --   arranca en INIT,
 --   rebotes de 2 ms no pasan,
@@ -32,9 +32,9 @@ begin
 
     clk <= not clk after T_CLK / 2 when not fin;
 
-    ticks : entity work.tick_gen
+    ticks : entity work.base_tiempo
         generic map (CLK_HZ => CLK_HZ)
-        port map (clk => clk, rst => rst, tick_1us => open, tick_58us => open, tick_1ms => t1ms);
+        port map (clk => clk, rst => rst, tick_fs => open, tick_1ms => t1ms);
 
     dut : entity work.debounce
         generic map (N_MS => 20, INIT => '0')
@@ -86,7 +86,7 @@ begin
         -- 1) Rebotes de 2 ms alrededor de '0' durante 40 ms: no pasan
         rebotes(10, 2 ms, '0');
         wait for 25 ms;
-        assert clean = '0' and n_rise = 0 report "rebotes de 2 ms pasaron" severity error;
+        assert clean = '0' and n_rise = 0 report "tb_debounce: rebotes de 2 ms pasaron" severity error;
 
         -- 2) Pulso de 15 ms: no pasa
         raw <= '1';
