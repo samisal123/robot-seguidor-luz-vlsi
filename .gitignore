@@ -35,3 +35,7 @@ Thumbs.db
 
 # Proyectos temporales de sintetizar_modulo.sh
 quartus/mod/
+
+# Datos de las graficas de simulacion (se regeneran con sim/graficas/genera.sh)
+sim/graficas/salida/
+sim/graficas/work/
