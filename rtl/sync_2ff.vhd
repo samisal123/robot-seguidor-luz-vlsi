@@ -1,10 +1,10 @@
 -- ============================================================
 -- sync_2ff.vhd
 -- Sincronizador de 2 flip-flops para entradas asincronas
--- (LDR, ecos, encoders, botones). Un cambio en d aparece en q
--- en el segundo flanco de reloj despues del cambio. El primer
--- flip-flop puede quedar metaestable; el segundo le da un ciclo
--- completo para resolverse.
+-- (columnas de los teclados, botones y switches). Un cambio en
+-- d aparece en q en el segundo flanco de reloj despues del
+-- cambio. El primer flip-flop puede quedar metaestable; el
+-- segundo le da un ciclo completo para resolverse.
 -- No lleva reset: arranca en INIT por valor de encendido.
 -- ============================================================
 library ieee;
