@@ -1,0 +1,204 @@
+# ghdl --synth --std=93c sinte_top (GHDL 4.1.0): mensajes de la sintesis
+# Solo notas de ROM inferidas y el aviso de altera_attribute (lo usa Quartus); sin latches.
+
+rtl/gestor_voces.vhd:45:14:note: found ROM "n3173", width: 24 bits, depth: 128
+    function pedida (c : std_logic_vector(20 downto 0); i : natural) return t_nota is
+             ^
+rtl/display_hex.vhd:113:29:note: found ROM "n3381", width: 8 bits, depth: 10
+                c2 <= DIGITO(to_integer(unsigned(octava)));
+                            ^
+rtl/display_hex.vhd:122:36:note: found ROM "n3405", width: 8 bits, depth: 12
+                        c1 <= LETRA(semi) or PUNTO;
+                                   ^
+rtl/display_hex.vhd:124:36:note: found ROM "n3413", width: 8 bits, depth: 12
+                        c1 <= LETRA(semi);
+                                   ^
+rtl/display_hex.vhd:126:33:note: found ROM "n3423", width: 8 bits, depth: 10
+                    c0 <= DIGITO(oct mod 10);
+                                ^
+rtl/display_hex.vhd:134:33:note: found ROM "n3439", width: 8 bits, depth: 10
+                    c2 <= DIGITO(c);
+                                ^
+rtl/display_hex.vhd:139:33:note: found ROM "n3453", width: 8 bits, depth: 10
+                    c1 <= DIGITO(d);
+                                ^
+rtl/display_hex.vhd:141:29:note: found ROM "n3460", width: 8 bits, depth: 10
+                c0 <= DIGITO(u);
+                            ^
+rtl/display_hex.vhd:155:29:note: found ROM "n3521", width: 8 bits, depth: 10
+                c0 <= DIGITO(val);
+                            ^
+rtl/vga_ui.vhd:630:40:note: found ROM "n3820", width: 7 bits, depth: 128
+                    v_oct(i)   <= DIV12(n);
+                                       ^
+rtl/vga_ui.vhd:631:40:note: found ROM "n3826", width: 7 bits, depth: 128
+                    v_semi(i)  <= MOD12(n);
+                                       ^
+rtl/vga_ui.vhd:630:40:note: found ROM "n3871", width: 7 bits, depth: 128
+                    v_oct(i)   <= DIV12(n);
+                                       ^
+rtl/vga_ui.vhd:631:40:note: found ROM "n3877", width: 7 bits, depth: 128
+                    v_semi(i)  <= MOD12(n);
+                                       ^
+rtl/vga_ui.vhd:630:40:note: found ROM "n3922", width: 7 bits, depth: 128
+                    v_oct(i)   <= DIV12(n);
+                                       ^
+rtl/vga_ui.vhd:631:40:note: found ROM "n3928", width: 7 bits, depth: 128
+                    v_semi(i)  <= MOD12(n);
+                                       ^
+rtl/vga_ui.vhd:783:31:note: found ROM "n4467", width: 7 bits, depth: 256
+                s1_tc  <= DIV3(b);
+                              ^
+rtl/vga_ui.vhd:784:35:note: found ROM "n4472", width: 7 bits, depth: 256
+                s1_tgx <= 2 * MOD3(b) + (x / 2) mod 2;
+                                  ^
+rtl/vga_ui.vhd:795:31:note: found ROM "n4512", width: 7 bits, depth: 256
+                s1_ic  <= DIV3(b);
+                              ^
+rtl/vga_ui.vhd:796:35:note: found ROM "n4517", width: 7 bits, depth: 256
+                s1_igx <= 2 * MOD3(b) + (xr / 4) mod 2;
+                                  ^
+rtl/vga_ui.vhd:809:33:note: found ROM "n4625", width: 7 bits, depth: 32
+                    hw := CIRC16(y - FOCO_Y);
+                                ^
+rtl/vga_ui.vhd:821:27:note: found ROM "n4673", width: 7 bits, depth: 128
+                pw := DIV5(b);
+                          ^
+rtl/vga_ui.vhd:822:31:note: found ROM "n4679", width: 7 bits, depth: 128
+                po := 8 * MOD5(b) + xr mod 8;
+                              ^
+rtl/vga_ui.vhd:879:36:note: found ROM "n4992", width: 7 bits, depth: 512
+                s1_wy   <= ONDA_TAB(128 * f_forma + xr mod 128);
+                                   ^
+rtl/vga_ui.vhd:904:32:note: found ROM "n5159", width: 7 bits, depth: 16
+                    hw := CIRC5(y - REC_Y);
+                               ^
+rtl/vga_ui.vhd:952:49:note: found ROM "n5405", width: 6 bits, depth: 13
+                                cd := T_METRO_ON(c - 36);
+                                                ^
+rtl/vga_ui.vhd:954:50:note: found ROM "n5414", width: 6 bits, depth: 13
+                                cd := T_METRO_OFF(c - 36);
+                                                 ^
+rtl/vga_ui.vhd:960:51:note: found ROM "n5439", width: 6 bits, depth: 44
+                            cd := V_TEMPO(f_tempo)(c - 36);
+                                                  ^
+rtl/vga_ui.vhd:965:45:note: found ROM "n5459", width: 6 bits, depth: 9
+                            cd := T_TECLADO1(c - 10);
+                                            ^
+rtl/vga_ui.vhd:967:45:note: found ROM "n5475", width: 6 bits, depth: 9
+                            cd := T_TECLADO2(c - 34);
+                                            ^
+rtl/vga_ui.vhd:972:42:note: found ROM "n5496", width: 6 bits, depth: 10
+                            cd := T_PARAM(c - 2);
+                                         ^
+rtl/vga_ui.vhd:974:42:note: found ROM "n5512", width: 6 bits, depth: 13
+                            cd := T_FORMA(c - 23);
+                                         ^
+rtl/vga_ui.vhd:987:42:note: found ROM "n5574", width: 6 bits, depth: 64
+                            cd := ETIQ(p)(c - 2);
+                                         ^
+rtl/vga_ui.vhd:995:65:note: found ROM "n5597", width: 6 bits, depth: 44
+                                when 0 => cd := V_FORMA(f_forma)(c - 10);
+                                                                ^
+rtl/vga_ui.vhd:996:61:note: found ROM "n5612", width: 6 bits, depth: 44
+                                when 1 => cd := V_ATK(f_atk)(c - 10);
+                                                            ^
+rtl/vga_ui.vhd:997:61:note: found ROM "n5627", width: 6 bits, depth: 44
+                                when 2 => cd := V_DEC(f_dec)(c - 10);
+                                                            ^
+rtl/vga_ui.vhd:998:61:note: found ROM "n5642", width: 6 bits, depth: 44
+                                when 3 => cd := V_SUS(f_sus)(c - 10);
+                                                            ^
+rtl/vga_ui.vhd:999:61:note: found ROM "n5657", width: 6 bits, depth: 44
+                                when 4 => cd := V_REL(f_rel)(c - 10);
+                                                            ^
+rtl/vga_ui.vhd:1004:65:note: found ROM "n5683", width: 6 bits, depth: 44
+                                when 6 => cd := V_TEMPO(f_tempo)(c - 10);
+                                                                ^
+rtl/vga_ui.vhd:1005:72:note: found ROM "n5698", width: 6 bits, depth: 44
+                                when others => cd := V_EFECTO(f_efecto)(c - 10);
+                                                                       ^
+rtl/vga_ui.vhd:1014:55:note: found ROM "n5726", width: 6 bits, depth: 40
+                                cd := N_FORMA(f_forma)(c - 24);
+                                                      ^
+rtl/vga_ui.vhd:1028:48:note: found ROM "n5768", width: 12 bits, depth: 3
+                                    fg := C_VOZ(v);
+                                               ^
+rtl/vga_ui.vhd:1031:48:note: found ROM "n5780", width: 12 bits, depth: 3
+                                    fg := C_VOZ(v);
+                                               ^
+rtl/vga_ui.vhd:355:30:note: found ROM "n5828", width: 6 bits, depth: 12
+            return NOTA_LETRA(semi);
+                             ^
+rtl/vga_ui.vhd:1042:51:note: found ROM "n5886", width: 6 bits, depth: 7
+                                    cd := T_OCTAVA(c - 37);
+                                                  ^
+rtl/vga_ui.vhd:1052:43:note: found ROM "n5939", width: 6 bits, depth: 12
+                            cd := T_SECUEN(c - 2);
+                                          ^
+rtl/vga_ui.vhd:1055:50:note: found ROM "n5959", width: 6 bits, depth: 52
+                            cd := T_ESTADO(f_est)(c - 15);
+                                                 ^
+rtl/vga_ui.vhd:1056:40:note: found ROM "n5964", width: 12 bits, depth: 4
+                            fg := C_EST(f_est);
+                                       ^
+rtl/vga_ui.vhd:1058:44:note: found ROM "n5980", width: 6 bits, depth: 8
+                            cd := T_EVENTOS(c - 31);
+                                           ^
+rtl/vga_ui.vhd:1071:47:note: found ROM "n6073", width: 6 bits, depth: 7
+                                cd := T_AVANCE(c - 2);
+                                              ^
+rtl/vga_ui.vhd:1073:48:note: found ROM "n6082", width: 6 bits, depth: 7
+                                cd := T_MEMORIA(c - 2);
+                                               ^
+rtl/vga_ui.vhd:1084:40:note: found ROM "n6169", width: 6 bits, depth: 28
+                            cd := T_PIE(c - 13);
+                                       ^
+rtl/vga_ui.vhd:1097:46:note: found ROM "n6202", width: 6 bits, depth: 56
+                    s2_cd_i <= TITULO(f_modo)(s1_ic);
+                                             ^
+rtl/vga_ui.vhd:1106:31:note: found ROM "n6212", width: 12 bits, depth: 4
+                col := C_BANDA(f_modo);
+                              ^
+rtl/vga_ui.vhd:1118:24:note: found ROM "n6221", width: 7 bits, depth: 32
+                k := KW(s1_pw);
+                       ^
+rtl/vga_ui.vhd:1122:32:note: found ROM "n6239", width: 7 bits, depth: 32
+                        k := KW(s1_pw) + 1;
+                               ^
+rtl/vga_ui.vhd:1125:32:note: found ROM "n6269", width: 7 bits, depth: 32
+                        k := KW(s1_pw - 1) + 1;
+                               ^
+rtl/vga_ui.vhd:1142:35:note: found ROM "n6316", width: 12 bits, depth: 4
+                    col := C_BANDA(f_modo);
+                                  ^
+rtl/vga_ui.vhd:1178:37:note: found ROM "n6374", width: 12 bits, depth: 4
+                        col := C_SEG(s1_seg);
+                                    ^
+rtl/vga_ui.vhd:1222:37:note: found ROM "n6424", width: 12 bits, depth: 3
+                        col := C_VOZ(s1_nv);
+                                    ^
+rtl/vga_ui.vhd:1239:38:note: found ROM "n6444", width: 12 bits, depth: 4
+                        col := C_AVAN(f_est);
+                                     ^
+rtl/fuente_5x7.vhd:145:25:note: found ROM "n6625", width: 5 bits, depth: 448
+        return FUENTE(c)(f);
+                        ^
+rtl/sync_2ff.vhd:32:15:warning: unhandled attribute "altera_attribute" [-Wunhandled-attribute]
+    attribute altera_attribute of meta : signal is
+              ^
+rtl/sync_2ff.vhd:32:15:warning: unhandled attribute "altera_attribute" [-Wunhandled-attribute]
+    attribute altera_attribute of meta : signal is
+              ^
+rtl/sync_2ff.vhd:32:15:warning: unhandled attribute "altera_attribute" [-Wunhandled-attribute]
+    attribute altera_attribute of meta : signal is
+              ^
+rtl/memoria_eventos.vhd:32:12:note: found RAM "ram", width: 37 bits, depth: 256
+    signal ram : t_ram;
+           ^
+rtl/synth_pkg.vhd:142:26:note: found ROM "n13480", width: 8 bits, depth: 256
+        return TABLA_SENO(i);
+                         ^
+rtl/eco.vhd:45:12:note: found RAM "ram", width: 12 bits, depth: 8192
+    signal ram : t_ram;
+           ^
