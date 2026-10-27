@@ -1,0 +1,27 @@
+/*
+Simbolo de reset_encendido para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/reset_encendido.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 176 64)
+	(text "reset_encendido" (rect 5 0 110 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 48 36 60)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 21 12)(font "Arial" ))
+		(text "clk" (rect 21 27 42 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 176 32)
+		(output)
+		(text "rst" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst" (rect 134 27 155 39)(font "Arial" ))
+		(line (pt 176 32)(pt 160 32)(line_width 1))
+	)
+	(drawing
+		(rectangle (rect 16 16 160 48)(line_width 1))
+	)
+)

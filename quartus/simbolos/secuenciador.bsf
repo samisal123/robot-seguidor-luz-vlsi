@@ -1,0 +1,97 @@
+/*
+Simbolo de secuenciador para el Block Editor. ARCHIVO GENERADO por
+tools/genera_top.py a partir de rtl/secuenciador.vhd.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 272 160)
+	(text "secuenciador" (rect 5 0 89 12)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 144 36 156)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 21 12)(font "Arial" ))
+		(text "clk" (rect 21 27 42 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rst" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst" (rect 21 43 42 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "tick_1ms" (rect 0 0 56 12)(font "Arial" ))
+		(text "tick_1ms" (rect 21 59 77 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "cmd_grabar" (rect 0 0 70 12)(font "Arial" ))
+		(text "cmd_grabar" (rect 21 75 91 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "cmd_reproducir" (rect 0 0 98 12)(font "Arial" ))
+		(text "cmd_reproducir" (rect 21 91 119 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "cmd_parar" (rect 0 0 63 12)(font "Arial" ))
+		(text "cmd_parar" (rect 21 107 84 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "conjunto[20..0]" (rect 0 0 105 12)(font "Arial" ))
+		(text "conjunto[20..0]" (rect 21 123 126 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 272 32)
+		(output)
+		(text "salida[20..0]" (rect 0 0 91 12)(font "Arial" ))
+		(text "salida[20..0]" (rect 160 27 251 39)(font "Arial" ))
+		(line (pt 272 32)(pt 256 32)(line_width 3))
+	)
+	(port
+		(pt 272 48)
+		(output)
+		(text "estado[1..0]" (rect 0 0 84 12)(font "Arial" ))
+		(text "estado[1..0]" (rect 167 43 251 55)(font "Arial" ))
+		(line (pt 272 48)(pt 256 48)(line_width 3))
+	)
+	(port
+		(pt 272 64)
+		(output)
+		(text "eventos[8..0]" (rect 0 0 91 12)(font "Arial" ))
+		(text "eventos[8..0]" (rect 160 59 251 71)(font "Arial" ))
+		(line (pt 272 64)(pt 256 64)(line_width 3))
+	)
+	(port
+		(pt 272 80)
+		(output)
+		(text "posicion[8..0]" (rect 0 0 98 12)(font "Arial" ))
+		(text "posicion[8..0]" (rect 153 75 251 87)(font "Arial" ))
+		(line (pt 272 80)(pt 256 80)(line_width 3))
+	)
+	(port
+		(pt 272 96)
+		(output)
+		(text "llena" (rect 0 0 35 12)(font "Arial" ))
+		(text "llena" (rect 216 91 251 103)(font "Arial" ))
+		(line (pt 272 96)(pt 256 96)(line_width 1))
+	)
+	(drawing
+		(rectangle (rect 16 16 256 144)(line_width 1))
+	)
+)
