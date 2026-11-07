@@ -1,0 +1,601 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Shell
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Copyright (C) 2025  Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, the Altera Quartus Prime License Agreement,
+    Info: the Altera IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Altera and sold by Altera or its authorized distributors.  Please
+    Info: refer to the Altera Software License Subscription Agreements 
+    Info: on the Quartus Prime software download page.
+    Info: Processing started: Sat Nov  7 11:17:04 2026
+Info: Command: quartus_sh --flow compile sintetizador
+Info: Quartus(args): compile sintetizador
+Info: Project Name = /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/sintetizador
+Info: Revision Name = sintetizador
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Sat Nov  7 11:17:05 2026
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sintetizador -c sintetizador
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 2 design units, including 0 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/synth_pkg.vhd
+    Info (12022): Found design unit 1: synth_pkg File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/synth_pkg.vhd Line: 18
+    Info (12022): Found design unit 2: synth_pkg-body File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/synth_pkg.vhd Line: 84
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd
+    Info (12022): Found design unit 1: adsr-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd Line: 43
+    Info (12023): Found entity 1: adsr File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd Line: 27
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd
+    Info (12022): Found design unit 1: audio_salida-estructural File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 52
+    Info (12023): Found entity 1: audio_salida File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 31
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/base_tiempo.vhd
+    Info (12022): Found design unit 1: base_tiempo-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/base_tiempo.vhd Line: 26
+    Info (12023): Found entity 1: base_tiempo File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/base_tiempo.vhd Line: 14
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/control.vhd
+    Info (12022): Found design unit 1: control-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/control.vhd Line: 63
+    Info (12023): Found entity 1: control File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/control.vhd Line: 36
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/dds.vhd
+    Info (12022): Found design unit 1: dds-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/dds.vhd Line: 25
+    Info (12023): Found entity 1: dds File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/dds.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/debounce.vhd
+    Info (12022): Found design unit 1: debounce-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/debounce.vhd Line: 31
+    Info (12023): Found entity 1: debounce File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/debounce.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd
+    Info (12022): Found design unit 1: display_hex-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 49
+    Info (12023): Found entity 1: display_hex File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 24
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/eco.vhd
+    Info (12022): Found design unit 1: eco-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/eco.vhd Line: 41
+    Info (12023): Found entity 1: eco File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/eco.vhd Line: 25
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd
+    Info (12022): Found design unit 1: entradas_placa-estructural File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd Line: 27
+    Info (12023): Found entity 1: entradas_placa File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd Line: 14
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/forma_onda.vhd
+    Info (12022): Found design unit 1: forma_onda-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/forma_onda.vhd Line: 27
+    Info (12023): Found entity 1: forma_onda File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/forma_onda.vhd Line: 18
+Info (12021): Found 2 design units, including 0 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/fuente_5x7.vhd
+    Info (12022): Found design unit 1: fuente_5x7 File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/fuente_5x7.vhd Line: 22
+    Info (12022): Found design unit 2: fuente_5x7-body File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/fuente_5x7.vhd Line: 43
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/gestor_voces.vhd
+    Info (12022): Found design unit 1: gestor_voces-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/gestor_voces.vhd Line: 35
+    Info (12023): Found entity 1: gestor_voces File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/gestor_voces.vhd Line: 24
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/interfaz_teclados.vhd
+    Info (12022): Found design unit 1: interfaz_teclados-estructural File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/interfaz_teclados.vhd Line: 33
+    Info (12023): Found entity 1: interfaz_teclados File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/interfaz_teclados.vhd Line: 17
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/leds_estado.vhd
+    Info (12022): Found design unit 1: leds_estado-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/leds_estado.vhd Line: 36
+    Info (12023): Found entity 1: leds_estado File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/leds_estado.vhd Line: 17
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/memoria_eventos.vhd
+    Info (12022): Found design unit 1: memoria_eventos-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/memoria_eventos.vhd Line: 30
+    Info (12023): Found entity 1: memoria_eventos File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/memoria_eventos.vhd Line: 16
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/metronomo.vhd
+    Info (12022): Found design unit 1: metronomo-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/metronomo.vhd Line: 47
+    Info (12023): Found entity 1: metronomo File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/metronomo.vhd Line: 29
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/mezclador.vhd
+    Info (12022): Found design unit 1: mezclador-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/mezclador.vhd Line: 33
+    Info (12023): Found entity 1: mezclador File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/mezclador.vhd Line: 19
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/reset_encendido.vhd
+    Info (12022): Found design unit 1: reset_encendido-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/reset_encendido.vhd Line: 19
+    Info (12023): Found entity 1: reset_encendido File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/reset_encendido.vhd Line: 12
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/salida_pwm.vhd
+    Info (12022): Found design unit 1: salida_pwm-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/salida_pwm.vhd Line: 26
+    Info (12023): Found entity 1: salida_pwm File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/salida_pwm.vhd Line: 17
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/secuenciador.vhd
+    Info (12022): Found design unit 1: secuenciador-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/secuenciador.vhd Line: 59
+    Info (12023): Found entity 1: secuenciador File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/secuenciador.vhd Line: 42
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/selector_notas.vhd
+    Info (12022): Found design unit 1: selector_notas-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/selector_notas.vhd Line: 21
+    Info (12023): Found entity 1: selector_notas File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/selector_notas.vhd Line: 12
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sinte_top.vhd
+    Info (12022): Found design unit 1: sinte_top-estructural File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sinte_top.vhd Line: 48
+    Info (12023): Found entity 1: sinte_top File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sinte_top.vhd Line: 23
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sync_2ff.vhd
+    Info (12022): Found design unit 1: sync_2ff-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sync_2ff.vhd Line: 25
+    Info (12023): Found entity 1: sync_2ff File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sync_2ff.vhd Line: 13
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclado_scan.vhd
+    Info (12022): Found design unit 1: teclado_scan-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclado_scan.vhd Line: 37
+    Info (12023): Found entity 1: teclado_scan File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclado_scan.vhd Line: 22
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclas_notas.vhd
+    Info (12022): Found design unit 1: teclas_notas-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclas_notas.vhd Line: 36
+    Info (12023): Found entity 1: teclas_notas File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclas_notas.vhd Line: 24
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd
+    Info (12022): Found design unit 1: tremolo-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd Line: 33
+    Info (12023): Found entity 1: tremolo File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd Line: 21
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd
+    Info (12022): Found design unit 1: vga_ui-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd Line: 104
+    Info (12023): Found entity 1: vga_ui File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd Line: 68
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/volumen.vhd
+    Info (12022): Found design unit 1: volumen-rtl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/volumen.vhd Line: 27
+    Info (12023): Found entity 1: volumen File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/volumen.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd
+    Info (12022): Found design unit 1: voz-estructural File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 41
+    Info (12023): Found entity 1: voz File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file sintetizador.bdf
+    Info (12023): Found entity 1: sintetizador
+Info (12127): Elaborating entity "sintetizador" for the top level hierarchy
+Info (12128): Elaborating entity "audio_salida" for hierarchy "audio_salida:u_audio"
+Info (12128): Elaborating entity "mezclador" for hierarchy "audio_salida:u_audio|mezclador:u_mez" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 70
+Info (12128): Elaborating entity "tremolo" for hierarchy "audio_salida:u_audio|tremolo:u_tre" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 83
+Info (12128): Elaborating entity "eco" for hierarchy "audio_salida:u_audio|eco:u_eco" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 94
+Info (12128): Elaborating entity "volumen" for hierarchy "audio_salida:u_audio|volumen:u_vol" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 107
+Info (12128): Elaborating entity "metronomo" for hierarchy "audio_salida:u_audio|metronomo:u_met" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 118
+Info (12128): Elaborating entity "salida_pwm" for hierarchy "audio_salida:u_audio|salida_pwm:u_pwm" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd Line: 175
+Info (12128): Elaborating entity "reset_encendido" for hierarchy "reset_encendido:u_rst"
+Info (12128): Elaborating entity "base_tiempo" for hierarchy "base_tiempo:u_tiempo"
+Info (12128): Elaborating entity "control" for hierarchy "control:u_control"
+Info (12128): Elaborating entity "entradas_placa" for hierarchy "entradas_placa:u_placa"
+Info (12128): Elaborating entity "sync_2ff" for hierarchy "entradas_placa:u_placa|sync_2ff:u_sync_key" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd Line: 36
+Info (12128): Elaborating entity "sync_2ff" for hierarchy "entradas_placa:u_placa|sync_2ff:u_sync_sw" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd Line: 40
+Info (12128): Elaborating entity "debounce" for hierarchy "entradas_placa:u_placa|debounce:u_deb_key0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd Line: 46
+Info (12128): Elaborating entity "secuenciador" for hierarchy "secuenciador:u_sec"
+Info (12128): Elaborating entity "memoria_eventos" for hierarchy "secuenciador:u_sec|memoria_eventos:u_mem" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/secuenciador.vhd Line: 82
+Info (12128): Elaborating entity "teclas_notas" for hierarchy "teclas_notas:u_notas"
+Info (12128): Elaborating entity "interfaz_teclados" for hierarchy "interfaz_teclados:u_teclados"
+Info (12128): Elaborating entity "sync_2ff" for hierarchy "interfaz_teclados:u_teclados|sync_2ff:u_sync" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/interfaz_teclados.vhd Line: 41
+Info (12128): Elaborating entity "teclado_scan" for hierarchy "interfaz_teclados:u_teclados|teclado_scan:u_scan" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/interfaz_teclados.vhd Line: 45
+Info (12128): Elaborating entity "voz" for hierarchy "voz:u_voz0"
+Info (12128): Elaborating entity "dds" for hierarchy "voz:u_voz0|dds:u_dds" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 55
+Info (12128): Elaborating entity "forma_onda" for hierarchy "voz:u_voz0|forma_onda:u_onda" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 64
+Info (12128): Elaborating entity "adsr" for hierarchy "voz:u_voz0|adsr:u_adsr" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 72
+Info (12128): Elaborating entity "gestor_voces" for hierarchy "gestor_voces:u_gestor"
+Info (12128): Elaborating entity "selector_notas" for hierarchy "selector_notas:u_sel"
+Info (12128): Elaborating entity "vga_ui" for hierarchy "vga_ui:u_vga"
+Info (12128): Elaborating entity "display_hex" for hierarchy "display_hex:u_hex"
+Info (12128): Elaborating entity "leds_estado" for hierarchy "leds_estado:u_leds"
+Info (19000): Inferred 2 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "secuenciador:u_sec|memoria_eventos:u_mem|ram_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to SINGLE_PORT
+        Info (286033): Parameter WIDTH_A set to 37
+        Info (286033): Parameter WIDTHAD_A set to 8
+        Info (286033): Parameter NUMWORDS_A set to 256
+        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_A set to OLD_DATA
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "audio_salida:u_audio|eco:u_eco|ram_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to SINGLE_PORT
+        Info (286033): Parameter WIDTH_A set to 11
+        Info (286033): Parameter WIDTHAD_A set to 13
+        Info (286033): Parameter NUMWORDS_A set to 8192
+        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_A set to OLD_DATA
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+Info (278001): Inferred 14 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Div2" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 119
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Mod4" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 126
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Mod2" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 108
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Mod3" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 120
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Div1" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 107
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Mod1" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 107
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Div0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 106
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "display_hex:u_hex|Mod0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 106
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "voz:u_voz2|adsr:u_adsr|Div0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd Line: 59
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "audio_salida:u_audio|tremolo:u_tre|Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd Line: 76
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "voz:u_voz2|Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 89
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "vga_ui:u_vga|Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd Line: 915
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "voz:u_voz1|Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 89
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "voz:u_voz0|Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 89
+Info (12130): Elaborated megafunction instantiation "secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0"
+Info (12133): Instantiated megafunction "secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "SINGLE_PORT"
+    Info (12134): Parameter "WIDTH_A" = "37"
+    Info (12134): Parameter "WIDTHAD_A" = "8"
+    Info (12134): Parameter "NUMWORDS_A" = "256"
+    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_A" = "OLD_DATA"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_mo71.tdf
+    Info (12023): Found entity 1: altsyncram_mo71 File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/altsyncram_mo71.tdf Line: 28
+Info (12130): Elaborated megafunction instantiation "audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0"
+Info (12133): Instantiated megafunction "audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "SINGLE_PORT"
+    Info (12134): Parameter "WIDTH_A" = "11"
+    Info (12134): Parameter "WIDTHAD_A" = "13"
+    Info (12134): Parameter "NUMWORDS_A" = "8192"
+    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_A" = "OLD_DATA"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_hr71.tdf
+    Info (12023): Found entity 1: altsyncram_hr71 File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/altsyncram_hr71.tdf Line: 28
+Info (12130): Elaborated megafunction instantiation "display_hex:u_hex|lpm_divide:Div2" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 119
+Info (12133): Instantiated megafunction "display_hex:u_hex|lpm_divide:Div2" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 119
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_8sl.tdf
+    Info (12023): Found entity 1: lpm_divide_8sl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/lpm_divide_8sl.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_akh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_akh File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/sign_div_unsign_akh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_uee.tdf
+    Info (12023): Found entity 1: alt_u_div_uee File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_uee.tdf Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_t3c.tdf
+    Info (12023): Found entity 1: add_sub_t3c File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/add_sub_t3c.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_u3c.tdf
+    Info (12023): Found entity 1: add_sub_u3c File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/add_sub_u3c.tdf Line: 23
+Info (12130): Elaborated megafunction instantiation "display_hex:u_hex|lpm_divide:Mod4" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 126
+Info (12133): Instantiated megafunction "display_hex:u_hex|lpm_divide:Mod4" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 126
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ekl.tdf
+    Info (12023): Found entity 1: lpm_divide_ekl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/lpm_divide_ekl.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_dkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_dkh File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/sign_div_unsign_dkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_4fe.tdf
+    Info (12023): Found entity 1: alt_u_div_4fe File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_4fe.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "display_hex:u_hex|lpm_divide:Mod2" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 108
+Info (12133): Instantiated megafunction "display_hex:u_hex|lpm_divide:Mod2" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 108
+    Info (12134): Parameter "LPM_WIDTHN" = "9"
+    Info (12134): Parameter "LPM_WIDTHD" = "9"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ikl.tdf
+    Info (12023): Found entity 1: lpm_divide_ikl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/lpm_divide_ikl.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_hkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_hkh File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/sign_div_unsign_hkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_cfe.tdf
+    Info (12023): Found entity 1: alt_u_div_cfe File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_cfe.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "display_hex:u_hex|lpm_divide:Mod3" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 120
+Info (12133): Instantiated megafunction "display_hex:u_hex|lpm_divide:Mod3" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 120
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12130): Elaborated megafunction instantiation "display_hex:u_hex|lpm_divide:Div1" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 107
+Info (12133): Instantiated megafunction "display_hex:u_hex|lpm_divide:Div1" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 107
+    Info (12134): Parameter "LPM_WIDTHN" = "9"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_asl.tdf
+    Info (12023): Found entity 1: lpm_divide_asl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/lpm_divide_asl.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_ckh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_ckh File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/sign_div_unsign_ckh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_2fe.tdf
+    Info (12023): Found entity 1: alt_u_div_2fe File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_2fe.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "display_hex:u_hex|lpm_divide:Div0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 106
+Info (12133): Instantiated megafunction "display_hex:u_hex|lpm_divide:Div0" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/display_hex.vhd Line: 106
+    Info (12134): Parameter "LPM_WIDTHN" = "9"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_dsl.tdf
+    Info (12023): Found entity 1: lpm_divide_dsl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/lpm_divide_dsl.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_fkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_fkh File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/sign_div_unsign_fkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_8fe.tdf
+    Info (12023): Found entity 1: alt_u_div_8fe File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_8fe.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "voz:u_voz2|adsr:u_adsr|lpm_divide:Div0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd Line: 59
+Info (12133): Instantiated megafunction "voz:u_voz2|adsr:u_adsr|lpm_divide:Div0" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd Line: 59
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "8"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_esl.tdf
+    Info (12023): Found entity 1: lpm_divide_esl File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/lpm_divide_esl.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_gkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_gkh File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/sign_div_unsign_gkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_9fe.tdf
+    Info (12023): Found entity 1: alt_u_div_9fe File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_9fe.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "audio_salida:u_audio|tremolo:u_tre|lpm_mult:Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd Line: 76
+Info (12133): Instantiated megafunction "audio_salida:u_audio|tremolo:u_tre|lpm_mult:Mult0" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd Line: 76
+    Info (12134): Parameter "LPM_WIDTHA" = "12"
+    Info (12134): Parameter "LPM_WIDTHB" = "10"
+    Info (12134): Parameter "LPM_WIDTHP" = "22"
+    Info (12134): Parameter "LPM_WIDTHR" = "22"
+    Info (12134): Parameter "LPM_WIDTHS" = "1"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "MAXIMIZE_SPEED" = "6"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mult_fgs.tdf
+    Info (12023): Found entity 1: mult_fgs File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/mult_fgs.tdf Line: 29
+Info (12130): Elaborated megafunction instantiation "voz:u_voz2|lpm_mult:Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 89
+Info (12133): Instantiated megafunction "voz:u_voz2|lpm_mult:Mult0" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd Line: 89
+    Info (12134): Parameter "LPM_WIDTHA" = "8"
+    Info (12134): Parameter "LPM_WIDTHB" = "9"
+    Info (12134): Parameter "LPM_WIDTHP" = "17"
+    Info (12134): Parameter "LPM_WIDTHR" = "17"
+    Info (12134): Parameter "LPM_WIDTHS" = "1"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mult_vds.tdf
+    Info (12023): Found entity 1: mult_vds File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/mult_vds.tdf Line: 29
+Info (12130): Elaborated megafunction instantiation "vga_ui:u_vga|lpm_mult:Mult0" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd Line: 915
+Info (12133): Instantiated megafunction "vga_ui:u_vga|lpm_mult:Mult0" with the following parameter: File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd Line: 915
+    Info (12134): Parameter "LPM_WIDTHA" = "9"
+    Info (12134): Parameter "LPM_WIDTHB" = "9"
+    Info (12134): Parameter "LPM_WIDTHP" = "18"
+    Info (12134): Parameter "LPM_WIDTHR" = "18"
+    Info (12134): Parameter "LPM_WIDTHS" = "1"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mult_4ls.tdf
+    Info (12023): Found entity 1: mult_4ls File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/mult_4ls.tdf Line: 29
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX0[7]" is stuck at VCC
+    Warning (13410): Pin "HEX2[7]" is stuck at VCC
+    Warning (13410): Pin "HEX3[7]" is stuck at VCC
+    Warning (13410): Pin "HEX4[7]" is stuck at VCC
+    Warning (13410): Pin "HEX4[3]" is stuck at VCC
+    Warning (13410): Pin "HEX5[7]" is stuck at VCC
+    Warning (13410): Pin "HEX5[1]" is stuck at VCC
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 14 registers lost all their fanouts during netlist optimizations.
+Info (17016): Found the following redundant logic cells in design
+    Info (17048): Logic cell "display_hex:u_hex|lpm_divide:Mod1|lpm_divide_ikl:auto_generated|sign_div_unsign_hkh:divider|alt_u_div_cfe:divider|add_sub_7_result_int[0]~16" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/db/alt_u_div_cfe.tdf Line: 62
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 8 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "SW[7]"
+    Warning (15610): No output dependent on input pin "SW[6]"
+    Warning (15610): No output dependent on input pin "SW[5]"
+    Warning (15610): No output dependent on input pin "SW[4]"
+    Warning (15610): No output dependent on input pin "SW[3]"
+    Warning (15610): No output dependent on input pin "SW[2]"
+    Warning (15610): No output dependent on input pin "SW[1]"
+    Warning (15610): No output dependent on input pin "SW[0]"
+Info (21057): Implemented 6864 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 21 input pins
+    Info (21059): Implemented 81 output pins
+    Info (21061): Implemented 6708 logic cells
+    Info (21064): Implemented 48 RAM segments
+    Info (21062): Implemented 6 DSP elements
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 17 warnings
+    Info: Peak virtual memory: 488 megabytes
+    Info: Processing ended: Sat Nov  7 11:17:40 2026
+    Info: Elapsed time: 00:00:35
+    Info: Total CPU time (on all processors): 00:00:47
+Info: *******************************************************************
+Info: Running Quartus Prime Fitter
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Sat Nov  7 11:17:41 2026
+Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off sintetizador -c sintetizador
+Info: qfit2_default_script.tcl version: #1
+Info: Project  = sintetizador
+Info: Revision = sintetizador
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (119006): Selected device 10M50DAF484C7G for design "sintetizador"
+Info (21076): High junction temperature operating condition is not set. Assuming a default value of '85'.
+Info (21076): Low junction temperature operating condition is not set. Assuming a default value of '0'.
+Info (171003): Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
+Warning (292013): Feature LogicLock is only available with a valid subscription license. You can purchase a software subscription to gain full access to this feature.
+Info (176444): Device migration not selected. If you intend to use device migration later, you may need to change the pin assignments as they may be incompatible with other devices
+    Info (176445): Device 10M08DAF484I7G is compatible
+    Info (176445): Device 10M08DAF484I7P is compatible
+    Info (176445): Device 10M16DAF484A7G is compatible
+    Info (176445): Device 10M16DAF484C7G is compatible
+    Info (176445): Device 10M16DAF484I7G is compatible
+    Info (176445): Device 10M16DAF484I7P is compatible
+    Info (176445): Device 10M25DAF484A7G is compatible
+    Info (176445): Device 10M25DAF484C7G is compatible
+    Info (176445): Device 10M25DAF484I7G is compatible
+    Info (176445): Device 10M50DAF484I7G is compatible
+    Info (176445): Device 10M50DAF484I7P is compatible
+    Info (176445): Device 10M40DAF484C7G is compatible
+    Info (176445): Device 10M40DAF484I7G is compatible
+Info (169124): Fitter converted 8 user pins into dedicated programming pins
+    Info (169125): Pin ~ALTERA_TMS~ is reserved at location H2
+    Info (169125): Pin ~ALTERA_TCK~ is reserved at location G2
+    Info (169125): Pin ~ALTERA_TDI~ is reserved at location L4
+    Info (169125): Pin ~ALTERA_TDO~ is reserved at location M5
+    Info (169125): Pin ~ALTERA_CONFIG_SEL~ is reserved at location H10
+    Info (169125): Pin ~ALTERA_nCONFIG~ is reserved at location H9
+    Info (169125): Pin ~ALTERA_nSTATUS~ is reserved at location G9
+    Info (169125): Pin ~ALTERA_CONF_DONE~ is reserved at location F8
+Info (169141): DATA[0] dual-purpose pin not reserved
+Info (12825): Data[1]/ASDO dual-purpose pin not reserved
+Info (12825): nCSO dual-purpose pin not reserved
+Info (12825): DCLK dual-purpose pin not reserved
+Warning (15714): Some pins have incomplete I/O assignments. Refer to the I/O Assignment Warnings report for details
+Info (176045): Design uses memory blocks. Violating setup or hold times of memory block address registers for either read or write operations could cause memory contents to be corrupted. Make sure that all memory block address registers meet the setup and hold time requirements.
+Info (332104): Reading SDC File: 'sintetizador.sdc'
+Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
+Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
+Info (332129): Detected timing requirements -- optimizing circuit to achieve only the specified requirements
+Info (332111): Found 1 clocks
+    Info (332111):   Period   Clock Name
+    Info (332111): ======== ============
+    Info (332111):   20.000        clk50
+Info (176353): Automatically promoted node MAX10_CLK1_50~input (placed in PIN P11 (CLK7p, DIFFIO_TX_RX_B20p, DIFFOUT_B20p, High_Speed))
+    Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G19
+Info (176233): Starting register packing
+Info (176235): Finished register packing
+    Extra Info (176218): Packed 47 registers into blocks of type Embedded multiplier output
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:04
+Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
+Info (170189): Fitter placement preparation operations beginning
+Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
+Info (170191): Fitter placement operations beginning
+Info (170137): Fitter placement was successful
+Info (170192): Fitter placement operations ending: elapsed time is 00:00:05
+Info (170193): Fitter routing operations beginning
+Info (170195): Router estimated average interconnect usage is 2% of the available device resources
+    Info (170196): Router estimated peak interconnect usage is 16% of the available device resources in the region that extends from location X45_Y22 to location X55_Y32
+Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
+    Info (170201): Optimizations that may affect the design's routability were skipped
+    Info (170200): Optimizations that may affect the design's timing were skipped
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:03
+Info (11888): Total time spent on timing analysis during the Fitter is 2.02 seconds.
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:04
+Warning (169177): 21 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing MAX 10 Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
+    Info (169178): Pin SW[7] uses I/O standard 3.3-V LVTTL at A14
+    Info (169178): Pin SW[6] uses I/O standard 3.3-V LVTTL at A13
+    Info (169178): Pin SW[5] uses I/O standard 3.3-V LVTTL at B12
+    Info (169178): Pin SW[4] uses I/O standard 3.3-V LVTTL at A12
+    Info (169178): Pin SW[3] uses I/O standard 3.3-V LVTTL at C12
+    Info (169178): Pin SW[2] uses I/O standard 3.3-V LVTTL at D12
+    Info (169178): Pin SW[1] uses I/O standard 3.3-V LVTTL at C11
+    Info (169178): Pin SW[0] uses I/O standard 3.3-V LVTTL at C10
+    Info (169178): Pin MAX10_CLK1_50 uses I/O standard 3.3-V LVTTL at P11
+    Info (169178): Pin SW[9] uses I/O standard 3.3-V LVTTL at F15
+    Info (169178): Pin SW[8] uses I/O standard 3.3-V LVTTL at B14
+    Info (169178): Pin TEC2_COL[0] uses I/O standard 3.3-V LVTTL at W12
+    Info (169178): Pin TEC2_COL[2] uses I/O standard 3.3-V LVTTL at AB12
+    Info (169178): Pin TEC2_COL[1] uses I/O standard 3.3-V LVTTL at AB13
+    Info (169178): Pin TEC1_COL[0] uses I/O standard 3.3-V LVTTL at V8
+    Info (169178): Pin TEC1_COL[2] uses I/O standard 3.3-V LVTTL at V7
+    Info (169178): Pin TEC1_COL[1] uses I/O standard 3.3-V LVTTL at W8
+    Info (169178): Pin KEY[1] uses I/O standard 3.3 V Schmitt Trigger at A7
+    Info (169178): Pin TEC2_COL[3] uses I/O standard 3.3-V LVTTL at Y11
+    Info (169178): Pin TEC1_COL[3] uses I/O standard 3.3-V LVTTL at W7
+    Info (169178): Pin KEY[0] uses I/O standard 3.3 V Schmitt Trigger at B8
+Info (144001): Generated suppressed messages file /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/output_files/sintetizador.fit.smsg
+Info: Quartus Prime Fitter was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 1290 megabytes
+    Info: Processing ended: Sat Nov  7 11:18:07 2026
+    Info: Elapsed time: 00:00:26
+    Info: Total CPU time (on all processors): 00:00:50
+Info: *******************************************************************
+Info: Running Quartus Prime Assembler
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Sat Nov  7 11:18:08 2026
+Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off sintetizador -c sintetizador
+Info (115031): Writing out detailed assembly data for power analysis
+Info (115030): Assembler is generating device programming files
+Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 400 megabytes
+    Info: Processing ended: Sat Nov  7 11:18:10 2026
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:02
+Info (293026): Skipped module Power Analyzer due to the assignment FLOW_ENABLE_POWER_ANALYZER
+Info: *******************************************************************
+Info: Running Quartus Prime Timing Analyzer
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Sat Nov  7 11:18:11 2026
+Info: Command: quartus_sta sintetizador -c sintetizador
+Info: qsta_default_script.tcl version: #1
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (21076): High junction temperature operating condition is not set. Assuming a default value of '85'.
+Info (21076): Low junction temperature operating condition is not set. Assuming a default value of '0'.
+Info (332104): Reading SDC File: 'sintetizador.sdc'
+Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Info: Can't run Report Timing Closure Recommendations. The current device family is not supported.
+Info (332146): Worst-case setup slack is 0.663
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.663               0.000 clk50 
+Info (332146): Worst-case hold slack is 0.225
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.225               0.000 clk50 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 9.405
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     9.405               0.000 clk50 
+Info (332114): Report Metastability: Found 12 synchronizer chains.
+    Info (332114): Worst-Case MTBF of Design is 1e+09 years or 3.15e+16 seconds.
+    Info (332114): Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
+
+    Info (332114): Number of Synchronizer Chains Found: 12
+    Info (332114): Shortest Synchronizer Chain: 2 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 0.000
+    Info (332114): Worst Case Available Settling Time: 36.063 ns
+    Info (332114): Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
+    Info (332114):   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
+    Info (332114): Typical MTBF values are calculated based on the nominal silicon characteristics, at nominal operating conditions.
+    Info (332114):   - Under typical conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 3.7
+Info: Analyzing Slow 1200mV 0C Model
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 2.408
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     2.408               0.000 clk50 
+Info (332146): Worst-case hold slack is 0.233
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.233               0.000 clk50 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 9.423
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     9.423               0.000 clk50 
+Info (332114): Report Metastability: Found 12 synchronizer chains.
+    Info (332114): Worst-Case MTBF of Design is 1e+09 years or 3.15e+16 seconds.
+    Info (332114): Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
+
+    Info (332114): Number of Synchronizer Chains Found: 12
+    Info (332114): Shortest Synchronizer Chain: 2 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 0.000
+    Info (332114): Worst Case Available Settling Time: 36.385 ns
+    Info (332114): Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
+    Info (332114):   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
+    Info (332114): Typical MTBF values are calculated based on the nominal silicon characteristics, at nominal operating conditions.
+    Info (332114):   - Under typical conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 3.7
+Info: Analyzing Fast 1200mV 0C Model
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 12.236
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    12.236               0.000 clk50 
+Info (332146): Worst-case hold slack is 0.086
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.086               0.000 clk50 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 9.263
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     9.263               0.000 clk50 
+Info (332114): Report Metastability: Found 12 synchronizer chains.
+    Info (332114): Worst-Case MTBF of Design is 1e+09 years or 3.15e+16 seconds.
+    Info (332114): Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
+
+    Info (332114): Number of Synchronizer Chains Found: 12
+    Info (332114): Shortest Synchronizer Chain: 2 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 0.000
+    Info (332114): Worst Case Available Settling Time: 38.285 ns
+    Info (332114): Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
+    Info (332114):   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
+    Info (332114): Typical MTBF values are calculated based on the nominal silicon characteristics, at nominal operating conditions.
+    Info (332114):   - Under typical conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 3.7
+Info (332101): Design is fully constrained for setup requirements
+Info (332101): Design is fully constrained for hold requirements
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 629 megabytes
+    Info: Processing ended: Sat Nov  7 11:18:16 2026
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:10
+Info (293000): Quartus Prime Full Compilation was successful. 0 errors, 20 warnings
+Info (23030): Evaluation of Tcl script /home/samuel/altera_lite/25.1std/quartus/common/tcl/internal/qsh_flow.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 20 warnings
+    Info: Peak virtual memory: 464 megabytes
+    Info: Processing ended: Sat Nov  7 11:18:17 2026
+    Info: Elapsed time: 00:01:13
+    Info: Total CPU time (on all processors): 00:01:51
