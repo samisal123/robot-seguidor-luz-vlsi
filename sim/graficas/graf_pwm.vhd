@@ -1,8 +1,8 @@
 -- ============================================================
 -- graf_pwm.vhd
 -- Datos para la grafica del DAC por PWM: una senoidal de 1 kHz y
--- amplitud 100 entra a salida_pwm (una muestra cada 1024 ciclos,
--- como en el sistema). Se registra la salida PWM en cada ciclo
+-- amplitud 100 entra a salida_pwm (una muestra cada 512 ciclos de
+-- 25 MHz, como en el sistema). Se registra la salida PWM en cada ciclo
 -- durante 2 ms; el filtro RC se calcula despues en Python.
 -- Escribe salida/pwm.csv: ciclo;muestra;pwm
 -- ============================================================
@@ -25,7 +25,7 @@ architecture sim of graf_pwm is
     signal fin     : boolean := false;
 begin
 
-    clk <= not clk after 10 ns when not fin;
+    clk <= not clk after 20 ns when not fin;   -- 25 MHz
 
     dut : entity work.salida_pwm
         port map (clk => clk, rst => rst, muestra => muestra, pwm => pwm);
@@ -40,8 +40,8 @@ begin
         wait for 100 ns;
         wait until rising_edge(clk);
         rst <= '0';
-        for c in 0 to 100_000 loop
-            if c mod 1024 = 0 then
+        for c in 0 to 50_000 loop
+            if c mod 512 = 0 then
                 muestra <= std_logic_vector(to_signed(
                     integer(100.0 * sin(2.0 * MATH_PI * 1000.0 * real(n) / FS)), 8));
                 n := n + 1;
