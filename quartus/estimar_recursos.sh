@@ -19,7 +19,7 @@ R="$Q/.."
 
 if ! command -v quartus_sh >/dev/null 2>&1; then
     for d in "$HOME"/altera_lite/*/quartus/bin "$HOME"/intelFPGA_lite/*/quartus/bin; do
-        [ -x "$d/quartus_sh" ] && PATH="$d:$PATH"
+        [ -x "$d/quartus_sh" ] && { PATH="$d:$PATH"; break; }
     done
     export PATH
 fi

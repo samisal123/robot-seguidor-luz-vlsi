@@ -10,13 +10,10 @@
 set -u
 Q=$(cd "$(dirname "$0")" && pwd)
 
-if ! command -v quartus_pgm >/dev/null 2>&1; then
-    for d in "$HOME"/altera/13.0sp1/quartus/bin "$HOME"/altera/*/quartus/bin \
-             /opt/altera/13.0sp1/quartus/bin /opt/altera/*/quartus/bin; do
-        [ -x "$d/quartus_pgm" ] && PATH="$d:$PATH"
-    done
-    export PATH
-fi
+# Primero la 13.0 SP1 (la unica con Cyclone II), aunque haya otro Quartus en el PATH
+for d in "$HOME"/altera/13.0sp1/quartus/bin /opt/altera/13.0sp1/quartus/bin; do
+    [ -x "$d/quartus_pgm" ] && { PATH="$d:$PATH"; export PATH; break; }
+done
 
 cd "$Q"
 [ -f output_files/sintetizador.sof ] || { echo "Primero compila: quartus/compilar.sh"; exit 1; }
