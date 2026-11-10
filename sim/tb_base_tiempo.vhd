@@ -1,8 +1,8 @@
 -- ============================================================
 -- tb_base_tiempo.vhd
--- Prueba de la base de tiempo a 50 MHz reales.
+-- Prueba de la base de tiempo a 25 MHz reales.
 -- Revisa:
---   1) tick_fs cada 1024 ciclos (20.48 us)
+--   1) tick_fs cada FS_DIV = 512 ciclos (20.48 us)
 --   2) tick_1ms cada 1 ms exacto
 --   3) cada pulso dura un solo ciclo
 --   4) con rst activo no sale ningun pulso, y al soltarlo las
@@ -10,12 +10,13 @@
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
+use work.synth_pkg.all;
 
 entity tb_base_tiempo is
 end entity tb_base_tiempo;
 
 architecture sim of tb_base_tiempo is
-    constant T_CLK : time := 20 ns;
+    constant T_CLK : time := 40 ns;    -- 25 MHz
 
     signal clk      : std_logic := '0';
     signal rst      : std_logic := '1';
@@ -72,12 +73,12 @@ begin
         wait until rising_edge(clk);
         rst <= '0';
         t0 := now;
-        -- 4) tras el rst, el primer tick_fs sale en el flanco 1024
+        -- 4) tras el rst, el primer tick_fs sale en el flanco FS_DIV
         wait until rising_edge(clk) and tick_fs = '1';
-        assert now - t0 = 1025 * T_CLK
+        assert now - t0 = (FS_DIV + 1) * T_CLK
             report "tb_base_tiempo: el rst no reinicio la cuenta de tick_fs" severity error;
 
-        revisar(clk, tick_fs, 1024 * T_CLK, 30, "tick_fs");
+        revisar(clk, tick_fs, FS_DIV * T_CLK, 30, "tick_fs");
         revisar(clk, tick_1ms, 1 ms, 4, "tick_1ms");
 
         -- rst a mitad de las cuentas: las dos vuelven a empezar
@@ -89,7 +90,7 @@ begin
         rst <= '0';
         t0 := now;
         wait until rising_edge(clk) and tick_fs = '1';
-        assert now - t0 = 1025 * T_CLK
+        assert now - t0 = (FS_DIV + 1) * T_CLK
             report "tb_base_tiempo: el rst no reinicio tick_fs a mitad de cuenta" severity error;
         wait until rising_edge(clk) and tick_1ms = '1';
         assert now - t0 = 1 ms + T_CLK

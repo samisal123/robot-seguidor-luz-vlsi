@@ -2,10 +2,10 @@
 -- base_tiempo.vhd
 -- Pulsos de habilitacion de un ciclo de reloj:
 --   tick_fs  : uno cada FS_DIV ciclos (synth_pkg), la frecuencia
---              de muestreo del audio: 50 MHz / 1024 = 48 828 Hz
+--              de muestreo del audio: 25 MHz / 512 = 48 828 Hz
 --   tick_1ms : uno cada CLK_HZ / 1000 ciclos
 -- Todo el diseno usa estos pulsos como habilitacion en lugar de
--- relojes divididos, asi solo existe el dominio de 50 MHz.
+-- relojes divididos, asi solo existe el dominio de 25 MHz.
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -13,7 +13,7 @@ use work.synth_pkg.all;
 
 entity base_tiempo is
     generic (
-        CLK_HZ : natural := 50_000_000
+        CLK_HZ : natural := CLK_HZ_SIS
     );
     port (
         clk      : in  std_logic;

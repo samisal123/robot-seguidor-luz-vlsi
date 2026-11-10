@@ -5,8 +5,10 @@
 -- (para que el Block Editor de Quartus genere sus simbolos);
 -- este paquete solo da nombre a los codigos y guarda las tablas.
 --
--- Audio: una muestra cada FS_DIV ciclos de 50 MHz
---        (50e6 / 1024 = 48 828.125 muestras por segundo).
+-- Reloj: 25 MHz (el PLL de la Cyclone II lo saca de los 50 MHz
+--        del oscilador de la tarjeta).
+-- Audio: una muestra cada FS_DIV ciclos de 25 MHz
+--        (25e6 / 512 = 48 828.125 muestras por segundo).
 -- Notas: n = 12 * octava + semitono (C = 0 ... B = 11); A4 = 57.
 --        n = 0 significa "sin nota".
 -- DDS:   acumulador de fase de 24 bits; f = inc * Fs / 2**24.
@@ -17,9 +19,10 @@ use ieee.numeric_std.all;
 
 package synth_pkg is
 
-    constant FS_DIV : natural := 1024;      -- ciclos de reloj por muestra
+    constant CLK_HZ_SIS : natural := 25_000_000;   -- reloj del sistema
+    constant FS_DIV     : natural := 512;          -- ciclos de reloj por muestra
 
-    -- Modos de operacion (SW9-SW8)
+    -- Modos de operacion (el boton MODO los recorre en este orden)
     constant M_INT  : std_logic_vector(1 downto 0) := "00";   -- interpretacion
     constant M_GRA  : std_logic_vector(1 downto 0) := "01";   -- grabacion
     constant M_REP  : std_logic_vector(1 downto 0) := "10";   -- reproduccion

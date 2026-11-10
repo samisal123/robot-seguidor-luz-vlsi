@@ -31,7 +31,7 @@ entity tremolo is
 end entity tremolo;
 
 architecture rtl of tremolo is
-    constant FS_HZ   : natural := 50_000_000 / FS_DIV;                 -- 48 828
+    constant FS_HZ   : natural := CLK_HZ_SIS / FS_DIV;                 -- 48 828
     constant INC_LFO : natural := (5 * 2**20 + FS_HZ / 2) / FS_HZ;     -- 107
 
     signal fase   : unsigned(19 downto 0) := (others => '0');

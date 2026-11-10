@@ -28,7 +28,7 @@ use work.synth_pkg.all;
 
 entity metronomo is
     generic (
-        CLK_HZ   : natural := 50_000_000;
+        CLK_HZ   : natural := CLK_HZ_SIS;
         CLIC_AMP : natural := 48          -- amplitud inicial del clic, de 127
     );
     port (
