@@ -34,7 +34,7 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [!] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados (no cupo en el disco: necesita 6 a 7 GB libres)
 - [!] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
 - [x] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio): instalado con Cyclone II; la interfaz grafica pide libpng12
-- [ ] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144
+- [x] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144: 3 782 LE (82 %), 25 MHz con 12.3 ns de margen
 - [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (libpng12 sin sudo)
 
 ---

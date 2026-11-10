@@ -222,7 +222,21 @@ Memoria planeada en la EP2C5 (26 bloques M4K de 4 096 bits):
 | Fuente de la VGA | 512 × 5 (64 caracteres de 8 filas) | 1 |
 | **Total** | | **23 de 26** |
 
-Los elementos lógicos y la Fmax se llenan con la compilación en Quartus II 13.0 SP1; ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus). Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica), y la primera versión para la EP2C5 dio 5 431 en una estimación con MAX 10 (TAREA-017) en la que Quartus no pudo poner las 7 tablas en memoria y las armó con lógica; después de eso, el ADSR se rehízo con un solo sumador y la fuente de la VGA pasó a un bloque M4K. Con las tablas en memoria, la misma estimación da **3 805 elementos lógicos** (TAREA-021), el 83 % de la EP2C5: VGA 1 546, cada voz unos 275 (ADSR 210), secuenciador 341, audio 376, teclados 201 y gestor de voces 172.
+Compilación en Quartus II 13.0 SP1 para la EP2C5T144C8 (TAREA-025): **3 782 elementos lógicos de 4 608 (82 %)**, 1 403 registros, 76 032 bits de memoria (63 %), 6 de 26 multiplicadores de 9 bits y 1 PLL. El reloj de 25 MHz cierra con 12.3 ns de margen (Fmax de 36 MHz). Por módulo:
+
+| Módulo | Elementos lógicos | Registros | Memoria (bits) |
+|---|---|---|---|
+| `vga_ui` | 1 523 | 454 | 6 144 |
+| `voz` (× 3; ADSR 210, DDS 24, forma de onda 32) | 265 a 271 c/u | 70 a 72 c/u | 5 120 c/u |
+| `audio_salida` (eco 86, metrónomo 98, trémolo 73, volumen 39, mezclador 37, PWM 28) | 383 | 212 | 45 056 |
+| `secuenciador` (con `memoria_eventos`) | 354 | 160 | 9 472 |
+| `gestor_voces` | 209 | 24 | 0 |
+| `interfaz_teclados` | 187 | 146 | 0 |
+| `teclas_notas` | 125 | 94 | 0 |
+| `control` | 100 | 27 | 0 |
+| `entradas_placa`, `base_tiempo`, `leds_estado`, `reset_encendido`, `selector_notas` | 38, 35, 15, 10, 21 | 29, 26, 10, 9, 0 | 0 |
+
+Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica), y la primera versión para la EP2C5 dio 5 431 en una estimación con MAX 10 (TAREA-017) en la que Quartus no pudo poner las 7 tablas en memoria y las armó con lógica; después de eso, el ADSR se rehízo con un solo sumador y la fuente de la VGA pasó a un bloque M4K. Con las tablas en memoria, la misma estimación da **3 805 elementos lógicos** (TAREA-021), el 83 % de la EP2C5: VGA 1 546, cada voz unos 275 (ADSR 210), secuenciador 341, audio 376, teclados 201 y gestor de voces 172.
 
 ## Limitaciones conocidas
 

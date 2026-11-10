@@ -20,6 +20,8 @@ Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un sinte
 
 Características de nivel implementadas: polifonía de tres voces, efectos digitales (trémolo y eco) e interfaz gráfica VGA.
 
+**Estado:** verificado en simulación (26 testbenches y 145 de 145 errores a propósito detectados) y compilado en Quartus II 13.0 SP1 para la EP2C5T144C8: 3 782 elementos lógicos (82 %), 63 % de la memoria y el reloj de 25 MHz con 12.3 ns de margen. Falta armarlo y probarlo en la tarjeta.
+
 ## Estructura
 
 | Carpeta | Contenido |

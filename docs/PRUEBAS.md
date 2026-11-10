@@ -87,7 +87,24 @@ Con Quartus II 13.0 SP1 (la última versión que soporta Cyclone II). Crea el pr
 
 `sh quartus/estimar_recursos.sh` estima los elementos lógicos con un Quartus Prime Lite más nuevo (necesita la familia MAX 10): compila para una MAX 10, que usa el mismo elemento lógico de 4 entradas, en modo de imagen única con memoria inicializada para que las tablas vayan a bloques de memoria como en la Cyclone II. Se usó mientras no se tenía la 13.0 SP1; en la PC del laboratorio ese Quartus se quitó para hacer espacio.
 
-Estimación (TAREA-021, 9 de noviembre): **3 805 elementos lógicos**, el 83 % de los 4 608 de la EP2C5, con las 10 tablas y memorias inferidas como bloques de memoria. La compilación para la EP2C5 con Quartus II 13.0 SP1 es la TAREA-023; los resultados quedan en `resultados/`. La compilación anterior para la DE10-Lite está en `resultados/TAREA-013.md`.
+### Resultado de la compilación
+
+9 de noviembre de 2026, Quartus II 13.0 SP1 Web Edition, EP2C5T144C8, nivel superior `sintetizador.bdf` ([resultados/TAREA-025.md](../resultados/TAREA-025.md), log completo en [logs/TAREA-025.log](../logs/TAREA-025.log)): síntesis, Fitter, ensamblador y TimeQuest terminan sin errores y sin advertencias críticas.
+
+| Recurso | Usado | Disponible | % |
+|---|---|---|---|
+| Elementos lógicos | 3 782 | 4 608 | 82 % |
+| Registros | 1 403 | 4 608 | 30 % |
+| Bits de memoria (M4K) | 76 032 | 119 808 | 63 % |
+| Multiplicadores de 9 bits | 6 | 26 | 23 % |
+| PLL | 1 | 2 | 50 % |
+| Pines | 30 | 89 | 34 % |
+
+Tiempos del reloj de 25 MHz del PLL (periodo de 40 ns): Fmax de 36.05 MHz en el modelo lento, margen de setup de 12.26 ns y de hold de 0.50 ns; en el modelo rápido, 31.61 ns y 0.22 ns. Las advertencias que quedan son de la licencia gratuita (compilación paralela, LogicLock), de análisis de jitter que la familia no soporta y de capacitancia de carga en las salidas (sin efecto: las salidas tienen `set_false_path`).
+
+Para que compilara en la 13.0 SP1 hubo dos ajustes: el PLL declara el componente `altpll` con solo los genéricos que usa, como lo escribe el MegaWizard (con la declaración de `altera_mf_components` Quartus fallaba con el error 14157), y el pin 76, que es nCEO en la Cyclone II, se libera como E/S normal (`CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION`) porque lo usa el teclado 2.
+
+Antes de tener la 13.0 SP1, la estimación con MAX 10 dio 3 805 elementos lógicos (TAREA-021). La compilación anterior para la DE10-Lite está en `resultados/TAREA-013.md`.
 
 ## Pruebas en la tarjeta
 
