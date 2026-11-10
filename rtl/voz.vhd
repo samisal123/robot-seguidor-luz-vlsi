@@ -6,12 +6,13 @@
 --                                                         x -> muestra
 --   gate -------------------------------> ADSR ----------+
 --
--- La ROM da el incremento de fase de la nota (synth_pkg); el DDS
+-- La ROM da el incremento de fase de la nota (synth_pkg) y va en
+-- un bloque M4K (lectura registrada, 128 x 24 bits); el DDS
 -- genera la fase, forma_onda la convierte en muestra (-127..127)
 -- y la envolvente la escala:
 --     muestra = onda * nivel / 256
 -- El producto (8 x 9 bits con signo) cabe en un multiplicador
--- embebido de la MAX 10.
+-- embebido de la Cyclone II.
 -- La nota debe quedarse fija mientras dure la liberacion; el
 -- gestor de voces solo baja el gate al soltar la tecla.
 -- ============================================================
@@ -39,9 +40,25 @@ entity voz is
 end entity voz;
 
 architecture estructural of voz is
-    constant TABLA : t_tabla_inc := tabla_inc;
+    type t_rom_inc is array (0 to 127) of std_logic_vector(23 downto 0);
 
-    signal inc    : std_logic_vector(23 downto 0);
+    function rom_inc return t_rom_inc is
+        constant T : t_tabla_inc := tabla_inc;
+        variable r : t_rom_inc;
+    begin
+        for n in 0 to 127 loop
+            r(n) := std_logic_vector(to_unsigned(T(n), 24));
+        end loop;
+        return r;
+    end function;
+
+    -- ROM de incrementos en un bloque de memoria (plantilla de ROM
+    -- de Quartus: arreglo constante leido en un proceso con reloj)
+    signal rom : t_rom_inc := rom_inc;
+    attribute romstyle : string;
+    attribute romstyle of rom : signal is "M4K";
+
+    signal inc    : std_logic_vector(23 downto 0) := (others => '0');
     signal fase   : std_logic_vector(23 downto 0);
     signal onda   : std_logic_vector(7 downto 0);
     signal env    : std_logic_vector(7 downto 0);
@@ -49,8 +66,14 @@ architecture estructural of voz is
     signal prod   : signed(16 downto 0) := (others => '0');
 begin
 
-    -- ROM de incrementos (combinacional: 128 x 24 bits en LUTs)
-    inc <= std_logic_vector(to_unsigned(TABLA(to_integer(unsigned(nota))), 24));
+    -- ROM de incrementos: el incremento sale un ciclo despues de la
+    -- nota (el DDS solo lo usa en tick_fs)
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            inc <= rom(to_integer(unsigned(nota)));
+        end if;
+    end process;
 
     u_dds : entity work.dds
         port map (
