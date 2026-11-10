@@ -41,9 +41,9 @@ sh sim/correr.sh secuenciador     # uno solo
 
 ### Resultado de la última corrida
 
-9 de noviembre de 2026, GHDL 4.1.0, con el diseño para la EP2C5T144: **los 26 testbenches pasan** ([logs/sim_modulos.log](../logs/sim_modulos.log) y [logs/sim_sinte_top.log](../logs/sim_sinte_top.log)).
+10 de noviembre de 2026, GHDL 4.1.0, con el diseño sin VGA ni botones (controles en el teclado 2): **los 23 testbenches pasan** (22 de módulo y el del sistema completo; [logs/sim_modulos.log](../logs/sim_modulos.log) y [logs/sim_sinte_top.log](../logs/sim_sinte_top.log)).
 
-- La prueba del sistema simula 3.39 s de operación desde el reloj de 50 MHz y mide la frecuencia en la salida de audio con tolerancia de 0.5 %: A4 = 440 Hz, A5 = 880 Hz, A6 = 1760 Hz en el teclado 2, A4 en triangular y C4 = 261.63 Hz al reproducir. La reproducción dura lo mismo que la grabación (±2 ms) y los LEDs D2, D4 y D5 se encienden solo cuando deben.
+- La prueba del sistema simula 4.65 s de operación desde el reloj de 50 MHz y mide la frecuencia en la salida de audio con tolerancia de 0.5 %: A4 = 440 Hz, A5 = 880 Hz, A6 = 1760 Hz en el teclado 2, A4 en triangular, y C4 = 261.63 Hz y E4 = 329.63 Hz al reproducir; E4 entra 100 ms después de C4 (±5 ms), como se grabó. En configuración los LEDs muestran el número del parámetro (5, release), D4 y D5 quedan fijos al grabar y reproducir y vuelven a parpadear al terminar, y D2 marca el metrónomo.
 - `ghdl --synth` del diseño completo (con el modelo del PLL en lugar del `altpll`) termina sin errores y sin latches; los avisos son atributos que solo usa Quartus (`romstyle`, `altera_attribute`) y las tablas que se leen de su valor inicial ([logs/ghdl_synth.log](../logs/ghdl_synth.log)).
 
 ### Pruebas de mutación

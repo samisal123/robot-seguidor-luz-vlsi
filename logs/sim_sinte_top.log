@@ -1,17 +1,13 @@
 # Prueba del sistema completo: sh sim/correr.sh sinte_top
-# GHDL 4.1.0, 9 de noviembre de 2026, diseno para la EP2C5T144 con el ADSR de un solo sumador y la VGA de 5 etapas (3.39 s simulados desde el reloj de 50 MHz)
+# GHDL 4.1.0, 10 de noviembre de 2026, diseno sin VGA ni botones (controles en el teclado 2), 4.65 s simulados desde el reloj de 50 MHz
 
-sim/tb_sinte_top.vhd:243:9:@6021110ns:(report note): tb_sinte_top: paso 2 A4
-sim/tb_sinte_top.vhd:254:9:@73154550ns:(report note): tb_sinte_top: paso 3 acorde
-sim/tb_sinte_top.vhd:264:9:@144097270ns:(report note): tb_sinte_top: paso 4 soltar
-sim/tb_sinte_top.vhd:271:9:@336138230ns:(report note): tb_sinte_top: paso 5 octavas
-sim/tb_sinte_top.vhd:294:9:@1173613430ns:(report note): tb_sinte_top: paso 6 configuracion
-sim/tb_sinte_top.vhd:317:9:@1891123190ns:(report note): tb_sinte_top: paso 7 grabacion
-sim/tb_sinte_top.vhd:343:9:@2241001290ns:(report note): tb_sinte_top: paso 7 reproduccion
-sim/tb_sinte_top.vhd:360:9:@2556001210ns:(report note): tb_sinte_top: paso 8 metronomo
-sim/tb_sinte_top.vhd:382:9:@3390083190ns:(report note): tb_sinte_top: OK
+sim/tb_sinte_top.vhd:216:9:@6021110ns:(report note): tb_sinte_top: paso 2 A4
+sim/tb_sinte_top.vhd:227:9:@73154550ns:(report note): tb_sinte_top: paso 3 acorde
+sim/tb_sinte_top.vhd:237:9:@144097270ns:(report note): tb_sinte_top: paso 4 soltar
+sim/tb_sinte_top.vhd:244:9:@336138230ns:(report note): tb_sinte_top: paso 5 octavas
+sim/tb_sinte_top.vhd:267:9:@1173613430ns:(report note): tb_sinte_top: paso 6 configuracion
+sim/tb_sinte_top.vhd:299:9:@2191114230ns:(report note): tb_sinte_top: paso 7 grabacion
+sim/tb_sinte_top.vhd:321:9:@3500001210ns:(report note): tb_sinte_top: paso 7 reproduccion
+sim/tb_sinte_top.vhd:356:9:@3819007990ns:(report note): tb_sinte_top: paso 8 metronomo
+sim/tb_sinte_top.vhd:378:9:@4653084790ns:(report note): tb_sinte_top: OK
 == tb_sinte_top: PASA
-
-real	25m24.667s
-user	19m48.747s
-sys	5m23.747s
