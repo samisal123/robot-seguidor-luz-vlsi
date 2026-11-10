@@ -1,8 +1,8 @@
 -- ============================================================
 -- salida_pwm.vhd
--- DAC de 1 bit: PWM de 8 bits a 50 MHz / 256 = 195.3 kHz.
+-- DAC de 1 bit: PWM de 8 bits a 25 MHz / 256 = 97.7 kHz.
 -- El filtro RC de la tarjeta de audio quita la portadora y deja la
--- senal de audio (Fs = 48.8 kHz, 4 periodos de PWM por muestra).
+-- senal de audio (Fs = 48.8 kHz, 2 periodos de PWM por muestra).
 --   duty = muestra + 128   (muestra con signo -128..127 -> 0..255)
 --   pwm = '1' los primeros duty ciclos de cada periodo de 256
 -- El duty nuevo se toma solo al final de cada periodo (cuenta =
