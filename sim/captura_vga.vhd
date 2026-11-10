@@ -26,8 +26,8 @@ entity captura_vga is
 end entity captura_vga;
 
 architecture sim of captura_vga is
-    constant T_CLK : time := 20 ns;
-    constant T_PIX : time := 2 * T_CLK;
+    constant T_CLK : time := 40 ns;    -- 25 MHz, un pixel por ciclo
+    constant T_PIX : time := T_CLK;
 
     signal clk        : std_logic := '0';
     signal rst        : std_logic := '1';
@@ -51,7 +51,7 @@ architecture sim of captura_vga is
     signal parametro  : std_logic_vector(2 downto 0) := "000";
     signal eventos    : std_logic_vector(8 downto 0) := (others => '0');
     signal posicion   : std_logic_vector(8 downto 0) := (others => '0');
-    signal vga_r, vga_g, vga_b : std_logic_vector(3 downto 0);
+    signal vga_r, vga_g, vga_b : std_logic;
     signal vga_hs, vga_vs : std_logic;
     signal fin        : boolean := false;
 
@@ -74,7 +74,7 @@ begin
     clk <= not clk after T_CLK / 2 when not fin else '0';
 
     dut : entity work.vga_ui
-        generic map (DESTELLO => 400_000, PARPADEO => 0)
+        generic map (DESTELLO => 200_000, PARPADEO => 0)
         port map (
             clk => clk, rst => rst, modo => modo, estado_sec => estado_sec,
             forma => forma, atk => atk, dec => dec, sus => sus, rel => rel,
@@ -86,7 +86,7 @@ begin
             vga_hs => vga_hs, vga_vs => vga_vs);
 
     process
-        type t_linea  is array (0 to 639) of std_logic_vector(11 downto 0);
+        type t_linea  is array (0 to 639) of std_logic_vector(2 downto 0);
         type t_cuadro is array (0 to 479) of t_linea;
         variable cuadro : t_cuadro;
 
@@ -115,7 +115,7 @@ begin
         procedure escribir_ppm (nombre : string) is
             file f    : text open write_mode is nombre;
             variable ln : line;
-            variable v  : std_logic_vector(11 downto 0);
+            variable v  : std_logic_vector(2 downto 0);
         begin
             write(ln, string'("P3"));
             writeline(f, ln);
@@ -126,11 +126,12 @@ begin
             for yy in 0 to 479 loop
                 for xx in 0 to 639 loop
                     v := cuadro(yy)(xx);
-                    write(ln, to_integer(unsigned(v(11 downto 8))) * 17);
+                    -- cada canal de 1 bit: 0 o 0.7 V en el monitor (255)
+                    if v(2) = '1' then write(ln, 255); else write(ln, 0); end if;
                     write(ln, ' ');
-                    write(ln, to_integer(unsigned(v(7 downto 4))) * 17);
+                    if v(1) = '1' then write(ln, 255); else write(ln, 0); end if;
                     write(ln, ' ');
-                    write(ln, to_integer(unsigned(v(3 downto 0))) * 17);
+                    if v(0) = '1' then write(ln, 255); else write(ln, 0); end if;
                     writeline(f, ln);
                 end loop;
             end loop;
