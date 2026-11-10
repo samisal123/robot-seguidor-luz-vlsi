@@ -30,7 +30,7 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [!] TAREA-018 @claude-code: Instalar Quartus II 13.0 SP1 (la descarga pide cuenta de Altera; el equipo baja los archivos)
 - [!] TAREA-019 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
 - [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance (despues de la TAREA-023)
-- [ ] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria)
+- [x] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria): 3 805 LE, cabe en la EP2C5 (83 %)
 - [ ] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados
 - [ ] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144
 
