@@ -14,11 +14,16 @@
 #                               agregarlos o actualizarlos en el
 #                               Block Editor
 # Los puertos de cada bloque se leen de su entidad en rtl/, asi
-# que el diagrama siempre coincide con el VHDL. En el .bdf cada
-# puerto lleva un tramo de cable con el nombre de su senal; los
-# cables con el mismo nombre quedan conectados.
+# que el diagrama siempre coincide con el VHDL. En el .bdf los
+# bloques van en columnas de la entrada a la salida y se dibujan
+# los cables entre columnas vecinas; el reloj, el reset, los pulsos
+# de tiempo y las rebanadas de bus van con un tramo de cable con
+# el nombre de su senal (los cables con el mismo nombre quedan
+# conectados). tools/revisa_bdf.py revisa que la red del .bdf sea
+# la misma que la del VHDL.
 #
-# Uso: python3 tools/genera_top.py
+# Uso: python3 tools/genera_top.py               (con cables)
+#      python3 tools/genera_top.py --sin-cables  (solo tramos con nombre)
 # ============================================================
 import os
 import re
@@ -469,6 +474,181 @@ def genera_bdf():
     return '\n'.join(partes) + '\n'
 
 
+# ------------------------------------------------------------
+# BDF con cables dibujados
+# ------------------------------------------------------------
+# Las senales globales (reloj, reset y pulsos de tiempo) van con
+# cables cortos con nombre en cada puerto, como en un esquematico
+# normal. Las demas se dibujan como cables de verdad cuando van de
+# un bloque a otro de la columna siguiente con el mismo nombre
+# completo (sin rebanadas de bus): salen a la derecha del bloque,
+# bajan o suben por un carril propio en el espacio entre columnas
+# y entran por la izquierda del bloque destino. Lo que no se puede
+# dibujar asi (rebanadas, conexiones hacia atras o que saltan
+# columnas) queda con cable corto con nombre; Quartus une los
+# cables con el mismo nombre, asi que la red es la misma.
+GLOBALES = {'clk', 'rst', 'tick_fs', 'tick_1ms'}
+COLUMNA_CABLES = {
+    'u_pll': 1, 'u_rst': 1, 'u_tiempo': 1, 'u_placa': 1, 'u_teclados': 1,
+    'u_notas': 2, 'u_control': 2,
+    'u_sec': 3,
+    'u_sel': 4,
+    'u_gestor': 5,
+    'u_voz0': 6, 'u_voz1': 6, 'u_voz2': 6,
+    'u_audio': 7, 'u_vga': 7, 'u_leds': 7,
+}
+COL_PINES_SAL = 8
+CARRIL = 16          # separacion entre carriles
+MARGEN = 24          # entre el fin de los cables cortos y el primer carril
+
+
+def genera_bdf_cables():
+    partes = [ENCABEZADO.replace(
+        'Cada puerto lleva un cable con el nombre de su senal:\nlos cables con el mismo nombre estan conectados.',
+        'Los cables dibujados unen bloques de columnas vecinas; el reloj, el\n'
+        'reset, los pulsos de tiempo y las rebanadas de bus van con cables\n'
+        'cortos con nombre. Los cables con el mismo nombre estan conectados.')]
+    # 1) tamanos de los simbolos y alturas por columna
+    cols = {}
+    for (inst, ent, _, mapa) in INSTANCIAS:
+        _, conex, ancho, alto = simbolo(ent, inst, 0, 0)
+        cols.setdefault(COLUMNA_CABLES[inst], []).append((inst, ent, mapa, ancho, alto))
+    ancho_col = {c: max(b[3] for b in bs) for c, bs in cols.items()}
+    ancho_col[0] = 168                       # pines de entrada
+    # 2) extremos: (columna, lado, y relativo dentro de la columna, inst, puerto, expr, dir)
+    #    primero con x = 0 por columna; la x real se suma despues
+    extremos = []
+    y_bloque = {}
+    for c, bs in cols.items():
+        y = 0
+        for (inst, ent, mapa, ancho, alto) in bs:
+            y_bloque[inst] = y
+            _, conex, _, _ = simbolo(ent, inst, 0, y)
+            dirs = {pp[0]: pp[1] for pp in ENTIDADES[ent]}
+            for (cx, cy, p, lado) in conex:
+                if mapa[p] is None:
+                    continue
+                extremos.append({'col': c, 'dx': cx, 'y': cy, 'inst': inst, 'puerto': p,
+                                 'expr': mapa[p], 'dir': dirs[p], 'lado': lado})
+            y += alto + 64
+    y_in = 0
+    y_out = 0
+    for (n, d, a) in PINES:
+        if d == 'in':
+            extremos.append({'col': 0, 'dx': 168, 'y': y_in + 8, 'inst': 'pin', 'puerto': n,
+                             'expr': n, 'dir': 'out', 'lado': 'der'})
+            y_in += 48
+        else:
+            extremos.append({'col': COL_PINES_SAL, 'dx': 0, 'y': y_out + 8, 'inst': 'pin', 'puerto': n,
+                             'expr': n, 'dir': 'in', 'lado': 'izq'})
+            y_out += 48
+    # 3) redes que se pueden dibujar
+    redes = {}
+    for e in extremos:
+        redes.setdefault(e['expr'], []).append(e)
+    dibujo = {}      # expr -> (manejador, [destinos])
+    for expr, es in redes.items():
+        if expr in GLOBALES or '[' in expr:
+            continue
+        man = [e for e in es if e['dir'] == 'out']
+        if len(man) != 1:
+            continue
+        m = man[0]
+        dest = [e for e in es if e['dir'] == 'in' and e['col'] == m['col'] + 1]
+        if dest:
+            dibujo[expr] = (m, dest)
+
+    def carriles_y_x(dibujo):
+        # carriles por canal (columna del manejador), ordenados por y del manejador
+        por_canal = {}
+        for expr, (m, dest) in dibujo.items():
+            por_canal.setdefault(m['col'], []).append(expr)
+        x_col = {0: 0}
+        carril = {}
+        ultima = max(list(cols) + [COL_PINES_SAL])
+        for c in range(0, ultima):
+            nets = sorted(por_canal.get(c, []), key=lambda n: dibujo[n][0]['y'])
+            ini = x_col[c] + ancho_col.get(c, 0) + TRAMO + MARGEN
+            for k, n in enumerate(nets):
+                carril[n] = ini + CARRIL * k
+            fin = ini + CARRIL * max(len(nets) - 1, 0)
+            x_col[c + 1] = max(fin + MARGEN + TRAMO + 32, x_col[c] + ancho_col.get(c, 0) + 240)
+            x_col[c + 1] = (x_col[c + 1] + 15) // 16 * 16
+            # los carriles dependen de x_col[c], que ya es definitiva
+        return x_col, carril
+
+    # 4) quita redes que choquen (tramos horizontales de redes distintas en la misma y)
+    while True:
+        x_col, carril = carriles_y_x(dibujo)
+        horiz = []
+        for expr, (m, dest) in dibujo.items():
+            xm = x_col[m['col']] + m['dx']
+            horiz.append((m['y'], min(xm, carril[expr]), max(xm, carril[expr]), expr))
+            for d in dest:
+                xd = x_col[d['col']] + d['dx']
+                horiz.append((d['y'], min(xd, carril[expr]), max(xd, carril[expr]), expr))
+        choque = None
+        for i in range(len(horiz)):
+            for j in range(i + 1, len(horiz)):
+                a, b = horiz[i], horiz[j]
+                if a[3] != b[3] and a[0] == b[0] and a[1] <= b[2] and b[1] <= a[2]:
+                    choque = b[3]
+                    break
+            if choque:
+                break
+        if not choque:
+            break
+        del dibujo[choque]
+    # 5) simbolos, pines y cables
+    for c, bs in cols.items():
+        for (inst, ent, mapa, ancho, alto) in bs:
+            txt, _, _, _ = simbolo(ent, inst, x_col[c], y_bloque[inst])
+            partes.append(txt)
+    y_in = 0
+    y_out = 0
+    for (n, d, a) in PINES:
+        if d == 'in':
+            txt, _, _ = pin(n, d, a, 0, y_in)
+            y_in += 48
+        else:
+            txt, _, _ = pin(n, d, a, x_col[COL_PINES_SAL], y_out)
+            y_out += 48
+        partes.append(txt)
+    dibujados = set()
+    for expr, (m, dest) in dibujo.items():
+        bus = es_bus(expr) if expr in ANCHOS else False
+        xt = carril[expr]
+        xm, ym = x_col[m['col']] + m['dx'], m['y']
+        partes.append(conector(xm, ym, xt, ym, etiqueta_senal(expr), bus))
+        dibujados.add((m['inst'], m['puerto']))
+        ys = sorted({ym} | {d['y'] for d in dest})
+        for y1, y2 in zip(ys, ys[1:]):
+            partes.append(conector(xt, y1, xt, y2, None, bus))
+        for d in dest:
+            xd = x_col[d['col']] + d['dx']
+            if xd != xt:
+                partes.append(conector(xt, d['y'], xd, d['y'], None, bus))
+            dibujados.add((d['inst'], d['puerto']))
+        # puntos de union donde el carril tiene mas de dos tramos
+        for y in ys:
+            grado = (1 if y == ym else 0) + sum(1 for d in dest if d['y'] == y)
+            grado += (1 if y != ys[0] else 0) + (1 if y != ys[-1] else 0)
+            if grado >= 3:
+                partes.append(f'(junction (pt {xt} {y}))')
+    # cables cortos con nombre para todo lo demas
+    for e in extremos:
+        if (e['inst'], e['puerto']) in dibujados:
+            continue
+        x = x_col[e['col']] + e['dx']
+        et = etiqueta_senal(e['expr'])
+        bus = es_bus(e['expr'])
+        if e['lado'] == 'izq':
+            partes.append(conector(x - TRAMO, e['y'], x, e['y'], et, bus))
+        else:
+            partes.append(conector(x, e['y'], x + TRAMO, e['y'], et, bus))
+    return '\n'.join(partes) + '\n'
+
+
 def genera_bsf(ent):
     txt, _, ancho, alto = simbolo(ent, 'inst', 0, 0)
     cuerpo = txt.replace('(symbol', '(symbol', 1)
@@ -480,7 +660,9 @@ def genera_bsf(ent):
 if __name__ == '__main__':
     open(os.path.join(RTL, 'sinte_top.vhd'), 'w', encoding='ascii').write(genera_vhdl())
     q = os.path.join(RAIZ, 'quartus')
-    open(os.path.join(q, 'sintetizador.bdf'), 'w', encoding='ascii').write(genera_bdf())
+    # --sin-cables: diagrama solo con cables cortos con nombre en cada puerto
+    bdf = genera_bdf() if '--sin-cables' in sys.argv else genera_bdf_cables()
+    open(os.path.join(q, 'sintetizador.bdf'), 'w', encoding='ascii').write(bdf)
     os.makedirs(os.path.join(q, 'simbolos'), exist_ok=True)
     for ent in ENTIDADES:
         open(os.path.join(q, 'simbolos', ent + '.bsf'), 'w', encoding='ascii').write(genera_bsf(ent))
