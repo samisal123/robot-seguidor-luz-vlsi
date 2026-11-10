@@ -7,22 +7,20 @@
 #
 # Uso: sh quartus/compilar.sh             (nivel superior: sintetizador.bdf)
 #      sh quartus/compilar.sh sinte_top   (nivel superior: rtl/sinte_top.vhd)
-# Usa Quartus II 13.0 SP1 (la ultima version con Cyclone II). Si
-# quartus_sh no esta en el PATH, se busca en ~/altera/13.0sp1 y
-# /opt/altera/13.0sp1.
+# Usa Quartus II 13.0 SP1 (la ultima version con Cyclone II): la
+# busca primero en ~/altera/13.0sp1 y /opt/altera/13.0sp1 y si no
+# esta, usa el quartus_sh del PATH.
 # ============================================================
 set -u
 Q=$(cd "$(dirname "$0")" && pwd)
 LOG="$Q/../logs/compilacion.log"
 
-if ! command -v quartus_sh >/dev/null 2>&1; then
-    for d in "$HOME"/altera/13.0sp1/quartus/bin "$HOME"/altera/*/quartus/bin \
-             /opt/altera/13.0sp1/quartus/bin /opt/altera/*/quartus/bin; do
-        [ -x "$d/quartus_sh" ] && PATH="$d:$PATH"
-    done
-    export PATH
-fi
+# Primero la 13.0 SP1 (la unica con Cyclone II), aunque haya otro Quartus en el PATH
+for d in "$HOME"/altera/13.0sp1/quartus/bin /opt/altera/13.0sp1/quartus/bin; do
+    [ -x "$d/quartus_sh" ] && { PATH="$d:$PATH"; export PATH; break; }
+done
 command -v quartus_sh >/dev/null 2>&1 || { echo "No encuentro quartus_sh"; exit 1; }
+quartus_sh --version | grep -i "version" | head -1
 
 mkdir -p "$Q/../logs"
 cd "$Q"
