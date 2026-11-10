@@ -40,3 +40,4 @@ quartus/estimacion/
 # Datos de las graficas de simulacion (se regeneran con sim/graficas/genera.sh)
 sim/graficas/salida/
 sim/graficas/work/
+__pycache__/
