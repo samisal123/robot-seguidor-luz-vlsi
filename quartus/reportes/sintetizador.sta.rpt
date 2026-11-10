@@ -1,0 +1,1004 @@
+TimeQuest Timing Analyzer report for sintetizador
+Mon Nov  9 22:15:24 2026
+Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. TimeQuest Timing Analyzer Summary
+  3. Parallel Compilation
+  4. SDC File List
+  5. Clocks
+  6. Slow Model Fmax Summary
+  7. Slow Model Setup Summary
+  8. Slow Model Hold Summary
+  9. Slow Model Recovery Summary
+ 10. Slow Model Removal Summary
+ 11. Slow Model Minimum Pulse Width Summary
+ 12. Slow Model Setup: 'u_pll|u_pll|pll|clk[0]'
+ 13. Slow Model Hold: 'u_pll|u_pll|pll|clk[0]'
+ 14. Slow Model Minimum Pulse Width: 'clk50'
+ 15. Slow Model Minimum Pulse Width: 'u_pll|u_pll|pll|clk[0]'
+ 16. Slow Model Datasheet Report
+ 17. Fast Model Setup Summary
+ 18. Fast Model Hold Summary
+ 19. Fast Model Recovery Summary
+ 20. Fast Model Removal Summary
+ 21. Fast Model Minimum Pulse Width Summary
+ 22. Fast Model Setup: 'u_pll|u_pll|pll|clk[0]'
+ 23. Fast Model Hold: 'u_pll|u_pll|pll|clk[0]'
+ 24. Fast Model Minimum Pulse Width: 'clk50'
+ 25. Fast Model Minimum Pulse Width: 'u_pll|u_pll|pll|clk[0]'
+ 26. Fast Model Datasheet Report
+ 27. Multicorner Timing Analysis Summary
+ 28. Setup Transfers
+ 29. Hold Transfers
+ 30. Report TCCS
+ 31. Report RSKM
+ 32. Unconstrained Paths
+ 33. TimeQuest Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                                      ;
++--------------------+-------------------------------------------------------------------+
+; Quartus II Version ; Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition ;
+; Revision Name      ; sintetizador                                                      ;
+; Device Family      ; Cyclone II                                                        ;
+; Device Name        ; EP2C5T144C8                                                       ;
+; Timing Models      ; Final                                                             ;
+; Delay Model        ; Combined                                                          ;
+; Rise/Fall Delays   ; Unavailable                                                       ;
++--------------------+-------------------------------------------------------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 12     ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------+
+; SDC File List                                        ;
++------------------+--------+--------------------------+
+; SDC File Path    ; Status ; Read at                  ;
++------------------+--------+--------------------------+
+; sintetizador.sdc ; OK     ; Mon Nov  9 22:15:24 2026 ;
++------------------+--------+--------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                                                ;
++------------------------+-----------+--------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------------------------+----------------------------+
+; Clock Name             ; Type      ; Period ; Frequency ; Rise  ; Fall   ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source                   ; Targets                    ;
++------------------------+-----------+--------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------------------------+----------------------------+
+; clk50                  ; Base      ; 20.000 ; 50.0 MHz  ; 0.000 ; 10.000 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;                          ; { CLOCK_50 }               ;
+; u_pll|u_pll|pll|clk[0] ; Generated ; 40.000 ; 25.0 MHz  ; 0.000 ; 20.000 ; 50.00      ; 2         ; 1           ;       ;        ;           ;            ; false    ; clk50  ; u_pll|u_pll|pll|inclk[0] ; { u_pll|u_pll|pll|clk[0] } ;
++------------------------+-----------+--------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------------------------+----------------------------+
+
+
++-------------------------------------------------------------+
+; Slow Model Fmax Summary                                     ;
++-----------+-----------------+------------------------+------+
+; Fmax      ; Restricted Fmax ; Clock Name             ; Note ;
++-----------+-----------------+------------------------+------+
+; 36.05 MHz ; 36.05 MHz       ; u_pll|u_pll|pll|clk[0] ;      ;
++-----------+-----------------+------------------------+------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
++-------------------------------------------------+
+; Slow Model Setup Summary                        ;
++------------------------+--------+---------------+
+; Clock                  ; Slack  ; End Point TNS ;
++------------------------+--------+---------------+
+; u_pll|u_pll|pll|clk[0] ; 12.261 ; 0.000         ;
++------------------------+--------+---------------+
+
+
++------------------------------------------------+
+; Slow Model Hold Summary                        ;
++------------------------+-------+---------------+
+; Clock                  ; Slack ; End Point TNS ;
++------------------------+-------+---------------+
+; u_pll|u_pll|pll|clk[0] ; 0.499 ; 0.000         ;
++------------------------+-------+---------------+
+
+
+-------------------------------
+; Slow Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Slow Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++-------------------------------------------------+
+; Slow Model Minimum Pulse Width Summary          ;
++------------------------+--------+---------------+
+; Clock                  ; Slack  ; End Point TNS ;
++------------------------+--------+---------------+
+; clk50                  ; 10.000 ; 0.000         ;
+; u_pll|u_pll|pll|clk[0] ; 16.933 ; 0.000         ;
++------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Setup: 'u_pll|u_pll|pll|clk[0]'                                                                                                                            ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; Slack  ; From Node                        ; To Node                        ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; 12.261 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 27.755     ;
+; 12.479 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 27.542     ;
+; 12.654 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 27.387     ;
+; 13.124 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 26.917     ;
+; 13.197 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.817     ;
+; 13.197 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.817     ;
+; 13.197 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.817     ;
+; 13.197 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.817     ;
+; 13.279 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 26.742     ;
+; 13.298 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.716     ;
+; 13.298 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.716     ;
+; 13.298 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.716     ;
+; 13.298 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.716     ;
+; 13.298 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.716     ;
+; 13.298 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.716     ;
+; 13.325 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.014      ; 26.729     ;
+; 13.415 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.604     ;
+; 13.415 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.604     ;
+; 13.415 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.604     ;
+; 13.415 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.604     ;
+; 13.516 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.503     ;
+; 13.516 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.503     ;
+; 13.516 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.503     ;
+; 13.516 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.503     ;
+; 13.516 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.503     ;
+; 13.516 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.503     ;
+; 13.551 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.463     ;
+; 13.590 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.449     ;
+; 13.590 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.449     ;
+; 13.590 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.449     ;
+; 13.590 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.449     ;
+; 13.594 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.420     ;
+; 13.629 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 26.387     ;
+; 13.629 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 26.387     ;
+; 13.634 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 26.407     ;
+; 13.659 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 26.382     ;
+; 13.691 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.348     ;
+; 13.691 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.348     ;
+; 13.691 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.348     ;
+; 13.691 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.348     ;
+; 13.691 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.348     ;
+; 13.691 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.348     ;
+; 13.734 ; teclas_notas:u_notas|s_notas[20] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 26.287     ;
+; 13.764 ; teclas_notas:u_notas|s_notas[17] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 26.257     ;
+; 13.769 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.250     ;
+; 13.812 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 26.207     ;
+; 13.821 ; teclas_notas:u_notas|s_notas[5]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 26.205     ;
+; 13.847 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 26.174     ;
+; 13.847 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 26.174     ;
+; 13.875 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.139     ;
+; 13.875 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.026     ; 26.139     ;
+; 13.944 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.095     ;
+; 13.987 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 26.052     ;
+; 14.022 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 26.019     ;
+; 14.022 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 26.019     ;
+; 14.041 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 25.985     ;
+; 14.060 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.979     ;
+; 14.060 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.979     ;
+; 14.060 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.979     ;
+; 14.060 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.979     ;
+; 14.065 ; teclas_notas:u_notas|s_notas[4]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 25.961     ;
+; 14.093 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.926     ;
+; 14.093 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.926     ;
+; 14.161 ; secuenciador:u_sec|s_salida[9]   ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 25.880     ;
+; 14.161 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.878     ;
+; 14.161 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.878     ;
+; 14.161 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.878     ;
+; 14.161 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.878     ;
+; 14.161 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.878     ;
+; 14.161 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.878     ;
+; 14.215 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.804     ;
+; 14.215 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.804     ;
+; 14.215 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.804     ;
+; 14.215 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.804     ;
+; 14.229 ; teclas_notas:u_notas|s_notas[0]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 25.797     ;
+; 14.233 ; teclas_notas:u_notas|s_notas[16] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 25.783     ;
+; 14.261 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.791     ;
+; 14.261 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.791     ;
+; 14.261 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.791     ;
+; 14.261 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.791     ;
+; 14.264 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 25.762     ;
+; 14.268 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.771     ;
+; 14.268 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 25.771     ;
+; 14.281 ; secuenciador:u_sec|s_salida[13]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 25.740     ;
+; 14.299 ; teclas_notas:u_notas|s_notas[1]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 25.727     ;
+; 14.316 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.703     ;
+; 14.316 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.703     ;
+; 14.316 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.703     ;
+; 14.316 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.703     ;
+; 14.316 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.703     ;
+; 14.316 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.021     ; 25.703     ;
+; 14.340 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 25.690     ;
+; 14.340 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 25.690     ;
+; 14.340 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 25.690     ;
+; 14.340 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 25.690     ;
+; 14.362 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.690     ;
+; 14.362 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.690     ;
+; 14.362 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.690     ;
+; 14.362 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.690     ;
+; 14.362 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.690     ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Hold: 'u_pll|u_pll|pll|clk[0]'                                                                                                                                                                                      ;
++-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
+; Slack ; From Node                                                    ; To Node                                                      ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
+; 0.499 ; reset_encendido:u_rst|cuenta[0]                              ; reset_encendido:u_rst|cuenta[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; reset_encendido:u_rst|cuenta[1]                              ; reset_encendido:u_rst|cuenta[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; reset_encendido:u_rst|cuenta[3]                              ; reset_encendido:u_rst|cuenta[3]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; reset_encendido:u_rst|cuenta[2]                              ; reset_encendido:u_rst|cuenta[2]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; entradas_placa:u_placa|debounce:u_deb_modo|estado            ; entradas_placa:u_placa|debounce:u_deb_modo|estado            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; entradas_placa:u_placa|r_modo[0]                             ; entradas_placa:u_placa|r_modo[0]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; entradas_placa:u_placa|r_modo[1]                             ; entradas_placa:u_placa|r_modo[1]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_par[0]                                   ; control:u_control|r_par[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_par[1]                                   ; control:u_control|r_par[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_par[2]                                   ; control:u_control|r_par[2]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_efe[0]                                   ; control:u_control|r_efe[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_efe[1]                                   ; control:u_control|r_efe[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; audio_salida:u_audio|eco:u_eco|lleno                         ; audio_salida:u_audio|eco:u_eco|lleno                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_forma[0]                                 ; control:u_control|r_forma[0]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_forma[1]                                 ; control:u_control|r_forma[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_sus[1]                                   ; control:u_control|r_sus[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_sus[0]                                   ; control:u_control|r_sus[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_atk[0]                                   ; control:u_control|r_atk[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_dec[0]                                   ; control:u_control|r_dec[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_rel[0]                                   ; control:u_control|r_rel[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; teclas_notas:u_notas|j[4]                                    ; teclas_notas:u_notas|j[4]                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; teclas_notas:u_notas|cuantas[0]                              ; teclas_notas:u_notas|cuantas[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; teclas_notas:u_notas|cuantas[1]                              ; teclas_notas:u_notas|cuantas[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_oct[2]                                   ; control:u_control|r_oct[2]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_oct[0]                                   ; control:u_control|r_oct[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; entradas_placa:u_placa|debounce:u_deb_accion|estado          ; entradas_placa:u_placa|debounce:u_deb_accion|estado          ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; secuenciador:u_sec|est.TOCAR                                 ; secuenciador:u_sec|est.TOCAR                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; entradas_placa:u_placa|debounce:u_deb_metro|estado           ; entradas_placa:u_placa|debounce:u_deb_metro|estado           ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_metro                                    ; control:u_control|r_metro                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_tempo[1]                                 ; control:u_control|r_tempo[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; vga_ui:u_vga|tx_m[0]                                         ; vga_ui:u_vga|tx_m[0]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; vga_ui:u_vga|tx_m[1]                                         ; vga_ui:u_vga|tx_m[1]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; vga_ui:u_vga|tx_m[3]                                         ; vga_ui:u_vga|tx_m[3]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; vga_ui:u_vga|tx_m[2]                                         ; vga_ui:u_vga|tx_m[2]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; vga_ui:u_vga|dest_ac                                         ; vga_ui:u_vga|dest_ac                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.734 ; audio_salida:u_audio|muestra[0]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[0]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.040      ;
+; 0.734 ; audio_salida:u_audio|muestra[4]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[4]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.040      ;
+; 0.736 ; audio_salida:u_audio|mezclador:u_mez|s_mezcla[11]            ; audio_salida:u_audio|tremolo:u_tre|x_r[11]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.042      ;
+; 0.736 ; audio_salida:u_audio|tremolo:u_tre|x_r2[3]                   ; audio_salida:u_audio|tremolo:u_tre|s_y[3]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.042      ;
+; 0.736 ; vga_ui:u_vga|s1_tgy[2]                                       ; vga_ui:u_vga|s2_gy_t[2]                                      ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.042      ;
+; 0.736 ; vga_ui:u_vga|s2_vis                                          ; vga_ui:u_vga|s3_vis                                          ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.042      ;
+; 0.736 ; vga_ui:u_vga|s1_hs                                           ; vga_ui:u_vga|s2_hs                                           ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.042      ;
+; 0.738 ; teclas_notas:u_notas|f_ant[5]                                ; teclas_notas:u_notas|s_func[5]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.044      ;
+; 0.739 ; audio_salida:u_audio|mezclador:u_mez|s_mezcla[8]             ; audio_salida:u_audio|tremolo:u_tre|x_r[8]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.045      ;
+; 0.739 ; audio_salida:u_audio|muestra[5]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[5]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.045      ;
+; 0.741 ; audio_salida:u_audio|muestra[3]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[3]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
+; 0.741 ; vga_ui:u_vga|ix_q[5]                                         ; vga_ui:u_vga|ix_q[5]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
+; 0.741 ; vga_ui:u_vga|s1_lgy[2]                                       ; vga_ui:u_vga|s2_lgy[2]                                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
+; 0.741 ; vga_ui:u_vga|s1_tgy[1]                                       ; vga_ui:u_vga|s2_gy_t[1]                                      ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
++-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width: 'clk50'                                                                   ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock ; Clock Edge ; Target                   ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; 10.000 ; 10.000       ; 0.000          ; High Pulse Width ; clk50 ; Rise       ; CLOCK_50|combout         ;
+; 10.000 ; 10.000       ; 0.000          ; Low Pulse Width  ; clk50 ; Rise       ; CLOCK_50|combout         ;
+; 10.000 ; 10.000       ; 0.000          ; High Pulse Width ; clk50 ; Rise       ; u_pll|u_pll|pll|clk[0]   ;
+; 10.000 ; 10.000       ; 0.000          ; Low Pulse Width  ; clk50 ; Rise       ; u_pll|u_pll|pll|clk[0]   ;
+; 10.000 ; 10.000       ; 0.000          ; High Pulse Width ; clk50 ; Rise       ; u_pll|u_pll|pll|inclk[0] ;
+; 10.000 ; 10.000       ; 0.000          ; Low Pulse Width  ; clk50 ; Rise       ; u_pll|u_pll|pll|inclk[0] ;
+; 17.059 ; 20.000       ; 2.941          ; Port Rate        ; clk50 ; Rise       ; CLOCK_50                 ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width: 'u_pll|u_pll|pll|clk[0]'                                                                                                                                                               ;
++--------+--------------+----------------+------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock                  ; Clock Edge ; Target                                                                                                               ;
++--------+--------------+----------------+------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg1   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg1   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg10  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg10  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg11  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg11  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg2   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg2   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg3   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg3   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg4   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg4   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg5   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg5   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg6   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg6   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg7   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg7   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg8   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg8   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg9   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg9   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_datain_reg0    ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_datain_reg0    ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_memory_reg0    ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_memory_reg0    ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_we_reg         ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_we_reg         ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg1   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg1   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg10  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg10  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg11  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg11  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg2   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg2   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg3   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg3   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg4   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg4   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg5   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg5   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg6   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg6   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg7   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg7   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg8   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg8   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg9   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg9   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg0  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg0  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg1  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg1  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg10 ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg10 ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg11 ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg11 ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg2  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg2  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg3  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg3  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg4  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg4  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg5  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg5  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg6  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg6  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg7  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg7  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg8  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg8  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg9  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg9  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_datain_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_datain_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_memory_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_memory_reg0   ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_we_reg        ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_we_reg        ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg0  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg0  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg1  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg1  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg10 ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg10 ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg11 ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg11 ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg2  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg2  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg3  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg3  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg4  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg4  ;
+; 16.933 ; 20.000       ; 3.067          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg5  ;
+; 16.933 ; 20.000       ; 3.067          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg5  ;
++--------+--------------+----------------+------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
+
+
+-------------------------------
+; Slow Model Datasheet Report ;
+-------------------------------
+Nothing to report.
+
+
++-------------------------------------------------+
+; Fast Model Setup Summary                        ;
++------------------------+--------+---------------+
+; Clock                  ; Slack  ; End Point TNS ;
++------------------------+--------+---------------+
+; u_pll|u_pll|pll|clk[0] ; 31.609 ; 0.000         ;
++------------------------+--------+---------------+
+
+
++------------------------------------------------+
+; Fast Model Hold Summary                        ;
++------------------------+-------+---------------+
+; Clock                  ; Slack ; End Point TNS ;
++------------------------+-------+---------------+
+; u_pll|u_pll|pll|clk[0] ; 0.215 ; 0.000         ;
++------------------------+-------+---------------+
+
+
+-------------------------------
+; Fast Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Fast Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++-------------------------------------------------+
+; Fast Model Minimum Pulse Width Summary          ;
++------------------------+--------+---------------+
+; Clock                  ; Slack  ; End Point TNS ;
++------------------------+--------+---------------+
+; clk50                  ; 10.000 ; 0.000         ;
+; u_pll|u_pll|pll|clk[0] ; 17.873 ; 0.000         ;
++------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Setup: 'u_pll|u_pll|pll|clk[0]'                                                                                                                            ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; Slack  ; From Node                        ; To Node                        ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; 31.609 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.399      ;
+; 31.693 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 8.320      ;
+; 31.697 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 8.335      ;
+; 31.863 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.145      ;
+; 31.863 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.145      ;
+; 31.863 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.145      ;
+; 31.863 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.145      ;
+; 31.915 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.025     ; 8.092      ;
+; 31.915 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.025     ; 8.092      ;
+; 31.915 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.025     ; 8.092      ;
+; 31.915 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.025     ; 8.092      ;
+; 31.915 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.025     ; 8.092      ;
+; 31.915 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.025     ; 8.092      ;
+; 31.932 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.076      ;
+; 31.934 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 8.099      ;
+; 31.947 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 8.066      ;
+; 31.947 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 8.066      ;
+; 31.947 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 8.066      ;
+; 31.947 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 8.066      ;
+; 31.951 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 8.081      ;
+; 31.951 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 8.081      ;
+; 31.951 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 8.081      ;
+; 31.951 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 8.081      ;
+; 31.951 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 8.089      ;
+; 31.959 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.049      ;
+; 31.959 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.049      ;
+; 31.965 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 8.048      ;
+; 31.966 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 8.042      ;
+; 31.999 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 8.013      ;
+; 31.999 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 8.013      ;
+; 31.999 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 8.013      ;
+; 31.999 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 8.013      ;
+; 31.999 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 8.013      ;
+; 31.999 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 8.013      ;
+; 32.003 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 8.028      ;
+; 32.003 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 8.028      ;
+; 32.003 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 8.028      ;
+; 32.003 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 8.028      ;
+; 32.003 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 8.028      ;
+; 32.003 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 8.028      ;
+; 32.016 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.997      ;
+; 32.020 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 8.012      ;
+; 32.029 ; teclas_notas:u_notas|s_notas[20] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 7.983      ;
+; 32.043 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.970      ;
+; 32.043 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.970      ;
+; 32.047 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.985      ;
+; 32.047 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.985      ;
+; 32.050 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.963      ;
+; 32.052 ; teclas_notas:u_notas|s_notas[17] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.961      ;
+; 32.054 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.978      ;
+; 32.058 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 7.950      ;
+; 32.058 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.024     ; 7.950      ;
+; 32.063 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.970      ;
+; 32.073 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.960      ;
+; 32.110 ; teclas_notas:u_notas|s_notas[5]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 7.908      ;
+; 32.138 ; teclas_notas:u_notas|s_notas[4]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 7.880      ;
+; 32.142 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.871      ;
+; 32.142 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.871      ;
+; 32.146 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.886      ;
+; 32.146 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.886      ;
+; 32.171 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 7.847      ;
+; 32.177 ; secuenciador:u_sec|s_salida[20]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 7.835      ;
+; 32.178 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.844      ;
+; 32.178 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.844      ;
+; 32.178 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.844      ;
+; 32.178 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.844      ;
+; 32.185 ; secuenciador:u_sec|s_salida[9]   ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.848      ;
+; 32.188 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.845      ;
+; 32.188 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.845      ;
+; 32.188 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.845      ;
+; 32.188 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.845      ;
+; 32.198 ; secuenciador:u_sec|s_salida[17]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.815      ;
+; 32.201 ; teclas_notas:u_notas|s_notas[16] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.023     ; 7.808      ;
+; 32.202 ; secuenciador:u_sec|s_salida[13]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.020     ; 7.810      ;
+; 32.205 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.835      ;
+; 32.205 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.835      ;
+; 32.205 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.835      ;
+; 32.205 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.835      ;
+; 32.210 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 7.808      ;
+; 32.219 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.794      ;
+; 32.219 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.794      ;
+; 32.219 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.794      ;
+; 32.219 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.019     ; 7.794      ;
+; 32.220 ; teclas_notas:u_notas|s_notas[1]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 7.798      ;
+; 32.220 ; teclas_notas:u_notas|s_notas[0]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.014     ; 7.798      ;
+; 32.227 ; secuenciador:u_sec|s_salida[16]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.023     ; 7.782      ;
+; 32.239 ; teclas_notas:u_notas|s_notas[18] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.023     ; 7.770      ;
+; 32.240 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.792      ;
+; 32.240 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.792      ;
+; 32.240 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.792      ;
+; 32.240 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.792      ;
+; 32.240 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.792      ;
+; 32.240 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.792      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[9]  ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.776      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.782      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.782      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.782      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.782      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.782      ;
+; 32.257 ; teclas_notas:u_notas|s_notas[6]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.782      ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Hold: 'u_pll|u_pll|pll|clk[0]'                                                                                                                                                                                      ;
++-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
+; Slack ; From Node                                                    ; To Node                                                      ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
++-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
+; 0.215 ; reset_encendido:u_rst|cuenta[0]                              ; reset_encendido:u_rst|cuenta[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; reset_encendido:u_rst|cuenta[1]                              ; reset_encendido:u_rst|cuenta[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; reset_encendido:u_rst|cuenta[3]                              ; reset_encendido:u_rst|cuenta[3]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; reset_encendido:u_rst|cuenta[2]                              ; reset_encendido:u_rst|cuenta[2]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; entradas_placa:u_placa|debounce:u_deb_modo|estado            ; entradas_placa:u_placa|debounce:u_deb_modo|estado            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; entradas_placa:u_placa|r_modo[0]                             ; entradas_placa:u_placa|r_modo[0]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; entradas_placa:u_placa|r_modo[1]                             ; entradas_placa:u_placa|r_modo[1]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_par[0]                                   ; control:u_control|r_par[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_par[1]                                   ; control:u_control|r_par[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_par[2]                                   ; control:u_control|r_par[2]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_efe[0]                                   ; control:u_control|r_efe[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_efe[1]                                   ; control:u_control|r_efe[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; audio_salida:u_audio|eco:u_eco|lleno                         ; audio_salida:u_audio|eco:u_eco|lleno                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_forma[0]                                 ; control:u_control|r_forma[0]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_forma[1]                                 ; control:u_control|r_forma[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_sus[1]                                   ; control:u_control|r_sus[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_sus[0]                                   ; control:u_control|r_sus[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_atk[0]                                   ; control:u_control|r_atk[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_dec[0]                                   ; control:u_control|r_dec[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_rel[0]                                   ; control:u_control|r_rel[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; teclas_notas:u_notas|j[4]                                    ; teclas_notas:u_notas|j[4]                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; teclas_notas:u_notas|cuantas[0]                              ; teclas_notas:u_notas|cuantas[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; teclas_notas:u_notas|cuantas[1]                              ; teclas_notas:u_notas|cuantas[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_oct[2]                                   ; control:u_control|r_oct[2]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_oct[0]                                   ; control:u_control|r_oct[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; entradas_placa:u_placa|debounce:u_deb_accion|estado          ; entradas_placa:u_placa|debounce:u_deb_accion|estado          ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; secuenciador:u_sec|est.TOCAR                                 ; secuenciador:u_sec|est.TOCAR                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; entradas_placa:u_placa|debounce:u_deb_metro|estado           ; entradas_placa:u_placa|debounce:u_deb_metro|estado           ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_metro                                    ; control:u_control|r_metro                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_tempo[1]                                 ; control:u_control|r_tempo[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; vga_ui:u_vga|tx_m[0]                                         ; vga_ui:u_vga|tx_m[0]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; vga_ui:u_vga|tx_m[1]                                         ; vga_ui:u_vga|tx_m[1]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; vga_ui:u_vga|tx_m[3]                                         ; vga_ui:u_vga|tx_m[3]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; vga_ui:u_vga|tx_m[2]                                         ; vga_ui:u_vga|tx_m[2]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; vga_ui:u_vga|dest_ac                                         ; vga_ui:u_vga|dest_ac                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.236 ; audio_salida:u_audio|muestra[4]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[4]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.388      ;
+; 0.237 ; audio_salida:u_audio|tremolo:u_tre|x_r2[3]                   ; audio_salida:u_audio|tremolo:u_tre|s_y[3]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.389      ;
+; 0.237 ; audio_salida:u_audio|muestra[0]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[0]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.389      ;
+; 0.237 ; vga_ui:u_vga|s1_hs                                           ; vga_ui:u_vga|s2_hs                                           ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.389      ;
+; 0.238 ; audio_salida:u_audio|mezclador:u_mez|s_mezcla[11]            ; audio_salida:u_audio|tremolo:u_tre|x_r[11]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.238 ; audio_salida:u_audio|muestra[5]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[5]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.238 ; vga_ui:u_vga|ix_q[5]                                         ; vga_ui:u_vga|ix_q[5]                                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.238 ; vga_ui:u_vga|s1_tgy[2]                                       ; vga_ui:u_vga|s2_gy_t[2]                                      ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.238 ; vga_ui:u_vga|cuadros[4]                                      ; vga_ui:u_vga|cuadros[4]                                      ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.238 ; vga_ui:u_vga|s2_vis                                          ; vga_ui:u_vga|s3_vis                                          ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.239 ; audio_salida:u_audio|mezclador:u_mez|s_mezcla[8]             ; audio_salida:u_audio|tremolo:u_tre|x_r[8]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.391      ;
+; 0.239 ; audio_salida:u_audio|muestra[3]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[3]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.391      ;
+; 0.239 ; vga_ui:u_vga|s1_lgy[2]                                       ; vga_ui:u_vga|s2_lgy[2]                                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.391      ;
+; 0.239 ; vga_ui:u_vga|s1_tgy[1]                                       ; vga_ui:u_vga|s2_gy_t[1]                                      ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.391      ;
++-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width: 'clk50'                                                                   ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock ; Clock Edge ; Target                   ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; 10.000 ; 10.000       ; 0.000          ; High Pulse Width ; clk50 ; Rise       ; CLOCK_50|combout         ;
+; 10.000 ; 10.000       ; 0.000          ; Low Pulse Width  ; clk50 ; Rise       ; CLOCK_50|combout         ;
+; 10.000 ; 10.000       ; 0.000          ; High Pulse Width ; clk50 ; Rise       ; u_pll|u_pll|pll|clk[0]   ;
+; 10.000 ; 10.000       ; 0.000          ; Low Pulse Width  ; clk50 ; Rise       ; u_pll|u_pll|pll|clk[0]   ;
+; 10.000 ; 10.000       ; 0.000          ; High Pulse Width ; clk50 ; Rise       ; u_pll|u_pll|pll|inclk[0] ;
+; 10.000 ; 10.000       ; 0.000          ; Low Pulse Width  ; clk50 ; Rise       ; u_pll|u_pll|pll|inclk[0] ;
+; 17.620 ; 20.000       ; 2.380          ; Port Rate        ; clk50 ; Rise       ; CLOCK_50                 ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width: 'u_pll|u_pll|pll|clk[0]'                                                                                                                                                               ;
++--------+--------------+----------------+------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock                  ; Clock Edge ; Target                                                                                                               ;
++--------+--------------+----------------+------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg1   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg1   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg10  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg10  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg11  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg11  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg2   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg2   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg3   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg3   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg4   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg4   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg5   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg5   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg6   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg6   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg7   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg7   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg8   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg8   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg9   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_address_reg9   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_datain_reg0    ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_datain_reg0    ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_memory_reg0    ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_memory_reg0    ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_we_reg         ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~porta_we_reg         ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg1   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg1   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg10  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg10  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg11  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg11  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg2   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg2   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg3   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg3   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg4   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg4   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg5   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg5   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg6   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg6   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg7   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg7   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg8   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg8   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg9   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a0~portb_address_reg9   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg0  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg0  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg1  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg1  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg10 ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg10 ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg11 ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg11 ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg2  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg2  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg3  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg3  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg4  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg4  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg5  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg5  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg6  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg6  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg7  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg7  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg8  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg8  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg9  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_address_reg9  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_datain_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_datain_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_memory_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_memory_reg0   ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_we_reg        ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~porta_we_reg        ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg0  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg0  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg1  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg1  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg10 ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg10 ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg11 ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg11 ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg2  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg2  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg3  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg3  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg4  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg4  ;
+; 17.873 ; 20.000       ; 2.127          ; High Pulse Width ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg5  ;
+; 17.873 ; 20.000       ; 2.127          ; Low Pulse Width  ; u_pll|u_pll|pll|clk[0] ; Rise       ; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ram_block1a10~portb_address_reg5  ;
++--------+--------------+----------------+------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
+
+
+-------------------------------
+; Fast Model Datasheet Report ;
+-------------------------------
+Nothing to report.
+
+
++-------------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                                 ;
++-------------------------+--------+-------+----------+---------+---------------------+
+; Clock                   ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++-------------------------+--------+-------+----------+---------+---------------------+
+; Worst-case Slack        ; 12.261 ; 0.215 ; N/A      ; N/A     ; 10.000              ;
+;  clk50                  ; N/A    ; N/A   ; N/A      ; N/A     ; 10.000              ;
+;  u_pll|u_pll|pll|clk[0] ; 12.261 ; 0.215 ; N/A      ; N/A     ; 16.933              ;
+; Design-wide TNS         ; 0.0    ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
+;  clk50                  ; N/A    ; N/A   ; N/A      ; N/A     ; 0.000               ;
+;  u_pll|u_pll|pll|clk[0] ; 0.000  ; 0.000 ; N/A      ; N/A     ; 0.000               ;
++-------------------------+--------+-------+----------+---------+---------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; Setup Transfers                                                                              ;
++------------------------+------------------------+-----------+----------+----------+----------+
+; From Clock             ; To Clock               ; RR Paths  ; FR Paths ; RF Paths ; FF Paths ;
++------------------------+------------------------+-----------+----------+----------+----------+
+; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 113681559 ; 0        ; 0        ; 0        ;
++------------------------+------------------------+-----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++----------------------------------------------------------------------------------------------+
+; Hold Transfers                                                                               ;
++------------------------+------------------------+-----------+----------+----------+----------+
+; From Clock             ; To Clock               ; RR Paths  ; FR Paths ; RF Paths ; FF Paths ;
++------------------------+------------------------+-----------+----------+----------+----------+
+; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 113681559 ; 0        ; 0        ; 0        ;
++------------------------+------------------------+-----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths                            ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 0     ; 0    ;
+; Unconstrained Input Ports       ; 0     ; 0    ;
+; Unconstrained Input Port Paths  ; 0     ; 0    ;
+; Unconstrained Output Ports      ; 0     ; 0    ;
+; Unconstrained Output Port Paths ; 0     ; 0    ;
++---------------------------------+-------+------+
+
+
++------------------------------------+
+; TimeQuest Timing Analyzer Messages ;
++------------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 32-bit TimeQuest Timing Analyzer
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Processing started: Mon Nov  9 22:15:23 2026
+Info: Command: quartus_sta sintetizador -c sintetizador
+Info: qsta_default_script.tcl version: #1
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (332104): Reading SDC File: 'sintetizador.sdc'
+Info (332110): Deriving PLL clocks
+    Info (332110): create_generated_clock -source {u_pll|u_pll|pll|inclk[0]} -divide_by 2 -duty_cycle 50.00 -name {u_pll|u_pll|pll|clk[0]} {u_pll|u_pll|pll|clk[0]}
+Warning (332153): Family doesn't support jitter analysis.
+Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow Model
+Info (332146): Worst-case setup slack is 12.261
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    12.261         0.000 u_pll|u_pll|pll|clk[0] 
+Info (332146): Worst-case hold slack is 0.499
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):     0.499         0.000 u_pll|u_pll|pll|clk[0] 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 10.000
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    10.000         0.000 clk50 
+    Info (332119):    16.933         0.000 u_pll|u_pll|pll|clk[0] 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info: Analyzing Fast Model
+Info (332146): Worst-case setup slack is 31.609
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    31.609         0.000 u_pll|u_pll|pll|clk[0] 
+Info (332146): Worst-case hold slack is 0.215
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):     0.215         0.000 u_pll|u_pll|pll|clk[0] 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 10.000
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    10.000         0.000 clk50 
+    Info (332119):    17.873         0.000 u_pll|u_pll|pll|clk[0] 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info (332101): Design is fully constrained for setup requirements
+Info (332101): Design is fully constrained for hold requirements
+Info: Quartus II 32-bit TimeQuest Timing Analyzer was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 335 megabytes
+    Info: Processing ended: Mon Nov  9 22:15:24 2026
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+

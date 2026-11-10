@@ -89,7 +89,7 @@ Con Quartus II 13.0 SP1 (la última versión que soporta Cyclone II). Crea el pr
 
 ### Resultado de la compilación
 
-9 de noviembre de 2026, Quartus II 13.0 SP1 Web Edition, EP2C5T144C8, nivel superior `sintetizador.bdf` ([resultados/TAREA-025.md](../resultados/TAREA-025.md), log completo en [logs/TAREA-025.log](../logs/TAREA-025.log)): síntesis, Fitter, ensamblador y TimeQuest terminan sin errores y sin advertencias críticas.
+9 de noviembre de 2026, Quartus II 13.0 SP1 Web Edition, EP2C5T144C8, nivel superior `sintetizador.bdf` ([resultados/TAREA-025.md](../resultados/TAREA-025.md), log completo en [logs/TAREA-025.log](../logs/TAREA-025.log) y reportes de Quartus en [quartus/reportes/](../quartus/reportes/)): síntesis, Fitter, ensamblador y TimeQuest terminan sin errores y sin advertencias críticas.
 
 | Recurso | Usado | Disponible | % |
 |---|---|---|---|
