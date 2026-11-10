@@ -10,8 +10,9 @@
 --      (teclado 2 = una octava arriba), en todas las octavas
 --   2) cada tecla de funcion da un pulso de un ciclo en su bit
 --   3) con varias teclas salen las 3 mas graves, de grave a aguda
---   4) ultima = la ultima tecla de nota presionada
---   5) las teclas de funcion no generan notas
+--   4) las teclas de funcion no generan notas
+-- La busqueda de notas es en serie (25 ciclos por vuelta), asi que
+-- despues de cada cambio de teclas se esperan LAT = 60 ciclos.
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -21,7 +22,8 @@ entity tb_teclas_notas is
 end entity tb_teclas_notas;
 
 architecture sim of tb_teclas_notas is
-    constant T_CLK : time := 20 ns;
+    constant T_CLK : time := 40 ns;
+    constant LAT   : natural := 60;    -- ciclos para ver un cambio de teclas
 
     signal clk    : std_logic := '0';
     signal rst    : std_logic := '1';
@@ -29,7 +31,6 @@ architecture sim of tb_teclas_notas is
     signal octava : std_logic_vector(2 downto 0) := "100";
     signal notas  : std_logic_vector(20 downto 0);
     signal func   : std_logic_vector(7 downto 0);
-    signal ultima : std_logic_vector(6 downto 0);
     signal fin    : boolean := false;
 
     -- indice de tecla (4*fila + columna) de cada semitono, segun la
@@ -54,8 +55,7 @@ begin
             teclas => teclas,
             octava => octava,
             notas  => notas,
-            func   => func,
-            ultima => ultima
+            func   => func
         );
 
     estimulo : process
@@ -72,7 +72,7 @@ begin
         rst <= '1';
         ciclos(3);
         rst <= '0';
-        ciclos(2);
+        ciclos(LAT);
         assert notas = (notas'range => '0') and func = x"00"
             report "tb_teclas_notas: sin teclas debe haber silencio" severity error;
 
@@ -85,29 +85,27 @@ begin
                     j := 12 * t + s;
                     teclas <= (others => '0');
                     teclas(k) <= '1';
-                    ciclos(2);
+                    ciclos(LAT);
                     wait for 1 ns;
                     assert nota_i(notas, 0) = 12 * oct + j and nota_i(notas, 1) = 0
                            and nota_i(notas, 2) = 0
                         report "tb_teclas_notas: tecla " & integer'image(k) & " en octava "
                                & integer'image(oct) & " dio " & integer'image(nota_i(notas, 0))
                         severity error;
-                    assert to_integer(unsigned(ultima)) = 12 * oct + j
-                        report "tb_teclas_notas: ultima nota incorrecta" severity error;
                     teclas <= (others => '0');
-                    ciclos(2);
+                    ciclos(LAT);
                 end loop;
             end loop;
         end loop;
         octava <= "100";
 
-        -- 2) y 5) teclas de funcion: pulso de un ciclo y sin notas
+        -- 2) y 4) teclas de funcion: pulso de un ciclo y sin notas
         for t in 0 to 1 loop
             for f in 0 to 3 loop
                 k := 16 * t + TECLA_FUNC(f);
                 teclas(k) <= '1';
                 visto := 0;
-                for c in 1 to 6 loop
+                for c in 1 to LAT loop
                     wait until rising_edge(clk);
                     wait for 1 ns;
                     if func(4 * t + f) = '1' then
@@ -134,41 +132,43 @@ begin
         -- 3) varias teclas: #, 1 (teclado 1) y 3 (teclado 2)
         teclas <= (others => '0');
         teclas(14) <= '1';            -- B4 = 59
-        ciclos(2);
+        ciclos(LAT);
         teclas(0) <= '1';             -- C4 = 48
-        ciclos(2);
+        ciclos(LAT);
         teclas(16 + 2) <= '1';        -- D5 = 62
-        ciclos(2);
+        ciclos(LAT);
         wait for 1 ns;
         assert nota_i(notas, 0) = 48 and nota_i(notas, 1) = 59 and nota_i(notas, 2) = 62
             report "tb_teclas_notas: acorde mal ordenado" severity error;
-        assert to_integer(unsigned(ultima)) = 62
-            report "tb_teclas_notas: ultima debe ser 62" severity error;
         -- una cuarta tecla mas aguda no entra; una mas grave desplaza a la mas aguda
         teclas(16 + 14) <= '1';       -- B5 = 71
-        ciclos(2);
+        ciclos(LAT);
         wait for 1 ns;
         assert nota_i(notas, 0) = 48 and nota_i(notas, 1) = 59 and nota_i(notas, 2) = 62
             report "tb_teclas_notas: la cuarta nota aguda no debe entrar" severity error;
         teclas(1) <= '1';             -- C#4 = 49
-        ciclos(2);
+        ciclos(LAT);
         wait for 1 ns;
         assert nota_i(notas, 0) = 48 and nota_i(notas, 1) = 49 and nota_i(notas, 2) = 59
             report "tb_teclas_notas: deben quedar las 3 notas mas graves" severity error;
-        assert to_integer(unsigned(ultima)) = 49
-            report "tb_teclas_notas: ultima debe ser 49" severity error;
-        -- soltar la ultima: ultima no cambia
+        -- soltar la C#4: regresa la D5
         teclas(1) <= '0';
-        ciclos(2);
+        ciclos(LAT);
         wait for 1 ns;
-        assert to_integer(unsigned(ultima)) = 49
-            report "tb_teclas_notas: soltar no debe cambiar ultima" severity error;
+        assert nota_i(notas, 0) = 48 and nota_i(notas, 1) = 59 and nota_i(notas, 2) = 62
+            report "tb_teclas_notas: al soltar debe regresar la siguiente nota" severity error;
+        -- cambiar la octava con las teclas presionadas
+        octava <= "011";
+        ciclos(LAT);
+        wait for 1 ns;
+        assert nota_i(notas, 0) = 36 and nota_i(notas, 1) = 47 and nota_i(notas, 2) = 50
+            report "tb_teclas_notas: el cambio de octava no se aplico" severity error;
 
         -- reset
         rst <= '1';
         ciclos(2);
         wait for 1 ns;
-        assert notas = (notas'range => '0') and to_integer(unsigned(ultima)) = 0
+        assert notas = (notas'range => '0') and func = x"00"
             report "tb_teclas_notas: el reset no limpio las salidas" severity error;
         rst <= '0';
 
