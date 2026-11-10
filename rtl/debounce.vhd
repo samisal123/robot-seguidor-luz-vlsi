@@ -7,7 +7,7 @@
 -- reinicia la cuenta.
 -- raw ya debe venir sincronizado (sync_2ff).
 -- rise y fall son pulsos de un ciclo cuando clean sube o baja;
--- sirven, por ejemplo, para arrancar con KEY0.
+-- sirven, por ejemplo, para que un boton de una sola orden por pulsacion.
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
