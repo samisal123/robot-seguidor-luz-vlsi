@@ -40,52 +40,40 @@ IP = os.path.join(RAIZ, 'quartus', 'ip')      # bloques de Quartus (PLL)
 PINES = [
     ('CLOCK_50', 'in', None),
     ('BTN_RESET', 'in', None),
-    ('BTN', 'in', 3),
     ('TEC1_COL', 'in', 4),
     ('TEC2_COL', 'in', 4),
     ('LED', 'out', 3),
     ('TEC1_FIL', 'out', 4),
     ('TEC2_FIL', 'out', 4),
     ('AUDIO_PWM', 'out', None),
-    ('VGA_R', 'out', None),
-    ('VGA_G', 'out', None),
-    ('VGA_B', 'out', None),
-    ('VGA_HS', 'out', None),
-    ('VGA_VS', 'out', None),
 ]
 
 COMENTARIO_PIN = {
     'CLOCK_50': 'oscilador de 50 MHz de la tarjeta (pin 17)',
     'BTN_RESET': 'boton RESET de la tarjeta, 0 = presionado (pin 144)',
-    'BTN': 'botones METRONOMO, ACCION y MODO (2..0), 0 = presionado',
     'TEC1_COL': 'columnas del teclado 1, 0 = tecla (pull-up)',
     'TEC2_COL': 'columnas del teclado 2',
     'LED': 'LEDs D5, D4, D2 de la tarjeta (2..0), activos en bajo',
     'TEC1_FIL': 'filas del teclado 1 (0 o alta impedancia)',
     'TEC2_FIL': 'filas del teclado 2',
     'AUDIO_PWM': 'PWM de audio de 97.7 kHz (pin 93)',
-    'VGA_R': 'rojo (270 ohm al DB15)',
-    'VGA_G': 'verde',
-    'VGA_B': 'azul',
-    'VGA_HS': 'sincronia horizontal',
-    'VGA_VS': 'sincronia vertical',
 }
 
 # Senales internas: (nombre, ancho o None)
 SENALES = [
     ('clk', None), ('pll_listo', None),
     ('rst', None), ('tick_fs', None), ('tick_1ms', None),
-    ('accion', None), ('metro_btn', None), ('modo', 2),
+    ('modo', 2),
     ('teclas', 32), ('vivo', 21), ('func', 8),
     ('forma', 2), ('atk', 2), ('dec', 2), ('sus', 2), ('rel', 2),
     ('volumen', 3), ('tempo', 2), ('efecto', 2),
     ('metro_on', None), ('metro_suena', None),
     ('octava', 3), ('parametro', 3),
     ('cmd_grabar', None), ('cmd_reproducir', None), ('cmd_parar', None),
-    ('grabado', 21), ('estado_sec', 2), ('eventos', 9), ('posicion', 9),
+    ('grabado', 21), ('estado_sec', 2),
     ('pedidas', 21), ('notas_v', 21), ('gates', 3), ('activas', 3),
-    ('muestras', 24), ('niveles', 24),
-    ('beat', None), ('acento', None),
+    ('muestras', 24),
+    ('beat', None),
 ]
 
 # Instancias: (nombre, entidad, columna, {puerto: senal})
@@ -97,18 +85,14 @@ INSTANCIAS = [
                                      'rst': 'rst'}),
     ('u_tiempo', 'base_tiempo', 1, {'clk': CLK, 'rst': 'rst',
                                     'tick_fs': 'tick_fs', 'tick_1ms': 'tick_1ms'}),
-    ('u_placa', 'entradas_placa', 1, {'clk': CLK, 'rst': 'rst', 'tick_1ms': 'tick_1ms',
-                                      'btn': 'BTN', 'accion': 'accion',
-                                      'metro_btn': 'metro_btn', 'modo': 'modo'}),
     ('u_teclados', 'interfaz_teclados', 1, {'clk': CLK, 'rst': 'rst', 'tick_1ms': 'tick_1ms',
                                             'tec1_col': 'TEC1_COL', 'tec2_col': 'TEC2_COL',
                                             'tec1_fil': 'TEC1_FIL', 'tec2_fil': 'TEC2_FIL',
                                             'teclas': 'teclas'}),
     ('u_notas', 'teclas_notas', 2, {'clk': CLK, 'rst': 'rst', 'teclas': 'teclas',
                                     'octava': 'octava', 'notas': 'vivo', 'func': 'func'}),
-    ('u_control', 'control', 2, {'clk': CLK, 'rst': 'rst', 'modo': 'modo', 'func': 'func',
-                                 'accion': 'accion', 'metro_btn': 'metro_btn',
-                                 'estado_sec': 'estado_sec', 'forma': 'forma', 'atk': 'atk',
+    ('u_control', 'control', 2, {'clk': CLK, 'rst': 'rst', 'func': 'func',
+                                 'estado_sec': 'estado_sec', 'modo': 'modo', 'forma': 'forma', 'atk': 'atk',
                                  'dec': 'dec', 'sus': 'sus', 'rel': 'rel', 'volumen': 'volumen',
                                  'tempo': 'tempo', 'efecto': 'efecto', 'metro_on': 'metro_on',
                                  'metro_suena': 'metro_suena', 'octava': 'octava',
@@ -118,7 +102,7 @@ INSTANCIAS = [
                                   'cmd_grabar': 'cmd_grabar', 'cmd_reproducir': 'cmd_reproducir',
                                   'cmd_parar': 'cmd_parar', 'conjunto': 'vivo',
                                   'salida': 'grabado', 'estado': 'estado_sec',
-                                  'eventos': 'eventos', 'posicion': 'posicion', 'llena': None}),
+                                  'eventos': None, 'posicion': None, 'llena': None}),
     ('u_sel', 'selector_notas', 3, {'estado_sec': 'estado_sec', 'vivo': 'vivo',
                                     'grabado': 'grabado', 'pedidas': 'pedidas'}),
     ('u_gestor', 'gestor_voces', 3, {'clk': CLK, 'rst': 'rst', 'conjunto': 'pedidas',
@@ -130,7 +114,7 @@ for v in range(3):
         'clk': CLK, 'rst': 'rst', 'tick_fs': 'tick_fs',
         'nota': f'notas_v[{7 * v + 6}..{7 * v}]', 'gate': f'gates[{v}]',
         'forma': 'forma', 'atk': 'atk', 'dec': 'dec', 'sus': 'sus', 'rel': 'rel',
-        'muestra': f'muestras[{8 * v + 7}..{8 * v}]', 'nivel': f'niveles[{8 * v + 7}..{8 * v}]',
+        'muestra': f'muestras[{8 * v + 7}..{8 * v}]', 'nivel': None,
         'activa': f'activas[{v}]'}))
 INSTANCIAS += [
     ('u_audio', 'audio_salida', 5, {'clk': CLK, 'rst': 'rst', 'tick_fs': 'tick_fs',
@@ -138,20 +122,12 @@ INSTANCIAS += [
                                     'voz1': 'muestras[15..8]', 'voz2': 'muestras[23..16]',
                                     'volumen': 'volumen', 'efecto': 'efecto',
                                     'metro_on': 'metro_suena', 'tempo': 'tempo',
-                                    'pwm': 'AUDIO_PWM', 'beat': 'beat', 'acento': 'acento',
+                                    'pwm': 'AUDIO_PWM', 'beat': 'beat', 'acento': None,
                                     'clip': None, 'nivel': None}),
-    ('u_vga', 'vga_ui', 5, {'clk': CLK, 'rst': 'rst', 'modo': 'modo', 'estado_sec': 'estado_sec',
-                            'forma': 'forma', 'atk': 'atk', 'dec': 'dec', 'sus': 'sus',
-                            'rel': 'rel', 'volumen': 'volumen', 'tempo': 'tempo',
-                            'efecto': 'efecto', 'metro_on': 'metro_on', 'beat': 'beat',
-                            'acento': 'acento', 'octava': 'octava', 'notas': 'notas_v',
-                            'gates': 'gates', 'niveles': 'niveles', 'parametro': 'parametro',
-                            'eventos': 'eventos', 'posicion': 'posicion', 'vga_r': 'VGA_R',
-                            'vga_g': 'VGA_G', 'vga_b': 'VGA_B', 'vga_hs': 'VGA_HS',
-                            'vga_vs': 'VGA_VS'}),
     ('u_leds', 'leds_estado', 5, {'clk': CLK, 'rst': 'rst', 'tick_1ms': 'tick_1ms',
                                   'metro_on': 'metro_on', 'beat': 'beat',
-                                  'estado_sec': 'estado_sec', 'led_n': 'LED'}),
+                                  'modo': 'modo', 'estado_sec': 'estado_sec',
+                                  'parametro': 'parametro', 'led_n': 'LED'}),
 ]
 
 
@@ -283,9 +259,9 @@ def genera_vhdl():
     w('--                                               |')
     w('--   audio_salida: mezcla -> efectos -> volumen -> + metronomo -> PWM')
     w('--')
-    w('--   control: modos (boton MODO), teclas de funcion, botones')
-    w('--   ACCION y METRONOMO, parametros y ordenes al secuenciador')
-    w('--   vga_ui y leds_estado: interfaz de usuario')
+    w('--   control: modo, teclas de funcion (MODO, ACCION, METRONOMO y')
+    w('--   VOLUMEN en el teclado 2), parametros y ordenes al secuenciador')
+    w('--   leds_estado: modo y estado en los 3 LEDs de la tarjeta')
     w('-- ============================================================')
     w('library ieee;')
     w('use ieee.std_logic_1164.all;')
@@ -489,13 +465,13 @@ def genera_bdf():
 # cables con el mismo nombre, asi que la red es la misma.
 GLOBALES = {'clk', 'rst', 'tick_fs', 'tick_1ms'}
 COLUMNA_CABLES = {
-    'u_pll': 1, 'u_rst': 1, 'u_tiempo': 1, 'u_placa': 1, 'u_teclados': 1,
+    'u_pll': 1, 'u_rst': 1, 'u_tiempo': 1, 'u_teclados': 1,
     'u_notas': 2, 'u_control': 2,
     'u_sec': 3,
     'u_sel': 4,
     'u_gestor': 5,
     'u_voz0': 6, 'u_voz1': 6, 'u_voz2': 6,
-    'u_audio': 7, 'u_vga': 7, 'u_leds': 7,
+    'u_audio': 7, 'u_leds': 7,
 }
 COL_PINES_SAL = 8
 CARRIL = 16          # separacion entre carriles

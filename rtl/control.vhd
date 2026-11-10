@@ -1,28 +1,31 @@
 -- ============================================================
 -- control.vhd
--- Unidad principal de control. Guarda los parametros del
--- sintetizador, interpreta las teclas de funcion segun el modo
--- y manda las ordenes al secuenciador.
+-- Unidad principal de control. Lleva el modo de operacion,
+-- guarda los parametros del sintetizador, interpreta las teclas
+-- de funcion (columna A-D de los dos teclados) y manda las ordenes
+-- al secuenciador.
 --
--- Modo (boton MODO): 00 interpretacion, 01 grabacion,
---                 10 reproduccion, 11 configuracion.
+-- Modo: 00 interpretacion, 01 grabacion, 10 reproduccion,
+--       11 configuracion. Despues del reset: interpretacion.
 --
--- Teclas de funcion (columna A-D de cada teclado):
+-- Teclado 2, en cualquier modo:
+--   A MODO       pasa al siguiente modo (interpretacion,
+--                grabacion, reproduccion, configuracion, ...)
+--   B ACCION     en grabacion inicia o finaliza la grabacion; en
+--                reproduccion inicia o detiene la reproduccion
+--   C METRONOMO  enciende o apaga el metronomo
+--   D VOLUMEN    volumen siguiente: 0 (silencio), 1, 2, 3, 4, 0...
+-- Teclado 1:
 --   Interpretacion, grabacion y reproduccion:
---     teclado 1: A octava -, B octava +, C forma siguiente,
---                D efecto siguiente
---     teclado 2: A volumen -, B volumen +, C tempo -, D tempo +
---   Configuracion (cualquiera de los dos teclados):
+--     A octava -, B octava +, C forma siguiente, D efecto siguiente
+--   Configuracion:
 --     A valor -, B valor +, C parametro anterior,
 --     D parametro siguiente
---   Parametros: forma, attack, decay, sustain, release, volumen,
---   tempo y efecto (synth_pkg). Los valores se quedan en sus
---   limites (no dan la vuelta); forma y efecto si dan la vuelta
---   con sus teclas directas.
+--   Parametros de configuracion: forma, attack, decay, sustain,
+--   release, volumen y tempo (synth_pkg). Los valores se quedan en
+--   sus limites (no dan la vuelta); forma, efecto y volumen si dan
+--   la vuelta con sus teclas directas.
 --
--- ACCION: en grabacion inicia o finaliza la grabacion; en
--- reproduccion inicia o detiene la reproduccion.
--- METRONOMO: enciende o apaga el metronomo (en cualquier modo).
 -- metro_suena = metro_on, salvo mientras se reproduce una
 -- secuencia (el metronomo se usa al interpretar y al grabar).
 -- Si se cambia de modo a mitad de una grabacion o reproduccion,
@@ -37,11 +40,9 @@ entity control is
     port (
         clk            : in  std_logic;
         rst            : in  std_logic;   -- sincrono, activo en alto
-        modo           : in  std_logic_vector(1 downto 0);
         func           : in  std_logic_vector(7 downto 0);   -- pulsos A-D teclado 1 (3..0) y 2 (7..4)
-        accion         : in  std_logic;                      -- pulso del boton ACCION
-        metro_btn      : in  std_logic;                      -- pulso del boton METRONOMO
         estado_sec     : in  std_logic_vector(1 downto 0);
+        modo           : out std_logic_vector(1 downto 0);
         forma          : out std_logic_vector(1 downto 0);
         atk            : out std_logic_vector(1 downto 0);
         dec            : out std_logic_vector(1 downto 0);
@@ -53,7 +54,7 @@ entity control is
         metro_on       : out std_logic;
         metro_suena    : out std_logic;
         octava         : out std_logic_vector(2 downto 0);
-        parametro      : out std_logic_vector(2 downto 0);
+        parametro      : out std_logic_vector(2 downto 0);   -- 0 forma .. 6 tempo
         cmd_grabar     : out std_logic;
         cmd_reproducir : out std_logic;
         cmd_parar      : out std_logic
@@ -63,6 +64,7 @@ end entity control;
 architecture rtl of control is
     constant VOL_MAX : natural := 4;
 
+    signal r_modo  : std_logic_vector(1 downto 0) := M_INT;
     signal r_forma : natural range 0 to 3 := 0;   -- cuadrada
     signal r_atk   : natural range 0 to 3 := 0;   -- 2 ms
     signal r_dec   : natural range 0 to 3 := 1;   -- 200 ms
@@ -73,9 +75,15 @@ architecture rtl of control is
     signal r_efe   : natural range 0 to 3 := 0;   -- sin efecto
     signal r_metro : std_logic := '0';
     signal r_oct   : natural range OCT_MIN to OCT_MAX := 4;
-    signal r_par   : natural range 0 to 7 := P_FORMA;
+    signal r_par   : natural range 0 to N_PARAM - 1 := P_FORMA;
 
     signal c_grabar, c_reproducir, c_parar : std_logic := '0';
+
+    -- teclas del teclado 2
+    alias t_modo   : std_logic is func(4);
+    alias t_accion : std_logic is func(5);
+    alias t_metro  : std_logic is func(6);
+    alias t_vol    : std_logic is func(7);
 
     function sube (v, maximo : natural) return natural is
     begin
@@ -97,13 +105,14 @@ architecture rtl of control is
 begin
 
     process (clk)
-        variable menos, mas, ant, sig : boolean;
+        variable menos, mas : boolean;
     begin
         if rising_edge(clk) then
             c_grabar     <= '0';
             c_reproducir <= '0';
             c_parar      <= '0';
             if rst = '1' then
+                r_modo  <= M_INT;
                 r_forma <= 0;
                 r_atk   <= 0;
                 r_dec   <= 1;
@@ -116,16 +125,19 @@ begin
                 r_oct   <= 4;
                 r_par   <= P_FORMA;
             else
-                -- teclas de funcion
-                if modo = M_CONF then
-                    menos := func(0) = '1' or func(4) = '1';
-                    mas   := func(1) = '1' or func(5) = '1';
-                    ant   := func(2) = '1' or func(6) = '1';
-                    sig   := func(3) = '1' or func(7) = '1';
-                    if ant then
-                        r_par <= (r_par + 7) mod 8;
-                    elsif sig then
-                        r_par <= (r_par + 1) mod 8;
+                -- modo
+                if t_modo = '1' then
+                    r_modo <= std_logic_vector(unsigned(r_modo) + 1);
+                end if;
+
+                -- teclado 1
+                if r_modo = M_CONF then
+                    menos := func(0) = '1';
+                    mas   := func(1) = '1';
+                    if func(2) = '1' then
+                        r_par <= (r_par + N_PARAM - 1) mod N_PARAM;
+                    elsif func(3) = '1' then
+                        r_par <= (r_par + 1) mod N_PARAM;
                     elsif menos or mas then
                         case r_par is
                             when P_FORMA =>
@@ -140,10 +152,8 @@ begin
                                 if mas then r_rel <= sube(r_rel, 3); else r_rel <= baja(r_rel, 0); end if;
                             when P_VOLUMEN =>
                                 if mas then r_vol <= sube(r_vol, VOL_MAX); else r_vol <= baja(r_vol, 0); end if;
-                            when P_TEMPO =>
-                                if mas then r_tempo <= sube(r_tempo, 3); else r_tempo <= baja(r_tempo, 0); end if;
                             when others =>
-                                if mas then r_efe <= sube(r_efe, 3); else r_efe <= baja(r_efe, 0); end if;
+                                if mas then r_tempo <= sube(r_tempo, 3); else r_tempo <= baja(r_tempo, 0); end if;
                         end case;
                     end if;
                 else
@@ -151,33 +161,33 @@ begin
                     if func(1) = '1' then r_oct <= sube(r_oct, OCT_MAX); end if;
                     if func(2) = '1' then r_forma <= (r_forma + 1) mod 4; end if;
                     if func(3) = '1' then r_efe <= (r_efe + 1) mod 4; end if;
-                    if func(4) = '1' then r_vol <= baja(r_vol, 0); end if;
-                    if func(5) = '1' then r_vol <= sube(r_vol, VOL_MAX); end if;
-                    if func(6) = '1' then r_tempo <= baja(r_tempo, 0); end if;
-                    if func(7) = '1' then r_tempo <= sube(r_tempo, 3); end if;
                 end if;
 
-                -- metronomo
-                if metro_btn = '1' then
+                -- volumen directo y metronomo (teclado 2, cualquier modo)
+                if t_vol = '1' then
+                    r_vol <= (r_vol + 1) mod (VOL_MAX + 1);
+                end if;
+                if t_metro = '1' then
                     r_metro <= not r_metro;
                 end if;
 
                 -- ordenes al secuenciador
                 if estado_sec = S_ESPERA then
-                    if accion = '1' and modo = M_GRA then
+                    if t_accion = '1' and r_modo = M_GRA then
                         c_grabar <= '1';
-                    elsif accion = '1' and modo = M_REP then
+                    elsif t_accion = '1' and r_modo = M_REP then
                         c_reproducir <= '1';
                     end if;
-                elsif accion = '1'
-                      or (estado_sec = S_GRABANDO and modo /= M_GRA)
-                      or (estado_sec = S_REPRODUCE and modo /= M_REP) then
+                elsif t_accion = '1'
+                      or (estado_sec = S_GRABANDO and r_modo /= M_GRA)
+                      or (estado_sec = S_REPRODUCE and r_modo /= M_REP) then
                     c_parar <= '1';
                 end if;
             end if;
         end if;
     end process;
 
+    modo      <= r_modo;
     forma     <= std_logic_vector(to_unsigned(r_forma, 2));
     atk       <= std_logic_vector(to_unsigned(r_atk, 2));
     dec       <= std_logic_vector(to_unsigned(r_dec, 2));

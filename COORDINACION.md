@@ -23,8 +23,8 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [-] TAREA-009 @claude-code: Compilar el robot en Quartus (cancelada por el cambio de proyecto)
 - [-] TAREA-010 a TAREA-012 @equipo: armado y pruebas del robot (canceladas)
 - [x] TAREA-013 @claude-code: Compilar el sintetizador en Quartus para la DE10-Lite (hecha; ya no aplica: la tarjeta del equipo es la EP2C5T144)
-- [ ] TAREA-014 @equipo: Comprar el material ([docs/MATERIALES.md](docs/MATERIALES.md)); ya estan el USB-Blaster, el eliminador, el par de conectores, resistencias, capacitores, bocina y teclados; faltan protoboard, jumpers, PAM8403, botones y DB15
-- [ ] TAREA-015 @equipo: Cablear teclados, botones, audio y VGA ([docs/CABLEADO.md](docs/CABLEADO.md))
+- [ ] TAREA-014 @equipo: Comprar el material ([docs/MATERIALES.md](docs/MATERIALES.md)); solo faltan protoboard y jumpers
+- [ ] TAREA-015 @equipo: Cablear teclados y audio ([docs/CABLEADO.md](docs/CABLEADO.md))
 - [ ] TAREA-016 @equipo: Pruebas en la tarjeta y ensayo de la demostración ([docs/PRUEBAS.md](docs/PRUEBAS.md))
 - [!] TAREA-017 @claude-code: Estimar recursos con el Quartus que ya esta instalado (el Quartus de la PC no trae Cyclone IV; la estimacion con MAX 10 dio 5 431 LE, inflada porque las tablas se armaron con logica)
 - [!] TAREA-018 @claude-code: Instalar Quartus II 13.0 SP1 (la descarga pide cuenta de Altera; el equipo baja los archivos)
@@ -38,6 +38,7 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [x] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (`sh quartus/arreglar_interfaz.sh`)
 - [x] TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables dibujados
 - [x] TAREA-028 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (13 de 14; el State Machine Viewer no dibuja la maquina del secuenciador)
+- [ ] TAREA-029 @claude-code: Compilar y repetir las capturas sin VGA ni botones (controles en el teclado 2)
 
 ---
 
@@ -97,8 +98,8 @@ La forma corta: `sh tools/tomar_capturas.sh` abre Quartus con el proyecto, dice 
 | `01_proyecto.png` | Project Navigator en la pestana *Files* con los `.vhd` de `rtl/` y `sintetizador.bdf`; arriba, el dispositivo EP2C5T144C8 |
 | `02_simbolo.png` | un `.vhd` abierto (por ejemplo `rtl/voz.vhd`) con el menu *File > Create/Update > Create Symbol Files for Current File* desplegado |
 | `03_bdf_completo.png` | `quartus/sintetizador.bdf` abierto completo (*View > Fit in Window*) |
-| `04_bdf_voces.png` | acercamiento a la mitad derecha del BDF donde se lean el gestor de voces, las 3 voces, la salida de audio, la VGA y los LEDs |
-| `05_bdf_control.png` | acercamiento a la mitad izquierda donde se lean el PLL, el reset, la base de tiempo, los botones, los teclados, el control, el secuenciador y el selector de notas |
+| `04_bdf_voces.png` | acercamiento a la mitad derecha del BDF donde se lean el gestor de voces, las 3 voces, la salida de audio y los LEDs |
+| `05_bdf_control.png` | acercamiento a la mitad izquierda donde se lean el PLL, el reset, la base de tiempo, los teclados, el control, el secuenciador y el selector de notas |
 | `06_top_level.png` | Project Navigator en la pestana *Hierarchy* con `sintetizador` como nivel superior y sus bloques debajo |
 | `07_flow_summary.png` | *Compilation Report > Flow Summary* (elementos logicos, registros, pines, bits de memoria, PLL) |
 | `08_recursos_entidad.png` | *Fitter > Resource Section > Resource Utilization by Entity* |
@@ -178,4 +179,15 @@ Reglas: sin sudo y sin instalar paquetes del sistema. Lo que haga falta se baja 
 4. Guardalas en `capturas/` del repo, agregalas con `git add capturas` en el mismo commit del resultado.
 5. Cierra Quartus y Xvfb.
 6. Resultado en `resultados/TAREA-028.md`: que se bajo y extrajo (paquetes y versiones), que capturas quedaron, cuales no y por que.
+
+## TAREA-029 @claude-code: Compilar y repetir las capturas sin VGA ni botones
+
+El equipo decidio no comprar botones ni conector VGA: se quitaron `vga_ui`, `fuente_5x7`, `entradas_placa` y `debounce`; MODO, ACCION, METRONOMO y VOLUMEN son ahora las teclas A a D del teclado 2 (`control` lleva el modo) y los LEDs muestran el modo y el parametro (`leds_estado`). Cambiaron `rtl/`, `quartus/pines.tcl`, `quartus/sintetizador.sdc`, `quartus/sintetizador.bdf` y `quartus/simbolos/`. Las capturas de `capturas/` son del diseno anterior y hay que repetirlas todas.
+
+1. `git pull --rebase`.
+2. `sh quartus/compilar.sh` (vuelve a crear el proyecto con los pines nuevos). Si falla, reporta los errores tal como salen y para.
+3. En `resultados/TAREA-029.md`: el `fit.summary`, la tabla de elementos logicos por entidad (Fitter, Resource Utilization by Entity, solo el primer nivel debajo de `|sintetizador`), Fmax y holguras de setup y hold del modelo lento y del rapido, y si hubo advertencias criticas. Compara con la TAREA-027.
+4. Repite las capturas con el mismo metodo de la TAREA-028 (pantalla virtual :99, mismas reglas), las 14 de la tabla de la TAREA-020, y reemplaza las de `capturas/`. En `13_fsm_secuenciador.png` intenta otra vez el State Machine Viewer; si sigue sin dibujar, no la guardes y anotalo.
+5. Copia los reportes `quartus/output_files/sintetizador.{flow,map,fit,sta}.rpt` a `quartus/reportes/` (reemplazando los anteriores).
+6. Commit con `resultados/TAREA-029.md`, `capturas/` y `quartus/reportes/`. No programes la tarjeta.
 

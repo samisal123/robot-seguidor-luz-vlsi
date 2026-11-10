@@ -20,13 +20,13 @@ SALIDA = os.path.join(RAIZ, 'docs', 'MODULOS.md')
 # orden de presentacion: de la entrada a la salida
 GRUPOS = [
     ('Nivel superior', ['sinte_top']),
-    ('Reloj, reset y tiempos', ['reset_encendido', 'base_tiempo', 'sync_2ff', 'debounce']),
-    ('Entradas', ['interfaz_teclados', 'teclado_scan', 'teclas_notas', 'entradas_placa']),
+    ('Reloj, reset y tiempos', ['reset_encendido', 'base_tiempo', 'sync_2ff']),
+    ('Entradas', ['interfaz_teclados', 'teclado_scan', 'teclas_notas']),
     ('Control y secuenciador', ['control', 'selector_notas', 'secuenciador', 'memoria_eventos']),
     ('Voces', ['gestor_voces', 'voz', 'dds', 'forma_onda', 'adsr']),
     ('Audio', ['audio_salida', 'mezclador', 'tremolo', 'eco', 'volumen', 'metronomo', 'salida_pwm']),
-    ('Indicadores', ['leds_estado', 'vga_ui']),
-    ('Paquetes', ['synth_pkg', 'fuente_5x7']),
+    ('Indicadores', ['leds_estado']),
+    ('Paquetes', ['synth_pkg']),
 ]
 
 
@@ -137,7 +137,7 @@ def main():
             prueba = 'tb_' + mod if mod in tbs else None
             if prueba:
                 cuerpo += [f'Verificación: `sim/{prueba}.vhd`.', '']
-            elif mod.endswith('_pkg') or mod == 'fuente_5x7':
+            elif mod.endswith('_pkg'):
                 cuerpo += ['Paquete: lo usan los módulos que lo importan; sus tablas se revisan en los testbenches de esos módulos.', '']
             else:
                 cuerpo += ['Verificación: dentro del testbench del módulo que lo contiene.', '']

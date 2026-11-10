@@ -1,6 +1,6 @@
 # Cableado
 
-Tarjeta: **EP2C5T144** (tarjeta mínima con la Cyclone II EP2C5T144C8, oscilador de 50 MHz, memoria de configuración EPCS4, 3 LEDs y un botón de reset). Todo lo externo se conecta a sus conectores de pines; el número de cada pin de la FPGA está impreso junto al conector.
+Tarjeta: **EP2C5T144** (tarjeta mínima con la Cyclone II EP2C5T144C8, oscilador de 50 MHz, memoria de configuración EPCS4, 3 LEDs y un botón de reset). Los teclados y el audio se conectan a sus conectores de pines; el número de cada pin de la FPGA está impreso junto al conector.
 
 Los pines de E/S son de **3.3 V y no toleran 5 V**. Los 5 V solo van al jack de alimentación de la tarjeta y al amplificador PAM8403.
 
@@ -14,15 +14,11 @@ Las asignaciones están en `quartus/pines.tcl`.
 |---|---|---|
 | Teclado 1 (octava base) | filas 25, 31, 41, 40; columnas 43, 42, 45, 44 | pines 1 a 8 del conector del teclado, en ese orden |
 | Teclado 2 (octava base + 1) | filas 48, 47, 52, 51; columnas 58, 55, 76, 60 | pines 1 a 8 del conector del teclado, en ese orden |
-| Botón MODO | 86 | botón entre el pin y GND |
-| Botón ACCIÓN | 87 | botón entre el pin y GND |
-| Botón METRÓNOMO | 92 | botón entre el pin y GND |
 | Audio (PWM) | 93 | entrada del filtro RC |
-| VGA | R 69, G 65, B 63 (cada uno con 270 Ω en serie); HS 71; VS 72 | conector DB15 hembra |
 | LEDs D2, D4, D5 | 3, 7, 9 | ya están en la tarjeta |
 | RESET | 144 | botón de la tarjeta |
 | Reloj | 17 | oscilador de 50 MHz de la tarjeta |
-| GND | pines marcados GND en los conectores | uno solo para todo: protoboard, PAM8403 y VGA |
+| GND | pines marcados GND en los conectores | uno solo para todo: protoboard y PAM8403 |
 
 ## Alimentación
 
@@ -64,17 +60,18 @@ Mapa de teclas (igual en los dos teclados; el teclado 2 suena una octava arriba)
 
 Si al tocar una tecla aparece otra nota en el piano de la pantalla, el conector quedó volteado o recorrido: revisar que el pin 1 del teclado esté en el primer pin de la tabla.
 
-## Botones del panel
+## Controles
 
-Tres botones táctiles de 4 patas en la protoboard, montados sobre la ranura central. Las patas de un mismo lado del botón están unidas por dentro; al presionar se unen los dos lados. Un lado va al pin de la FPGA y el otro a GND. No llevan resistencia: la FPGA tiene el pull-up interno activado en esos pines.
+No hay botones externos: los controles son las teclas de la columna derecha del **teclado 2**.
 
-| Botón | Pin FPGA | Función |
-|---|---|---|
-| MODO | 86 | pasa al siguiente modo: interpretación, grabación, reproducción, configuración |
-| ACCIÓN | 87 | grabación: iniciar o finalizar; reproducción: iniciar o detener |
-| METRÓNOMO | 92 | enciende o apaga el metrónomo |
+| Tecla del teclado 2 | Función |
+|---|---|
+| A | MODO: pasa al siguiente modo (interpretación, grabación, reproducción, configuración) |
+| B | ACCIÓN: en grabación inicia o finaliza; en reproducción inicia o detiene |
+| C | METRÓNOMO: lo enciende o lo apaga |
+| D | VOLUMEN: siguiente nivel (silencio, 1, 2, 3, 4 y otra vez silencio) |
 
-El botón RESET de la tarjeta reinicia el sintetizador (regresa a interpretación con los parámetros de fábrica; la secuencia grabada se pierde).
+El botón RESET de la tarjeta reinicia el sintetizador (regresa a interpretación con los parámetros de fábrica; la secuencia grabada se pierde). Lo que muestran los LEDs D2, D4 y D5 en cada modo está en [ARQUITECTURA.md](ARQUITECTURA.md#interfaz-de-usuario).
 
 ## Salida de audio
 
@@ -85,52 +82,36 @@ pin 93 (AUDIO_PWM)
     |
     +--------+
     |        |
-   [R2 1 kΩ] = C1 10 nF
+   [R2 1 kΩ] = C1 10 nF (103)
     |        |
     +---+   GND
     |   |
-    |   = C2 10 nF
+    |   = C2 10 nF (103)
     |   |
     |  GND
     |
   (+) C3 10 µF electrolítico
   (-)
     |
-   [R3 10 kΩ]
-    |
-    +------------------- L (IN) del PAM8403
-    |
-   [R4 1 kΩ]                 PAM8403
-    |                        VCC (+5 V) <- riel + de la protoboard
-   GND                       GND        <- riel - de la protoboard
+    +---- extremo 1 del potenciómetro
+          extremo 2 del potenciómetro ---- GND
+          pata central (cursor) ---------- L (IN) del PAM8403
+
+                             PAM8403
+                             VCC (+5 V) <- riel + de la protoboard
+                             GND        <- riel - de la protoboard
                              G de la entrada <- GND
                              R de la entrada: sin conectar
                              L+ / L-    -> bocina 8 Ω
 ```
 
-- **Filtro RC de 2 etapas** (R1-C1, R2-C2): convierte el PWM de 97.7 kHz en la señal de audio. Corte a −3 dB en unos 6 kHz y unos −32 dB a 97.7 kHz.
-- **C3** quita la componente de DC (1.65 V, la mitad del PWM). Su lado **+** va hacia el filtro.
-- **R3 y R4** forman un divisor de 1/11: el PWM llega a ±1.65 V y el PAM8403 tiene ganancia fija de 24 dB, así que sin divisor se saturaría. Si el módulo trae potenciómetro de volumen, el divisor puede quedarse; el potenciómetro solo baja más.
+- **Filtro RC de 2 etapas** (R1-C1, R2-C2): convierte el PWM de 97.7 kHz en la señal de audio. Corte a −3 dB en unos 6 kHz y unos −32 dB a 97.7 kHz. Las resistencias de 1 kΩ son café, negro, rojo; los capacitores de 10 nF traen grabado 103.
+- **C3** quita la componente de DC (1.65 V, la mitad del PWM). Su lado **+** (la pata larga) va hacia el filtro.
+- **Potenciómetro**: baja el nivel antes del PAM8403, que tiene ganancia fija de 24 dB y se saturaría con la señal completa (±1.65 V). Es el volumen analógico: **empezar con el cursor del lado de GND** e ir subiendo. Si el módulo PAM8403 ya trae su propio potenciómetro, los dos se pueden dejar.
 - **Bocina**: va entre L+ y L−. Ninguna de las dos salidas del PAM8403 es tierra (es puente BTL): **nunca conectar la bocina ni L− a GND**.
-- Todas las tierras (filtro, divisor, PAM8403) van al mismo GND que la tarjeta.
+- Todas las tierras (filtro, potenciómetro, PAM8403) van al mismo GND que la tarjeta.
 
-El volumen digital (0 a 4) se cambia con las teclas A y B del teclado 2 o en el modo configuración.
-
-## Monitor VGA
-
-La tarjeta no trae conector VGA; se usa un conector DB15 hembra con borneras. Un bit por color: cada salida de color lleva una resistencia de 270 Ω en serie, que con los 75 Ω de entrada del monitor deja unos 0.7 V (el nivel máximo de VGA) a partir de 3.3 V.
-
-| Pin del DB15 | Señal | Se conecta a |
-|---|---|---|
-| 1 | rojo | pin 69 a través de 270 Ω |
-| 2 | verde | pin 65 a través de 270 Ω |
-| 3 | azul | pin 63 a través de 270 Ω |
-| 13 | HSYNC | pin 71 |
-| 14 | VSYNC | pin 72 |
-| 5, 6, 7, 8 y 10 | tierras | GND |
-| 4, 9, 11, 12 y 15 | sin uso | sin conectar |
-
-Imagen de 640 × 480 a 60 Hz con 8 colores. Si el monitor solo tiene HDMI, hace falta un convertidor VGA a HDMI activo (con su propia alimentación USB).
+El volumen digital (0 a 4) se cambia con la tecla D del teclado 2 o en el modo configuración.
 
 ## Programación
 
@@ -146,10 +127,8 @@ El USB-Blaster va al conector **JTAG** de 10 pines de la tarjeta (la marca de la
 1. Eliminador al jack hembra con bornera; + y − a los rieles de la protoboard; del riel al plug macho y de ahí al jack de la tarjeta, con el + al centro.
 2. GND de la tarjeta unido al riel − de la protoboard.
 3. Teclado 1 y teclado 2 en los pines de la tabla, en el orden de la tabla.
-4. Botones MODO, ACCIÓN y METRÓNOMO: un lado al pin (86, 87, 92) y el otro a GND.
-5. Pin 93 a R1; R1-R2-C3-R3 en serie; C1 y C2 a GND; C3 con el + hacia R2.
-6. R3 a la entrada L del PAM8403; R4 de esa entrada a GND.
-7. PAM8403: VCC al riel de 5 V, GND al riel de GND.
-8. Bocina entre L+ y L−, sin tocar GND.
-9. DB15: R, G y B con su resistencia de 270 Ω; HS y VS directos; las tierras del DB15 a GND.
-10. Ningún cable de 5 V va a un pin de la FPGA, y nada se conecta a los pines 26, 27, 73, 80 y 81.
+4. Pin 93 a R1; R1-R2-C3 en serie; C1 y C2 a GND; C3 con el + hacia R2.
+5. C3 (−) a un extremo del potenciómetro, el otro extremo a GND y el cursor a la entrada L del PAM8403.
+6. PAM8403: VCC al riel de 5 V, GND al riel de GND.
+7. Bocina entre L+ y L−, sin tocar GND.
+8. Ningún cable de 5 V va a un pin de la FPGA, y nada se conecta a los pines 26, 27, 73, 80 y 81.

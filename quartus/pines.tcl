@@ -31,17 +31,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to {LED[1]}
 set_location_assignment PIN_9 -to {LED[2]}
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to {LED[2]}
 
-# ---- Botones del panel (a GND, activos en bajo): 0 MODO, 1 ACCION, 2 METRONOMO ----
-set_location_assignment PIN_86 -to {BTN[0]}
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to {BTN[0]}
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to {BTN[0]}
-set_location_assignment PIN_87 -to {BTN[1]}
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to {BTN[1]}
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to {BTN[1]}
-set_location_assignment PIN_92 -to {BTN[2]}
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to {BTN[2]}
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to {BTN[2]}
-
 # ---- Teclado 1, pines 1-4 del conector: filas (colector abierto) ----
 set_location_assignment PIN_25 -to {TEC1_FIL[0]}
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to {TEC1_FIL[0]}
@@ -93,15 +82,3 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to {TEC2_COL[3]}
 # ---- Audio: PWM al filtro RC ----
 set_location_assignment PIN_93 -to AUDIO_PWM
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUDIO_PWM
-
-# ---- VGA: un bit por color (270 ohm en serie) y sincronias ----
-set_location_assignment PIN_69 -to VGA_R
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R
-set_location_assignment PIN_65 -to VGA_G
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G
-set_location_assignment PIN_63 -to VGA_B
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B
-set_location_assignment PIN_71 -to VGA_HS
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_HS
-set_location_assignment PIN_72 -to VGA_VS
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_VS
