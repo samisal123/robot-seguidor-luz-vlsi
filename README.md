@@ -27,7 +27,7 @@ Características de nivel implementadas: polifonía de tres voces, efectos digit
 | `rtl/` | VHDL sintetizable (VHDL-93), un módulo por archivo |
 | `sim/` | Un testbench por módulo, prueba del sistema completo, modelos y `correr.sh` para GHDL |
 | `quartus/` | Scripts que crean y compilan el proyecto, diagrama de bloques del nivel superior (`sintetizador.bdf`), símbolos, PLL (`ip/`), pines y restricciones de tiempo |
-| `docs/` | Arquitectura y FSM, cableado, materiales, pruebas y diagramas |
+| `docs/` | Arquitectura y FSM, módulos e interfaces, cableado, materiales, pruebas y diagramas |
 | `tools/` | `genera_top.py`, que genera el nivel superior (`.bdf` y `.vhd`) |
 
 ## Cómo reproducir
@@ -54,6 +54,7 @@ sh sim/correr.sh secuenciador adsr
 ## Documentación
 
 - [Arquitectura, módulos y máquinas de estados](docs/ARQUITECTURA.md)
+- [Módulos e interfaces: descripción y puertos de cada módulo](docs/MODULOS.md)
 - [Cableado: teclados, botones, audio y VGA](docs/CABLEADO.md)
 - [Materiales](docs/MATERIALES.md)
 - [Pruebas: simulación, compilación y pruebas en la tarjeta](docs/PRUEBAS.md)
