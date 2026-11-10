@@ -49,6 +49,23 @@ PINES = [
     ('VGA_VS', 'out', None),
 ]
 
+COMENTARIO_PIN = {
+    'CLOCK_50': 'oscilador de 50 MHz de la tarjeta (pin 17)',
+    'BTN_RESET': 'boton RESET de la tarjeta, 0 = presionado (pin 144)',
+    'BTN': 'botones METRONOMO, ACCION y MODO (2..0), 0 = presionado',
+    'TEC1_COL': 'columnas del teclado 1, 0 = tecla (pull-up)',
+    'TEC2_COL': 'columnas del teclado 2',
+    'LED': 'LEDs D5, D4, D2 de la tarjeta (2..0), activos en bajo',
+    'TEC1_FIL': 'filas del teclado 1 (0 o alta impedancia)',
+    'TEC2_FIL': 'filas del teclado 2',
+    'AUDIO_PWM': 'PWM de audio de 97.7 kHz (pin 93)',
+    'VGA_R': 'rojo (270 ohm al DB15)',
+    'VGA_G': 'verde',
+    'VGA_B': 'azul',
+    'VGA_HS': 'sincronia horizontal',
+    'VGA_VS': 'sincronia vertical',
+}
+
 # Senales internas: (nombre, ancho o None)
 SENALES = [
     ('clk', None), ('pll_listo', None),
@@ -270,10 +287,10 @@ def genera_vhdl():
     w('')
     w('entity sinte_top is')
     w('    port (')
-    lineas = []
-    for (n, d, a) in PINES:
-        lineas.append(f'        {n:<13} : {d:<3} {vhdl_tipo(a)}')
-    w(';\n'.join(lineas))
+    for i, (n, d, a) in enumerate(PINES):
+        fin = ';' if i < len(PINES) - 1 else ' '
+        decl = f'        {n:<13} : {d:<3} {vhdl_tipo(a)}{fin}'
+        w(f'{decl:<57} -- {COMENTARIO_PIN[n]}')
     w('    );')
     w('end entity sinte_top;')
     w('')
