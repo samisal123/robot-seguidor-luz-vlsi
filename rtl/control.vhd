@@ -4,7 +4,7 @@
 -- sintetizador, interpreta las teclas de funcion segun el modo
 -- y manda las ordenes al secuenciador.
 --
--- Modo (SW9-SW8): 00 interpretacion, 01 grabacion,
+-- Modo (boton MODO): 00 interpretacion, 01 grabacion,
 --                 10 reproduccion, 11 configuracion.
 --
 -- Teclas de funcion (columna A-D de cada teclado):
@@ -20,9 +20,9 @@
 --   limites (no dan la vuelta); forma y efecto si dan la vuelta
 --   con sus teclas directas.
 --
--- KEY0 (accion): en grabacion inicia o finaliza la grabacion; en
+-- ACCION: en grabacion inicia o finaliza la grabacion; en
 -- reproduccion inicia o detiene la reproduccion.
--- KEY1: enciende o apaga el metronomo (en cualquier modo).
+-- METRONOMO: enciende o apaga el metronomo (en cualquier modo).
 -- metro_suena = metro_on, salvo mientras se reproduce una
 -- secuencia (el metronomo se usa al interpretar y al grabar).
 -- Si se cambia de modo a mitad de una grabacion o reproduccion,
@@ -39,8 +39,8 @@ entity control is
         rst            : in  std_logic;   -- sincrono, activo en alto
         modo           : in  std_logic_vector(1 downto 0);
         func           : in  std_logic_vector(7 downto 0);   -- pulsos A-D teclado 1 (3..0) y 2 (7..4)
-        accion         : in  std_logic;                      -- pulso de KEY0
-        metro_btn      : in  std_logic;                      -- pulso de KEY1
+        accion         : in  std_logic;                      -- pulso del boton ACCION
+        metro_btn      : in  std_logic;                      -- pulso del boton METRONOMO
         estado_sec     : in  std_logic_vector(1 downto 0);
         forma          : out std_logic_vector(1 downto 0);
         atk            : out std_logic_vector(1 downto 0);

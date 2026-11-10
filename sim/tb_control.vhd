@@ -11,9 +11,9 @@
 --   3) configuracion: C y D recorren los 8 parametros dando la
 --      vuelta; A y B cambian el parametro elegido sin salirse de
 --      sus limites; en este modo las teclas no cambian la octava
---   4) KEY1 enciende y apaga el metronomo; no suena mientras se
+--   4) METRONOMO enciende y apaga el metronomo; no suena mientras se
 --      reproduce una secuencia
---   5) KEY0: graba solo en modo grabacion y reproduce solo en
+--   5) ACCION: graba solo en modo grabacion y reproduce solo en
 --      modo reproduccion, desde espera; con el secuenciador
 --      ocupado manda parar
 --   6) cambiar de modo a mitad de una grabacion o reproduccion
@@ -119,7 +119,7 @@ begin
                        & ", se esperaba " & integer'image(esperado) severity error;
         end procedure;
 
-        -- pulso de KEY0 y cuenta las ordenes que salen
+        -- pulso de ACCION y cuenta las ordenes que salen
         procedure accion_y_mira (g, r, p : out natural) is
             variable cg, cr, cp : natural := 0;
         begin
@@ -250,7 +250,7 @@ begin
         ciclos(1);
         metro_btn <= '0';
         ciclos(2);
-        assert metro_on = '1' report "tb_control: KEY1 debe encender el metronomo" severity error;
+        assert metro_on = '1' report "tb_control: METRONOMO debe encender el metronomo" severity error;
         assert metro_suena = '1' report "tb_control: el metronomo debe sonar en espera" severity error;
         estado_sec <= S_GRABANDO;
         ciclos(1);
@@ -264,33 +264,33 @@ begin
         ciclos(1);
         metro_btn <= '0';
         ciclos(2);
-        assert metro_on = '0' report "tb_control: KEY1 debe apagar el metronomo" severity error;
+        assert metro_on = '0' report "tb_control: METRONOMO debe apagar el metronomo" severity error;
 
-        -- 5) KEY0 segun el modo, con el secuenciador en espera
+        -- 5) ACCION segun el modo, con el secuenciador en espera
         estado_sec <= S_ESPERA;
         modo <= M_INT;
         accion_y_mira(g, r, p);
-        assert g = 0 and r = 0 and p = 0 report "tb_control: KEY0 no hace nada en interpretacion" severity error;
+        assert g = 0 and r = 0 and p = 0 report "tb_control: ACCION no hace nada en interpretacion" severity error;
         modo <= M_CONF;
         accion_y_mira(g, r, p);
-        assert g = 0 and r = 0 and p = 0 report "tb_control: KEY0 no hace nada en configuracion" severity error;
+        assert g = 0 and r = 0 and p = 0 report "tb_control: ACCION no hace nada en configuracion" severity error;
         modo <= M_GRA;
         accion_y_mira(g, r, p);
-        assert g = 1 and r = 0 and p = 0 report "tb_control: KEY0 debe grabar en grabacion" severity error;
+        assert g = 1 and r = 0 and p = 0 report "tb_control: ACCION debe grabar en grabacion" severity error;
         modo <= M_REP;
         accion_y_mira(g, r, p);
-        assert g = 0 and r = 1 and p = 0 report "tb_control: KEY0 debe reproducir en reproduccion" severity error;
-        -- secuenciador ocupado: KEY0 manda parar
+        assert g = 0 and r = 1 and p = 0 report "tb_control: ACCION debe reproducir en reproduccion" severity error;
+        -- secuenciador ocupado: ACCION manda parar
         modo <= M_GRA;
         estado_sec <= S_GRABANDO;
         ciclos(3);
         accion_y_mira(g, r, p);
-        assert g = 0 and r = 0 and p = 1 report "tb_control: KEY0 debe finalizar la grabacion" severity error;
+        assert g = 0 and r = 0 and p = 1 report "tb_control: ACCION debe finalizar la grabacion" severity error;
         modo <= M_REP;
         estado_sec <= S_REPRODUCE;
         ciclos(3);
         accion_y_mira(g, r, p);
-        assert g = 0 and r = 0 and p = 1 report "tb_control: KEY0 debe detener la reproduccion" severity error;
+        assert g = 0 and r = 0 and p = 1 report "tb_control: ACCION debe detener la reproduccion" severity error;
 
         -- 6) cambiar de modo a mitad
         modo <= M_INT;

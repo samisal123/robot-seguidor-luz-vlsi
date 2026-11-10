@@ -6,7 +6,7 @@
 --   - maneja las filas en colector abierto: la fila activa va a
 --     '0' y las demas a alta impedancia, para que dos teclas de
 --     la misma columna nunca pongan en corto dos salidas
--- Las columnas necesitan pull-up (el interno de la MAX 10, ver
+-- Las columnas necesitan pull-up (el interno de la FPGA, ver
 -- quartus/pines.tcl).
 -- teclas: '1' = presionada; teclado k, fila r, columna c en el
 -- bit 16k + 4r + c.
