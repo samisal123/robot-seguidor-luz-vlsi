@@ -1,0 +1,25 @@
+# Primera programacion de la EP2C5T144 por JTAG (10 de noviembre de 2026, PC del laboratorio)
+# Salidas copiadas de la terminal. Antes se agrego la regla de udev
+# /etc/udev/rules.d/51-usbblaster.rules para el USB-Blaster (09fb:6001).
+
+$ lsusb | grep -i 09fb
+Bus 001 Device 007: ID 09fb:6001 Altera Blaster
+
+$ ~/altera/13.0sp1/quartus/bin/jtagconfig
+1) USB-Blaster [1-4]
+  020B10DD   EP2C5
+
+$ sh quartus/programar.sh
+Info: Command: quartus_pgm -l
+1) USB-Blaster [1-4]
+Info: Quartus II 32-bit Programmer was successful. 0 errors, 0 warnings
+Info: Command: quartus_pgm -m jtag -o p;output_files/sintetizador.sof
+Info (213045): Using programming cable "USB-Blaster [1-4]"
+Info (213011): Using programming file output_files/sintetizador.sof with checksum 0x0033EE50 for device EP2C5T144@1
+Info (209060): Started Programmer operation at Tue Nov 10 12:39:24 2026
+Info (209016): Configuring device index 1
+Info (209017): Device 1 contains JTAG ID code 0x020B10DD
+Info (209007): Configuration succeeded -- 1 device(s) configured
+Info (209011): Successfully performed operation(s)
+Info (209061): Ended Programmer operation at Tue Nov 10 12:39:26 2026
+Info: Quartus II 32-bit Programmer was successful. 0 errors, 0 warnings
