@@ -222,7 +222,7 @@ Memoria planeada en la EP2C5 (26 bloques M4K de 4 096 bits):
 | Fuente de la VGA | 512 × 5 (64 caracteres de 8 filas) | 1 |
 | **Total** | | **23 de 26** |
 
-Los elementos lógicos y la Fmax se llenan con la compilación en Quartus II 13.0 SP1; ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus). Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica), y la primera versión para la EP2C5 dio 5 431 en una estimación con MAX 10 (TAREA-017) en la que Quartus no pudo poner las 7 tablas en memoria y las armó con lógica; después de eso, el ADSR se rehízo con un solo sumador y la fuente de la VGA pasó a un bloque M4K.
+Los elementos lógicos y la Fmax se llenan con la compilación en Quartus II 13.0 SP1; ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus). Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica), y la primera versión para la EP2C5 dio 5 431 en una estimación con MAX 10 (TAREA-017) en la que Quartus no pudo poner las 7 tablas en memoria y las armó con lógica; después de eso, el ADSR se rehízo con un solo sumador y la fuente de la VGA pasó a un bloque M4K. Con las tablas en memoria, la misma estimación da **3 805 elementos lógicos** (TAREA-021), el 83 % de la EP2C5: VGA 1 546, cada voz unos 275 (ADSR 210), secuenciador 341, audio 376, teclados 201 y gestor de voces 172.
 
 ## Limitaciones conocidas
 
