@@ -40,8 +40,11 @@ MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
 
 
 def portada(c, ancho, alto, equipo):
+    c.setFont('Helvetica', 13)
+    c.drawCentredString(ancho / 2, alto - 30 * mm, 'Universidad Nacional Autónoma de México')
+    c.drawCentredString(ancho / 2, alto - 37 * mm, 'Facultad de Ingeniería')
     c.setFont('Helvetica-Bold', 22)
-    c.drawCentredString(ancho / 2, alto - 60 * mm, 'Diseño Digital VLSI')
+    c.drawCentredString(ancho / 2, alto - 60 * mm, 'Laboratorio de Diseño Digital VLSI')
     c.setFont('Helvetica', 16)
     c.drawCentredString(ancho / 2, alto - 75 * mm, 'Proyecto final: sintetizador musical')
     c.drawCentredString(ancho / 2, alto - 85 * mm, 'Primer avance')
