@@ -29,10 +29,12 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [!] TAREA-017 @claude-code: Estimar recursos con el Quartus que ya esta instalado (el Quartus de la PC no trae Cyclone IV; la estimacion con MAX 10 dio 5 431 LE, inflada porque las tablas se armaron con logica)
 - [!] TAREA-018 @claude-code: Instalar Quartus II 13.0 SP1 (la descarga pide cuenta de Altera; el equipo baja los archivos)
 - [!] TAREA-019 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
-- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance (despues de la TAREA-023)
+- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance (despues de la TAREA-025)
 - [x] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria): 3 805 LE, cabe en la EP2C5 (83 %)
-- [ ] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados
-- [ ] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144
+- [!] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados (no cupo en el disco: necesita 6 a 7 GB libres)
+- [!] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
+- [ ] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio)
+- [ ] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144
 
 ---
 
@@ -83,7 +85,7 @@ Cyclone II solo se compila con Quartus II 13.0 SP1 Web Edition (gratis, sin lice
 
 ## TAREA-020 @equipo: Capturas de Quartus para el primer avance
 
-Despues de que la TAREA-023 compile bien. Se siguen los pasos del manual del profesor (*Creacion y uso de bloques en Quartus*): simbolos desde los `.vhd`, diagrama de bloques como nivel superior, compilacion y Pin Planner.
+Despues de que la TAREA-025 compile bien. Se siguen los pasos del manual del profesor (*Creacion y uso de bloques en Quartus*): simbolos desde los `.vhd`, diagrama de bloques como nivel superior, compilacion y Pin Planner.
 
 Abrir el proyecto: `~/altera/13.0sp1/quartus/bin/quartus quartus/sintetizador.qpf &`. Cada captura de la ventana completa de Quartus (tecla Impr Pant o `gnome-screenshot -w -f <archivo>`), en PNG, dentro de la carpeta `capturas/` del repo con estos nombres:
 
@@ -125,4 +127,18 @@ Igual que la TAREA-018 desde su paso 3: el equipo ya bajo `QuartusSetupWeb-13.0.
 ## TAREA-023 @claude-code: Compilar para la EP2C5T144
 
 Igual que la TAREA-019 (sus pasos 1 a 6), con el resultado en `resultados/TAREA-023.md` y el log en `logs/TAREA-023.log`. Solo si la TAREA-022 dejo instalado Quartus II 13.0 SP1.
+
+## TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio)
+
+La TAREA-022 mostro que la instalacion necesita de 6 a 7 GB libres. El equipo decidio quitar el Quartus Prime 25.1 de `~/altera_lite` (8.9 GB, solo MAX 10) para hacer espacio; lo borra el equipo antes de esta tarea.
+
+1. `df -h ~` y `ls -d ~/altera_lite`. Si quedan menos de 6.5 GB libres, termina con FALLO reportando el espacio y lo que mas ocupa en `~` (`du -sh ~/* | sort -h | tail`); no borres nada.
+2. Instala igual que en la TAREA-022 (`--mode unattended --unattendedmodeui none --installdir ~/altera/13.0sp1`, con `cyclone_web-13.0.1.232.qdz` en la misma carpeta que el `.run`), revisando el espacio libre cada minuto; si baja de 300 MB, deten el instalador y reporta.
+3. Sigue los pasos 5 a 8 de la TAREA-018 (`quartus_sh --version`, que exista `devinfo/cycloneii`, que abra la interfaz grafica, regla de udev si hace falta).
+4. Si todo quedo bien, borra los dos instaladores de `~/Descargas/quartus13` (ya no hacen falta) y reporta `df -h ~` al final.
+5. Resultado en `resultados/TAREA-024.md`.
+
+## TAREA-025 @claude-code: Compilar para la EP2C5T144
+
+Igual que la TAREA-019 (sus pasos 1 a 6), con el resultado en `resultados/TAREA-025.md` y el log en `logs/TAREA-025.log`. Solo si la TAREA-024 dejo instalado Quartus II 13.0 SP1 con Cyclone II.
 

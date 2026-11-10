@@ -75,7 +75,7 @@ sh quartus/compilar.sh
 
 Con Quartus II 13.0 SP1 (la última versión que soporta Cyclone II). Crea el proyecto para la EP2C5T144C8 (`crear_proyecto.tcl`), compila y muestra el resumen de recursos y la Fmax del reloj de 25 MHz. Si el diagrama de bloques diera problemas, `sh quartus/compilar.sh sinte_top` compila el mismo circuito con el nivel superior en VHDL (`rtl/sinte_top.vhd`).
 
-`sh quartus/estimar_recursos.sh` estima los elementos lógicos con el Quartus Prime más nuevo de la PC: compila para una MAX 10, que usa el mismo elemento lógico de 4 entradas, en modo de imagen única con memoria inicializada para que las tablas vayan a bloques de memoria como en la Cyclone II.
+`sh quartus/estimar_recursos.sh` estima los elementos lógicos con un Quartus Prime Lite más nuevo (necesita la familia MAX 10): compila para una MAX 10, que usa el mismo elemento lógico de 4 entradas, en modo de imagen única con memoria inicializada para que las tablas vayan a bloques de memoria como en la Cyclone II. Se usó mientras no se tenía la 13.0 SP1; en la PC del laboratorio ese Quartus se quitó para hacer espacio.
 
 Estimación (TAREA-021, 9 de noviembre): **3 805 elementos lógicos**, el 83 % de los 4 608 de la EP2C5, con las 10 tablas y memorias inferidas como bloques de memoria. La compilación para la EP2C5 con Quartus II 13.0 SP1 es la TAREA-023; los resultados quedan en `resultados/`. La compilación anterior para la DE10-Lite está en `resultados/TAREA-013.md`.
 
