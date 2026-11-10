@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # ============================================================
 # arma_avance.py
-# Arma el PDF del primer avance solo con las capturas de Quartus
-# de la carpeta capturas/ (ver TAREA-020 en COORDINACION.md):
-# una portada y una captura por pagina con su titulo.
+# Arma el PDF del primer avance solo con diagramas de bloques y
+# capturas de Quartus: una portada, el diagrama general de bloques
+# (docs/img/bloques.png) y las capturas de la carpeta capturas/
+# (ver TAREA-020 en COORDINACION.md), una por pagina con su titulo.
 #
 # Uso: python3 tools/arma_avance.py [--equipo "Nombre 1" "Nombre 2" ...]
 #      Deja el PDF en entregas/primer_avance.pdf
@@ -29,6 +30,9 @@ TITULOS = {
     '09_pin_planner': 'Asignación de pines (Pin Planner)',
     '10_fmax': 'Frecuencia máxima (TimeQuest)',
     '11_rtl_viewer': 'Vista RTL del nivel superior',
+    '12_fsm_adsr': 'Máquina de estados del ADSR (State Machine Viewer)',
+    '13_fsm_secuenciador': 'Máquina de estados del secuenciador (State Machine Viewer)',
+    '14_simbolos': 'Símbolos de los módulos con sus puertos',
 }
 
 MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
@@ -55,9 +59,9 @@ def portada(c, ancho, alto, equipo):
     c.showPage()
 
 
-def pagina(c, ancho, alto, ruta, n):
+def pagina(c, ancho, alto, ruta, n, titulo=None):
     base = os.path.splitext(os.path.basename(ruta))[0]
-    titulo = TITULOS.get(base, base.replace('_', ' '))
+    titulo = titulo or TITULOS.get(base, base.replace('_', ' '))
     margen = 12 * mm
     c.setFont('Helvetica-Bold', 13)
     c.drawString(margen, alto - margen - 4 * mm, 'Figura %d. %s' % (n, titulo))
@@ -86,10 +90,16 @@ def main():
     c = canvas.Canvas(a.salida, pagesize=(ancho, alto))
     c.setTitle('Sintetizador musical: primer avance')
     portada(c, ancho, alto, a.equipo)
-    for n, ruta in enumerate(capturas, 1):
+    n = 0
+    bloques = os.path.join(RAIZ, 'docs', 'img', 'bloques.png')
+    if os.path.exists(bloques):
+        n += 1
+        pagina(c, ancho, alto, bloques, n, 'Diagrama general de bloques')
+    for ruta in capturas:
+        n += 1
         pagina(c, ancho, alto, ruta, n)
     c.save()
-    print('%s: portada y %d capturas' % (a.salida, len(capturas)))
+    print('%s: portada, diagrama de bloques y %d capturas' % (a.salida, len(capturas)))
 
 
 if __name__ == '__main__':

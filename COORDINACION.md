@@ -102,6 +102,9 @@ Abrir el proyecto: `~/altera/13.0sp1/quartus/bin/quartus quartus/sintetizador.qp
 | `09_pin_planner.png` | *Assignments > Pin Planner* con la lista de pines (columnas *Node Name* y *Location*) |
 | `10_fmax.png` | *TimeQuest Timing Analyzer > Slow Model > Fmax Summary* |
 | `11_rtl_viewer.png` | *Tools > Netlist Viewers > RTL Viewer*, nivel superior |
+| `12_fsm_adsr.png` | *Tools > Netlist Viewers > State Machine Viewer*, la maquina `est` de `adsr` (cualquiera de las 3 voces), con el diagrama y la tabla de transiciones |
+| `13_fsm_secuenciador.png` | lo mismo para la maquina `est` de `secuenciador` |
+| `14_simbolos.png` | el BDF con zoom en dos o tres bloques donde se lean los nombres de sus puertos (por ejemplo `voz`, `adsr` dentro de su simbolo o `secuenciador`) |
 
 No hace falta hacer commit: la nube las toma de la carpeta, arma el PDF del avance solo con estas capturas y las sube al repo. Si la interfaz de la 13.0 SP1 no abre, avisar: las capturas 02 a 05 se pueden tomar con el Quartus Prime de `~/altera_lite` abriendo solo los archivos `.vhd` y `.bdf`.
 
