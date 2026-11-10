@@ -15,7 +15,15 @@
 --           mas de 3 teclas se quedan las 3 mas graves.
 --   func  : pulso de un ciclo al presionar A, B, C, D del teclado 1
 --           (bits 0 a 3) y del teclado 2 (bits 4 a 7).
---   ultima: ultima nota presionada (para los displays).
+--
+-- Las notas se buscan en serie, una tecla por ciclo, con un solo
+-- sumador (base + j) en lugar de 24 comparaciones en paralelo:
+--   ciclo 24     copia las 24 teclas de nota (foto) y la octava,
+--                publica el resultado anterior y reinicia la busqueda
+--   ciclos 0-23  si la tecla j de la foto esta presionada y aun hay
+--                lugar, guarda base + j en el siguiente lugar
+-- Una vuelta dura 25 ciclos (1 us a 25 MHz); las teclas cambian
+-- cada milisegundo, asi que la latencia no se nota.
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -28,21 +36,11 @@ entity teclas_notas is
         teclas : in  std_logic_vector(31 downto 0);
         octava : in  std_logic_vector(2 downto 0);
         notas  : out std_logic_vector(20 downto 0);
-        func   : out std_logic_vector(7 downto 0);
-        ultima : out std_logic_vector(6 downto 0)
+        func   : out std_logic_vector(7 downto 0)
     );
 end entity teclas_notas;
 
 architecture rtl of teclas_notas is
-    signal ant      : std_logic_vector(31 downto 0) := (others => '0');
-    signal nn       : std_logic_vector(20 downto 0);
-    signal hay_ult  : boolean;
-    signal ult      : std_logic_vector(6 downto 0);
-    signal fc       : std_logic_vector(7 downto 0);
-    signal s_notas  : std_logic_vector(20 downto 0) := (others => '0');
-    signal s_func   : std_logic_vector(7 downto 0) := (others => '0');
-    signal s_ultima : std_logic_vector(6 downto 0) := (others => '0');
-
     -- indice de tecla de la nota j (0..23): teclado j/12, semitono j mod 12
     function tecla_de_nota (j : natural) return natural is
         variable t, s : natural;
@@ -57,70 +55,66 @@ architecture rtl of teclas_notas is
     begin
         return 16 * (f / 4) + 4 * (f mod 4) + 3;
     end function;
+
+    subtype t_nota is unsigned(6 downto 0);
+    type t_lugares is array (0 to 2) of t_nota;
+
+    signal j       : natural range 0 to 24 := 24;
+    signal foto    : std_logic_vector(23 downto 0) := (others => '0');   -- nota j en el bit j
+    signal base    : t_nota := (others => '0');
+    signal lugar   : t_lugares := (others => (others => '0'));
+    signal cuantas : natural range 0 to 3 := 0;
+
+    signal f_ant   : std_logic_vector(7 downto 0) := (others => '0');
+    signal f_now   : std_logic_vector(7 downto 0);
+    signal s_notas : std_logic_vector(20 downto 0) := (others => '0');
+    signal s_func  : std_logic_vector(7 downto 0) := (others => '0');
 begin
 
-    -- traduccion (combinacional)
-    process (teclas, ant, octava)
-        variable cuantas : natural range 0 to 3;
-        variable v       : std_logic_vector(20 downto 0);
-        variable base    : natural range 0 to 127;
-        variable n       : natural range 0 to 127;
-        variable hay     : boolean;
-        variable u       : natural range 0 to 127;
-    begin
-        base := 12 * to_integer(unsigned(octava));
+    -- teclas de funcion en orden de bit
+    gen_func : for f in 0 to 7 generate
+        f_now(f) <= teclas(tecla_de_func(f));
+    end generate;
 
-        -- hasta 3 notas, de grave a aguda
-        v       := (others => '0');
-        cuantas := 0;
-        for j in 0 to 23 loop
-            if teclas(tecla_de_nota(j)) = '1' and cuantas < 3 then
-                n := base + j;
-                v(7 * cuantas + 6 downto 7 * cuantas) := std_logic_vector(to_unsigned(n, 7));
-                cuantas := cuantas + 1;
-            end if;
-        end loop;
-        nn <= v;
-
-        -- ultima nota presionada (la mas aguda si llegan juntas)
-        hay := false;
-        u   := 0;
-        for j in 0 to 23 loop
-            if teclas(tecla_de_nota(j)) = '1' and ant(tecla_de_nota(j)) = '0' then
-                hay := true;
-                u   := base + j;
-            end if;
-        end loop;
-        hay_ult <= hay;
-        ult     <= std_logic_vector(to_unsigned(u, 7));
-
-        -- funciones (flanco de subida)
-        for f in 0 to 7 loop
-            fc(f) <= teclas(tecla_de_func(f)) and not ant(tecla_de_func(f));
-        end loop;
-    end process;
-
-    -- registros
     process (clk)
+        variable n : t_nota;
     begin
         if rising_edge(clk) then
-            ant <= teclas;
+            -- funciones: flanco de subida, un ciclo
+            f_ant  <= f_now;
+            s_func <= f_now and not f_ant;
+
             if rst = '1' then
-                s_notas  <= (others => '0');
-                s_func   <= (others => '0');
-                s_ultima <= (others => '0');
+                j       <= 24;
+                foto    <= (others => '0');
+                lugar   <= (others => (others => '0'));
+                cuantas <= 0;
+                s_notas <= (others => '0');
+                s_func  <= (others => '0');
+            elsif j = 24 then
+                -- publica la busqueda anterior y toma la foto nueva
+                s_notas <= std_logic_vector(lugar(2)) & std_logic_vector(lugar(1))
+                           & std_logic_vector(lugar(0));
+                for k in 0 to 23 loop
+                    foto(k) <= teclas(tecla_de_nota(k));
+                end loop;
+                base    <= to_unsigned(12 * to_integer(unsigned(octava)), 7);
+                lugar   <= (others => (others => '0'));
+                cuantas <= 0;
+                j       <= 0;
             else
-                s_notas <= nn;
-                s_func  <= fc;
-                if hay_ult then
-                    s_ultima <= ult;
+                -- una tecla por ciclo, de la mas grave a la mas aguda
+                if foto(j) = '1' and cuantas < 3 then
+                    n := base + to_unsigned(j, 7);
+                    lugar(cuantas) <= n;
+                    cuantas <= cuantas + 1;
                 end if;
+                j <= j + 1;
             end if;
         end if;
     end process;
 
-    notas  <= s_notas;
-    func   <= s_func;
-    ultima <= s_ultima;
+    notas <= s_notas;
+    func  <= s_func;
 
 end architecture rtl;
