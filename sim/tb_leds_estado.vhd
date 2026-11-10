@@ -1,12 +1,13 @@
 -- ============================================================
 -- tb_leds_estado.vhd
--- Prueba de los LEDs de estado (con el "ms" de 10 ciclos).
+-- Prueba de los 3 LEDs de la tarjeta (con el "ms" de 10 ciclos).
+-- Los LEDs se encienden con '0'.
 -- Revisa:
---   1) LEDR0-2 siguen a las voces, LEDR3 al metronomo, LEDR7 a la
---      memoria llena, LEDR9 a la saturacion
---   2) LEDR5 solo grabando y LEDR6 solo reproduciendo
---   3) LEDR8 encendido con cualquier efecto
---   4) cada tiempo del metronomo enciende LEDR4 durante 100 ms
+--   1) todo apagado al inicio
+--   2) D4 solo grabando y D5 solo reproduciendo
+--   3) con el metronomo encendido, cada tiempo enciende D2 durante
+--      100 ms; con el metronomo apagado D2 no enciende
+--   4) el reset apaga todo
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -16,19 +17,15 @@ entity tb_leds_estado is
 end entity tb_leds_estado;
 
 architecture sim of tb_leds_estado is
-    constant T_CLK : time := 20 ns;
+    constant T_CLK : time := 40 ns;
 
     signal clk        : std_logic := '0';
     signal rst        : std_logic := '1';
     signal tick_1ms   : std_logic := '0';
-    signal activas    : std_logic_vector(2 downto 0) := "000";
     signal metro_on   : std_logic := '0';
     signal beat       : std_logic := '0';
     signal estado_sec : std_logic_vector(1 downto 0) := S_ESPERA;
-    signal llena      : std_logic := '0';
-    signal efecto     : std_logic_vector(1 downto 0) := E_NINGUNO;
-    signal clip       : std_logic := '0';
-    signal ledr       : std_logic_vector(9 downto 0);
+    signal led_n      : std_logic_vector(2 downto 0);
     signal fin        : boolean := false;
 begin
 
@@ -53,14 +50,10 @@ begin
             clk        => clk,
             rst        => rst,
             tick_1ms   => tick_1ms,
-            activas    => activas,
             metro_on   => metro_on,
             beat       => beat,
             estado_sec => estado_sec,
-            llena      => llena,
-            efecto     => efecto,
-            clip       => clip,
-            ledr       => ledr
+            led_n      => led_n
         );
 
     estimulo : process
@@ -72,60 +65,58 @@ begin
             wait for 1 ns;
         end procedure;
 
-        procedure revisa (esp : std_logic_vector(9 downto 0); msg : string) is
+        -- esp: '1' = LED encendido (en el pin es '0')
+        procedure revisa (esp : std_logic_vector(2 downto 0); msg : string) is
         begin
             ciclos(2);
-            assert ledr = esp report "tb_leds_estado: " & msg severity error;
+            assert led_n = not esp report "tb_leds_estado: " & msg severity error;
         end procedure;
 
-        variable encendido : natural;
+        procedure destello (esperado_min, esperado_max : natural; msg : string) is
+            variable encendido : natural := 0;
+        begin
+            beat <= '1';
+            ciclos(1);
+            beat <= '0';
+            for i in 1 to 1500 loop
+                ciclos(1);
+                if led_n(0) = '0' then
+                    encendido := encendido + 1;
+                end if;
+            end loop;
+            assert encendido >= esperado_min and encendido <= esperado_max
+                report "tb_leds_estado: " & msg & " (" & integer'image(encendido) & " ciclos)"
+                severity error;
+        end procedure;
     begin
         ciclos(3);
         rst <= '0';
-        revisa("0000000000", "todo apagado al inicio");
-
         -- 1)
-        activas <= "101";
-        revisa("0000000101", "voces 0 y 2");
-        activas <= "000";
-        metro_on <= '1';
-        revisa("0000001000", "metronomo encendido");
-        metro_on <= '0';
-        llena <= '1';
-        revisa("0010000000", "memoria llena");
-        llena <= '0';
-        clip <= '1';
-        revisa("1000000000", "saturacion");
-        clip <= '0';
+        revisa("000", "todo apagado al inicio");
 
         -- 2)
         estado_sec <= S_GRABANDO;
-        revisa("0000100000", "grabando");
+        revisa("010", "grabando");
         estado_sec <= S_REPRODUCE;
-        revisa("0001000000", "reproduciendo");
+        revisa("100", "reproduciendo");
         estado_sec <= S_ESPERA;
+        revisa("000", "en espera");
 
-        -- 3)
-        for e in 1 to 3 loop
-            if e = 1 then efecto <= E_TREMOLO; elsif e = 2 then efecto <= E_ECO; else efecto <= E_AMBOS; end if;
-            revisa("0100000000", "efecto activo");
-        end loop;
-        efecto <= E_NINGUNO;
+        -- 3) destello de 100 ms (100 ticks de 10 ciclos)
+        destello(0, 0, "con el metronomo apagado D2 no debe encender");
+        metro_on <= '1';
+        destello(990, 1010, "el destello debe durar 100 ms");
 
-        -- 4) destello de 100 ms (100 ticks de 10 ciclos)
+        -- 4) reset a mitad de un destello y grabando
+        estado_sec <= S_GRABANDO;
         beat <= '1';
         ciclos(1);
         beat <= '0';
-        encendido := 0;
-        for i in 1 to 1500 loop
-            ciclos(1);
-            if ledr(4) = '1' then
-                encendido := encendido + 1;
-            end if;
-        end loop;
-        assert encendido >= 990 and encendido <= 1010
-            report "tb_leds_estado: el destello debe durar 100 ms (" & integer'image(encendido)
-                   & " ciclos)" severity error;
+        ciclos(20);
+        assert led_n = "100" report "tb_leds_estado: D2 y D4 encendidos" severity error;
+        rst <= '1';
+        ciclos(2);
+        assert led_n = "111" report "tb_leds_estado: el reset debe apagar todo" severity error;
 
         report "tb_leds_estado: OK";
         fin <= true;
