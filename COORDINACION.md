@@ -29,14 +29,15 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [!] TAREA-017 @claude-code: Estimar recursos con el Quartus que ya esta instalado (el Quartus de la PC no trae Cyclone IV; la estimacion con MAX 10 dio 5 431 LE, inflada porque las tablas se armaron con logica)
 - [!] TAREA-018 @claude-code: Instalar Quartus II 13.0 SP1 (la descarga pide cuenta de Altera; el equipo baja los archivos)
 - [!] TAREA-019 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
-- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance (despues de la TAREA-025)
+- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance (despues de la TAREA-027; solo si la TAREA-028 no las pudo tomar)
 - [x] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria): 3 805 LE, cabe en la EP2C5 (83 %)
 - [!] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados (no cupo en el disco: necesita 6 a 7 GB libres)
 - [!] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
 - [x] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio): instalado con Cyclone II; la interfaz grafica pide libpng12
 - [x] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144: 3 782 LE (82 %), 25 MHz con 12.3 ns de margen
 - [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (libpng12 sin sudo)
-- [ ] TAREA-027 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (si la TAREA-026 quedo bien)
+- [ ] TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables dibujados
+- [ ] TAREA-028 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (si la TAREA-026 quedo bien)
 
 ---
 
@@ -87,7 +88,7 @@ Cyclone II solo se compila con Quartus II 13.0 SP1 Web Edition (gratis, sin lice
 
 ## TAREA-020 @equipo: Capturas de Quartus para el primer avance
 
-Despues de que la TAREA-025 compile bien. Se siguen los pasos del manual del profesor (*Creacion y uso de bloques en Quartus*): simbolos desde los `.vhd`, diagrama de bloques como nivel superior, compilacion y Pin Planner.
+Despues de que la TAREA-027 compile bien, y solo si la TAREA-028 no pudo tomarlas sola. Se siguen los pasos del manual del profesor (*Creacion y uso de bloques en Quartus*): simbolos desde los `.vhd`, diagrama de bloques como nivel superior, compilacion y Pin Planner.
 
 Abrir el proyecto: `sh quartus/abrir_quartus.sh &` (Quartus 13.0 de 64 bits; necesita la TAREA-026). Cada captura de la ventana completa de Quartus (tecla Impr Pant o `gnome-screenshot -w -f <archivo>`), en PNG, dentro de la carpeta `capturas/` del repo con estos nombres:
 
@@ -158,9 +159,19 @@ La TAREA-024 dejo Quartus II 13.0 SP1 instalado, pero `quartus --64bit` no abre 
 5. Si la TAREA-025 ya creo `quartus/sintetizador.qpf`, abre `sh quartus/abrir_quartus.sh` en segundo plano, espera 60 s, revisa que el proceso siga vivo y guarda lo que haya escrito en la terminal; luego cierralo (`pkill -f "quartus --64bit"`). Si la pantalla esta bloqueada no importa: basta con que el proceso arranque sin errores.
 6. Resultado en `resultados/TAREA-026.md`. Si el paso 2 o 3 falla, reporta el error tal como sale y no intentes otras fuentes.
 
-## TAREA-027 @claude-code: Capturas de Quartus en una pantalla virtual
+## TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables
 
-Las capturas de la TAREA-020 sin que el equipo este frente a la PC. Solo si la TAREA-026 dejo funcionando `sh quartus/abrir_quartus.sh`; si no, termina con FALLO sin intentar nada.
+`quartus/sintetizador.bdf` ahora tiene cables dibujados entre bloques de columnas vecinas (antes todo eran cables cortos con nombre). La red es la misma (`python3 tools/revisa_bdf.py` lo revisa), pero hay que confirmarlo con Quartus.
+
+1. `git pull --rebase` y `python3 tools/revisa_bdf.py` (debe decir OK).
+2. `sh quartus/compilar.sh` (nivel superior `sintetizador.bdf`).
+3. Compara con la TAREA-025: elementos logicos, registros, bits de memoria, multiplicadores, pines y Fmax deben salir iguales o casi iguales (unas decenas de LE de diferencia son normales; mas de 100 o cualquier error no).
+4. Si falla o sale distinto: guarda el log en `logs/TAREA-027_cables.log`, regresa al diagrama anterior con `python3 tools/genera_top.py --sin-cables`, vuelve a compilar y deja ese `.bdf` en el commit (es la unica excepcion a no tocar `quartus/` en esta tarea). Reporta las dos corridas.
+5. Resultado en `resultados/TAREA-027.md` con el `fit.summary`, Fmax y slack, y las advertencias nuevas que no salian en la TAREA-025. Log en `logs/TAREA-027.log`.
+
+## TAREA-028 @claude-code: Capturas de Quartus en una pantalla virtual
+
+Las capturas de la TAREA-020 sin que el equipo este frente a la PC. Solo si la TAREA-026 dejo funcionando `sh quartus/abrir_quartus.sh` y la TAREA-027 compilo; si no, termina con FALLO sin intentar nada.
 
 Reglas: sin sudo y sin instalar paquetes del sistema. Lo que haga falta se baja con `apt-get download` (no necesita sudo; usa los repositorios de la PC) y se extrae con `dpkg -x` dentro de `~/altera/13.0sp1/extra/`. No uses la pantalla real de la sesion (puede estar bloqueada) ni toques la configuracion del escritorio. Las capturas son de Quartus tal como se ve: no se editan ni se recortan mas alla de quitar bordes negros.
 
@@ -169,5 +180,5 @@ Reglas: sin sudo y sin instalar paquetes del sistema. Lo que haga falta se baja 
 3. Toma las capturas de la tabla de la TAREA-020 (`01_proyecto.png` a `14_simbolos.png`), con la ventana de Quartus maximizada. Despues de cada paso revisa la imagen (Read) y repite si no muestra lo que pide la tabla. Si alguna no se logra despues de unos intentos, saltala y anotala.
 4. Guardalas en `capturas/` del repo, agregalas con `git add capturas` en el mismo commit del resultado.
 5. Cierra Quartus y Xvfb.
-6. Resultado en `resultados/TAREA-027.md`: que se bajo y extrajo (paquetes y versiones), que capturas quedaron, cuales no y por que.
+6. Resultado en `resultados/TAREA-028.md`: que se bajo y extrajo (paquetes y versiones), que capturas quedaron, cuales no y por que.
 
