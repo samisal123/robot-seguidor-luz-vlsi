@@ -1,5 +1,15 @@
 # Pruebas
 
+## Estrategia de verificación
+
+Cada módulo se verifica solo antes de integrarlo, y luego el sistema completo:
+
+1. **Un testbench por módulo** (GHDL) que revisa con `assert` lo que pide la especificación: tiempos exactos, valores esperados, casos límite y entradas al azar con invariantes. Si un `assert` falla, el testbench falla; no se revisan ondas a ojo.
+2. **Prueba del sistema completo** desde el reloj de 50 MHz de la tarjeta (con un modelo del PLL) y modelos eléctricos de los dos teclados: mide la frecuencia en la salida de audio y revisa los modos, el secuenciador, el metrónomo, los LEDs y las sincronías VGA.
+3. **Pruebas de mutación**: se meten errores a propósito en copias del código y cada uno debe hacer fallar su testbench; así se comprueba que las pruebas sí detectan errores.
+4. **Síntesis**: `ghdl --synth` sin latches y la estimación y compilación en Quartus (recursos, tiempos y pines de la EP2C5).
+5. **Pruebas en la tarjeta** con una lista de comprobación por requisito (abajo) y el guion de la demostración.
+
 ## Simulación (GHDL)
 
 Cada módulo de `rtl/` tiene su testbench en `sim/` y además hay una prueba del sistema completo. Todos verifican con `assert ... severity error` (no basta con ver ondas) y terminan con `report "tb_<modulo>: OK"`.
