@@ -2,12 +2,13 @@
 
 ## Decisiones de diseño
 
-1. **Un solo reloj de 50 MHz.** Los tiempos lentos salen de pulsos de habilitación de un ciclo de `base_tiempo`: `tick_fs` cada 1024 ciclos (la muestra de audio, Fs = 48 828.125 Hz) y `tick_1ms`. No hay relojes divididos ni cruces de dominio.
-2. **Toda entrada externa pasa por un sincronizador de 2 flip-flops** (columnas de los teclados, botones y switches) y después por un antirrebote.
+1. **Un solo reloj de 25 MHz.** El PLL de la Cyclone II lo saca de los 50 MHz del oscilador de la tarjeta; es justo el reloj de pixel de la VGA y deja margen de tiempo en la EP2C5T144C8, que es de grado de velocidad 8 (el más lento). Los tiempos lentos salen de pulsos de habilitación de un ciclo de `base_tiempo`: `tick_fs` cada 512 ciclos (la muestra de audio, Fs = 48 828.125 Hz) y `tick_1ms`. No hay relojes divididos ni cruces de dominio. El sistema arranca en reset hasta que el PLL se engancha.
+2. **Toda entrada externa pasa por un sincronizador de 2 flip-flops** (columnas de los teclados y botones) y después por un antirrebote.
 3. **Un módulo por archivo, un testbench por módulo**, más una prueba del sistema completo con modelos de los teclados (ver [PRUEBAS.md](PRUEBAS.md)).
 4. **Puertos solo `std_logic` y `std_logic_vector`**, para que Quartus genere el símbolo de cada módulo y el nivel superior sea un diagrama de bloques (`quartus/sintetizador.bdf`), como en el material del curso "Creación y uso de bloques en Quartus". Los códigos de modos, estados, formas de onda y efectos tienen nombre en `rtl/synth_pkg.vhd`.
 5. **Los parámetros cambian en operación** (forma de onda, envolvente, volumen, tempo, efecto, octava): son registros de `control`, no constantes; no hace falta volver a sintetizar.
-6. **Cadenas largas en etapas registradas**: la multiplicación de cada voz, la cadena de audio (9 ciclos de 1024 disponibles por muestra) y la VGA (3 etapas) cierran tiempos a 50 MHz.
+6. **Cadenas largas en etapas registradas**: la multiplicación de cada voz, la cadena de audio (9 ciclos de 512 disponibles por muestra) y la VGA (4 etapas).
+7. **Ajuste a la EP2C5 (4 608 elementos lógicos, 26 bloques M4K de 4 Kbit, 13 multiplicadores de 18 × 18).** Las tablas grandes van en bloques de memoria en lugar de lógica: incrementos de las notas y seno de cada voz, tabla de la onda de la VGA, línea de retardo del eco y memoria de eventos. La búsqueda de las 3 notas presionadas se hace en serie, una tecla por ciclo, con un solo sumador. La interfaz principal es la VGA (la tarjeta no tiene displays ni switches) y los productos usan los multiplicadores embebidos.
 
 ## Diagrama de bloques
 
@@ -20,20 +21,20 @@ El nivel superior existe en dos formas equivalentes, generadas por `tools/genera
 
 | Bloque | Archivo | Función |
 |---|---|---|
-| Reset de encendido | `reset_encendido.vhd` | `rst` durante los primeros 16 ciclos |
+| PLL | `quartus/ip/pll_25mhz.vhd` (simulación: `sim/modelo_pll.vhd`) | 50 MHz de la tarjeta a 25 MHz y señal de enganche |
+| Reset del sistema | `reset_encendido.vhd` | `rst` hasta 16 ciclos después de que el PLL se engancha y mientras se presiona RESET |
 | Base de tiempo | `base_tiempo.vhd` | `tick_fs` (48 828 Hz) y `tick_1ms` |
-| Entradas de la tarjeta | `entradas_placa.vhd` | KEY0 y KEY1 a pulsos, SW9-SW8 a modo (sync + antirrebote de 20 ms) |
+| Botones del panel | `entradas_placa.vhd` | MODO recorre los 4 modos; ACCIÓN y METRÓNOMO a pulsos (sync + antirrebote de 20 ms) |
 | Interfaz de teclados | `interfaz_teclados.vhd`, `teclado_scan.vhd` | barrido de los dos teclados 4 × 4, filas en colector abierto, antirrebote de 20 ms por tecla |
-| Teclas a notas | `teclas_notas.vhd` | hasta 3 notas presionadas, pulsos de las teclas A-D y última nota |
+| Teclas a notas | `teclas_notas.vhd` | hasta 3 notas presionadas (búsqueda en serie) y pulsos de las teclas A-D |
 | Unidad de control | `control.vhd` | modos, parámetros del sonido y órdenes al secuenciador |
 | Secuenciador | `secuenciador.vhd`, `memoria_eventos.vhd` | graba y reproduce hasta 256 eventos |
 | Selector | `selector_notas.vhd` | notas en vivo o grabadas hacia las voces |
 | Gestor de voces | `gestor_voces.vhd` | reparte hasta 3 notas entre 3 voces |
 | Voz (× 3) | `voz.vhd`, `dds.vhd`, `forma_onda.vhd`, `adsr.vhd` | DDS, forma de onda, envolvente ADSR y producto |
 | Salida de audio | `audio_salida.vhd`, `mezclador.vhd`, `tremolo.vhd`, `eco.vhd`, `volumen.vhd`, `metronomo.vhd`, `salida_pwm.vhd` | mezcla, efectos, volumen, metrónomo y PWM |
-| Displays | `display_hex.vhd` | modo, octava, nota, eventos y parámetros en HEX0-HEX5 |
-| VGA | `vga_ui.vhd`, `fuente_5x7.vhd` | pantalla de 640 × 480 con el estado completo |
-| LEDs | `leds_estado.vhd` | voces, metrónomo, grabación, reproducción, efectos y saturación |
+| VGA | `vga_ui.vhd`, `fuente_5x7.vhd` | pantalla de 640 × 480 con el estado completo (interfaz principal) |
+| LEDs | `leds_estado.vhd` | tiempo del metrónomo, grabando y reproduciendo en los 3 LEDs de la tarjeta |
 
 ## Entradas
 
@@ -56,15 +57,17 @@ El teclado 1 toca la octava base (2 a 6, inicia en 4) y el teclado 2 la siguient
 
 - `notas`: hasta 3 notas pedidas, de grave a aguda (7 bits cada una, `n = 12 · octava + semitono`, A4 = 57, 0 = vacía). Con más de 3 teclas se quedan las 3 más graves.
 - `func`: pulso de un ciclo al presionar A, B, C o D de cada teclado.
-- `ultima`: la última nota presionada, para los displays.
 
-### Botones y switches
+La búsqueda es en serie: cada 25 ciclos toma una foto de las 24 teclas de nota y la octava, y en los 24 ciclos siguientes revisa una tecla por ciclo, de la más grave a la más aguda, guardando `12 · octava + j` en el siguiente lugar libre. Con un solo sumador hace lo que en paralelo pedía 24 comparaciones; la vuelta dura 1 µs y las teclas cambian cada milisegundo.
+
+### Botones
 
 | Control | Función |
 |---|---|
-| SW9-SW8 | modo: 00 interpretación, 01 grabación, 10 reproducción, 11 configuración |
-| KEY0 | en grabación inicia o finaliza; en reproducción inicia o detiene |
-| KEY1 | enciende o apaga el metrónomo |
+| MODO (pin 86) | pasa al siguiente modo: interpretación → grabación → reproducción → configuración → interpretación |
+| ACCIÓN (pin 87) | en grabación inicia o finaliza; en reproducción inicia o detiene |
+| METRÓNOMO (pin 92) | enciende o apaga el metrónomo |
+| RESET (pin 144, en la tarjeta) | reinicia todo el sistema |
 
 ## Unidad de control
 
@@ -95,13 +98,13 @@ Parámetros (en configuración se recorren en este orden):
 
 Attack, decay y release son tiempos de escala completa (de 0 a 255 o al revés); sustain es un nivel. En configuración los valores se quedan en sus límites; con las teclas directas, forma y efecto dan la vuelta.
 
-Órdenes al secuenciador: KEY0 en grabación manda `cmd_grabar` (si está en espera) o `cmd_parar` (si graba); en reproducción, `cmd_reproducir` o `cmd_parar`. Cambiar de modo a mitad de una grabación o reproducción también manda `cmd_parar`. El metrónomo suena en interpretación y grabación y se calla mientras se reproduce una secuencia.
+Órdenes al secuenciador: ACCIÓN en grabación manda `cmd_grabar` (si está en espera) o `cmd_parar` (si graba); en reproducción, `cmd_reproducir` o `cmd_parar`. Cambiar de modo a mitad de una grabación o reproducción también manda `cmd_parar`. El metrónomo suena en interpretación y grabación y se calla mientras se reproduce una secuencia.
 
 ## Secuenciador y memoria
 
 Un **evento** es un conjunto de notas que se mantuvo igual (hasta 3 notas, o silencio si no hay ninguna) y su duración en milisegundos. Así quedan grabadas notas, acordes y silencios con sus duraciones, en orden.
 
-Formato de cada palabra de `memoria_eventos` (RAM de 256 × 37 bits, 2 bloques M9K):
+Formato de cada palabra de `memoria_eventos` (RAM de 256 × 37 bits, 3 bloques M4K en modo 256 × 18):
 
 | Bits | Contenido |
 |---|---|
@@ -134,7 +137,7 @@ nota -> ROM de incrementos -> DDS (24 bits) -> forma_onda --+
 gate ------------------------------> ADSR (24 bits) --------+
 ```
 
-**DDS.** Un acumulador de fase de 24 bits suma un incremento en cada muestra: `fase = fase + inc (mod 2^24)`. La frecuencia es `f = inc · Fs / 2^24`, con resolución de 0.0029 Hz. Los incrementos de las 12 notas de la octava 7 están en `synth_pkg` (`inc = f · 2^24 / Fs`, por ejemplo B7: 3951.07 Hz → 1 357 576); las octavas de abajo se obtienen dividiendo entre 2 por octava. Con eso se arma una ROM de 128 incrementos. El error máximo contra la afinación temperada (A4 = 440 Hz) es menor a 0.01 %. Cambiar de nota solo cambia el incremento; la fase sigue sin saltos.
+**DDS.** Un acumulador de fase de 24 bits suma un incremento en cada muestra: `fase = fase + inc (mod 2^24)`. La frecuencia es `f = inc · Fs / 2^24`, con resolución de 0.0029 Hz. Los incrementos de las 12 notas de la octava 7 están en `synth_pkg` (`inc = f · 2^24 / Fs`, por ejemplo B7: 3951.07 Hz → 1 357 576); las octavas de abajo se obtienen dividiendo entre 2 por octava. Con eso se arma una ROM de 128 incrementos de 24 bits, que va en un bloque M4K de cada voz (lectura registrada). El error máximo contra la afinación temperada (A4 = 440 Hz) es menor a 0.01 %. Cambiar de nota solo cambia el incremento; la fase sigue sin saltos.
 
 **Formas de onda** (de los bits altos de la fase, sin memoria salvo el seno):
 
@@ -143,7 +146,9 @@ gate ------------------------------> ADSR (24 bits) --------+
 | Cuadrada | +127 si `fase(23) = 0`, −127 si no |
 | Triangular | `fase(22..15) − 128` subiendo en la primera mitad, `127 − fase(22..15)` bajando en la segunda |
 | Sierra | `fase(23..16) − 128` |
-| Seno | tabla de 256 puntos indexada con `fase(23..16)` |
+| Seno | tabla de 256 puntos indexada con `fase(23..16)`, en un bloque M4K |
+
+`forma_onda` es una tubería de 2 etapas: en la primera se lee la ROM del seno y se registran la fase y la forma; en la segunda se elige la muestra.
 
 **Envolvente ADSR.** Acumulador de 24 bits; el nivel son sus 8 bits altos (0 a 255). Avanza una vez por muestra con un paso por etapa: para recorrer la escala completa en T ms, `paso = 2^24 / (T · Fs / 1000) = 343 597 / T`.
 
@@ -155,7 +160,7 @@ Al soltar la nota en cualquier etapa pasa a LIBERACIÓN desde el nivel actual; s
 
 ### Gestor de voces
 
-Cada ciclo suelta (gate = 0) toda voz cuya nota ya no se pide, conservando la nota para que la liberación suene a la misma frecuencia, y asigna la primera nota pedida sin voz a una voz libre con esta preferencia: la que ya tenía esa nota (se volvió a presionar durante su liberación), una en reposo, o cualquiera libre. Con 3 voces y máximo 3 notas, siempre hay voz para cada nota. Un acorde completo queda repartido en 3 ciclos (60 ns).
+Cada ciclo suelta (gate = 0) toda voz cuya nota ya no se pide, conservando la nota para que la liberación suene a la misma frecuencia, y asigna la primera nota pedida sin voz a una voz libre con esta preferencia: la que ya tenía esa nota (se volvió a presionar durante su liberación), una en reposo, o cualquiera libre. Con 3 voces y máximo 3 notas, siempre hay voz para cada nota. Un acorde completo queda repartido en 3 ciclos (120 ns).
 
 ### Cadena de salida (`audio_salida`)
 
@@ -169,50 +174,52 @@ Formato interno de 12 bits con signo (la muestra de 8 bits con 4 bits de fracci�
 |---|---|
 | Mezclador | `(voz0 + voz1 + voz2) / 2` con saturación; una voz a escala completa da media escala y solo un acorde de 3 voces en fase llega a saturar |
 | Trémolo | LFO triangular de 4.98 Hz; la ganancia va de 1.0 a 0.5 |
-| Eco | `y[n] = x[n] + y[n − 8192] / 2` con saturación: el eco llega 168 ms después y cada repetición vale la mitad. RAM de 8192 × 12 bits en bloques M9K |
+| Eco | `y[n] = x[n] + y[n − 4096] / 2` con saturación: el eco llega 84 ms después y cada repetición vale la mitad. RAM de 4096 × 12 bits en 12 bloques M4K |
 | Volumen | `y = x · vol / 4`, vol de 0 (silencio) a 4 (100 %), con corrimientos y sumas |
 | Metrónomo | clic cuadrado de 2 kHz (3 kHz en el acento) de 24.7 ms con caída lineal; no pasa por el volumen ni por los efectos, para que se distinga de las notas |
-| PWM | 8 bits a 195.3 kHz (`50 MHz / 256`), ciclo de trabajo = muestra + 128 |
+| PWM | 8 bits a 97.7 kHz (`25 MHz / 256`, dos periodos por muestra), ciclo de trabajo = muestra + 128 |
 
-`clip` se enciende 100 ms cuando alguna etapa satura (LEDR9).
+`audio_salida` también tiene una salida `clip` (saturación en los últimos 100 ms) que se usa en las pruebas; en la EP2C5 no va a ningún LED.
 
 ### Metrónomo
 
-Cuenta milisegundos y marca un tiempo cada 1000, 667, 500 o 400 ms (60, 90, 120, 150 BPM), con acento en el primero de cada 4. Al encenderlo, el primer tiempo es inmediato. Es independiente de las voces: tiene su propio generador del clic y se suma al final de la cadena. El tiempo se ve en LEDR4 y en la VGA (verde, rojo en el acento).
+Cuenta milisegundos y marca un tiempo cada 1000, 667, 500 o 400 ms (60, 90, 120, 150 BPM), con acento en el primero de cada 4. Al encenderlo, el primer tiempo es inmediato. Es independiente de las voces: tiene su propio generador del clic y se suma al final de la cadena. El tiempo se ve en el LED D2 y en la VGA (verde, rojo en el acento).
 
 ### Etapa analógica
 
-El PWM sale por el pin 31 del header a un filtro RC de dos etapas (1 kΩ y 10 nF cada una, −3 dB en unos 6 kHz y −44 dB a 195 kHz), un capacitor de 10 µF que quita la DC, un divisor de 1/11 y el amplificador PAM8403, que mueve una bocina de 8 Ω. Detalle en [CABLEADO.md](CABLEADO.md).
+El PWM sale por el pin 93 de la FPGA a un filtro RC de dos etapas (1 kΩ y 10 nF cada una, −3 dB en unos 6 kHz y unos −32 dB a 97.7 kHz), un capacitor de 10 µF que quita la DC, un divisor de 1/11 y el amplificador PAM8403, que mueve una bocina de 8 Ω. Detalle en [CABLEADO.md](CABLEADO.md).
 
 ## Interfaz de usuario
 
-### Displays (HEX5 a HEX0)
+### LEDs de la tarjeta
 
-| Modo | HEX5-HEX4 | HEX3-HEX0 |
-|---|---|---|
-| Interpretación | `In` | `o` + octava base, y la última nota (letra y octava; el punto indica sostenido: `C.5` = C#5) |
-| Grabación | `Gr` | eventos grabados |
-| Reproducción | `rP` | número del evento que suena (eventos guardados en espera) |
-| Configuración | `CF` | parámetro (`Fo`, `At`, `dE`, `Su`, `rE`, `Uo`, `tE`, `EF`) y su valor |
-
-### LEDs
-
-LEDR0-2 voces sonando, LEDR3 metrónomo encendido, LEDR4 tiempo del metrónomo, LEDR5 grabando, LEDR6 reproduciendo, LEDR7 memoria llena, LEDR8 efecto activo, LEDR9 saturación.
+D2 (pin 3) destella 100 ms en cada tiempo del metrónomo, D4 (pin 7) encendido mientras se graba y D5 (pin 9) mientras se reproduce. Se encienden con `'0'`.
 
 ### VGA (640 × 480 a 60 Hz)
 
 ![Pantalla VGA en los 4 modos (cuadros capturados en simulación con sim/captura_vga.vhd)](img/vga_modos.png)
 
-`vga_ui` dibuja con pixel de 25 MHz y una tubería de 3 etapas; las entradas se copian una vez por cuadro, así nunca se ve un cuadro partido:
+Es la interfaz principal de la EP2C5. `vga_ui` dibuja un pixel por ciclo del reloj de 25 MHz con una tubería de 4 etapas y un bit por color (8 colores: una resistencia de 270 Ω por color hacia el conector); las entradas se copian una vez por cuadro, así nunca se ve un cuadro partido:
 
-- Banda superior con el nombre del modo (color por modo), estado del metrónomo, tempo en BPM y un foco que destella en cada tiempo.
+- Banda superior con el nombre del modo (azul interpretación, rojo grabación, verde reproducción, magenta configuración), estado del metrónomo, tempo en BPM y un foco que destella en cada tiempo.
 - Piano de dos octavas desde la octava base; las teclas que suenan se pintan del color de su voz.
 - Panel de parámetros (en configuración se resalta el elegido), dibujo de un periodo de la forma de onda elegida y panel de voces con la nota y una barra del nivel de su envolvente.
 - Secuenciador: estado, eventos guardados (n/256), barra de avance o de memoria usada y posición.
 
 ## Recursos y tiempos
 
-Se llenan con la compilación de Quartus en la PC del laboratorio (`quartus/compilar.sh`); ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus).
+Memoria planeada en la EP2C5 (26 bloques M4K de 4 096 bits):
+
+| Uso | Tamaño | Bloques M4K |
+|---|---|---|
+| Línea de retardo del eco | 4 096 × 12 | 12 |
+| Memoria de eventos | 256 × 37 | 3 |
+| Incrementos de las notas (una por voz) | 128 × 24 | 3 |
+| Seno (uno por voz) | 256 × 8 | 3 |
+| Onda de la VGA | 512 × 7 | 1 |
+| **Total** | | **22 de 26** |
+
+Los elementos lógicos y la Fmax se llenan con la compilación en Quartus II 13.0 SP1 (TAREA-019); ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus). Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica).
 
 ## Limitaciones conocidas
 
@@ -220,4 +227,7 @@ Se llenan con la compilación de Quartus en la PC del laboratorio (`quartus/comp
 - Teclado sin diodos: tres teclas en esquinas de un rectángulo del mismo teclado agregan una cuarta fantasma.
 - El secuenciador guarda las notas, no los cambios de parámetros: la reproducción usa la forma, envolvente, volumen y efecto que estén en ese momento.
 - La reproducción no se mezcla con lo que se toque en vivo.
-- PWM de 8 bits: el ruido de cuantización es audible a volumen muy bajo; el filtro RC de 2 etapas deja pasar algo del armónico de 195 kHz, que la bocina no reproduce.
+- PWM de 8 bits: el ruido de cuantización es audible a volumen muy bajo; el filtro RC de 2 etapas deja pasar algo de la portadora de 97.7 kHz, que la bocina no reproduce.
+- El eco es de 84 ms (la memoria de la EP2C5 no alcanza para uno más largo con 12 bits por muestra).
+- La VGA tiene 8 colores (un bit por color).
+- Los modos se recorren en orden con el botón MODO; para ir de interpretación a configuración hay que presionarlo 3 veces.
