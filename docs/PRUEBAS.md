@@ -46,8 +46,8 @@ Para saber si los testbenches de verdad detectan errores, se metieron errores a 
 |---|---|---|
 | Núcleo: teclados, voz, gestor de voces, secuenciador, control, botones, LEDs, reset, base de tiempo | 48 | 48 |
 | Audio: mezclador, trémolo, eco, volumen, metrónomo, PWM y cadena completa | 35 | 35 |
-| VGA | 58 | 58 |
-| **Total** | **141** | **141** |
+| VGA | 62 | 62 |
+| **Total** | **145** | **145** |
 
 Corrida del 9 de noviembre de 2026, ya con el diseño para la EP2C5T144.
 

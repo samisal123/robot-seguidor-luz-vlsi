@@ -1,6 +1,7 @@
 # Pruebas de mutacion: cada mutacion es un error metido a proposito en una copia del RTL;
 # cuenta como detectada si su testbench falla (assert o error en tiempo de ejecucion), no si deja de compilar.
-# Corrida del 9 de noviembre de 2026 con el diseno para la EP2C5T144 (reloj de 25 MHz, eco de 4096, VGA de 1 bit por color).
+# Corrida del 9 de noviembre de 2026 con el diseno para la EP2C5T144 (reloj de 25 MHz, eco de 4096, VGA de 1 bit por color,
+# ADSR con un solo sumador, fuente de la VGA en M4K).
 
 ## Nucleo (48): teclados, voz, gestor de voces, secuenciador, control, botones, LEDs, reset, base de tiempo
 [0] teclado_scan -> tb_teclado_scan: MUERTA: tb_teclado_scan: la tecla aparecio antes del antirrebote
@@ -18,7 +19,7 @@
 [12] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: cuadrada debe ser 127
 [13] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: la sierra debe ser creciente dentro del periodo
 [14] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: el seno se aleja de la ideal
-[15] adsr -> tb_adsr: MUERTA: tb_adsr: attack 0: 196 muestras, se esperaban 98
+[15] adsr -> tb_adsr: MUERTA: tb_adsr: attack 0: 197 muestras, se esperaban 98
 [16] adsr -> tb_adsr: MUERTA: tb_adsr: al reatacar el nivel no debe caer
 [17] adsr -> tb_adsr: MUERTA: tb_adsr: el sustain debe subir sin saltos
 [18] adsr -> tb_adsr: MUERTA: tb_adsr: release 0: 2443 muestras, se esperaban 977
@@ -97,7 +98,7 @@ aud_clip_sin_estirar     tb_audio_salida  DETECTADA    F: clip debe durar unos 1
 aud_nivel_sin_abs        tb_audio_salida  DETECTADA    nivel = 0 /= |muestra| en la muestra 19
 aud_sat_final_sin_clip   tb_audio_salida  DETECTADA    F: el clic sobre 127 debe saturar la suma final
 
-## VGA (58): vga_ui
+## VGA (62): vga_ui
  0 H_SY 96->95                        detectada: HSYNC dura 3800000000 fs, se esperaban 96 pixeles
  1 H_FP 16->17                        detectada: VSYNC no empieza al inicio de la linea
  2 V_TOT 525->524                     detectada: marco del panel SECUENCIADOR: pixel (300,393) = 000, se esperaba 001
@@ -142,18 +143,22 @@ aud_sat_final_sin_clip   tb_audio_salida  DETECTADA    F: el clic sobre 127 debe
 41 columna de letra mal               detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra 111 sobre 001)
 42 fila de letra corrida              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra 111 sobre 001)
 43 letras en espejo                   detectada: titulo 'INTERPRETACION': la letra 2 no coincide
-44 sostenidos mal                     detectada: texto ' F4 ' en renglon 20, columna 39: la letra 3 no coincide (letra 011 sobre 000)
-45 octava de la nota +1               detectada: texto ' B3 ' en renglon 16, columna 39: la letra 3 no coincide (letra 111 sobre 000)
-46 volumen sin tope                   detectada: ghdl:error: bound check failure at vga_ui.vhd:644
-47 medidor <=                         detectada: volumen 2: segmento 3: pixel (194,343) = 110, se esperaba 001
-48 nivel sin redondeo                 detectada: nivel V2 = 101: pixel 50: pixel (495,312) = 000, se esperaba 010
-49 etiquetas en color normal          detectada: texto 'FORMA   ' en renglon 16, columna 2: la letra 1 no coincide (letra 011 sobre 000)
-50 nota sin gate en blanco            detectada: texto ' ---' en renglon 20, columna 39: la letra 2 no coincide (letra 011 sobre 000)
-51 copia en la linea 480              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra 111 sobre 001)
-52 METRONOMO OFF siempre              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra 111 sobre 001)
-53 zona marco de PM a fondo           detectada: marco del panel FORMA DE ONDA: pixel (267,300) = 000, se esperaba 001
-54 etiqueta una linea arriba          detectada: etiqueta C4 de la tecla blanca 0
-55 marco de barra de nivel V2 corrido detectada: marco de arriba de la barra de nivel 2: pixel (500,307) = 000, se esperaba 001
-56 color de etiqueta fijo             detectada: etiqueta C4 de la tecla blanca 0
-57 AVANCE/MEMORIA al reves            detectada: texto 'MEMORIA' en renglon 27, columna 2: la letra 1 no coincide (letra 011 sobre 000)
-detectadas 58 de 58
+44 celdas de texto de 11              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra 111 sobre 001)
+45 celdas del titulo de 23            detectada: titulo 'INTERPRETACION': la letra 1 no coincide
+46 teclas blancas de 39               detectada: etiqueta C5 de la tecla blanca 7
+47 fila de la fuente corrida          detectada: titulo 'INTERPRETACION': la letra 1 no coincide
+48 sostenidos mal                     detectada: texto ' F4 ' en renglon 20, columna 39: la letra 3 no coincide (letra 011 sobre 000)
+49 octava de la nota +1               detectada: texto ' B3 ' en renglon 16, columna 39: la letra 3 no coincide (letra 111 sobre 000)
+50 volumen sin tope                   detectada: ghdl:error: bound check failure at vga_ui.vhd:713
+51 medidor <=                         detectada: volumen 2: segmento 3: pixel (194,343) = 110, se esperaba 001
+52 nivel sin redondeo                 detectada: nivel V2 = 101: pixel 50: pixel (495,312) = 000, se esperaba 010
+53 etiquetas en color normal          detectada: texto 'FORMA   ' en renglon 16, columna 2: la letra 1 no coincide (letra 011 sobre 000)
+54 nota sin gate en blanco            detectada: texto ' ---' en renglon 20, columna 39: la letra 2 no coincide (letra 011 sobre 000)
+55 copia en la linea 480              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra 111 sobre 001)
+56 METRONOMO OFF siempre              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra 111 sobre 001)
+57 zona marco de PM a fondo           detectada: marco del panel FORMA DE ONDA: pixel (267,300) = 000, se esperaba 001
+58 etiqueta una linea arriba          detectada: etiqueta C4 de la tecla blanca 0
+59 marco de barra de nivel V2 corrido detectada: marco de arriba de la barra de nivel 2: pixel (500,307) = 000, se esperaba 001
+60 color de etiqueta fijo             detectada: etiqueta C4 de la tecla blanca 0
+61 AVANCE/MEMORIA al reves            detectada: texto 'MEMORIA' en renglon 27, columna 2: la letra 1 no coincide (letra 011 sobre 000)
+detectadas 62 de 62
