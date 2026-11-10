@@ -5,6 +5,7 @@ Un testbench por módulo de `rtl/`, con nombre `tb_<modulo>.vhd`, más la prueba
 Modelos que usan las pruebas (los importa `correr.sh` automáticamente):
 
 - `modelo_teclado.vhd`: teclado matricial 4 × 4 de membrana con pull-up en las columnas.
+- `modelo_pll.vhd`: la misma entidad que el PLL de Quartus (`quartus/ip/pll_25mhz.vhd`): divide el reloj de 50 MHz entre 2 y se engancha después de 20 ciclos.
 
 `captura_vga.vhd` guarda un cuadro de la VGA como imagen (se corre aparte, ver su encabezado).
 
@@ -18,4 +19,4 @@ STOP=5sec sh sim/correr.sh sinte_top     # tope de tiempo simulado distinto
 
 El script importa todo `rtl/` y los modelos, compila cada testbench en su propia carpeta `sim/work/<modulo>/` y sale con código 1 si alguno falla. Si `ghdl` no está en el PATH, se indica con `GHDL=/ruta/a/ghdl sh sim/correr.sh`.
 
-La prueba del sistema completo simula 1.95 s a 50 MHz y tarda unos 20 minutos con GHDL 4.1; los otros 26 testbenches juntos tardan unos 3.5 minutos. Las salidas de la última corrida están en `logs/`.
+La prueba del sistema completo simula 3.39 s desde el reloj de 50 MHz de la tarjeta (el sistema corre a 25 MHz) y tarda unos 25 minutos con GHDL 4.1; los otros 25 testbenches juntos tardan menos de 2 minutos. Las salidas de la última corrida están en `logs/`.
