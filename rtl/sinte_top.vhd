@@ -23,20 +23,20 @@ use ieee.std_logic_1164.all;
 
 entity sinte_top is
     port (
-        CLOCK_50      : in  std_logic;
-        BTN_RESET     : in  std_logic;
-        BTN           : in  std_logic_vector(2 downto 0);
-        TEC1_COL      : in  std_logic_vector(3 downto 0);
-        TEC2_COL      : in  std_logic_vector(3 downto 0);
-        LED           : out std_logic_vector(2 downto 0);
-        TEC1_FIL      : out std_logic_vector(3 downto 0);
-        TEC2_FIL      : out std_logic_vector(3 downto 0);
-        AUDIO_PWM     : out std_logic;
-        VGA_R         : out std_logic;
-        VGA_G         : out std_logic;
-        VGA_B         : out std_logic;
-        VGA_HS        : out std_logic;
-        VGA_VS        : out std_logic
+        CLOCK_50      : in  std_logic;                    -- oscilador de 50 MHz de la tarjeta (pin 17)
+        BTN_RESET     : in  std_logic;                    -- boton RESET de la tarjeta, 0 = presionado (pin 144)
+        BTN           : in  std_logic_vector(2 downto 0); -- botones METRONOMO, ACCION y MODO (2..0), 0 = presionado
+        TEC1_COL      : in  std_logic_vector(3 downto 0); -- columnas del teclado 1, 0 = tecla (pull-up)
+        TEC2_COL      : in  std_logic_vector(3 downto 0); -- columnas del teclado 2
+        LED           : out std_logic_vector(2 downto 0); -- LEDs D5, D4, D2 de la tarjeta (2..0), activos en bajo
+        TEC1_FIL      : out std_logic_vector(3 downto 0); -- filas del teclado 1 (0 o alta impedancia)
+        TEC2_FIL      : out std_logic_vector(3 downto 0); -- filas del teclado 2
+        AUDIO_PWM     : out std_logic;                    -- PWM de audio de 97.7 kHz (pin 93)
+        VGA_R         : out std_logic;                    -- rojo (270 ohm al DB15)
+        VGA_G         : out std_logic;                    -- verde
+        VGA_B         : out std_logic;                    -- azul
+        VGA_HS        : out std_logic;                    -- sincronia horizontal
+        VGA_VS        : out std_logic                     -- sincronia vertical
     );
 end entity sinte_top;
 
