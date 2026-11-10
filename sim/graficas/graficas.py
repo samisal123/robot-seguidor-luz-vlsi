@@ -16,7 +16,7 @@ import numpy as np
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SAL = os.path.join(AQUI, 'salida')
 IMG = os.path.join(AQUI, '..', '..', 'docs', 'img')
-FS = 50e6 / 1024
+FS = 25e6 / 512
 
 TINTA = '#1d2733'
 GRIS = '#6b7785'
@@ -201,8 +201,8 @@ def efectos():
     ax[1].plot(t, d['eco'], color=VERDE, lw=0.4, label='salida con eco')
     ax[1].plot(t, d['x_eco'], color=NARANJA, lw=0.4, label='entrada (rafaga de 60 ms)')
     for k in range(1, 4):
-        ax[1].axvline(k * 8192 / FS * 1000, color=GRIS, lw=0.8, ls=':')
-    ax[1].set_title('Eco: retardo de 8192 muestras (167.8 ms), cada repeticion a la mitad')
+        ax[1].axvline(k * 4096 / FS * 1000, color=GRIS, lw=0.8, ls=':')
+    ax[1].set_title('Eco: retardo de 4096 muestras (83.9 ms), cada repeticion a la mitad')
     ax[1].set_ylabel('muestra (12 bits)')
     ax[1].set_xlabel('tiempo (ms)')
     ax[1].legend(loc='upper right', frameon=False, ncol=2)
@@ -243,7 +243,7 @@ def pwm():
     d = lee('pwm.csv')
     c = d['ciclo']
     p = d['pwm']
-    dt = 20e-9
+    dt = 40e-9          # 25 MHz
     rc = 1e3 * 10e-9
     v1 = v2 = 3.3 * 0.5
     sal = np.empty(len(p))
@@ -258,7 +258,7 @@ def pwm():
     fig, ax = plt.subplots(2, 1, figsize=(9, 5.4))
     m = c < 2048
     ax[0].step(c[m] * dt * 1e6, p[m] * 3.3, where='post', color=NARANJA, lw=0.9)
-    ax[0].set_title('PWM de 8 bits a 195.3 kHz (8 periodos de 5.12 us)')
+    ax[0].set_title('PWM de 8 bits a 97.7 kHz (8 periodos de 10.24 us)')
     ax[0].set_ylabel('AUDIO_PWM (V)')
     ax[0].set_xlabel('tiempo (us)')
     ax[1].plot(t, sal, color=AZUL, lw=1.2, label='salida del filtro RC (simulada)')
