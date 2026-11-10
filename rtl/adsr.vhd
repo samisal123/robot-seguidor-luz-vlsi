@@ -2,7 +2,8 @@
 -- adsr.vhd
 -- Envolvente ADSR de una voz. Acumulador de 24 bits; el nivel
 -- de salida son sus 8 bits altos (0 a 255). Avanza una vez por
--- muestra (tick_fs) con los pasos de synth_pkg:
+-- muestra (tick_fs) con los pasos de synth_pkg, usando un solo
+-- sumador/restador y un comparador contra la meta de la etapa:
 --
 --   REPOSO  nivel 0; con gate = '1' pasa a ATAQUE.
 --   ATAQUE  sube con paso_attack hasta el maximo -> DECAIMIENTO.
@@ -42,82 +43,96 @@ end entity adsr;
 
 architecture rtl of adsr is
     type t_etapa is (REPOSO, ATAQUE, DECAIMIENTO, SOSTENIDO, LIBERACION);
-    constant MAXIMO : natural := 2 ** 24 - 1;
+    constant MAXIMO : unsigned(23 downto 0) := (others => '1');
+
+    -- nivel de sustain en 24 bits (255 es el maximo exacto)
+    function sustain_24 (sel : std_logic_vector(1 downto 0)) return unsigned is
+    begin
+        if nivel_sustain(sel) = 255 then
+            return MAXIMO;
+        else
+            return to_unsigned(nivel_sustain(sel) * 65536, 24);
+        end if;
+    end function;
 
     signal est : t_etapa := REPOSO;
-    signal acc : natural range 0 to MAXIMO := 0;
+    signal acc : unsigned(23 downto 0) := (others => '0');
 
-    -- pasos de cada etapa y nivel de sustain en 24 bits (multiplexores
-    -- de constantes; cambian solo cuando cambia la configuracion)
-    signal pa, pd, pr : natural range 0 to 2 ** 18 - 1;
-    signal objetivo   : natural range 0 to MAXIMO;
+    -- Un solo sumador/restador por voz: en cada muestra la etapa
+    -- elige el paso, el sentido y la meta; s = acc +/- paso (con el
+    -- bit 24 de acarreo o prestamo) y "llega" dice si s alcanzo o
+    -- paso la meta. Equivale a las comparaciones de cada etapa:
+    --   ATAQUE      acc + pa >= maximo
+    --   DECAIMIENTO acc - pd <= sustain
+    --   SOSTENIDO   hacia el sustain con pd, de arriba o de abajo
+    --   LIBERACION  acc - pr <= 0
+    signal paso     : unsigned(23 downto 0);
+    signal objetivo : unsigned(23 downto 0);
+    signal meta     : unsigned(23 downto 0);
+    signal sube     : std_logic;
+    signal s        : unsigned(24 downto 0);
+    signal menor    : std_logic;   -- s(23..0) < meta
+    signal igual    : std_logic;   -- s(23..0) = meta
+    signal llega    : std_logic;
 begin
 
-    pa       <= paso_attack(atk);
-    pd       <= paso_decay(dec);
-    pr       <= paso_release(rel);
-    objetivo <= nivel_sustain(sus) * 65536 + 65535 * (nivel_sustain(sus) / 255);
+    objetivo <= sustain_24(sus);
+
+    with est select
+        paso <= to_unsigned(paso_attack(atk), 24)  when ATAQUE,
+                to_unsigned(paso_release(rel), 24) when LIBERACION,
+                to_unsigned(paso_decay(dec), 24)   when others;
+
+    with est select
+        meta <= MAXIMO          when ATAQUE,
+                (others => '0') when LIBERACION,
+                objetivo        when others;
+
+    sube <= '1' when est = ATAQUE or (est = SOSTENIDO and acc < objetivo) else '0';
+
+    s <= ('0' & acc) + ('0' & paso) when sube = '1' else
+         ('0' & acc) - ('0' & paso);
+
+    menor <= '1' when s(23 downto 0) < meta else '0';
+    igual <= '1' when s(23 downto 0) = meta else '0';
+
+    -- subiendo: llega si se desborda o s >= meta;
+    -- bajando: llega si hay prestamo (s < 0) o s <= meta
+    llega <= (s(24) or not menor) when sube = '1' else
+             (s(24) or menor or igual);
 
     process (clk)
     begin
         if rising_edge(clk) then
             if rst = '1' then
                 est <= REPOSO;
-                acc <= 0;
+                acc <= (others => '0');
             elsif tick_fs = '1' then
-                case est is
-                    when REPOSO =>
-                        acc <= 0;
-                        if gate = '1' then
-                            est <= ATAQUE;
-                        end if;
-
-                    when ATAQUE =>
-                        if gate = '0' then
-                            est <= LIBERACION;
-                        elsif acc >= MAXIMO - pa then
-                            acc <= MAXIMO;
-                            est <= DECAIMIENTO;
-                        else
-                            acc <= acc + pa;
-                        end if;
-
-                    when DECAIMIENTO =>
-                        if gate = '0' then
-                            est <= LIBERACION;
-                        elsif acc <= objetivo + pd then
-                            acc <= objetivo;
-                            est <= SOSTENIDO;
-                        else
-                            acc <= acc - pd;
-                        end if;
-
-                    when SOSTENIDO =>
-                        if gate = '0' then
-                            est <= LIBERACION;
-                        elsif acc > objetivo + pd then
-                            acc <= acc - pd;
-                        elsif acc + pd < objetivo then
-                            acc <= acc + pd;
-                        else
-                            acc <= objetivo;
-                        end if;
-
-                    when LIBERACION =>
-                        if gate = '1' then
-                            est <= ATAQUE;
-                        elsif acc <= pr then
-                            acc <= 0;
-                            est <= REPOSO;
-                        else
-                            acc <= acc - pr;
-                        end if;
-                end case;
+                if est = REPOSO then
+                    acc <= (others => '0');
+                    if gate = '1' then
+                        est <= ATAQUE;
+                    end if;
+                elsif gate = '0' and est /= LIBERACION then
+                    est <= LIBERACION;      -- soltar: libera desde donde este
+                elsif gate = '1' and est = LIBERACION then
+                    est <= ATAQUE;          -- volver a tocar: ataca desde ese nivel
+                elsif llega = '1' then
+                    acc <= meta;
+                    case est is
+                        when ATAQUE      => est <= DECAIMIENTO;
+                        when DECAIMIENTO => est <= SOSTENIDO;
+                        when LIBERACION  => est <= REPOSO;
+                        when others      => null;    -- SOSTENIDO se queda
+                    end case;
+                else
+                    acc <= s(23 downto 0);
+                end if;
             end if;
         end if;
     end process;
 
-    nivel  <= std_logic_vector(to_unsigned(acc / 65536, 8));
+    nivel  <= std_logic_vector(acc(23 downto 16));
     activa <= '0' when est = REPOSO else '1';
 
     with est select
