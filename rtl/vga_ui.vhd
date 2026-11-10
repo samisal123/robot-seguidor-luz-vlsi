@@ -687,9 +687,6 @@ begin
     -- ultima linea), y conversion de eventos y posicion a BCD
     ------------------------------------------------------------
     process (clk)
-        variable n    : natural range 0 to 127;
-        variable base : natural range 0 to 127;
-        variable d    : integer range -128 to 127;
         variable vol  : natural range 0 to 7;
         variable a    : unsigned(11 downto 0);
     begin
@@ -715,30 +712,6 @@ begin
                 else
                     f_vol <= vol;
                 end if;
-
-                -- notas: nombre (octava y semitono), tecla y nivel
-                base := to_integer(unsigned(octava)) * 12;
-                for i in 0 to 2 loop
-                    n := to_integer(unsigned(notas(7 * i + 6 downto 7 * i)));
-                    d := n - base;
-                    v_oct(i)   <= DIV12(n);
-                    v_semi(i)  <= MOD12(n);
-                    -- barra de 128 pixeles: nivel / 2 redondeado (255 la llena)
-                    v_nivel(i) <= (to_integer(unsigned(niveles(8 * i + 7 downto 8 * i))) + 1) / 2;
-                    v_gate(i)  <= gates(i);
-                    if n = 0 then
-                        v_nula(i) <= '1';
-                    else
-                        v_nula(i) <= '0';
-                    end if;
-                    if gates(i) = '1' and n /= 0 and d >= 0 and d <= 23 then
-                        v_act(i)   <= '1';
-                        v_tecla(i) <= d;
-                    else
-                        v_act(i)   <= '0';
-                        v_tecla(i) <= 0;
-                    end if;
-                end loop;
 
                 -- barra: reproduciendo, posicion / eventos; si no, eventos / 256
                 if estado_sec = S_REPRODUCE then
@@ -797,6 +770,51 @@ begin
                     bcd_acc  <= a(10 downto 0) & bcd_sh(8);
                     bcd_sh   <= bcd_sh(7 downto 0) & '0';
                     bcd_paso <= bcd_paso + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    ------------------------------------------------------------
+    -- Notas de las voces para el cuadro: una voz por ciclo en
+    -- hc = 0, 1 y 2 de la ultima linea (un solo calculo de octava,
+    -- semitono, tecla y nivel en lugar de tres)
+    ------------------------------------------------------------
+    process (clk)
+        variable i    : natural range 0 to 2;
+        variable n    : natural range 0 to 127;
+        variable base : natural range 0 to 127;
+        variable d    : integer range -128 to 127;
+    begin
+        if rising_edge(clk) then
+            if rst = '0' and vc = V_TOT - 1 and hc <= 2 then
+                if hc = 0 then
+                    i := 0;
+                elsif hc = 1 then
+                    i := 1;
+                else
+                    i := 2;
+                end if;
+                -- notas: nombre (octava y semitono), tecla y nivel
+                base := to_integer(unsigned(octava)) * 12;
+                n := to_integer(unsigned(notas(7 * i + 6 downto 7 * i)));
+                d := n - base;
+                v_oct(i)   <= DIV12(n);
+                v_semi(i)  <= MOD12(n);
+                -- barra de 128 pixeles: nivel / 2 redondeado (255 la llena)
+                v_nivel(i) <= (to_integer(unsigned(niveles(8 * i + 7 downto 8 * i))) + 1) / 2;
+                v_gate(i)  <= gates(i);
+                if n = 0 then
+                    v_nula(i) <= '1';
+                else
+                    v_nula(i) <= '0';
+                end if;
+                if gates(i) = '1' and n /= 0 and d >= 0 and d <= 23 then
+                    v_act(i)   <= '1';
+                    v_tecla(i) <= d;
+                else
+                    v_act(i)   <= '0';
+                    v_tecla(i) <= 0;
                 end if;
             end if;
         end if;
