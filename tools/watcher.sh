@@ -16,10 +16,13 @@ ultima_firma=""
 
 cd "$(git rev-parse --show-toplevel)" || exit 1
 
-# Herramientas de Intel/Altera al PATH si estan en las rutas tipicas
+# Herramientas de Intel/Altera al PATH si estan en las rutas tipicas.
+# Cada una se pone al frente, asi que la ultima de la lista gana:
+# Quartus II 13.0 SP1 (la unica con Cyclone II) va al final.
 for d in "$HOME"/altera_lite/*/quartus/bin "$HOME"/intelFPGA_lite/*/quartus/bin \
          "$HOME"/altera_lite/*/questa_fse/bin "$HOME"/intelFPGA_lite/*/questa_fse/bin \
-         "$HOME"/altera_lite/*/modelsim_ase/bin "$HOME"/intelFPGA_lite/*/modelsim_ase/bin; do
+         "$HOME"/altera_lite/*/modelsim_ase/bin "$HOME"/intelFPGA_lite/*/modelsim_ase/bin \
+         /opt/altera/13.0sp1/quartus/bin "$HOME"/altera/13.0sp1/quartus/bin; do
     [ -d "$d" ] && PATH="$d:$PATH"
 done
 export PATH

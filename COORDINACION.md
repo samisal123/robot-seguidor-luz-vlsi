@@ -29,13 +29,13 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [!] TAREA-017 @claude-code: Estimar recursos con el Quartus que ya esta instalado (el Quartus de la PC no trae Cyclone IV; la estimacion con MAX 10 dio 5 431 LE, inflada porque las tablas se armaron con logica)
 - [!] TAREA-018 @claude-code: Instalar Quartus II 13.0 SP1 (la descarga pide cuenta de Altera; el equipo baja los archivos)
 - [!] TAREA-019 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
-- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance (despues de la TAREA-027; solo si la TAREA-028 no las pudo tomar)
+- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance con `sh tools/tomar_capturas.sh` (despues de la TAREA-027; solo si la TAREA-028 no las pudo tomar)
 - [x] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria): 3 805 LE, cabe en la EP2C5 (83 %)
 - [!] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados (no cupo en el disco: necesita 6 a 7 GB libres)
 - [!] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
 - [x] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio): instalado con Cyclone II; la interfaz grafica pide libpng12
 - [x] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144: 3 782 LE (82 %), 25 MHz con 12.3 ns de margen
-- [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (libpng12 sin sudo)
+- [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (`sh quartus/arreglar_interfaz.sh`)
 - [ ] TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables dibujados
 - [ ] TAREA-028 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (si la TAREA-026 quedo bien)
 
@@ -90,23 +90,23 @@ Cyclone II solo se compila con Quartus II 13.0 SP1 Web Edition (gratis, sin lice
 
 Despues de que la TAREA-027 compile bien, y solo si la TAREA-028 no pudo tomarlas sola. Se siguen los pasos del manual del profesor (*Creacion y uso de bloques en Quartus*): simbolos desde los `.vhd`, diagrama de bloques como nivel superior, compilacion y Pin Planner.
 
-Abrir el proyecto: `sh quartus/abrir_quartus.sh &` (Quartus 13.0 de 64 bits; necesita la TAREA-026). Cada captura de la ventana completa de Quartus (tecla Impr Pant o `gnome-screenshot -w -f <archivo>`), en PNG, dentro de la carpeta `capturas/` del repo con estos nombres:
+La forma corta: `sh tools/tomar_capturas.sh` abre Quartus con el proyecto, dice que dejar en pantalla para cada captura, cuenta unos segundos para cambiar a la ventana de Quartus y guarda la pantalla completa con el nombre correcto (`sh tools/tomar_capturas.sh 07 12` repite solo esas). A mano: abrir el proyecto con `sh quartus/abrir_quartus.sh &` (Quartus 13.0 de 64 bits; necesita la TAREA-026). Cada captura de la ventana completa de Quartus (tecla Impr Pant o `gnome-screenshot -w -f <archivo>`), en PNG, dentro de la carpeta `capturas/` del repo con estos nombres:
 
 | Archivo | Que debe verse |
 |---|---|
 | `01_proyecto.png` | Project Navigator en la pestana *Files* con los `.vhd` de `rtl/` y `sintetizador.bdf`; arriba, el dispositivo EP2C5T144C8 |
 | `02_simbolo.png` | un `.vhd` abierto (por ejemplo `rtl/voz.vhd`) con el menu *File > Create/Update > Create Symbol Files for Current File* desplegado |
 | `03_bdf_completo.png` | `quartus/sintetizador.bdf` abierto completo (*View > Fit in Window*) |
-| `04_bdf_voces.png` | acercamiento al BDF donde se lean los bloques de las 3 voces, el gestor de voces y la salida de audio |
-| `05_bdf_control.png` | acercamiento donde se lean el PLL, el reset, los teclados, los botones, el control, el secuenciador y la VGA |
+| `04_bdf_voces.png` | acercamiento a la mitad derecha del BDF donde se lean el gestor de voces, las 3 voces, la salida de audio, la VGA y los LEDs |
+| `05_bdf_control.png` | acercamiento a la mitad izquierda donde se lean el PLL, el reset, la base de tiempo, los botones, los teclados, el control, el secuenciador y el selector de notas |
 | `06_top_level.png` | Project Navigator en la pestana *Hierarchy* con `sintetizador` como nivel superior y sus bloques debajo |
 | `07_flow_summary.png` | *Compilation Report > Flow Summary* (elementos logicos, registros, pines, bits de memoria, PLL) |
 | `08_recursos_entidad.png` | *Fitter > Resource Section > Resource Utilization by Entity* |
 | `09_pin_planner.png` | *Assignments > Pin Planner* con la lista de pines (columnas *Node Name* y *Location*) |
 | `10_fmax.png` | *TimeQuest Timing Analyzer > Slow Model > Fmax Summary* |
 | `11_rtl_viewer.png` | *Tools > Netlist Viewers > RTL Viewer*, nivel superior |
-| `12_fsm_adsr.png` | *Tools > Netlist Viewers > State Machine Viewer*, la maquina `est` de `adsr` (cualquiera de las 3 voces), con el diagrama y la tabla de transiciones |
-| `13_fsm_secuenciador.png` | lo mismo para la maquina `est` de `secuenciador` |
+| `12_fsm_adsr.png` | *Tools > Netlist Viewers > State Machine Viewer*, la maquina `\|sintetizador\|voz:u_voz0\|adsr:u_adsr\|est`, con el diagrama y la tabla de transiciones |
+| `13_fsm_secuenciador.png` | lo mismo para `\|sintetizador\|secuenciador:u_sec\|est` |
 | `14_simbolos.png` | el BDF con zoom en dos o tres bloques donde se lean los nombres de sus puertos (por ejemplo `voz`, `adsr` dentro de su simbolo o `secuenciador`) |
 
 No hace falta hacer commit: la nube las toma de la carpeta, arma el PDF del avance solo con estas capturas y las sube al repo. Si la interfaz de la 13.0 SP1 no abre, avisar: las capturas 02 a 05 se pueden tomar con el Quartus Prime de `~/altera_lite` abriendo solo los archivos `.vhd` y `.bdf`.
@@ -150,14 +150,11 @@ Igual que la TAREA-019 (sus pasos 1 a 6), con el resultado en `resultados/TAREA-
 
 ## TAREA-026 @claude-code: Interfaz grafica de Quartus 13.0 sin sudo
 
-La TAREA-024 dejo Quartus II 13.0 SP1 instalado, pero `quartus --64bit` no abre porque falta `libpng12.so.0`. Se agrega la biblioteca dentro de la carpeta de Quartus, sin sudo y sin instalar paquetes del sistema.
+La TAREA-024 dejo Quartus II 13.0 SP1 instalado, pero `quartus --64bit` no abre porque falta `libpng12.so.0`. `quartus/arreglar_interfaz.sh` la agrega dentro de la carpeta de Quartus, sin sudo y sin instalar paquetes del sistema: baja `libpng12-0` 1.2.54 del archivo oficial de Ubuntu 16.04, revisa su SHA-256 contra el indice firmado de Ubuntu, la extrae con `dpkg-deb -x`, la copia a `~/altera/13.0sp1/quartus/linux64/`, revisa con `ldd` que no falte nada y abre Quartus 40 s para ver que arranque.
 
-1. `mkdir -p ~/altera/13.0sp1/extra && cd ~/altera/13.0sp1/extra`.
-2. Baja el paquete de Ubuntu 16.04 (xenial) desde el archivo oficial de Ubuntu, en este orden hasta que uno responda: `http://security.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1_amd64.deb` y `http://archive.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb`. No uses otros sitios. Reporta el nombre, tamano y `sha256sum` del `.deb`.
-3. `dpkg -x <archivo>.deb libpng12` (no necesita sudo) y copia `libpng12/lib/x86_64-linux-gnu/libpng12.so.0*` a `~/altera/13.0sp1/quartus/linux64/`.
-4. `ldd ~/altera/13.0sp1/quartus/linux64/quartus | grep "not found"` no debe mostrar nada; reporta la salida.
-5. Si la TAREA-025 ya creo `quartus/sintetizador.qpf`, abre `sh quartus/abrir_quartus.sh` en segundo plano, espera 60 s, revisa que el proceso siga vivo y guarda lo que haya escrito en la terminal; luego cierralo (`pkill -f "quartus --64bit"`). Si la pantalla esta bloqueada no importa: basta con que el proceso arranque sin errores.
-6. Resultado en `resultados/TAREA-026.md`. Si el paso 2 o 3 falla, reporta el error tal como sale y no intentes otras fuentes.
+1. `git pull --rebase`.
+2. `sh quartus/arreglar_interfaz.sh` (deja la bitacora en `logs/interfaz.log` y lo que escribio Quartus en `logs/interfaz_salida.log`).
+3. Resultado en `resultados/TAREA-026.md` con la salida completa del script y si termino con OK o FALLO. Si falla, reporta el error tal como sale y no intentes otras fuentes ni otros arreglos.
 
 ## TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables
 
