@@ -1,21 +1,25 @@
 -- ============================================================
 -- vga_ui.vhd
 -- Interfaz grafica VGA del sintetizador: 640x480 a 60 Hz con
--- 4 bits por color (DAC de resistencias de la DE10-Lite).
+-- 1 bit por color (8 colores; una resistencia de 270 ohm por color
+-- entre la FPGA y el conector VGA). En la tarjeta EP2C5T144 es la
+-- interfaz principal: muestra el modo, los parametros, las notas
+-- de cada voz y el estado del secuenciador.
 --
 -- Pantalla (x, y en pixeles; el texto va en una cuadricula de
 -- celdas de 12x16 con letras 5x7 al doble de tamano):
 --   y   0- 63  Banda del modo, de color segun el modo (azul
 --              INTERPRETACION, rojo GRABACION, verde REPRODUCCION,
---              naranja CONFIGURACION), con el nombre del modo en
+--              magenta CONFIGURACION), con el nombre del modo en
 --              letras x4. A la derecha: METRONOMO ON/OFF, el tempo
 --              en BPM y un foco que se enciende DESTELLO ciclos en
---              cada tiempo (verde; rojo en el tiempo con acento).
+--              cada tiempo (verde; rojo en el tiempo con acento;
+--              blanco entre tiempos y azul con el metronomo apagado).
 --   y  80- 95  TECLADO 1 y TECLADO 2 sobre su octava.
 --   y  96-229  Piano de dos octavas (14 blancas, 10 negras) desde
 --              la nota octava*12. La tecla de cada nota que suena
 --              (gate en 1) se pinta del color de su voz (V1
---              naranja, V2 verde, V3 azul). Las teclas C llevan
+--              rojo, V2 verde, V3 cian). Las teclas C llevan
 --              C<octava> y C<octava+1>.
 --   y 234-387  Tres paneles:
 --              PARAMETROS: forma, attack, decay, sustain, release,
@@ -24,7 +28,7 @@
 --                elegido se resalta en amarillo con una flecha.
 --              FORMA DE ONDA: un periodo de la forma elegida
 --                (calculado igual que forma_onda) y su nombre.
---              VOCES: nota de cada voz (gris si no tiene gate) y
+--              VOCES: nota de cada voz (cian si no tiene gate) y
 --                barra de su nivel de envolvente; octava base.
 --   y 392-455  SECUENCIADOR: estado (EN ESPERA, GRABANDO con punto
 --              rojo que parpadea, REPRODUCIENDO), EVENTOS n/256,
@@ -32,8 +36,8 @@
 --              MEMORIA eventos/256 si no) y POS n.
 --   y 464-477  Pie de pagina.
 --
--- Tiempos: pixel de 25 MHz = una habilitacion (pix_en) cada dos
--- ciclos de 50 MHz. Horizontal 640 + 16 + 96 + 48 = 800 pixeles,
+-- Tiempos: el reloj del sistema es de 25 MHz, un pixel por ciclo.
+-- Horizontal 640 + 16 + 96 + 48 = 800 pixeles,
 -- vertical 480 + 10 + 2 + 33 = 525 lineas, sincronias en bajo.
 -- Fuera de la zona visible el color es 0.
 --
@@ -45,11 +49,12 @@
 -- El pulso beat se atiende en cada ciclo: arranca la cuenta del
 -- foco, que el cuadro siguiente muestra encendido.
 --
--- Tuberia de 4 etapas, todas con pix_en (los registros cambian
--- cada 40 ns; la logica se reparte para que cada etapa sea corta):
+-- Tuberia de 4 etapas (los registros cambian cada 40 ns; la
+-- logica se reparte para que cada etapa sea corta):
 --   1 coordenadas y geometria: zona de la pantalla, celda de texto,
 --     celda del titulo, tecla blanca, banderas de los graficos
---     (foco, caja de la onda, barras) y producto de la barra.
+--     (foco, caja de la onda, barras), producto de la barra y
+--     lectura de la ROM de la onda (bloque M4K).
 --   2 contenido: codigo del caracter de la cuadricula, tecla negra
 --     o blanca y voz que la toca, linea de la onda, rellenos; un
 --     color por zona.
@@ -67,7 +72,7 @@ use work.fuente_5x7.all;
 
 entity vga_ui is
     generic (
-        DESTELLO : natural := 5_000_000;   -- ciclos encendido del foco (100 ms)
+        DESTELLO : natural := 2_500_000;   -- ciclos encendido del foco (100 ms a 25 MHz)
         PARPADEO : natural := 4            -- bit del contador de cuadros del parpadeo (4: ~0.5 s)
     );
     port (
@@ -93,9 +98,9 @@ entity vga_ui is
         parametro  : in  std_logic_vector(2 downto 0);
         eventos    : in  std_logic_vector(8 downto 0);
         posicion   : in  std_logic_vector(8 downto 0);
-        vga_r      : out std_logic_vector(3 downto 0);
-        vga_g      : out std_logic_vector(3 downto 0);
-        vga_b      : out std_logic_vector(3 downto 0);
+        vga_r      : out std_logic;
+        vga_g      : out std_logic;
+        vga_b      : out std_logic;
         vga_hs     : out std_logic;
         vga_vs     : out std_logic
     );
@@ -155,48 +160,57 @@ architecture rtl of vga_ui is
     constant BAR_Y  : natural := 434;
 
     ------------------------------------------------------------
-    -- Colores R G B de 4 bits
+    -- Colores: 1 bit por canal, en orden R G B
     ------------------------------------------------------------
-    subtype t_color is std_logic_vector(11 downto 0);
+    subtype t_color is std_logic_vector(2 downto 0);
     type t_colores is array (natural range <>) of t_color;
 
-    constant C_NEGRO      : t_color := x"000";
-    constant C_BLANCO     : t_color := x"FFF";
-    constant C_FONDO      : t_color := x"112";
-    constant C_PANEL      : t_color := x"223";
-    constant C_MARCO      : t_color := x"46A";
-    constant C_TEXTO      : t_color := x"EEE";
-    constant C_TENUE      : t_color := x"99A";
-    constant C_PIE        : t_color := x"557";
-    constant C_ENCAB      : t_color := x"FC4";
-    constant C_RESALTE    : t_color := x"FD3";
-    constant C_RECUADRO   : t_color := x"111";
-    constant C_FOCO_OFF   : t_color := x"222";
-    constant C_FOCO_APAG  : t_color := x"444";
-    constant C_FOCO_BEAT  : t_color := x"4F4";
-    constant C_FOCO_ACEN  : t_color := x"F43";
-    constant C_CAJA       : t_color := x"333";
-    constant C_T_BLANCA   : t_color := x"EEE";
-    constant C_T_NEGRA    : t_color := x"111";
-    constant C_ETIQ       : t_color := x"666";
-    constant C_ONDA       : t_color := x"FE3";
-    constant C_ONDA_FONDO : t_color := x"012";
-    constant C_ONDA_EJE   : t_color := x"257";
-    constant C_ONDA_MARCO : t_color := x"468";
-    constant C_BARRA_FONDO : t_color := x"112";
-    constant C_BARRA_MARCO : t_color := x"668";
-    constant C_SEG_APAG   : t_color := x"334";
-    constant C_REC        : t_color := x"F11";
+    constant NEGRO    : t_color := "000";
+    constant AZUL     : t_color := "001";
+    constant VERDE    : t_color := "010";
+    constant CIAN     : t_color := "011";
+    constant ROJO     : t_color := "100";
+    constant MAGENTA  : t_color := "101";
+    constant AMARILLO : t_color := "110";
+    constant BLANCO   : t_color := "111";
+
+    constant C_NEGRO      : t_color := NEGRO;
+    constant C_BLANCO     : t_color := BLANCO;
+    constant C_FONDO      : t_color := NEGRO;
+    constant C_PANEL      : t_color := NEGRO;
+    constant C_MARCO      : t_color := AZUL;
+    constant C_TEXTO      : t_color := BLANCO;
+    constant C_TENUE      : t_color := CIAN;
+    constant C_PIE        : t_color := AZUL;
+    constant C_ENCAB      : t_color := AMARILLO;
+    constant C_RESALTE    : t_color := AMARILLO;
+    constant C_RECUADRO   : t_color := NEGRO;
+    constant C_FOCO_OFF   : t_color := AZUL;
+    constant C_FOCO_APAG  : t_color := BLANCO;
+    constant C_FOCO_BEAT  : t_color := VERDE;
+    constant C_FOCO_ACEN  : t_color := ROJO;
+    constant C_CAJA       : t_color := NEGRO;
+    constant C_T_BLANCA   : t_color := BLANCO;
+    constant C_T_NEGRA    : t_color := NEGRO;
+    constant C_ETIQ       : t_color := NEGRO;
+    constant C_ONDA       : t_color := AMARILLO;
+    constant C_ONDA_FONDO : t_color := NEGRO;
+    constant C_ONDA_EJE   : t_color := AZUL;
+    constant C_ONDA_MARCO : t_color := AZUL;
+    constant C_BARRA_FONDO : t_color := NEGRO;
+    constant C_BARRA_MARCO : t_color := AZUL;
+    constant C_SEG_APAG   : t_color := AZUL;
+    constant C_REC        : t_color := ROJO;
 
     -- banda por modo: INTERPRETACION, GRABACION, REPRODUCCION, CONFIGURACION
-    constant C_BANDA : t_colores(0 to 3) := (x"25B", x"C22", x"194", x"D70");
+    constant C_BANDA : t_colores(0 to 3) := (AZUL, ROJO, VERDE, MAGENTA);
     -- voces V1, V2, V3
-    constant C_VOZ   : t_colores(0 to 2) := (x"F62", x"3D3", x"39F");
+    constant C_VOZ   : t_colores(0 to 2) := (ROJO, VERDE, CIAN);
     -- medidor de volumen, de verde a rojo
-    constant C_SEG   : t_colores(0 to 3) := (x"3C3", x"9D2", x"FC2", x"F52");
+    constant C_SEG   : t_colores(0 to 3) := (VERDE, VERDE, AMARILLO, ROJO);
     -- texto del estado del secuenciador y relleno de la barra
-    constant C_EST   : t_colores(0 to 3) := (x"EEE", x"F44", x"4E5", x"99A");
-    constant C_AVAN  : t_colores(0 to 3) := (x"69B", x"E33", x"3C5", x"69B");
+    constant C_EST   : t_colores(0 to 3) := (BLANCO, ROJO, VERDE, CIAN);
+    constant C_AVAN  : t_colores(0 to 3) := (CIAN, ROJO, VERDE, CIAN);
 
     ------------------------------------------------------------
     -- Tablas (se calculan al elaborar; en hardware son ROM)
@@ -275,7 +289,22 @@ architecture rtl of vga_ui is
     -- nota n -> octava y semitono
     constant DIV12 : t_tabla(0 to 127) := tabla_div(128, 12);
     constant MOD12 : t_tabla(0 to 127) := tabla_mod(128, 12);
-    constant ONDA_TAB : t_tabla(0 to 511) := tabla_onda;
+
+    -- ROM de la onda en un bloque M4K (512 x 7 bits, plantilla de
+    -- ROM de Quartus: arreglo leido en el proceso con reloj)
+    type t_rom_onda is array (0 to 511) of unsigned(6 downto 0);
+    function crea_rom_onda return t_rom_onda is
+        constant T : t_tabla(0 to 511) := tabla_onda;
+        variable r : t_rom_onda;
+    begin
+        for i in 0 to 511 loop
+            r(i) := to_unsigned(T(i), 7);
+        end loop;
+        return r;
+    end function;
+    signal rom_onda : t_rom_onda := crea_rom_onda;
+    attribute romstyle : string;
+    attribute romstyle of rom_onda : signal is "M4K";
 
     -- semitono (0-23) de cada tecla blanca y si tiene negra a su derecha
     constant KW : t_tabla(0 to 31) := (0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, others => 0);
@@ -384,7 +413,6 @@ architecture rtl of vga_ui is
     ------------------------------------------------------------
     -- Barrido
     ------------------------------------------------------------
-    signal pix_en  : std_logic := '0';
     signal hc      : natural range 0 to H_TOT - 1 := 0;
     signal vc      : natural range 0 to V_TOT - 1 := 0;
     signal cuadros : unsigned(7 downto 0) := (others => '0');
@@ -547,25 +575,19 @@ begin
     begin
         if rising_edge(clk) then
             if rst = '1' then
-                pix_en  <= '0';
                 hc      <= 0;
                 vc      <= 0;
                 cuadros <= (others => '0');
-            else
-                pix_en <= not pix_en;
-                if pix_en = '1' then
-                    if hc = H_TOT - 1 then
-                        hc <= 0;
-                        if vc = V_TOT - 1 then
-                            vc      <= 0;
-                            cuadros <= cuadros + 1;
-                        else
-                            vc <= vc + 1;
-                        end if;
-                    else
-                        hc <= hc + 1;
-                    end if;
+            elsif hc = H_TOT - 1 then
+                hc <= 0;
+                if vc = V_TOT - 1 then
+                    vc      <= 0;
+                    cuadros <= cuadros + 1;
+                else
+                    vc <= vc + 1;
                 end if;
+            else
+                hc <= hc + 1;
             end if;
         end if;
     end process;
@@ -602,7 +624,7 @@ begin
         if rising_edge(clk) then
             if rst = '1' then
                 bcd_paso <= 0;
-            elsif pix_en = '1' and hc = 0 and vc = V_TOT - 1 then
+            elsif hc = 0 and vc = V_TOT - 1 then
                 f_modo   <= to_integer(unsigned(modo));
                 f_est    <= to_integer(unsigned(estado_sec));
                 f_forma  <= to_integer(unsigned(forma));
@@ -727,193 +749,191 @@ begin
         variable nv   : natural range 0 to 3;
     begin
         if rising_edge(clk) then
-            if pix_en = '1' then
-                x := hc;
-                y := vc;
+            x := hc;
+            y := vc;
 
-                -- sincronias (en bajo) y zona visible
-                if x >= H_VIS + H_FP and x < H_VIS + H_FP + H_SY then
-                    s1_hs <= '0';
-                else
-                    s1_hs <= '1';
-                end if;
-                if y >= V_VIS + V_FP and y < V_VIS + V_FP + V_SY then
-                    s1_vs <= '0';
-                else
-                    s1_vs <= '1';
-                end if;
-                s1_vis <= b2sl(x < H_VIS and y < V_VIS);
+            -- sincronias (en bajo) y zona visible
+            if x >= H_VIS + H_FP and x < H_VIS + H_FP + H_SY then
+                s1_hs <= '0';
+            else
+                s1_hs <= '1';
+            end if;
+            if y >= V_VIS + V_FP and y < V_VIS + V_FP + V_SY then
+                s1_vs <= '0';
+            else
+                s1_vs <= '1';
+            end if;
+            s1_vis <= b2sl(x < H_VIS and y < V_VIS);
 
-                -- zona: banda, piano, marco o interior de un panel
-                if y < BANDA_Y1 then
-                    zona := Z_BANDA;
-                elsif dentro(x, y, PIA_X - 6, PIA_X + PIA_ANCHO + 5, PIA_Y - 8, PIA_Y + 125) then
-                    zona := Z_PIANO;
-                elsif dentro(x, y, PL_X0, PL_X1, PA_Y0, PA_Y1) then
-                    if dentro(x, y, PL_X0 + 2, PL_X1 - 2, PA_Y0 + 2, PA_Y1 - 2) then
-                        zona := Z_PL;
-                    else
-                        zona := Z_MARCO;
-                    end if;
-                elsif dentro(x, y, PM_X0, PM_X1, PA_Y0, PA_Y1) then
-                    if dentro(x, y, PM_X0 + 2, PM_X1 - 2, PA_Y0 + 2, PA_Y1 - 2) then
-                        zona := Z_PM;
-                    else
-                        zona := Z_MARCO;
-                    end if;
-                elsif dentro(x, y, PR_X0, PR_X1, PA_Y0, PA_Y1) then
-                    if dentro(x, y, PR_X0 + 2, PR_X1 - 2, PA_Y0 + 2, PA_Y1 - 2) then
-                        zona := Z_PR;
-                    else
-                        zona := Z_MARCO;
-                    end if;
-                elsif dentro(x, y, PL_X0, PR_X1, PS_Y0, PS_Y1) then
-                    if dentro(x, y, PL_X0 + 2, PR_X1 - 2, PS_Y0 + 2, PS_Y1 - 2) then
-                        zona := Z_PS;
-                    else
-                        zona := Z_MARCO;
-                    end if;
+            -- zona: banda, piano, marco o interior de un panel
+            if y < BANDA_Y1 then
+                zona := Z_BANDA;
+            elsif dentro(x, y, PIA_X - 6, PIA_X + PIA_ANCHO + 5, PIA_Y - 8, PIA_Y + 125) then
+                zona := Z_PIANO;
+            elsif dentro(x, y, PL_X0, PL_X1, PA_Y0, PA_Y1) then
+                if dentro(x, y, PL_X0 + 2, PL_X1 - 2, PA_Y0 + 2, PA_Y1 - 2) then
+                    zona := Z_PL;
                 else
-                    zona := Z_FONDO;
+                    zona := Z_MARCO;
                 end if;
-                s1_zona <= zona;
-
-                -- texto: celdas de 12x16 = 3 bloques de 4 pixeles
-                b := x / 4;
-                s1_tc  <= DIV3(b);
-                s1_tgx <= 2 * MOD3(b) + (x / 2) mod 2;
-                s1_tr  <= (y / 16) mod 32;
-                s1_tgy <= (y / 2) mod 8;
-
-                -- titulo: celdas de 24x32 = 3 bloques de 8, letras x4
-                if x >= TIT_X then
-                    xr := x - TIT_X;
+            elsif dentro(x, y, PM_X0, PM_X1, PA_Y0, PA_Y1) then
+                if dentro(x, y, PM_X0 + 2, PM_X1 - 2, PA_Y0 + 2, PA_Y1 - 2) then
+                    zona := Z_PM;
                 else
-                    xr := 0;
+                    zona := Z_MARCO;
                 end if;
-                b := (xr / 8) mod 128;
-                s1_ic  <= DIV3(b);
-                s1_igx <= 2 * MOD3(b) + (xr / 4) mod 2;
-                if y >= TIT_Y then
-                    yr := y - TIT_Y;
+            elsif dentro(x, y, PR_X0, PR_X1, PA_Y0, PA_Y1) then
+                if dentro(x, y, PR_X0 + 2, PR_X1 - 2, PA_Y0 + 2, PA_Y1 - 2) then
+                    zona := Z_PR;
                 else
-                    yr := 0;
+                    zona := Z_MARCO;
                 end if;
-                s1_igy <= (yr / 4) mod 8;
-                s1_ien <= b2sl(x >= TIT_X and x < TIT_X + 24 * TIT_LEN and y >= TIT_Y and y < TIT_Y + 28);
-
-                -- foco del metronomo: recuadro y circulo de 32x32
-                s1_recu <= b2sl(dentro(x, y, RECU_X0, RECU_X1, RECU_Y0, RECU_Y1));
-                s1_foco <= '0';
-                if dentro(x, y, FOCO_X, FOCO_X + 31, FOCO_Y, FOCO_Y + 31) then
-                    hw := CIRC16(y - FOCO_Y);
-                    dx := x - FOCO_X;
-                    s1_foco <= b2sl(dx + hw >= 16 and dx < 16 + hw);
-                end if;
-
-                -- piano: teclas blancas de 40 = 5 bloques de 8 pixeles
-                if x >= PIA_X then
-                    xr := x - PIA_X;
+            elsif dentro(x, y, PL_X0, PR_X1, PS_Y0, PS_Y1) then
+                if dentro(x, y, PL_X0 + 2, PR_X1 - 2, PS_Y0 + 2, PS_Y1 - 2) then
+                    zona := Z_PS;
                 else
-                    xr := 0;
+                    zona := Z_MARCO;
                 end if;
-                b  := (xr / 8) mod 128;
-                pw := DIV5(b);
-                po := 8 * MOD5(b) + xr mod 8;
-                if y >= PIA_Y then
-                    yr := y - PIA_Y;
-                else
-                    yr := 0;
-                end if;
-                py  := yr mod 128;
-                pen := dentro(x, y, PIA_X, PIA_X + PIA_ANCHO - 1, PIA_Y, PIA_Y + 119);
-                s1_pw     <= pw;
-                s1_poff   <= po;
-                s1_py     <= py;
-                s1_pen    <= b2sl(pen);
-                s1_franja <= b2sl(y < PIA_Y - 4);
-                -- etiqueta C<octava> en las teclas blancas 0 y 7 (renglones 98-111)
-                s1_lab  <= '0';
-                s1_ldig <= '0';
-                s1_lgx  <= 0;
-                s1_lgy  <= 0;
-                if pen and (pw = 0 or pw = 7) and py >= 98 and py < 112 then
-                    s1_lgy <= ((py - 98) / 2) mod 8;
-                    if po >= 8 and po < 18 then
-                        s1_lab <= '1';
-                        s1_lgx <= ((po - 8) / 2) mod 8;
-                    elsif po >= 20 and po < 30 then
-                        s1_lab  <= '1';
-                        s1_ldig <= '1';
-                        s1_lgx  <= ((po - 20) / 2) mod 8;
-                    end if;
-                end if;
+            else
+                zona := Z_FONDO;
+            end if;
+            s1_zona <= zona;
 
-                -- PARAMETROS: ancho del renglon resaltado y segmentos del volumen
-                s1_resx <= b2sl(x >= PL_X0 + 4 and x <= PL_X1 - 4);
-                seg := 4;
-                if y >= VOL_Y and y < VOL_Y + 10 then
-                    for i in 0 to 3 loop
-                        if x >= VOL_X + 22 * i and x < VOL_X + 22 * i + 18 then
-                            seg := i;
-                        end if;
-                    end loop;
-                end if;
-                s1_seg <= seg;
+            -- texto: celdas de 12x16 = 3 bloques de 4 pixeles
+            b := x / 4;
+            s1_tc  <= DIV3(b);
+            s1_tgx <= 2 * MOD3(b) + (x / 2) mod 2;
+            s1_tr  <= (y / 16) mod 32;
+            s1_tgy <= (y / 2) mod 8;
 
-                -- FORMA DE ONDA: caja, marco, eje punteado y y de la columna
-                s1_ocaja  <= b2sl(dentro(x, y, ONDA_X - 1, ONDA_X + 128, ONDA_Y - 1, ONDA_Y + 96));
-                s1_omarco <= b2sl(not dentro(x, y, ONDA_X, ONDA_X + 127, ONDA_Y, ONDA_Y + 95));
-                s1_eje    <= b2sl(y = ONDA_Y + 48 and (x / 4) mod 2 = 0);
-                if y >= ONDA_Y then
-                    yr := y - ONDA_Y;
-                else
-                    yr := 0;
-                end if;
-                s1_yw <= yr mod 128;
-                if x >= ONDA_X then
-                    xr := x - ONDA_X;
-                else
-                    xr := 0;
-                end if;
-                s1_wy   <= ONDA_TAB(128 * f_forma + xr mod 128);
-                s1_wini <= b2sl(x = ONDA_X);
+            -- titulo: celdas de 24x32 = 3 bloques de 8, letras x4
+            if x >= TIT_X then
+                xr := x - TIT_X;
+            else
+                xr := 0;
+            end if;
+            b := (xr / 8) mod 128;
+            s1_ic  <= DIV3(b);
+            s1_igx <= 2 * MOD3(b) + (xr / 4) mod 2;
+            if y >= TIT_Y then
+                yr := y - TIT_Y;
+            else
+                yr := 0;
+            end if;
+            s1_igy <= (yr / 4) mod 8;
+            s1_ien <= b2sl(x >= TIT_X and x < TIT_X + 24 * TIT_LEN and y >= TIT_Y and y < TIT_Y + 28);
 
-                -- VOCES: barra de nivel de cada voz
-                nv := 3;
-                for i in 0 to 2 loop
-                    if dentro(x, y, NIV_X - 1, NIV_X + 128, NIV_Y + 32 * i - 1, NIV_Y + 32 * i + 8) then
-                        nv := i;
+            -- foco del metronomo: recuadro y circulo de 32x32
+            s1_recu <= b2sl(dentro(x, y, RECU_X0, RECU_X1, RECU_Y0, RECU_Y1));
+            s1_foco <= '0';
+            if dentro(x, y, FOCO_X, FOCO_X + 31, FOCO_Y, FOCO_Y + 31) then
+                hw := CIRC16(y - FOCO_Y);
+                dx := x - FOCO_X;
+                s1_foco <= b2sl(dx + hw >= 16 and dx < 16 + hw);
+            end if;
+
+            -- piano: teclas blancas de 40 = 5 bloques de 8 pixeles
+            if x >= PIA_X then
+                xr := x - PIA_X;
+            else
+                xr := 0;
+            end if;
+            b  := (xr / 8) mod 128;
+            pw := DIV5(b);
+            po := 8 * MOD5(b) + xr mod 8;
+            if y >= PIA_Y then
+                yr := y - PIA_Y;
+            else
+                yr := 0;
+            end if;
+            py  := yr mod 128;
+            pen := dentro(x, y, PIA_X, PIA_X + PIA_ANCHO - 1, PIA_Y, PIA_Y + 119);
+            s1_pw     <= pw;
+            s1_poff   <= po;
+            s1_py     <= py;
+            s1_pen    <= b2sl(pen);
+            s1_franja <= b2sl(y < PIA_Y - 4);
+            -- etiqueta C<octava> en las teclas blancas 0 y 7 (renglones 98-111)
+            s1_lab  <= '0';
+            s1_ldig <= '0';
+            s1_lgx  <= 0;
+            s1_lgy  <= 0;
+            if pen and (pw = 0 or pw = 7) and py >= 98 and py < 112 then
+                s1_lgy <= ((py - 98) / 2) mod 8;
+                if po >= 8 and po < 18 then
+                    s1_lab <= '1';
+                    s1_lgx <= ((po - 8) / 2) mod 8;
+                elsif po >= 20 and po < 30 then
+                    s1_lab  <= '1';
+                    s1_ldig <= '1';
+                    s1_lgx  <= ((po - 20) / 2) mod 8;
+                end if;
+            end if;
+
+            -- PARAMETROS: ancho del renglon resaltado y segmentos del volumen
+            s1_resx <= b2sl(x >= PL_X0 + 4 and x <= PL_X1 - 4);
+            seg := 4;
+            if y >= VOL_Y and y < VOL_Y + 10 then
+                for i in 0 to 3 loop
+                    if x >= VOL_X + 22 * i and x < VOL_X + 22 * i + 18 then
+                        seg := i;
                     end if;
                 end loop;
-                s1_nv  <= nv;
-                s1_nvm <= b2sl(x < NIV_X or x > NIV_X + 127 or
-                               y = NIV_Y - 1 or y = NIV_Y + 8 or
-                               y = NIV_Y + 31 or y = NIV_Y + 40 or
-                               y = NIV_Y + 63 or y = NIV_Y + 72);
-                if x >= NIV_X then
-                    xr := x - NIV_X;
-                else
-                    xr := 0;
-                end if;
-                s1_nvx <= xr mod 128;
-
-                -- SECUENCIADOR: punto de grabacion y barra
-                s1_rec <= '0';
-                if dentro(x, y, REC_X, REC_X + 9, REC_Y, REC_Y + 9) then
-                    hw := CIRC5(y - REC_Y);
-                    dx := x - REC_X;
-                    s1_rec <= b2sl(dx + hw >= 5 and dx < 5 + hw);
-                end if;
-                s1_bar  <= b2sl(dentro(x, y, BAR_X - 1, BAR_X + BAR_W, BAR_Y - 1, BAR_Y + 12));
-                s1_barm <= b2sl(not dentro(x, y, BAR_X, BAR_X + BAR_W - 1, BAR_Y, BAR_Y + 11));
-                if x >= BAR_X then
-                    xr := x - BAR_X;
-                else
-                    xr := 0;
-                end if;
-                s1_prod <= (xr mod 512) * den;
             end if;
+            s1_seg <= seg;
+
+            -- FORMA DE ONDA: caja, marco, eje punteado y y de la columna
+            s1_ocaja  <= b2sl(dentro(x, y, ONDA_X - 1, ONDA_X + 128, ONDA_Y - 1, ONDA_Y + 96));
+            s1_omarco <= b2sl(not dentro(x, y, ONDA_X, ONDA_X + 127, ONDA_Y, ONDA_Y + 95));
+            s1_eje    <= b2sl(y = ONDA_Y + 48 and (x / 4) mod 2 = 0);
+            if y >= ONDA_Y then
+                yr := y - ONDA_Y;
+            else
+                yr := 0;
+            end if;
+            s1_yw <= yr mod 128;
+            if x >= ONDA_X then
+                xr := x - ONDA_X;
+            else
+                xr := 0;
+            end if;
+            s1_wy   <= to_integer(rom_onda(128 * f_forma + xr mod 128));
+            s1_wini <= b2sl(x = ONDA_X);
+
+            -- VOCES: barra de nivel de cada voz
+            nv := 3;
+            for i in 0 to 2 loop
+                if dentro(x, y, NIV_X - 1, NIV_X + 128, NIV_Y + 32 * i - 1, NIV_Y + 32 * i + 8) then
+                    nv := i;
+                end if;
+            end loop;
+            s1_nv  <= nv;
+            s1_nvm <= b2sl(x < NIV_X or x > NIV_X + 127 or
+                           y = NIV_Y - 1 or y = NIV_Y + 8 or
+                           y = NIV_Y + 31 or y = NIV_Y + 40 or
+                           y = NIV_Y + 63 or y = NIV_Y + 72);
+            if x >= NIV_X then
+                xr := x - NIV_X;
+            else
+                xr := 0;
+            end if;
+            s1_nvx <= xr mod 128;
+
+            -- SECUENCIADOR: punto de grabacion y barra
+            s1_rec <= '0';
+            if dentro(x, y, REC_X, REC_X + 9, REC_Y, REC_Y + 9) then
+                hw := CIRC5(y - REC_Y);
+                dx := x - REC_X;
+                s1_rec <= b2sl(dx + hw >= 5 and dx < 5 + hw);
+            end if;
+            s1_bar  <= b2sl(dentro(x, y, BAR_X - 1, BAR_X + BAR_W, BAR_Y - 1, BAR_Y + 12));
+            s1_barm <= b2sl(not dentro(x, y, BAR_X, BAR_X + BAR_W - 1, BAR_Y, BAR_Y + 11));
+            if x >= BAR_X then
+                xr := x - BAR_X;
+            else
+                xr := 0;
+            end if;
+            s1_prod <= (xr mod 512) * den;
         end if;
     end process;
 
@@ -935,319 +955,317 @@ begin
         variable yp, lo, hi : natural range 0 to 127;
     begin
         if rising_edge(clk) then
-            if pix_en = '1' then
-                r := s1_tr;
-                c := s1_tc;
+            r := s1_tr;
+            c := s1_tc;
 
-                ------------------------------------------------
-                -- Texto de la cuadricula
-                ------------------------------------------------
-                cd := CH_ESP;
-                fg := C_TEXTO;
-                case r is
-                    when 1 =>                               -- METRONOMO ON / OFF
-                        fg := C_BLANCO;
-                        if c >= 36 and c <= 48 then
-                            if f_metro = '1' then
-                                cd := T_METRO_ON(c - 36);
+            ------------------------------------------------
+            -- Texto de la cuadricula
+            ------------------------------------------------
+            cd := CH_ESP;
+            fg := C_TEXTO;
+            case r is
+                when 1 =>                               -- METRONOMO ON / OFF
+                    fg := C_BLANCO;
+                    if c >= 36 and c <= 48 then
+                        if f_metro = '1' then
+                            cd := T_METRO_ON(c - 36);
+                        else
+                            cd := T_METRO_OFF(c - 36);
+                        end if;
+                    end if;
+                when 2 =>                               -- tempo en BPM
+                    fg := C_BLANCO;
+                    if c >= 36 and c <= 42 then
+                        cd := V_TEMPO(f_tempo)(c - 36);
+                    end if;
+                when 5 =>                               -- teclados sobre el piano
+                    fg := C_TENUE;
+                    if c >= 10 and c <= 18 then
+                        cd := T_TECLADO1(c - 10);
+                    elsif c >= 34 and c <= 42 then
+                        cd := T_TECLADO2(c - 34);
+                    end if;
+                when 15 =>                              -- encabezados de los paneles
+                    fg := C_ENCAB;
+                    if c >= 2 and c <= 11 then
+                        cd := T_PARAM(c - 2);
+                    elsif c >= 23 and c <= 35 then
+                        cd := T_FORMA(c - 23);
+                    elsif c >= 37 and c <= 41 then
+                        cd := T_VOCES(c - 37);
+                    end if;
+                when 16 to 23 =>
+                    p   := r - 16;
+                    sel := f_modo = 3 and p = f_param;  -- CONFIGURACION
+                    if c = 1 then                       -- flecha del parametro elegido
+                        if sel then
+                            cd := CH_FLECHA;
+                            fg := C_NEGRO;
+                        end if;
+                    elsif c >= 2 and c <= 9 then        -- nombre del parametro
+                        cd := ETIQ(p)(c - 2);
+                        if sel then
+                            fg := C_NEGRO;
+                        else
+                            fg := C_TENUE;
+                        end if;
+                    elsif c >= 10 and c <= 20 then      -- valor
+                        case p is
+                            when 0 => cd := V_FORMA(f_forma)(c - 10);
+                            when 1 => cd := V_ATK(f_atk)(c - 10);
+                            when 2 => cd := V_DEC(f_dec)(c - 10);
+                            when 3 => cd := V_SUS(f_sus)(c - 10);
+                            when 4 => cd := V_REL(f_rel)(c - 10);
+                            when 5 =>
+                                if c = 10 then
+                                    cd := CH_0 + f_vol;
+                                end if;
+                            when 6 => cd := V_TEMPO(f_tempo)(c - 10);
+                            when others => cd := V_EFECTO(f_efecto)(c - 10);
+                        end case;
+                        if sel then
+                            fg := C_NEGRO;
+                        else
+                            fg := C_TEXTO;
+                        end if;
+                    elsif c >= 24 and c <= 33 then      -- nombre de la forma de onda
+                        if r = 23 then
+                            cd := N_FORMA(f_forma)(c - 24);
+                            fg := C_ONDA;
+                        end if;
+                    elsif c >= 37 and c <= 44 then      -- voces y octava
+                        if r = 16 or r = 18 or r = 20 then
+                            if r = 16 then
+                                v := 0;
+                            elsif r = 18 then
+                                v := 1;
                             else
-                                cd := T_METRO_OFF(c - 36);
+                                v := 2;
                             end if;
-                        end if;
-                    when 2 =>                               -- tempo en BPM
-                        fg := C_BLANCO;
-                        if c >= 36 and c <= 42 then
-                            cd := V_TEMPO(f_tempo)(c - 36);
-                        end if;
-                    when 5 =>                               -- teclados sobre el piano
-                        fg := C_TENUE;
-                        if c >= 10 and c <= 18 then
-                            cd := T_TECLADO1(c - 10);
-                        elsif c >= 34 and c <= 42 then
-                            cd := T_TECLADO2(c - 34);
-                        end if;
-                    when 15 =>                              -- encabezados de los paneles
-                        fg := C_ENCAB;
-                        if c >= 2 and c <= 11 then
-                            cd := T_PARAM(c - 2);
-                        elsif c >= 23 and c <= 35 then
-                            cd := T_FORMA(c - 23);
-                        elsif c >= 37 and c <= 41 then
-                            cd := T_VOCES(c - 37);
-                        end if;
-                    when 16 to 23 =>
-                        p   := r - 16;
-                        sel := f_modo = 3 and p = f_param;  -- CONFIGURACION
-                        if c = 1 then                       -- flecha del parametro elegido
-                            if sel then
-                                cd := CH_FLECHA;
-                                fg := C_NEGRO;
+                            if c = 37 then
+                                cd := CH_V;
+                                fg := C_VOZ(v);
+                            elsif c = 38 then
+                                cd := CH_0 + 1 + v;
+                                fg := C_VOZ(v);
+                            elsif c >= 40 and c <= 42 then
+                                cd := car_nota(v_nula(v), v_semi(v), v_oct(v), c - 40);
+                                if v_gate(v) = '1' then
+                                    fg := C_TEXTO;
+                                else
+                                    fg := C_TENUE;
+                                end if;
                             end if;
-                        elsif c >= 2 and c <= 9 then        -- nombre del parametro
-                            cd := ETIQ(p)(c - 2);
-                            if sel then
-                                fg := C_NEGRO;
-                            else
+                        elsif r = 23 then
+                            if c <= 43 then
+                                cd := T_OCTAVA(c - 37);
                                 fg := C_TENUE;
-                            end if;
-                        elsif c >= 10 and c <= 20 then      -- valor
-                            case p is
-                                when 0 => cd := V_FORMA(f_forma)(c - 10);
-                                when 1 => cd := V_ATK(f_atk)(c - 10);
-                                when 2 => cd := V_DEC(f_dec)(c - 10);
-                                when 3 => cd := V_SUS(f_sus)(c - 10);
-                                when 4 => cd := V_REL(f_rel)(c - 10);
-                                when 5 =>
-                                    if c = 10 then
-                                        cd := CH_0 + f_vol;
-                                    end if;
-                                when 6 => cd := V_TEMPO(f_tempo)(c - 10);
-                                when others => cd := V_EFECTO(f_efecto)(c - 10);
-                            end case;
-                            if sel then
-                                fg := C_NEGRO;
                             else
+                                cd := CH_0 + f_oct;
                                 fg := C_TEXTO;
                             end if;
-                        elsif c >= 24 and c <= 33 then      -- nombre de la forma de onda
-                            if r = 23 then
-                                cd := N_FORMA(f_forma)(c - 24);
-                                fg := C_ONDA;
-                            end if;
-                        elsif c >= 37 and c <= 44 then      -- voces y octava
-                            if r = 16 or r = 18 or r = 20 then
-                                if r = 16 then
-                                    v := 0;
-                                elsif r = 18 then
-                                    v := 1;
-                                else
-                                    v := 2;
-                                end if;
-                                if c = 37 then
-                                    cd := CH_V;
-                                    fg := C_VOZ(v);
-                                elsif c = 38 then
-                                    cd := CH_0 + 1 + v;
-                                    fg := C_VOZ(v);
-                                elsif c >= 40 and c <= 42 then
-                                    cd := car_nota(v_nula(v), v_semi(v), v_oct(v), c - 40);
-                                    if v_gate(v) = '1' then
-                                        fg := C_TEXTO;
-                                    else
-                                        fg := C_TENUE;
-                                    end if;
-                                end if;
-                            elsif r = 23 then
-                                if c <= 43 then
-                                    cd := T_OCTAVA(c - 37);
-                                    fg := C_TENUE;
-                                else
-                                    cd := CH_0 + f_oct;
-                                    fg := C_TEXTO;
-                                end if;
-                            end if;
                         end if;
-                    when 25 =>                              -- secuenciador
-                        if c >= 2 and c <= 13 then
-                            cd := T_SECUEN(c - 2);
-                            fg := C_ENCAB;
-                        elsif c >= 15 and c <= 27 then
-                            cd := T_ESTADO(f_est)(c - 15);
-                            fg := C_EST(f_est);
-                        elsif c >= 31 and c <= 38 then
-                            cd := T_EVENTOS(c - 31);
-                            fg := C_TENUE;
-                        elsif c >= 39 and c <= 41 then
-                            cd := car_bcd(bcd_ev, c - 39);
-                            fg := C_TEXTO;
-                        elsif c >= 42 and c <= 45 then
-                            cd := T_256(c - 42);
-                            fg := C_TENUE;
-                        end if;
-                    when 27 =>
+                    end if;
+                when 25 =>                              -- secuenciador
+                    if c >= 2 and c <= 13 then
+                        cd := T_SECUEN(c - 2);
+                        fg := C_ENCAB;
+                    elsif c >= 15 and c <= 27 then
+                        cd := T_ESTADO(f_est)(c - 15);
+                        fg := C_EST(f_est);
+                    elsif c >= 31 and c <= 38 then
+                        cd := T_EVENTOS(c - 31);
                         fg := C_TENUE;
-                        if c >= 2 and c <= 8 then
-                            if f_est = 2 then               -- reproduciendo
-                                cd := T_AVANCE(c - 2);
-                            else
-                                cd := T_MEMORIA(c - 2);
-                            end if;
-                        elsif c >= 44 and c <= 47 then
-                            cd := T_POS(c - 44);
-                        elsif c >= 48 and c <= 50 then
-                            cd := car_bcd(bcd_pos, c - 48);
-                            fg := C_TEXTO;
-                        end if;
-                    when 29 =>                              -- pie
-                        fg := C_PIE;
-                        if c >= 13 and c <= 40 then
-                            cd := T_PIE(c - 13);
-                        end if;
-                    when others =>
-                        null;
-                end case;
-                s2_cd_t <= cd;
-                s2_fg_t <= fg;
-                s2_gx_t <= s1_tgx;
-                s2_gy_t <= s1_tgy;
-
-                -- titulo con el nombre del modo
-                if s1_ien = '1' and s1_ic < TIT_LEN then
-                    s2_ien  <= '1';
-                    s2_cd_i <= TITULO(f_modo)(s1_ic);
-                else
-                    s2_ien  <= '0';
-                    s2_cd_i <= CH_ESP;
-                end if;
-                s2_igx <= s1_igx;
-                s2_igy <= s1_igy;
-
-                -- banda: color del modo y foco del metronomo
-                col := C_BANDA(f_modo);
-                if s1_recu = '1' then
-                    col := C_RECUADRO;
-                    if s1_foco = '1' then
-                        col := f_foco;
+                    elsif c >= 39 and c <= 41 then
+                        cd := car_bcd(bcd_ev, c - 39);
+                        fg := C_TEXTO;
+                    elsif c >= 42 and c <= 45 then
+                        cd := T_256(c - 42);
+                        fg := C_TENUE;
                     end if;
-                end if;
-                s2_bcol <= col;
-
-                -- piano: tecla negra = 12 pixeles a cada lado del borde
-                -- de dos blancas, en las 72 lineas de arriba
-                negra := false;
-                k := KW(s1_pw);
-                if s1_py < NEGRA_ALTO then
-                    if s1_poff >= 28 and HAY_NEGRA(s1_pw) = '1' then
-                        negra := true;
-                        k := KW(s1_pw) + 1;
-                    elsif s1_poff < 12 and s1_pw >= 1 and HAY_NEGRA(s1_pw - 1) = '1' then
-                        negra := true;
-                        k := KW(s1_pw - 1) + 1;
-                    end if;
-                end if;
-                if negra then
-                    kcol := C_T_NEGRA;
-                else
-                    kcol := C_T_BLANCA;
-                end if;
-                -- color de la voz que toca la tecla (V1 primero)
-                if v_act(0) = '1' and v_tecla(0) = k then
-                    kcol := C_VOZ(0);
-                elsif v_act(1) = '1' and v_tecla(1) = k then
-                    kcol := C_VOZ(1);
-                elsif v_act(2) = '1' and v_tecla(2) = k then
-                    kcol := C_VOZ(2);
-                end if;
-                if s1_franja = '1' then
-                    col := C_BANDA(f_modo);
-                else
-                    col := C_CAJA;
-                end if;
-                if s1_pen = '1' then
-                    if not negra and s1_poff >= 38 then
-                        col := C_CAJA;                      -- separacion entre blancas
-                    else
-                        col := kcol;
-                    end if;
-                end if;
-                s2_pcol <= col;
-                -- etiqueta C<octava> (blanca 0) y C<octava + 1> (blanca 7)
-                s2_lab <= s1_lab;
-                if s1_ldig = '0' then
-                    s2_cd_l <= CH_C;
-                elsif s1_pw = 0 then
-                    s2_cd_l <= CH_0 + f_oct;
-                else
-                    s2_cd_l <= CH_0 + f_oct + 1;
-                end if;
-                if kcol = C_T_BLANCA then
-                    s2_fg_l <= C_ETIQ;
-                else
-                    s2_fg_l <= C_BLANCO;
-                end if;
-                s2_lgx <= s1_lgx;
-                s2_lgy <= s1_lgy;
-
-                -- PARAMETROS: renglon resaltado y medidor de volumen
-                col := C_PANEL;
-                if f_modo = 3 and r = 16 + f_param and s1_resx = '1' then
-                    col := C_RESALTE;
-                end if;
-                if s1_seg < 4 then
-                    if s1_seg < f_vol then
-                        col := C_SEG(s1_seg);
-                    else
-                        col := C_SEG_APAG;
-                    end if;
-                end if;
-                s2_lcol <= col;
-
-                -- FORMA DE ONDA: la linea une la y de la columna anterior
-                -- con la de esta (asi salen los tramos verticales)
-                col := C_PANEL;
-                if s1_ocaja = '1' then
-                    if s1_omarco = '1' then
-                        col := C_ONDA_MARCO;
-                    else
-                        col := C_ONDA_FONDO;
-                        if s1_eje = '1' then
-                            col := C_ONDA_EJE;
-                        end if;
-                        if s1_wini = '1' then
-                            yp := s1_wy;
+                when 27 =>
+                    fg := C_TENUE;
+                    if c >= 2 and c <= 8 then
+                        if f_est = 2 then               -- reproduciendo
+                            cd := T_AVANCE(c - 2);
                         else
-                            yp := s2_wyp;
+                            cd := T_MEMORIA(c - 2);
                         end if;
-                        if yp < s1_wy then
-                            lo := yp;
-                            hi := s1_wy;
-                        else
-                            lo := s1_wy;
-                            hi := yp;
-                        end if;
-                        if s1_yw >= lo and s1_yw <= hi + 1 then
-                            col := C_ONDA;
-                        end if;
+                    elsif c >= 44 and c <= 47 then
+                        cd := T_POS(c - 44);
+                    elsif c >= 48 and c <= 50 then
+                        cd := car_bcd(bcd_pos, c - 48);
+                        fg := C_TEXTO;
                     end if;
-                end if;
-                s2_mcol <= col;
-                s2_wyp  <= s1_wy;
-
-                -- VOCES: barras de nivel
-                col := C_PANEL;
-                if s1_nv < 3 then
-                    if s1_nvm = '1' then
-                        col := C_BARRA_MARCO;
-                    elsif s1_nvx < v_nivel(s1_nv) then
-                        col := C_VOZ(s1_nv);
-                    else
-                        col := C_BARRA_FONDO;
+                when 29 =>                              -- pie
+                    fg := C_PIE;
+                    if c >= 13 and c <= 40 then
+                        cd := T_PIE(c - 13);
                     end if;
-                end if;
-                s2_rcol <= col;
+                when others =>
+                    null;
+            end case;
+            s2_cd_t <= cd;
+            s2_fg_t <= fg;
+            s2_gx_t <= s1_tgx;
+            s2_gy_t <= s1_tgy;
 
-                -- SECUENCIADOR: punto rojo y barra, llena si
-                -- (x - BAR_X) * den < umbral
-                col := C_PANEL;
-                if f_rec = '1' and s1_rec = '1' then
-                    col := C_REC;
-                end if;
-                if s1_bar = '1' then
-                    if s1_barm = '1' then
-                        col := C_BARRA_MARCO;
-                    elsif s1_prod < umbral then
-                        col := C_AVAN(f_est);
-                    else
-                        col := C_BARRA_FONDO;
-                    end if;
-                end if;
-                s2_scol <= col;
-
-                s2_zona <= s1_zona;
-                s2_hs   <= s1_hs;
-                s2_vs   <= s1_vs;
-                s2_vis  <= s1_vis;
+            -- titulo con el nombre del modo
+            if s1_ien = '1' and s1_ic < TIT_LEN then
+                s2_ien  <= '1';
+                s2_cd_i <= TITULO(f_modo)(s1_ic);
+            else
+                s2_ien  <= '0';
+                s2_cd_i <= CH_ESP;
             end if;
+            s2_igx <= s1_igx;
+            s2_igy <= s1_igy;
+
+            -- banda: color del modo y foco del metronomo
+            col := C_BANDA(f_modo);
+            if s1_recu = '1' then
+                col := C_RECUADRO;
+                if s1_foco = '1' then
+                    col := f_foco;
+                end if;
+            end if;
+            s2_bcol <= col;
+
+            -- piano: tecla negra = 12 pixeles a cada lado del borde
+            -- de dos blancas, en las 72 lineas de arriba
+            negra := false;
+            k := KW(s1_pw);
+            if s1_py < NEGRA_ALTO then
+                if s1_poff >= 28 and HAY_NEGRA(s1_pw) = '1' then
+                    negra := true;
+                    k := KW(s1_pw) + 1;
+                elsif s1_poff < 12 and s1_pw >= 1 and HAY_NEGRA(s1_pw - 1) = '1' then
+                    negra := true;
+                    k := KW(s1_pw - 1) + 1;
+                end if;
+            end if;
+            if negra then
+                kcol := C_T_NEGRA;
+            else
+                kcol := C_T_BLANCA;
+            end if;
+            -- color de la voz que toca la tecla (V1 primero)
+            if v_act(0) = '1' and v_tecla(0) = k then
+                kcol := C_VOZ(0);
+            elsif v_act(1) = '1' and v_tecla(1) = k then
+                kcol := C_VOZ(1);
+            elsif v_act(2) = '1' and v_tecla(2) = k then
+                kcol := C_VOZ(2);
+            end if;
+            if s1_franja = '1' then
+                col := C_BANDA(f_modo);
+            else
+                col := C_CAJA;
+            end if;
+            if s1_pen = '1' then
+                if not negra and s1_poff >= 38 then
+                    col := C_CAJA;                      -- separacion entre blancas
+                else
+                    col := kcol;
+                end if;
+            end if;
+            s2_pcol <= col;
+            -- etiqueta C<octava> (blanca 0) y C<octava + 1> (blanca 7)
+            s2_lab <= s1_lab;
+            if s1_ldig = '0' then
+                s2_cd_l <= CH_C;
+            elsif s1_pw = 0 then
+                s2_cd_l <= CH_0 + f_oct;
+            else
+                s2_cd_l <= CH_0 + f_oct + 1;
+            end if;
+            if kcol = C_T_BLANCA then
+                s2_fg_l <= C_ETIQ;
+            else
+                s2_fg_l <= C_BLANCO;
+            end if;
+            s2_lgx <= s1_lgx;
+            s2_lgy <= s1_lgy;
+
+            -- PARAMETROS: renglon resaltado y medidor de volumen
+            col := C_PANEL;
+            if f_modo = 3 and r = 16 + f_param and s1_resx = '1' then
+                col := C_RESALTE;
+            end if;
+            if s1_seg < 4 then
+                if s1_seg < f_vol then
+                    col := C_SEG(s1_seg);
+                else
+                    col := C_SEG_APAG;
+                end if;
+            end if;
+            s2_lcol <= col;
+
+            -- FORMA DE ONDA: la linea une la y de la columna anterior
+            -- con la de esta (asi salen los tramos verticales)
+            col := C_PANEL;
+            if s1_ocaja = '1' then
+                if s1_omarco = '1' then
+                    col := C_ONDA_MARCO;
+                else
+                    col := C_ONDA_FONDO;
+                    if s1_eje = '1' then
+                        col := C_ONDA_EJE;
+                    end if;
+                    if s1_wini = '1' then
+                        yp := s1_wy;
+                    else
+                        yp := s2_wyp;
+                    end if;
+                    if yp < s1_wy then
+                        lo := yp;
+                        hi := s1_wy;
+                    else
+                        lo := s1_wy;
+                        hi := yp;
+                    end if;
+                    if s1_yw >= lo and s1_yw <= hi + 1 then
+                        col := C_ONDA;
+                    end if;
+                end if;
+            end if;
+            s2_mcol <= col;
+            s2_wyp  <= s1_wy;
+
+            -- VOCES: barras de nivel
+            col := C_PANEL;
+            if s1_nv < 3 then
+                if s1_nvm = '1' then
+                    col := C_BARRA_MARCO;
+                elsif s1_nvx < v_nivel(s1_nv) then
+                    col := C_VOZ(s1_nv);
+                else
+                    col := C_BARRA_FONDO;
+                end if;
+            end if;
+            s2_rcol <= col;
+
+            -- SECUENCIADOR: punto rojo y barra, llena si
+            -- (x - BAR_X) * den < umbral
+            col := C_PANEL;
+            if f_rec = '1' and s1_rec = '1' then
+                col := C_REC;
+            end if;
+            if s1_bar = '1' then
+                if s1_barm = '1' then
+                    col := C_BARRA_MARCO;
+                elsif s1_prod < umbral then
+                    col := C_AVAN(f_est);
+                else
+                    col := C_BARRA_FONDO;
+                end if;
+            end if;
+            s2_scol <= col;
+
+            s2_zona <= s1_zona;
+            s2_hs   <= s1_hs;
+            s2_vs   <= s1_vs;
+            s2_vis  <= s1_vis;
         end if;
     end process;
 
@@ -1258,37 +1276,35 @@ begin
     process (clk)
     begin
         if rising_edge(clk) then
-            if pix_en = '1' then
-                case s2_zona is
-                    when Z_BANDA => s3_base <= s2_bcol;
-                    when Z_PIANO => s3_base <= s2_pcol;
-                    when Z_MARCO => s3_base <= C_MARCO;
-                    when Z_PL    => s3_base <= s2_lcol;
-                    when Z_PM    => s3_base <= s2_mcol;
-                    when Z_PR    => s3_base <= s2_rcol;
-                    when Z_PS    => s3_base <= s2_scol;
-                    when others  => s3_base <= C_FONDO;
-                end case;
-                if s2_zona = Z_BANDA and s2_ien = '1' then
-                    s3_cod <= s2_cd_i;
-                    s3_gx  <= s2_igx;
-                    s3_gy  <= s2_igy;
-                    s3_fg  <= C_BLANCO;
-                elsif s2_zona = Z_PIANO and s2_lab = '1' then
-                    s3_cod <= s2_cd_l;
-                    s3_gx  <= s2_lgx;
-                    s3_gy  <= s2_lgy;
-                    s3_fg  <= s2_fg_l;
-                else
-                    s3_cod <= s2_cd_t;
-                    s3_gx  <= s2_gx_t;
-                    s3_gy  <= s2_gy_t;
-                    s3_fg  <= s2_fg_t;
-                end if;
-                s3_hs  <= s2_hs;
-                s3_vs  <= s2_vs;
-                s3_vis <= s2_vis;
+            case s2_zona is
+                when Z_BANDA => s3_base <= s2_bcol;
+                when Z_PIANO => s3_base <= s2_pcol;
+                when Z_MARCO => s3_base <= C_MARCO;
+                when Z_PL    => s3_base <= s2_lcol;
+                when Z_PM    => s3_base <= s2_mcol;
+                when Z_PR    => s3_base <= s2_rcol;
+                when Z_PS    => s3_base <= s2_scol;
+                when others  => s3_base <= C_FONDO;
+            end case;
+            if s2_zona = Z_BANDA and s2_ien = '1' then
+                s3_cod <= s2_cd_i;
+                s3_gx  <= s2_igx;
+                s3_gy  <= s2_igy;
+                s3_fg  <= C_BLANCO;
+            elsif s2_zona = Z_PIANO and s2_lab = '1' then
+                s3_cod <= s2_cd_l;
+                s3_gx  <= s2_lgx;
+                s3_gy  <= s2_lgy;
+                s3_fg  <= s2_fg_l;
+            else
+                s3_cod <= s2_cd_t;
+                s3_gx  <= s2_gx_t;
+                s3_gy  <= s2_gy_t;
+                s3_fg  <= s2_fg_t;
             end if;
+            s3_hs  <= s2_hs;
+            s3_vs  <= s2_vs;
+            s3_vis <= s2_vis;
         end if;
     end process;
 
@@ -1300,28 +1316,26 @@ begin
         variable px   : std_logic;
     begin
         if rising_edge(clk) then
-            if pix_en = '1' then
-                bits := fila_fuente(s3_cod, s3_gy);
-                px := '0';
-                if s3_gx <= 4 then
-                    px := bits(4 - s3_gx);
-                end if;
-                if s3_vis = '0' then
-                    s4_rgb <= C_NEGRO;
-                elsif px = '1' then
-                    s4_rgb <= s3_fg;
-                else
-                    s4_rgb <= s3_base;
-                end if;
-                s4_hs <= s3_hs;
-                s4_vs <= s3_vs;
+            bits := fila_fuente(s3_cod, s3_gy);
+            px := '0';
+            if s3_gx <= 4 then
+                px := bits(4 - s3_gx);
             end if;
+            if s3_vis = '0' then
+                s4_rgb <= C_NEGRO;
+            elsif px = '1' then
+                s4_rgb <= s3_fg;
+            else
+                s4_rgb <= s3_base;
+            end if;
+            s4_hs <= s3_hs;
+            s4_vs <= s3_vs;
         end if;
     end process;
 
-    vga_r  <= s4_rgb(11 downto 8);
-    vga_g  <= s4_rgb(7 downto 4);
-    vga_b  <= s4_rgb(3 downto 0);
+    vga_r  <= s4_rgb(2);
+    vga_g  <= s4_rgb(1);
+    vga_b  <= s4_rgb(0);
     vga_hs <= s4_hs;
     vga_vs <= s4_vs;
 

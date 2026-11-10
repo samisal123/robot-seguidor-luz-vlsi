@@ -16,7 +16,7 @@
 --     secuenciador justo en el limite de llenado, foco del
 --     metronomo (tiempo, acento, apagado), punto de grabacion que
 --     parpadea y el renglon resaltado en CONFIGURACION.
--- DESTELLO = 400 000 ciclos (8 ms) y PARPADEO = 0 (cambia cada
+-- DESTELLO = 200 000 ciclos (8 ms a 25 MHz) y PARPADEO = 0 (cambia cada
 -- cuadro) para no simular segundos.
 -- ============================================================
 library ieee;
@@ -29,55 +29,64 @@ entity tb_vga_ui is
 end entity tb_vga_ui;
 
 architecture sim of tb_vga_ui is
-    constant T_CLK : time := 20 ns;
-    constant T_PIX : time := 2 * T_CLK;
+    constant T_CLK : time := 40 ns;    -- 25 MHz
+    constant T_PIX : time := T_CLK;    -- un pixel por ciclo
 
-    subtype t_color is std_logic_vector(11 downto 0);
+    subtype t_color is std_logic_vector(2 downto 0);   -- R G B, un bit cada uno
+
+    constant NEGRO    : t_color := "000";
+    constant AZUL     : t_color := "001";
+    constant VERDE    : t_color := "010";
+    constant CIAN     : t_color := "011";
+    constant ROJO     : t_color := "100";
+    constant MAGENTA  : t_color := "101";
+    constant AMARILLO : t_color := "110";
+    constant BLANCO   : t_color := "111";
 
     -- colores esperados (la especificacion de la pantalla)
-    constant C_FONDO   : t_color := x"112";
-    constant C_PANEL   : t_color := x"223";
-    constant C_MARCO   : t_color := x"46A";
-    constant C_TEXTO   : t_color := x"EEE";
-    constant C_TENUE   : t_color := x"99A";
-    constant C_PIE     : t_color := x"557";
-    constant C_ENCAB   : t_color := x"FC4";
-    constant C_RESALTE : t_color := x"FD3";
-    constant C_NEGRO   : t_color := x"000";
-    constant C_BLANCO  : t_color := x"FFF";
-    constant C_B_INT   : t_color := x"25B";
-    constant C_B_GRA   : t_color := x"C22";
-    constant C_B_REP   : t_color := x"194";
-    constant C_B_CONF  : t_color := x"D70";
-    constant C_RECUA   : t_color := x"111";
-    constant C_F_OFF   : t_color := x"222";
-    constant C_F_APAG  : t_color := x"444";
-    constant C_F_BEAT  : t_color := x"4F4";
-    constant C_F_ACEN  : t_color := x"F43";
-    constant C_CAJA    : t_color := x"333";
-    constant C_BLANCA  : t_color := x"EEE";
-    constant C_NEGRA   : t_color := x"111";
-    constant C_ETIQ    : t_color := x"666";
-    constant C_V1      : t_color := x"F62";
-    constant C_V2      : t_color := x"3D3";
-    constant C_V3      : t_color := x"39F";
-    constant C_ONDA    : t_color := x"FE3";
-    constant C_O_FONDO : t_color := x"012";
-    constant C_O_EJE   : t_color := x"257";
-    constant C_O_MARCO : t_color := x"468";
-    constant C_BA_FON  : t_color := x"112";
-    constant C_BA_MAR  : t_color := x"668";
-    constant C_SEG0    : t_color := x"3C3";
-    constant C_SEG1    : t_color := x"9D2";
-    constant C_SEG2    : t_color := x"FC2";
-    constant C_SEG3    : t_color := x"F52";
-    constant C_SEG_OFF : t_color := x"334";
-    constant C_REC     : t_color := x"F11";
-    constant C_EST_GRA : t_color := x"F44";
-    constant C_EST_REP : t_color := x"4E5";
-    constant C_AV_ESP  : t_color := x"69B";
-    constant C_AV_GRA  : t_color := x"E33";
-    constant C_AV_REP  : t_color := x"3C5";
+    constant C_FONDO   : t_color := NEGRO;
+    constant C_PANEL   : t_color := NEGRO;
+    constant C_MARCO   : t_color := AZUL;
+    constant C_TEXTO   : t_color := BLANCO;
+    constant C_TENUE   : t_color := CIAN;
+    constant C_PIE     : t_color := AZUL;
+    constant C_ENCAB   : t_color := AMARILLO;
+    constant C_RESALTE : t_color := AMARILLO;
+    constant C_NEGRO   : t_color := NEGRO;
+    constant C_BLANCO  : t_color := BLANCO;
+    constant C_B_INT   : t_color := AZUL;
+    constant C_B_GRA   : t_color := ROJO;
+    constant C_B_REP   : t_color := VERDE;
+    constant C_B_CONF  : t_color := MAGENTA;
+    constant C_RECUA   : t_color := NEGRO;
+    constant C_F_OFF   : t_color := AZUL;
+    constant C_F_APAG  : t_color := BLANCO;
+    constant C_F_BEAT  : t_color := VERDE;
+    constant C_F_ACEN  : t_color := ROJO;
+    constant C_CAJA    : t_color := NEGRO;
+    constant C_BLANCA  : t_color := BLANCO;
+    constant C_NEGRA   : t_color := NEGRO;
+    constant C_ETIQ    : t_color := NEGRO;
+    constant C_V1      : t_color := ROJO;
+    constant C_V2      : t_color := VERDE;
+    constant C_V3      : t_color := CIAN;
+    constant C_ONDA    : t_color := AMARILLO;
+    constant C_O_FONDO : t_color := NEGRO;
+    constant C_O_EJE   : t_color := AZUL;
+    constant C_O_MARCO : t_color := AZUL;
+    constant C_BA_FON  : t_color := NEGRO;
+    constant C_BA_MAR  : t_color := AZUL;
+    constant C_SEG0    : t_color := VERDE;
+    constant C_SEG1    : t_color := VERDE;
+    constant C_SEG2    : t_color := AMARILLO;
+    constant C_SEG3    : t_color := ROJO;
+    constant C_SEG_OFF : t_color := AZUL;
+    constant C_REC     : t_color := ROJO;
+    constant C_EST_GRA : t_color := ROJO;
+    constant C_EST_REP : t_color := VERDE;
+    constant C_AV_ESP  : t_color := CIAN;
+    constant C_AV_GRA  : t_color := ROJO;
+    constant C_AV_REP  : t_color := VERDE;
 
     -- geometria que se revisa
     constant ONDA_X : natural := 288;
@@ -109,7 +118,7 @@ architecture sim of tb_vga_ui is
     signal parametro  : std_logic_vector(2 downto 0) := "000";
     signal eventos    : std_logic_vector(8 downto 0) := (others => '0');
     signal posicion   : std_logic_vector(8 downto 0) := (others => '0');
-    signal vga_r, vga_g, vga_b : std_logic_vector(3 downto 0);
+    signal vga_r, vga_g, vga_b : std_logic;
     signal vga_hs, vga_vs : std_logic;
     signal fin        : boolean := false;
 
@@ -129,14 +138,15 @@ architecture sim of tb_vga_ui is
     end function;
 
     function hex (v : t_color) return string is
-        constant H : string(1 to 16) := "0123456789ABCDEF";
         variable s : string(1 to 3);
     begin
         for i in 0 to 2 loop
-            if is_x(v(11 - 4 * i downto 8 - 4 * i)) then
-                s(i + 1) := 'X';
+            if v(2 - i) = '1' then
+                s(i + 1) := '1';
+            elsif v(2 - i) = '0' then
+                s(i + 1) := '0';
             else
-                s(i + 1) := H(to_integer(unsigned(v(11 - 4 * i downto 8 - 4 * i))) + 1);
+                s(i + 1) := 'X';
             end if;
         end loop;
         return s;
@@ -146,7 +156,7 @@ begin
     clk <= not clk after T_CLK / 2 when not fin else '0';
 
     dut : entity work.vga_ui
-        generic map (DESTELLO => 400_000, PARPADEO => 0)
+        generic map (DESTELLO => 200_000, PARPADEO => 0)
         port map (
             clk => clk, rst => rst, modo => modo, estado_sec => estado_sec,
             forma => forma, atk => atk, dec => dec, sus => sus, rel => rel,
