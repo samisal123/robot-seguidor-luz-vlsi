@@ -33,8 +33,9 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [x] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria): 3 805 LE, cabe en la EP2C5 (83 %)
 - [!] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados (no cupo en el disco: necesita 6 a 7 GB libres)
 - [!] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
-- [ ] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio)
+- [x] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio): instalado con Cyclone II; la interfaz grafica pide libpng12
 - [ ] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144
+- [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (libpng12 sin sudo)
 
 ---
 
@@ -87,7 +88,7 @@ Cyclone II solo se compila con Quartus II 13.0 SP1 Web Edition (gratis, sin lice
 
 Despues de que la TAREA-025 compile bien. Se siguen los pasos del manual del profesor (*Creacion y uso de bloques en Quartus*): simbolos desde los `.vhd`, diagrama de bloques como nivel superior, compilacion y Pin Planner.
 
-Abrir el proyecto: `~/altera/13.0sp1/quartus/bin/quartus quartus/sintetizador.qpf &`. Cada captura de la ventana completa de Quartus (tecla Impr Pant o `gnome-screenshot -w -f <archivo>`), en PNG, dentro de la carpeta `capturas/` del repo con estos nombres:
+Abrir el proyecto: `sh quartus/abrir_quartus.sh &` (Quartus 13.0 de 64 bits; necesita la TAREA-026). Cada captura de la ventana completa de Quartus (tecla Impr Pant o `gnome-screenshot -w -f <archivo>`), en PNG, dentro de la carpeta `capturas/` del repo con estos nombres:
 
 | Archivo | Que debe verse |
 |---|---|
@@ -144,4 +145,15 @@ La TAREA-022 mostro que la instalacion necesita de 6 a 7 GB libres. El equipo de
 ## TAREA-025 @claude-code: Compilar para la EP2C5T144
 
 Igual que la TAREA-019 (sus pasos 1 a 6), con el resultado en `resultados/TAREA-025.md` y el log en `logs/TAREA-025.log`. Solo si la TAREA-024 dejo instalado Quartus II 13.0 SP1 con Cyclone II.
+
+## TAREA-026 @claude-code: Interfaz grafica de Quartus 13.0 sin sudo
+
+La TAREA-024 dejo Quartus II 13.0 SP1 instalado, pero `quartus --64bit` no abre porque falta `libpng12.so.0`. Se agrega la biblioteca dentro de la carpeta de Quartus, sin sudo y sin instalar paquetes del sistema.
+
+1. `mkdir -p ~/altera/13.0sp1/extra && cd ~/altera/13.0sp1/extra`.
+2. Baja el paquete de Ubuntu 16.04 (xenial) desde el archivo oficial de Ubuntu, en este orden hasta que uno responda: `http://security.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1_amd64.deb` y `http://archive.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb`. No uses otros sitios. Reporta el nombre, tamano y `sha256sum` del `.deb`.
+3. `dpkg -x <archivo>.deb libpng12` (no necesita sudo) y copia `libpng12/lib/x86_64-linux-gnu/libpng12.so.0*` a `~/altera/13.0sp1/quartus/linux64/`.
+4. `ldd ~/altera/13.0sp1/quartus/linux64/quartus | grep "not found"` no debe mostrar nada; reporta la salida.
+5. Si la TAREA-025 ya creo `quartus/sintetizador.qpf`, abre `sh quartus/abrir_quartus.sh` en segundo plano, espera 60 s, revisa que el proceso siga vivo y guarda lo que haya escrito en la terminal; luego cierralo (`pkill -f "quartus --64bit"`). Si la pantalla esta bloqueada no importa: basta con que el proceso arranque sin errores.
+6. Resultado en `resultados/TAREA-026.md`. Si el paso 2 o 3 falla, reporta el error tal como sale y no intentes otras fuentes.
 
