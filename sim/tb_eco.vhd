@@ -1,16 +1,16 @@
 -- ============================================================
 -- tb_eco.vhd
--- Prueba del eco con la linea de retardo real de 8192 muestras.
+-- Prueba del eco con la linea de retardo real de 4096 muestras.
 -- Revisa:
---   1) 3 x 8192 + 300 muestras al azar en todo el rango, con un
+--   1) 3 x 4096 + 300 muestras al azar en todo el rango, con un
 --      tramo apagado a la mitad, contra un modelo:
---        d = y[n - 8192] (0 si la RAM aun no da la vuelta)
+--        d = y[n - 4096] (0 si la RAM aun no da la vuelta)
 --        y = saturar(x + piso(d / 2), +-2032) si activo, si no y = x
 --      y y la bandera satura deben coincidir en cada muestra
 --   2) despues de un reset (la RAM sigue llena de lo anterior):
 --      impulsos de 1600 en n = 0 y -1000 en n = 100 regresan
---      exactamente en n + 8192 (800, -500), n + 16384 (400, -250)
---      y n + 24576 (200, -125); todo lo demas vale 0
+--      exactamente en n + 4096 (800, -500), n + 8192 (400, -250)
+--      y n + 12288 (200, -125); todo lo demas vale 0
 --   3) latencia: sal_valida 3 ciclos despues de ent_valida
 -- ============================================================
 library ieee;
@@ -22,7 +22,7 @@ end entity tb_eco;
 
 architecture sim of tb_eco is
     constant T_CLK   : time := 20 ns;
-    constant RETARDO : natural := 8192;
+    constant RETARDO : natural := 4096;
     constant TOPE    : integer := 2032;
 
     signal clk        : std_logic := '0';
@@ -106,12 +106,12 @@ begin
             case n is
                 when 0     => return 1600;
                 when 100   => return -1000;
-                when 8192  => return 800;
-                when 8292  => return -500;
-                when 16384 => return 400;
-                when 16484 => return -250;
-                when 24576 => return 200;
-                when 24676 => return -125;
+                when 4096  => return 800;
+                when 4196  => return -500;
+                when 8192  => return 400;
+                when 8292  => return -250;
+                when 12288 => return 200;
+                when 12388 => return -125;
                 when others => return 0;
             end case;
         end function;

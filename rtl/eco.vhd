@@ -2,11 +2,12 @@
 -- eco.vhd
 -- Efecto de eco (retardo con realimentacion):
 --   y[n] = saturar( x[n] + y[n - RETARDO] / 2 )
--- Con RETARDO = 8192 muestras el eco llega 168 ms despues y cada
+-- Con RETARDO = 4096 muestras el eco llega 84 ms despues y cada
 -- repeticion vale la mitad de la anterior.
 -- La linea de retardo es una RAM de RETARDO x 12 bits con
 -- escritura sincrona y lectura registrada (plantilla de RAM de un
--- puerto de Quartus, se mapea en bloques M9K). Por cada muestra se
+-- puerto de Quartus, se mapea en bloques M4K: 4096 x 12 bits son
+-- 12 de los 26 bloques de la EP2C5). Por cada muestra se
 -- lee la posicion ptr (lo que se escribio hace RETARDO muestras),
 -- se calcula y, se escribe y en esa misma posicion y ptr avanza.
 -- La RAM no necesita valores iniciales: hasta que ptr da la
@@ -24,7 +25,7 @@ use ieee.numeric_std.all;
 
 entity eco is
     generic (
-        RETARDO : positive := 8192     -- muestras
+        RETARDO : positive := 4096     -- muestras
     );
     port (
         clk        : in  std_logic;

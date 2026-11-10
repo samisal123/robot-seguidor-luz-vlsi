@@ -14,8 +14,8 @@
 --   volumen   : 0, 25, 50, 75 o 100 %
 --   final     : y / 16 (a 8 bits) + clic del metronomo, saturado a
 --               +-127; el clic no pasa por el volumen
---   salida_pwm: PWM de 8 bits a 195.3 kHz con duty = muestra + 128
--- Todo avanza con tick_fs (una muestra cada 1024 ciclos); la cadena
+--   salida_pwm: PWM de 8 bits a 97.7 kHz con duty = muestra + 128
+-- Todo avanza con tick_fs (una muestra cada 512 ciclos); la cadena
 -- tarda 9 ciclos desde tick_fs hasta la muestra final y el PWM la
 -- toma al empezar su siguiente periodo de 256 ciclos.
 --   clip  : '1' si hubo saturacion (mezcla, eco o suma final) en
@@ -92,7 +92,7 @@ begin
         );
 
     u_eco : entity work.eco
-        generic map (RETARDO => 8192)
+        generic map (RETARDO => 4096)
         port map (
             clk        => clk,
             rst        => rst,
