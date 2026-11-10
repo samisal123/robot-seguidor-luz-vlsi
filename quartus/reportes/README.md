@@ -1,6 +1,6 @@
 # Reportes de Quartus
 
-Reportes que genero Quartus II 13.0 SP1 Web Edition al compilar el sintetizador para la EP2C5T144C8 en la PC del laboratorio (TAREA-025, 9 de noviembre de 2026), copiados tal cual de `quartus/output_files/`:
+Reportes que genero Quartus II 13.0 SP1 Web Edition al compilar el sintetizador para la EP2C5T144C8 en la PC del laboratorio (TAREA-027, 10 de noviembre de 2026, con el diagrama de bloques con cables; da lo mismo que la TAREA-025), copiados tal cual de `quartus/output_files/`:
 
 | Archivo | Etapa |
 |---|---|

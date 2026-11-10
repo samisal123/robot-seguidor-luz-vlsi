@@ -29,15 +29,15 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [!] TAREA-017 @claude-code: Estimar recursos con el Quartus que ya esta instalado (el Quartus de la PC no trae Cyclone IV; la estimacion con MAX 10 dio 5 431 LE, inflada porque las tablas se armaron con logica)
 - [!] TAREA-018 @claude-code: Instalar Quartus II 13.0 SP1 (la descarga pide cuenta de Altera; el equipo baja los archivos)
 - [!] TAREA-019 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
-- [ ] TAREA-020 @equipo: Capturas de Quartus para el primer avance con `sh tools/tomar_capturas.sh` (despues de la TAREA-027; solo si la TAREA-028 no las pudo tomar)
+- [-] TAREA-020 @equipo: Capturas de Quartus para el primer avance (las tomo la TAREA-028; queda la guia `sh tools/tomar_capturas.sh` por si hay que repetir alguna)
 - [x] TAREA-021 @claude-code: Estimar recursos otra vez (MAX 10 con las tablas en memoria): 3 805 LE, cabe en la EP2C5 (83 %)
 - [!] TAREA-022 @claude-code: Instalar Quartus II 13.0 SP1 con los archivos ya descargados (no cupo en el disco: necesita 6 a 7 GB libres)
 - [!] TAREA-023 @claude-code: Compilar el sintetizador para la EP2C5T144 (sin Quartus 13.0 SP1)
 - [x] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio): instalado con Cyclone II; la interfaz grafica pide libpng12
 - [x] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144: 3 782 LE (82 %), 25 MHz con 12.3 ns de margen
-- [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (`sh quartus/arreglar_interfaz.sh`)
-- [ ] TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables dibujados
-- [ ] TAREA-028 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (si la TAREA-026 quedo bien)
+- [x] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (`sh quartus/arreglar_interfaz.sh`)
+- [x] TAREA-027 @claude-code: Compilar con el diagrama de bloques con cables dibujados
+- [x] TAREA-028 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (13 de 14; el State Machine Viewer no dibuja la maquina del secuenciador)
 
 ---
 
