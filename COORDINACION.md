@@ -23,7 +23,7 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [-] TAREA-009 @claude-code: Compilar el robot en Quartus (cancelada por el cambio de proyecto)
 - [-] TAREA-010 a TAREA-012 @equipo: armado y pruebas del robot (canceladas)
 - [x] TAREA-013 @claude-code: Compilar el sintetizador en Quartus para la DE10-Lite (hecha; ya no aplica: la tarjeta del equipo es la EP2C5T144)
-- [ ] TAREA-014 @equipo: Comprar el material ([docs/MATERIALES.md](docs/MATERIALES.md))
+- [ ] TAREA-014 @equipo: Comprar el material ([docs/MATERIALES.md](docs/MATERIALES.md)); ya estan el USB-Blaster, el eliminador, el par de conectores, resistencias, capacitores, bocina y teclados; faltan protoboard, jumpers, PAM8403, botones y DB15
 - [ ] TAREA-015 @equipo: Cablear teclados, botones, audio y VGA ([docs/CABLEADO.md](docs/CABLEADO.md))
 - [ ] TAREA-016 @equipo: Pruebas en la tarjeta y ensayo de la demostración ([docs/PRUEBAS.md](docs/PRUEBAS.md))
 - [!] TAREA-017 @claude-code: Estimar recursos con el Quartus que ya esta instalado (el Quartus de la PC no trae Cyclone IV; la estimacion con MAX 10 dio 5 431 LE, inflada porque las tablas se armaron con logica)

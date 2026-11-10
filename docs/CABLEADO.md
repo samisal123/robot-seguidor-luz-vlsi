@@ -137,6 +137,8 @@ Imagen de 640 × 480 a 60 Hz con 8 colores. Si el monitor solo tiene HDMI, hace 
 El USB-Blaster va al conector **JTAG** de 10 pines de la tarjeta (la marca de la pata 1 del cable, normalmente el hilo rojo, hacia la marca de la pata 1 del conector). Con la tarjeta encendida:
 
 - `sh quartus/programar.sh` carga el diseño por JTAG; se pierde al apagar.
+- En Linux, si `jtagconfig` dice `Insufficient port permissions`, falta una regla de udev (una sola vez, con sudo):
+  `echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"' | sudo tee /etc/udev/rules.d/51-usbblaster.rules`, luego `sudo udevadm control --reload-rules && sudo udevadm trigger`, `killall jtagd` y reconectar el USB-Blaster. `jtagconfig` debe mostrar `020B10DD EP2C5`.
 - `sh quartus/grabar_flash.sh` lo graba en la EPCS4 por el conector **AS** (mover el cable a ese conector); así la tarjeta arranca con el sintetizador cada vez que se enciende.
 
 ## Lista de conexiones para revisar antes de encender
