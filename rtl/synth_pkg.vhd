@@ -22,7 +22,7 @@ package synth_pkg is
     constant CLK_HZ_SIS : natural := 25_000_000;   -- reloj del sistema
     constant FS_DIV     : natural := 512;          -- ciclos de reloj por muestra
 
-    -- Modos de operacion (el boton MODO los recorre en este orden)
+    -- Modos de operacion (la tecla MODO los recorre en este orden)
     constant M_INT  : std_logic_vector(1 downto 0) := "00";   -- interpretacion
     constant M_GRA  : std_logic_vector(1 downto 0) := "01";   -- grabacion
     constant M_REP  : std_logic_vector(1 downto 0) := "10";   -- reproduccion
@@ -53,7 +53,7 @@ package synth_pkg is
     constant P_RELEASE : natural := 4;
     constant P_VOLUMEN : natural := 5;
     constant P_TEMPO   : natural := 6;
-    constant P_EFECTO  : natural := 7;
+    constant N_PARAM   : natural := 7;   -- el efecto tiene su tecla directa
 
     -- Octava base del teclado 1 (el teclado 2 suena una octava arriba)
     constant OCT_MIN : natural := 2;

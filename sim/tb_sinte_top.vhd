@@ -6,7 +6,8 @@
 -- contando los ciclos de 50 MHz en alto de cada ventana de 1024
 -- (una muestra): 2 periodos de PWM de 512 dan 4 * (muestra + 128);
 -- se le resta 512. La frecuencia se mide con el tiempo entre
--- cruces por cero. Los modos se cambian con el boton MODO.
+-- cruces por cero. Los modos se cambian con la tecla MODO (A del
+-- teclado 2); ACCION es la B y METRONOMO la C del teclado 2.
 -- Revisa:
 --   1) arranque: LEDs apagados y silencio
 --   2) tecla A del teclado 1: 440 Hz
@@ -16,16 +17,18 @@
 --   5) octava + (tecla B del teclado 1): A5 = 880 Hz en el teclado
 --      1 y A6 = 1760 Hz en el teclado 2; octava - la regresa
 --   6) configuracion (3 veces MODO): forma triangular y release de
---      20 ms desde los teclados; de regreso en interpretacion A4
+--      20 ms desde el teclado 1; los LEDs parpadean con el numero
+--      del parametro (5 = release); de regreso en interpretacion A4
 --      sigue en 440 Hz, la onda ya no es cuadrada y calla a los
 --      50 ms de soltar
---   7) grabacion (ACCION inicia y finaliza, LED D4) de una melodia
---      corta y su reproduccion (LED D5): la primera nota suena a su
---      frecuencia y la reproduccion dura lo mismo que la grabacion
---      (+-2 ms)
---   8) metronomo con su boton: destello en D2 y clic en el audio
+--   7) grabacion (ACCION inicia y finaliza; D4 parpadea en espera y
+--      queda fijo mientras graba) de una melodia corta y su
+--      reproduccion (D5 fijo): la primera nota suena a su
+--      frecuencia, la segunda entra 100 ms despues (+-5 ms, por el
+--      barrido de 4 ms del teclado) y al terminar D5 vuelve a
+--      parpadear
+--   8) metronomo con su tecla: destello en D2 y clic en el audio
 --      sin notas; al apagarlo D2 ya no destella
---   9) VGA: periodos de HS (32 us) y VS (16.8 ms)
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -40,15 +43,12 @@ architecture sim of tb_sinte_top is
 
     signal clk       : std_logic := '0';
     signal BTN_RESET : std_logic := '1';
-    signal BTN       : std_logic_vector(2 downto 0) := "111";   -- MODO, ACCION, METRONOMO
     signal LED       : std_logic_vector(2 downto 0);            -- D2, D4, D5 ('0' = encendido)
     signal TEC1_FIL  : std_logic_vector(3 downto 0);
     signal TEC1_COL  : std_logic_vector(3 downto 0);
     signal TEC2_FIL  : std_logic_vector(3 downto 0);
     signal TEC2_COL  : std_logic_vector(3 downto 0);
     signal AUDIO_PWM : std_logic;
-    signal VGA_R, VGA_G, VGA_B : std_logic;
-    signal VGA_HS, VGA_VS : std_logic;
 
     signal pres1 : std_logic_vector(15 downto 0) := (others => '0');
     signal pres2 : std_logic_vector(15 downto 0) := (others => '0');
@@ -75,18 +75,12 @@ begin
         port map (
             CLOCK_50  => clk,
             BTN_RESET => BTN_RESET,
-            BTN       => BTN,
             TEC1_COL  => TEC1_COL,
             TEC2_COL  => TEC2_COL,
             LED       => LED,
             TEC1_FIL  => TEC1_FIL,
             TEC2_FIL  => TEC2_FIL,
-            AUDIO_PWM => AUDIO_PWM,
-            VGA_R     => VGA_R,
-            VGA_G     => VGA_G,
-            VGA_B     => VGA_B,
-            VGA_HS    => VGA_HS,
-            VGA_VS    => VGA_VS
+            AUDIO_PWM => AUDIO_PWM
         );
 
     teclado1 : entity work.modelo_teclado
@@ -111,25 +105,6 @@ begin
                 alto := 0;
             end if;
         end if;
-    end process;
-
-    -- 9) sincronia VGA
-    vga : process
-        variable t0 : time;
-    begin
-        wait until falling_edge(VGA_HS);
-        for i in 1 to 5 loop
-            t0 := now;
-            wait until falling_edge(VGA_HS);
-            assert now - t0 = 32 us
-                report "tb_sinte_top: periodo de HS incorrecto" severity error;
-        end loop;
-        wait until falling_edge(VGA_VS);
-        t0 := now;
-        wait until falling_edge(VGA_VS);
-        assert now - t0 = 16800 us
-            report "tb_sinte_top: periodo de VS incorrecto" severity error;
-        wait;
     end process;
 
     estimulo : process
@@ -211,13 +186,10 @@ begin
             espera_ms(30);
         end procedure;
 
-        -- botones del panel: 0 MODO, 1 ACCION, 2 METRONOMO
-        procedure boton (n : natural) is
+        -- teclas del teclado 2: A MODO, B ACCION, C METRONOMO
+        procedure modo_sig is
         begin
-            BTN(n) <= '0';
-            espera_ms(30);
-            BTN(n) <= '1';
-            espera_ms(30);
+            pulsa(pres2, T_A);
         end procedure;
 
         procedure silencio (n : natural; msg : string) is
@@ -230,8 +202,9 @@ begin
         end procedure;
 
         variable f        : real;
-        variable t_g0, t_g1, t_r0, t_r1 : time;
-        variable vio_clic : boolean;
+        variable t_r0, t_r1 : time;
+        variable vio_clic, vio : boolean;
+        variable ceros    : natural;
         variable pico1, pico3, medios, pico_t, medios_t : natural;
     begin
         -- 1) arranque
@@ -292,15 +265,24 @@ begin
 
         -- 6) configuracion: forma triangular y release de 20 ms
         report "tb_sinte_top: paso 6 configuracion";
-        boton(0);                          -- grabacion
-        boton(0);                          -- reproduccion
-        boton(0);                          -- configuracion
+        modo_sig;                          -- grabacion
+        modo_sig;                          -- reproduccion
+        modo_sig;                          -- configuracion
         pulsa(pres1, T_B);                 -- forma: valor + = triangular
         for i in 1 to 4 loop
             pulsa(pres1, T_D);             -- parametro siguiente hasta release
         end loop;
-        pulsa(pres2, T_A);                 -- release: valor - = 20 ms (teclado 2)
-        boton(0);                          -- interpretacion
+        pulsa(pres1, T_A);                 -- release: valor - = 20 ms
+        -- parametro 5 (release) en binario: D5 y D2 parpadeando
+        vio := false;
+        for i in 1 to 300 loop
+            espera_ms(1);
+            if LED = "010" then vio := true; end if;
+            assert LED = "010" or LED = "111"
+                report "tb_sinte_top: en configuracion los LEDs deben mostrar 5 (release)" severity error;
+        end loop;
+        assert vio report "tb_sinte_top: en configuracion no parpadeo el numero del parametro" severity error;
+        modo_sig;                          -- interpretacion
         pres1(T_AST) <= '1';
         espera_ms(30);
         mide(12, f);
@@ -315,52 +297,66 @@ begin
 
         -- 7) grabacion: C4 60 ms, silencio 40 ms, E4 50 ms
         report "tb_sinte_top: paso 7 grabacion";
-        boton(0);                          -- grabacion
-        BTN(1) <= '0';
-        wait until LED(1) = '0' for 40 ms;
-        assert LED(1) = '0' report "tb_sinte_top: ACCION debe iniciar la grabacion (D4)" severity error;
-        t_g0 := now;
-        espera_ms(10);
-        BTN(1) <= '1';
-        espera_ms(25);
+        modo_sig;                          -- grabacion
+        pulsa(pres2, T_B);                 -- ACCION: inicia
+        -- D4 fijo mientras graba
         pres1(T_1) <= '1';
-        espera_ms(60);
+        for i in 1 to 6 loop
+            espera_ms(10);
+            assert LED(1) = '0' report "tb_sinte_top: D4 debe quedar fijo mientras graba" severity error;
+        end loop;
         pres1 <= (others => '0');
         espera_ms(40);
         pres1(T_5) <= '1';
         espera_ms(50);
         pres1 <= (others => '0');
         espera_ms(30);
-        BTN(1) <= '0';
-        wait until LED(1) = '1' for 40 ms;
+        assert LED(1) = '0' report "tb_sinte_top: D4 debe seguir fijo hasta finalizar" severity error;
+        pulsa(pres2, T_B);                 -- ACCION: finaliza
+        -- en espera D4 vuelve a parpadear: se apaga dentro de un segundo
+        wait until LED(1) = '1' for 1100 ms;
         assert LED(1) = '1' report "tb_sinte_top: ACCION debe finalizar la grabacion" severity error;
-        t_g1 := now;
-        espera_ms(10);
-        BTN(1) <= '1';
-        espera_ms(25);
 
         -- reproduccion
         report "tb_sinte_top: paso 7 reproduccion";
-        boton(0);                          -- reproduccion
-        BTN(1) <= '0';
-        wait until LED(2) = '0' for 40 ms;
-        assert LED(2) = '0' report "tb_sinte_top: ACCION debe iniciar la reproduccion (D5)" severity error;
-        t_r0 := now;
+        modo_sig;                          -- reproduccion
+        pres2(T_B) <= '1';                 -- ACCION: inicia
         wait until audio /= 0 for 100 ms;
+        t_r0 := now;
+        assert LED(2) = '0' report "tb_sinte_top: D5 debe estar fijo al reproducir" severity error;
         mide(8, f);
         revisa_f(f, 261.63, "C4 reproducido");
-        BTN(1) <= '1';
-        wait until LED(2) = '1' for 400 ms;
-        assert LED(2) = '1' report "tb_sinte_top: la reproduccion debe terminar sola" severity error;
+        pres2 <= (others => '0');
+        -- fin de C4 (release de 20 ms): 50 muestras seguidas en 0 (1 ms;
+        -- un solo 0 puede ser un cruce de la onda); luego entra E4
+        ceros := 0;
+        for i in 1 to 10000 loop
+            wait on n_muestra;
+            if audio = 0 then ceros := ceros + 1; else ceros := 0; end if;
+            exit when ceros = 50;
+        end loop;
+        assert ceros = 50 report "tb_sinte_top: no hubo silencio entre C4 y E4" severity error;
+        for i in 1 to 10000 loop
+            wait on n_muestra;
+            exit when audio /= 0;
+        end loop;
         t_r1 := now;
-        assert abs ((t_r1 - t_r0) - (t_g1 - t_g0)) <= 2 ms
-            report "tb_sinte_top: la reproduccion no dura lo que la grabacion" severity error;
+        assert abs ((t_r1 - t_r0) - 100 ms) <= 5 ms
+            report "tb_sinte_top: E4 debe entrar 100 ms despues de C4 ("
+                   & time'image(t_r1 - t_r0) & ")" severity error;
+        assert LED(2) = '0' report "tb_sinte_top: D5 debe seguir fijo" severity error;
+        mide(8, f);
+        revisa_f(f, 329.63, "E4 reproducido");
+        -- al terminar D5 vuelve a parpadear
+        wait until LED(2) = '1' for 1200 ms;
+        assert LED(2) = '1' report "tb_sinte_top: la reproduccion debe terminar sola" severity error;
+        silencio(50, "al terminar la reproduccion");
 
         -- 8) metronomo
         report "tb_sinte_top: paso 8 metronomo";
-        boton(0);                          -- configuracion
-        boton(0);                          -- interpretacion
-        BTN(2) <= '0';
+        modo_sig;                          -- configuracion
+        modo_sig;                          -- interpretacion
+        pres2(T_C) <= '1';                 -- METRONOMO
         wait until LED(0) = '0' for 40 ms;
         assert LED(0) = '0'
             report "tb_sinte_top: el metronomo debe encender y marcar el primer tiempo (D2)" severity error;
@@ -372,9 +368,9 @@ begin
             end if;
         end loop;
         assert vio_clic report "tb_sinte_top: el metronomo no sono" severity error;
-        BTN(2) <= '1';
+        pres2 <= (others => '0');
         espera_ms(30);
-        boton(2);
+        pulsa(pres2, T_C);
         wait until LED(0) = '0' for 600 ms;
         assert LED(0) = '1' report "tb_sinte_top: con el metronomo apagado D2 no debe destellar"
             severity error;

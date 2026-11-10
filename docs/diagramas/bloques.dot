@@ -7,16 +7,14 @@ digraph bloques {
 
     OSC [label="oscilador\n50 MHz", fillcolor="#fff4e8", color="#b5651d"];
     T1  [label="Teclado 1\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
-    T2  [label="Teclado 2\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
-    PL  [label="botones\nMODO, ACCION,\nMETRONOMO", fillcolor="#fff4e8", color="#b5651d"];
+    T2  [label="Teclado 2\n4 x 4 (A-D: MODO, ACCION,\nMETRONOMO, VOLUMEN)", fillcolor="#fff4e8", color="#b5651d"];
 
     subgraph cluster_fpga {
         label="Cyclone II EP2C5T144C8: reloj unico de 25 MHz con tick_fs (48.8 kHz) y tick_1ms"; style="rounded"; color="#2f5597"; fontcolor="#2f5597";
         PLL [label="pll_25mhz\n50 -> 25 MHz", fillcolor="#f3eefb", color="#6a4cc4"];
         IT  [label="interfaz_teclados\nbarrido + antirrebote"];
-        EP  [label="entradas_placa\nsync + antirrebote"];
         TN  [label="teclas_notas\n3 notas (en serie)\n+ funciones"];
-        CT  [label="control\nmodos y parametros", fillcolor="#e8f1e4", color="#2e7d32"];
+        CT  [label="control\nmodo y parametros", fillcolor="#e8f1e4", color="#2e7d32"];
         SQ  [label="secuenciador\nmemoria 256 x 37", fillcolor="#fdecea", color="#b03a2e"];
         SL  [label="selector_notas"];
         GV  [label="gestor_voces"];
@@ -24,22 +22,19 @@ digraph bloques {
         V1  [label="voz 1\nDDS + onda + ADSR"];
         V2  [label="voz 2\nDDS + onda + ADSR"];
         AU  [label="audio_salida\nmezcla, tremolo, eco,\nvolumen, metronomo, PWM", fillcolor="#e9f6ec", color="#1e7b34"];
-        VG  [label="vga_ui\n640 x 480, 8 colores"];
-        LE  [label="leds_estado"];
+        LE  [label="leds_estado\nmodo y estado"];
     }
 
     RC  [label="filtro RC\nPAM8403, bocina", fillcolor="#fff4e8", color="#b5651d"];
-    MON [label="monitor VGA", fillcolor="#fff4e8", color="#b5651d"];
     LD  [label="LEDs D2, D4, D5", fillcolor="#fff4e8", color="#b5651d"];
 
-    {rank=source; OSC; T1; T2; PL}
-    {rank=sink; RC; MON; LD}
+    {rank=source; OSC; T1; T2}
+    {rank=sink; RC; LD}
 
     OSC -> PLL [label="CLOCK_50"];
-    T1 -> IT; T2 -> IT; PL -> EP;
+    T1 -> IT; T2 -> IT;
     IT -> TN [label="teclas"];
-    TN -> CT [label="func"];
-    EP -> CT [label="modo, accion, metro"];
+    TN -> CT [label="func (A-D)"];
     TN -> SQ [label="vivo"];
     CT -> SQ [label="ordenes"];
     TN -> SL [label="vivo"];
@@ -50,6 +45,6 @@ digraph bloques {
     V0 -> AU; V1 -> AU; V2 -> AU;
     CT -> AU [label="volumen, efecto, tempo", style=dashed];
     AU -> RC [label="AUDIO_PWM"];
-    CT -> VG [style=dashed]; GV -> VG [style=dashed]; SQ -> VG [style=dashed]; VG -> MON;
-    AU -> LE [label="beat", style=dashed]; SQ -> LE [style=dashed]; LE -> LD;
+    AU -> LE [label="beat", style=dashed]; SQ -> LE [style=dashed];
+    CT -> LE [label="modo, parametro", style=dashed]; LE -> LD;
 }

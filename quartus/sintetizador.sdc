@@ -6,7 +6,7 @@ derive_pll_clocks
 derive_clock_uncertainty
 
 # Las entradas externas son asincronas y entran por sync_2ff; las
-# salidas van a LEDs, filas de los teclados, PWM de audio y VGA,
+# salidas van a LEDs, filas de los teclados y PWM de audio,
 # sin requisito de tiempo respecto a otro reloj.
-set_false_path -from [get_ports {BTN_RESET BTN[*] TEC1_COL[*] TEC2_COL[*]}]
-set_false_path -to [get_ports {LED[*] TEC1_FIL[*] TEC2_FIL[*] AUDIO_PWM VGA_*}]
+set_false_path -from [get_ports {BTN_RESET TEC1_COL[*] TEC2_COL[*]}]
+set_false_path -to [get_ports {LED[*] TEC1_FIL[*] TEC2_FIL[*] AUDIO_PWM}]

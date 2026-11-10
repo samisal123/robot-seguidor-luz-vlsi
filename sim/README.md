@@ -7,8 +7,6 @@ Modelos que usan las pruebas (los importa `correr.sh` automáticamente):
 - `modelo_teclado.vhd`: teclado matricial 4 × 4 de membrana con pull-up en las columnas.
 - `modelo_pll.vhd`: la misma entidad que el PLL de Quartus (`quartus/ip/pll_25mhz.vhd`): divide el reloj de 50 MHz entre 2 y se engancha después de 20 ciclos.
 
-`captura_vga.vhd` guarda un cuadro de la VGA como imagen (se corre aparte, ver su encabezado).
-
 ## Cómo correrlos (GHDL)
 
 ```bash

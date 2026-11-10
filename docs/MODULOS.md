@@ -4,7 +4,7 @@ Generado con `python3 tools/genera_modulos.py` a partir de los encabezados y las
 
 Convenciones: un solo reloj `clk` de 25 MHz; `rst` síncrono y activo en alto; los pulsos `tick_fs` (una vez por muestra, 48 828 Hz) y `tick_1ms` duran un ciclo; las señales activas en bajo terminan en `_n`.
 
-Índice: [`sinte_top`](#sinte_top) · [`reset_encendido`](#reset_encendido) · [`base_tiempo`](#base_tiempo) · [`sync_2ff`](#sync_2ff) · [`debounce`](#debounce) · [`interfaz_teclados`](#interfaz_teclados) · [`teclado_scan`](#teclado_scan) · [`teclas_notas`](#teclas_notas) · [`entradas_placa`](#entradas_placa) · [`control`](#control) · [`selector_notas`](#selector_notas) · [`secuenciador`](#secuenciador) · [`memoria_eventos`](#memoria_eventos) · [`gestor_voces`](#gestor_voces) · [`voz`](#voz) · [`dds`](#dds) · [`forma_onda`](#forma_onda) · [`adsr`](#adsr) · [`audio_salida`](#audio_salida) · [`mezclador`](#mezclador) · [`tremolo`](#tremolo) · [`eco`](#eco) · [`volumen`](#volumen) · [`metronomo`](#metronomo) · [`salida_pwm`](#salida_pwm) · [`leds_estado`](#leds_estado) · [`vga_ui`](#vga_ui) · [`synth_pkg`](#synth_pkg) · [`fuente_5x7`](#fuente_5x7)
+Índice: [`sinte_top`](#sinte_top) · [`reset_encendido`](#reset_encendido) · [`base_tiempo`](#base_tiempo) · [`sync_2ff`](#sync_2ff) · [`interfaz_teclados`](#interfaz_teclados) · [`teclado_scan`](#teclado_scan) · [`teclas_notas`](#teclas_notas) · [`control`](#control) · [`selector_notas`](#selector_notas) · [`secuenciador`](#secuenciador) · [`memoria_eventos`](#memoria_eventos) · [`gestor_voces`](#gestor_voces) · [`voz`](#voz) · [`dds`](#dds) · [`forma_onda`](#forma_onda) · [`adsr`](#adsr) · [`audio_salida`](#audio_salida) · [`mezclador`](#mezclador) · [`tremolo`](#tremolo) · [`eco`](#eco) · [`volumen`](#volumen) · [`metronomo`](#metronomo) · [`salida_pwm`](#salida_pwm) · [`leds_estado`](#leds_estado) · [`synth_pkg`](#synth_pkg)
 
 ## Nivel superior
 
@@ -25,27 +25,21 @@ bloques). Para cambiar conexiones, editar el script.
                                               |
   audio_salida: mezcla -> efectos -> volumen -> + metronomo -> PWM
 
-  control: modos (boton MODO), teclas de funcion, botones
-  ACCION y METRONOMO, parametros y ordenes al secuenciador
-  vga_ui y leds_estado: interfaz de usuario
+  control: modo, teclas de funcion (MODO, ACCION, METRONOMO y
+  VOLUMEN en el teclado 2), parametros y ordenes al secuenciador
+  leds_estado: modo y estado en los 3 LEDs de la tarjeta
 ```
 
 | Puerto | Dir. | Tipo | Comentario |
 |---|---|---|---|
 | `CLOCK_50` | in | `std_logic` | oscilador de 50 MHz de la tarjeta (pin 17) |
 | `BTN_RESET` | in | `std_logic` | boton RESET de la tarjeta, 0 = presionado (pin 144) |
-| `BTN` | in | `std_logic_vector(2 downto 0)` | botones METRONOMO, ACCION y MODO (2..0), 0 = presionado |
 | `TEC1_COL` | in | `std_logic_vector(3 downto 0)` | columnas del teclado 1, 0 = tecla (pull-up) |
 | `TEC2_COL` | in | `std_logic_vector(3 downto 0)` | columnas del teclado 2 |
 | `LED` | out | `std_logic_vector(2 downto 0)` | LEDs D5, D4, D2 de la tarjeta (2..0), activos en bajo |
 | `TEC1_FIL` | out | `std_logic_vector(3 downto 0)` | filas del teclado 1 (0 o alta impedancia) |
 | `TEC2_FIL` | out | `std_logic_vector(3 downto 0)` | filas del teclado 2 |
 | `AUDIO_PWM` | out | `std_logic` | PWM de audio de 97.7 kHz (pin 93) |
-| `VGA_R` | out | `std_logic` | rojo (270 ohm al DB15) |
-| `VGA_G` | out | `std_logic` | verde |
-| `VGA_B` | out | `std_logic` | azul |
-| `VGA_HS` | out | `std_logic` | sincronia horizontal |
-| `VGA_VS` | out | `std_logic` | sincronia vertical |
 
 Verificación: `sim/tb_sinte_top.vhd`.
 
@@ -120,36 +114,6 @@ No lleva reset: arranca en INIT por valor de encendido.
 | `q` | out | `std_logic_vector(WIDTH - 1 downto 0)` |  |
 
 Verificación: `sim/tb_sync_2ff.vhd`.
-
-### debounce
-
-```text
-Filtro antirrebote para botones y switches. La salida clean
-toma el valor de raw solo despues de que raw se mantuvo
-distinto de clean durante N_MS ticks de 1 ms seguidos (entre
-N_MS-1 y N_MS ms, segun la fase del tick). Cualquier rebote
-reinicia la cuenta.
-raw ya debe venir sincronizado (sync_2ff).
-rise y fall son pulsos de un ciclo cuando clean sube o baja;
-sirven, por ejemplo, para que un boton de una sola orden por pulsacion.
-```
-
-| Genérico | Tipo y valor | Comentario |
-|---|---|---|
-| `N_MS` | `positive  := 20` |  |
-| `INIT` | `std_logic := '0'` | valor de clean tras reset |
-
-| Puerto | Dir. | Tipo | Comentario |
-|---|---|---|---|
-| `clk` | in | `std_logic` |  |
-| `rst` | in | `std_logic` | sincrono, activo en alto |
-| `tick_1ms` | in | `std_logic` |  |
-| `raw` | in | `std_logic` |  |
-| `clean` | out | `std_logic` |  |
-| `rise` | out | `std_logic` |  |
-| `fall` | out | `std_logic` |  |
-
-Verificación: `sim/tb_debounce.vhd`.
 
 ## Entradas
 
@@ -261,61 +225,37 @@ cada milisegundo, asi que la latencia no se nota.
 
 Verificación: `sim/tb_teclas_notas.vhd`.
 
-### entradas_placa
-
-```text
-Botones del panel (activos en bajo, con el pull-up interno de
-la FPGA):
-  btn(0) MODO      -> cada pulsacion pasa al siguiente modo:
-                      interpretacion, grabacion, reproduccion,
-                      configuracion y de nuevo interpretacion
-  btn(1) ACCION    -> accion: pulso de un ciclo al presionar
-  btn(2) METRONOMO -> metro_btn: pulso de un ciclo al presionar
-Cada boton pasa por un sincronizador de 2 flip-flops y un
-antirrebote de 20 ms. Despues del reset el modo es
-interpretacion.
-```
-
-| Puerto | Dir. | Tipo | Comentario |
-|---|---|---|---|
-| `clk` | in | `std_logic` |  |
-| `rst` | in | `std_logic` | sincrono, activo en alto |
-| `tick_1ms` | in | `std_logic` |  |
-| `btn` | in | `std_logic_vector(2 downto 0)` | '0' = presionado |
-| `accion` | out | `std_logic` |  |
-| `metro_btn` | out | `std_logic` |  |
-| `modo` | out | `std_logic_vector(1 downto 0)` |  |
-
-Verificación: `sim/tb_entradas_placa.vhd`.
-
 ## Control y secuenciador
 
 ### control
 
 ```text
-Unidad principal de control. Guarda los parametros del
-sintetizador, interpreta las teclas de funcion segun el modo
-y manda las ordenes al secuenciador.
+Unidad principal de control. Lleva el modo de operacion,
+guarda los parametros del sintetizador, interpreta las teclas
+de funcion (columna A-D de los dos teclados) y manda las ordenes
+al secuenciador.
 
-Modo (boton MODO): 00 interpretacion, 01 grabacion,
-                10 reproduccion, 11 configuracion.
+Modo: 00 interpretacion, 01 grabacion, 10 reproduccion,
+      11 configuracion. Despues del reset: interpretacion.
 
-Teclas de funcion (columna A-D de cada teclado):
+Teclado 2, en cualquier modo:
+  A MODO       pasa al siguiente modo (interpretacion,
+               grabacion, reproduccion, configuracion, ...)
+  B ACCION     en grabacion inicia o finaliza la grabacion; en
+               reproduccion inicia o detiene la reproduccion
+  C METRONOMO  enciende o apaga el metronomo
+  D VOLUMEN    volumen siguiente: 0 (silencio), 1, 2, 3, 4, 0...
+Teclado 1:
   Interpretacion, grabacion y reproduccion:
-    teclado 1: A octava -, B octava +, C forma siguiente,
-               D efecto siguiente
-    teclado 2: A volumen -, B volumen +, C tempo -, D tempo +
-  Configuracion (cualquiera de los dos teclados):
+    A octava -, B octava +, C forma siguiente, D efecto siguiente
+  Configuracion:
     A valor -, B valor +, C parametro anterior,
     D parametro siguiente
-  Parametros: forma, attack, decay, sustain, release, volumen,
-  tempo y efecto (synth_pkg). Los valores se quedan en sus
-  limites (no dan la vuelta); forma y efecto si dan la vuelta
-  con sus teclas directas.
+  Parametros de configuracion: forma, attack, decay, sustain,
+  release, volumen y tempo (synth_pkg). Los valores se quedan en
+  sus limites (no dan la vuelta); forma, efecto y volumen si dan
+  la vuelta con sus teclas directas.
 
-ACCION: en grabacion inicia o finaliza la grabacion; en
-reproduccion inicia o detiene la reproduccion.
-METRONOMO: enciende o apaga el metronomo (en cualquier modo).
 metro_suena = metro_on, salvo mientras se reproduce una
 secuencia (el metronomo se usa al interpretar y al grabar).
 Si se cambia de modo a mitad de una grabacion o reproduccion,
@@ -326,11 +266,9 @@ esta se termina (cmd_parar).
 |---|---|---|---|
 | `clk` | in | `std_logic` |  |
 | `rst` | in | `std_logic` | sincrono, activo en alto |
-| `modo` | in | `std_logic_vector(1 downto 0)` |  |
 | `func` | in | `std_logic_vector(7 downto 0)` | pulsos A-D teclado 1 (3..0) y 2 (7..4) |
-| `accion` | in | `std_logic` | pulso del boton ACCION |
-| `metro_btn` | in | `std_logic` | pulso del boton METRONOMO |
 | `estado_sec` | in | `std_logic_vector(1 downto 0)` |  |
+| `modo` | out | `std_logic_vector(1 downto 0)` |  |
 | `forma` | out | `std_logic_vector(1 downto 0)` |  |
 | `atk` | out | `std_logic_vector(1 downto 0)` |  |
 | `dec` | out | `std_logic_vector(1 downto 0)` |  |
@@ -342,7 +280,7 @@ esta se termina (cmd_parar).
 | `metro_on` | out | `std_logic` |  |
 | `metro_suena` | out | `std_logic` |  |
 | `octava` | out | `std_logic_vector(2 downto 0)` |  |
-| `parametro` | out | `std_logic_vector(2 downto 0)` |  |
+| `parametro` | out | `std_logic_vector(2 downto 0)` | 0 forma .. 6 tempo |
 | `cmd_grabar` | out | `std_logic` |  |
 | `cmd_reproducir` | out | `std_logic` |  |
 | `cmd_parar` | out | `std_logic` |  |
@@ -856,17 +794,27 @@ Verificación: `sim/tb_salida_pwm.vhd`.
 ### leds_estado
 
 ```text
-Los 3 LEDs de la tarjeta EP2C5T144 (se encienden con '0'):
-  led_n(0)  D2  tiempo del metronomo: destello de 100 ms en cada
-                tiempo, solo con el metronomo encendido
-  led_n(1)  D4  grabando
-  led_n(2)  D5  reproduciendo
-El resto del estado se ve en la pantalla VGA.
+Los 3 LEDs de la tarjeta EP2C5T144 (se encienden con '0')
+muestran el modo y el estado, porque el sintetizador no tiene
+pantalla:
+  Interpretacion, grabacion y reproduccion:
+    led_n(0) D2  tiempo del metronomo: destello de 100 ms en
+                 cada tiempo, solo con el metronomo encendido
+    led_n(1) D4  grabacion: parpadea lento (1 Hz) mientras espera
+                 la orden y queda fijo mientras graba
+    led_n(2) D5  reproduccion: parpadea lento mientras espera y
+                 queda fijo mientras reproduce
+  Configuracion: los 3 LEDs parpadean rapido (4 Hz) con el numero
+  del parametro elegido en binario (D2 = bit 0, D4 = bit 1,
+  D5 = bit 2): 1 forma, 2 attack, 3 decay, 4 sustain, 5 release,
+  6 volumen, 7 tempo.
+  Interpretacion sin metronomo: los 3 apagados.
 ```
 
 | Genérico | Tipo y valor | Comentario |
 |---|---|---|
-| `BEAT_MS` | `positive := 100` |  |
+| `BEAT_MS` | `positive := 100` | destello del metronomo |
+| `PERIODO_MS` | `positive := 1000` | parpadeo lento; el rapido es 4 veces mas rapido |
 
 | Puerto | Dir. | Tipo | Comentario |
 |---|---|---|---|
@@ -875,118 +823,12 @@ El resto del estado se ve en la pantalla VGA.
 | `tick_1ms` | in | `std_logic` |  |
 | `metro_on` | in | `std_logic` |  |
 | `beat` | in | `std_logic` |  |
+| `modo` | in | `std_logic_vector(1 downto 0)` |  |
 | `estado_sec` | in | `std_logic_vector(1 downto 0)` |  |
+| `parametro` | in | `std_logic_vector(2 downto 0)` | 0 forma .. 6 tempo |
 | `led_n` | out | `std_logic_vector(2 downto 0)` | '0' = encendido |
 
 Verificación: `sim/tb_leds_estado.vhd`.
-
-### vga_ui
-
-```text
-Interfaz grafica VGA del sintetizador: 640x480 a 60 Hz con
-1 bit por color (8 colores; una resistencia de 270 ohm por color
-entre la FPGA y el conector VGA). En la tarjeta EP2C5T144 es la
-interfaz principal: muestra el modo, los parametros, las notas
-de cada voz y el estado del secuenciador.
-
-Pantalla (x, y en pixeles; el texto va en una cuadricula de
-celdas de 12x16 con letras 5x7 al doble de tamano):
-  y   0- 63  Banda del modo, de color segun el modo (azul
-             INTERPRETACION, rojo GRABACION, verde REPRODUCCION,
-             magenta CONFIGURACION), con el nombre del modo en
-             letras x4. A la derecha: METRONOMO ON/OFF, el tempo
-             en BPM y un foco que se enciende DESTELLO ciclos en
-             cada tiempo (verde; rojo en el tiempo con acento;
-             blanco entre tiempos y azul con el metronomo apagado).
-  y  80- 95  TECLADO 1 y TECLADO 2 sobre su octava.
-  y  96-229  Piano de dos octavas (14 blancas, 10 negras) desde
-             la nota octava*12. La tecla de cada nota que suena
-             (gate en 1) se pinta del color de su voz (V1
-             rojo, V2 verde, V3 cian). Las teclas C llevan
-             C<octava> y C<octava+1>.
-  y 234-387  Tres paneles:
-             PARAMETROS: forma, attack, decay, sustain, release,
-               volumen (con medidor de 4 segmentos), tempo y
-               efecto. En CONFIGURACION el renglon del parametro
-               elegido se resalta en amarillo con una flecha.
-             FORMA DE ONDA: un periodo de la forma elegida
-               (calculado igual que forma_onda) y su nombre.
-             VOCES: nota de cada voz (cian si no tiene gate) y
-               barra de su nivel de envolvente; octava base.
-  y 392-455  SECUENCIADOR: estado (EN ESPERA, GRABANDO con punto
-             rojo que parpadea, REPRODUCIENDO), EVENTOS n/256,
-             barra (AVANCE posicion/eventos al reproducir;
-             MEMORIA eventos/256 si no) y POS n.
-  y 464-477  Pie de pagina.
-
-Tiempos: el reloj del sistema es de 25 MHz, un pixel por ciclo.
-Horizontal 640 + 16 + 96 + 48 = 800 pixeles,
-vertical 480 + 10 + 2 + 33 = 525 lineas, sincronias en bajo.
-Fuera de la zona visible el color es 0.
-
-Las entradas se copian una vez por cuadro (al inicio de la
-ultima linea, antes de la zona visible), asi el cuadro sale
-completo con los mismos datos. En esa copia se decodifican las
-notas, se calcula el umbral de la barra y arranca la conversion
-a BCD de eventos y posicion (doble-dabble, un bit por ciclo).
-El pulso beat se atiende en cada ciclo: arranca la cuenta del
-foco, que el cuadro siguiente muestra encendido.
-
-Tuberia de 5 etapas (los registros cambian cada 40 ns; la
-logica se reparte para que cada etapa sea corta):
-  1 coordenadas y geometria: zona de la pantalla, celda de texto,
-    celda del titulo, tecla blanca (con contadores que avanzan
-    junto con hc, sin divisiones), banderas de los graficos
-    (foco, caja de la onda, barras), producto de la barra y
-    lectura de la ROM de la onda (bloque M4K).
-  2 contenido: codigo del caracter de la cuadricula, tecla negra
-    o blanca y voz que la toca, linea de la onda, rellenos; un
-    color por zona.
-  3 color de fondo segun la zona y letra que toca (titulo,
-    etiqueta del piano o cuadricula).
-  4 fuente: lee la fila del caracter de la ROM de la fuente
-    (otro bloque M4K).
-  5 color final.
-HSYNC y VSYNC pasan por las mismas 5 etapas, asi que siguen
-alineadas con el color.
-```
-
-| Genérico | Tipo y valor | Comentario |
-|---|---|---|
-| `DESTELLO` | `natural := 2_500_000` | ciclos encendido del foco (100 ms a 25 MHz) |
-| `PARPADEO` | `natural := 4` | bit del contador de cuadros del parpadeo (4: ~0.5 s) |
-
-| Puerto | Dir. | Tipo | Comentario |
-|---|---|---|---|
-| `clk` | in | `std_logic` |  |
-| `rst` | in | `std_logic` | sincrono, activo en alto |
-| `modo` | in | `std_logic_vector(1 downto 0)` |  |
-| `estado_sec` | in | `std_logic_vector(1 downto 0)` |  |
-| `forma` | in | `std_logic_vector(1 downto 0)` |  |
-| `atk` | in | `std_logic_vector(1 downto 0)` |  |
-| `dec` | in | `std_logic_vector(1 downto 0)` |  |
-| `sus` | in | `std_logic_vector(1 downto 0)` |  |
-| `rel` | in | `std_logic_vector(1 downto 0)` |  |
-| `volumen` | in | `std_logic_vector(2 downto 0)` | 0 a 4 |
-| `tempo` | in | `std_logic_vector(1 downto 0)` |  |
-| `efecto` | in | `std_logic_vector(1 downto 0)` |  |
-| `metro_on` | in | `std_logic` |  |
-| `beat` | in | `std_logic` | pulso de un ciclo por tiempo |
-| `acento` | in | `std_logic` | junto con beat en el tiempo fuerte |
-| `octava` | in | `std_logic_vector(2 downto 0)` |  |
-| `notas` | in | `std_logic_vector(20 downto 0)` | voz i en 7i+6..7i |
-| `gates` | in | `std_logic_vector(2 downto 0)` |  |
-| `niveles` | in | `std_logic_vector(23 downto 0)` | voz i en 8i+7..8i |
-| `parametro` | in | `std_logic_vector(2 downto 0)` |  |
-| `eventos` | in | `std_logic_vector(8 downto 0)` |  |
-| `posicion` | in | `std_logic_vector(8 downto 0)` |  |
-| `vga_r` | out | `std_logic` |  |
-| `vga_g` | out | `std_logic` |  |
-| `vga_b` | out | `std_logic` |  |
-| `vga_hs` | out | `std_logic` |  |
-| `vga_vs` | out | `std_logic` |  |
-
-Verificación: `sim/tb_vga_ui.vhd`.
 
 ## Paquetes
 
@@ -1005,28 +847,6 @@ Audio: una muestra cada FS_DIV ciclos de 25 MHz
 Notas: n = 12 * octava + semitono (C = 0 ... B = 11); A4 = 57.
        n = 0 significa "sin nota".
 DDS:   acumulador de fase de 24 bits; f = inc * Fs / 2**24.
-```
-
-Paquete: lo usan los módulos que lo importan; sus tablas se revisan en los testbenches de esos módulos.
-
-### fuente_5x7
-
-```text
-Fuente de 5x7 pixeles de la interfaz VGA (vga_ui).
-
-Cada caracter tiene un codigo de 6 bits:
-  0      espacio
-  1-26   A-Z
-  27-36  0-9
-  37-53  % : - / # + . > < ( ) [ ] = ! * ,
-  63     bloque lleno
-Un caracter son 7 filas de 5 bits; el bit 4 es la columna de la
-izquierda. La fila 7 (y cualquier codigo sin dibujo) sale vacia.
-
-txt() y cod_car() convierten texto a codigos. vga_ui solo las
-usa con constantes, asi que se evaluan al elaborar y en hardware
-solo queda la ROM de la fuente (fila_fuente). El testbench usa
-las mismas funciones para revisar lo que sale en pantalla.
 ```
 
 Paquete: lo usan los módulos que lo importan; sus tablas se revisan en los testbenches de esos módulos.

@@ -54,9 +54,9 @@ datos() {   # datos NN -> nombre, segundos de espera e instrucciones
     03) n=03_bdf_completo; t=5
         i="Abre sintetizador.bdf (doble clic en Files) y usa View > Fit in Window para que se vea el diagrama completo." ;;
     04) n=04_bdf_voces; t=5
-        i="En el BDF acerca (Ctrl + rueda) la mitad derecha: gestor_voces, las 3 voz, audio_salida, vga_ui y leds_estado, hasta que se lean los nombres de los bloques y de sus puertos." ;;
+        i="En el BDF acerca (Ctrl + rueda) la mitad derecha: gestor_voces, las 3 voz, audio_salida y leds_estado, hasta que se lean los nombres de los bloques y de sus puertos." ;;
     05) n=05_bdf_control; t=5
-        i="Ahora la mitad izquierda: pll_25mhz, reset_encendido, base_tiempo, entradas_placa, interfaz_teclados, teclas_notas, control, secuenciador y selector_notas." ;;
+        i="Ahora la mitad izquierda: pll_25mhz, reset_encendido, base_tiempo, interfaz_teclados, teclas_notas, control, secuenciador y selector_notas." ;;
     06) n=06_top_level; t=5
         i="Project Navigator, pestana Hierarchy: despliega sintetizador para que se vean sus bloques debajo y, arriba, Cyclone II: EP2C5T144C8." ;;
     07) n=07_flow_summary; t=5

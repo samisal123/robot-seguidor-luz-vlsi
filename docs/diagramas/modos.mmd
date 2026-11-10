@@ -1,9 +1,9 @@
 flowchart TB
-    INT["INTERPRETACION<br/>tocar en vivo"] -- "MODO" --> GRA["GRABACION<br/>ACCION: iniciar / finalizar"]
+    INT["INTERPRETACION<br/>tocar en vivo"] -- "MODO (teclado 2, A)" --> GRA["GRABACION<br/>ACCION: iniciar / finalizar"]
     GRA -- "MODO" --> REP["REPRODUCCION<br/>ACCION: iniciar / detener"]
-    REP -- "MODO" --> CONF["CONFIGURACION<br/>A/B valor, C/D parametro"]
+    REP -- "MODO" --> CONF["CONFIGURACION<br/>teclado 1: A/B valor, C/D parametro"]
     CONF -- "MODO" --> INT
-    GRA -- "ACCION" --> SG["secuenciador:<br/>GRABANDO"]
+    GRA -- "ACCION (teclado 2, B)" --> SG["secuenciador:<br/>GRABANDO"]
     REP -- "ACCION" --> SR["secuenciador:<br/>REPRODUCIENDO"]
     SG -- "ACCION, memoria llena<br/>o cambio de modo" --> ESP["secuenciador:<br/>ESPERA"]
     SR -- "ACCION, fin de la secuencia<br/>o cambio de modo" --> ESP

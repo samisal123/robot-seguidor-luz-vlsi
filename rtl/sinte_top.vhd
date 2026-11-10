@@ -14,9 +14,9 @@
 --                                               |
 --   audio_salida: mezcla -> efectos -> volumen -> + metronomo -> PWM
 --
---   control: modos (boton MODO), teclas de funcion, botones
---   ACCION y METRONOMO, parametros y ordenes al secuenciador
---   vga_ui y leds_estado: interfaz de usuario
+--   control: modo, teclas de funcion (MODO, ACCION, METRONOMO y
+--   VOLUMEN en el teclado 2), parametros y ordenes al secuenciador
+--   leds_estado: modo y estado en los 3 LEDs de la tarjeta
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -25,18 +25,12 @@ entity sinte_top is
     port (
         CLOCK_50      : in  std_logic;                    -- oscilador de 50 MHz de la tarjeta (pin 17)
         BTN_RESET     : in  std_logic;                    -- boton RESET de la tarjeta, 0 = presionado (pin 144)
-        BTN           : in  std_logic_vector(2 downto 0); -- botones METRONOMO, ACCION y MODO (2..0), 0 = presionado
         TEC1_COL      : in  std_logic_vector(3 downto 0); -- columnas del teclado 1, 0 = tecla (pull-up)
         TEC2_COL      : in  std_logic_vector(3 downto 0); -- columnas del teclado 2
         LED           : out std_logic_vector(2 downto 0); -- LEDs D5, D4, D2 de la tarjeta (2..0), activos en bajo
         TEC1_FIL      : out std_logic_vector(3 downto 0); -- filas del teclado 1 (0 o alta impedancia)
         TEC2_FIL      : out std_logic_vector(3 downto 0); -- filas del teclado 2
-        AUDIO_PWM     : out std_logic;                    -- PWM de audio de 97.7 kHz (pin 93)
-        VGA_R         : out std_logic;                    -- rojo (270 ohm al DB15)
-        VGA_G         : out std_logic;                    -- verde
-        VGA_B         : out std_logic;                    -- azul
-        VGA_HS        : out std_logic;                    -- sincronia horizontal
-        VGA_VS        : out std_logic                     -- sincronia vertical
+        AUDIO_PWM     : out std_logic                     -- PWM de audio de 97.7 kHz (pin 93)
     );
 end entity sinte_top;
 
@@ -46,8 +40,6 @@ architecture estructural of sinte_top is
     signal rst            : std_logic;
     signal tick_fs        : std_logic;
     signal tick_1ms       : std_logic;
-    signal accion         : std_logic;
-    signal metro_btn      : std_logic;
     signal modo           : std_logic_vector(1 downto 0);
     signal teclas         : std_logic_vector(31 downto 0);
     signal vivo           : std_logic_vector(20 downto 0);
@@ -69,16 +61,12 @@ architecture estructural of sinte_top is
     signal cmd_parar      : std_logic;
     signal grabado        : std_logic_vector(20 downto 0);
     signal estado_sec     : std_logic_vector(1 downto 0);
-    signal eventos        : std_logic_vector(8 downto 0);
-    signal posicion       : std_logic_vector(8 downto 0);
     signal pedidas        : std_logic_vector(20 downto 0);
     signal notas_v        : std_logic_vector(20 downto 0);
     signal gates          : std_logic_vector(2 downto 0);
     signal activas        : std_logic_vector(2 downto 0);
     signal muestras       : std_logic_vector(23 downto 0);
-    signal niveles        : std_logic_vector(23 downto 0);
     signal beat           : std_logic;
-    signal acento         : std_logic;
 begin
 
     u_pll : entity work.pll_25mhz
@@ -102,17 +90,6 @@ begin
             rst      => rst,
             tick_fs  => tick_fs,
             tick_1ms => tick_1ms
-        );
-
-    u_placa : entity work.entradas_placa
-        port map (
-            clk       => clk,
-            rst       => rst,
-            tick_1ms  => tick_1ms,
-            btn       => BTN,
-            accion    => accion,
-            metro_btn => metro_btn,
-            modo      => modo
         );
 
     u_teclados : entity work.interfaz_teclados
@@ -141,11 +118,9 @@ begin
         port map (
             clk            => clk,
             rst            => rst,
-            modo           => modo,
             func           => func,
-            accion         => accion,
-            metro_btn      => metro_btn,
             estado_sec     => estado_sec,
+            modo           => modo,
             forma          => forma,
             atk            => atk,
             dec            => dec,
@@ -174,8 +149,8 @@ begin
             conjunto       => vivo,
             salida         => grabado,
             estado         => estado_sec,
-            eventos        => eventos,
-            posicion       => posicion,
+            eventos        => open,
+            posicion       => open,
             llena          => open
         );
 
@@ -210,7 +185,7 @@ begin
             sus     => sus,
             rel     => rel,
             muestra => muestras(7 downto 0),
-            nivel   => niveles(7 downto 0),
+            nivel   => open,
             activa  => activas(0)
         );
 
@@ -227,7 +202,7 @@ begin
             sus     => sus,
             rel     => rel,
             muestra => muestras(15 downto 8),
-            nivel   => niveles(15 downto 8),
+            nivel   => open,
             activa  => activas(1)
         );
 
@@ -244,7 +219,7 @@ begin
             sus     => sus,
             rel     => rel,
             muestra => muestras(23 downto 16),
-            nivel   => niveles(23 downto 16),
+            nivel   => open,
             activa  => activas(2)
         );
 
@@ -263,40 +238,9 @@ begin
             tempo    => tempo,
             pwm      => AUDIO_PWM,
             beat     => beat,
-            acento   => acento,
+            acento   => open,
             clip     => open,
             nivel    => open
-        );
-
-    u_vga : entity work.vga_ui
-        port map (
-            clk        => clk,
-            rst        => rst,
-            modo       => modo,
-            estado_sec => estado_sec,
-            forma      => forma,
-            atk        => atk,
-            dec        => dec,
-            sus        => sus,
-            rel        => rel,
-            volumen    => volumen,
-            tempo      => tempo,
-            efecto     => efecto,
-            metro_on   => metro_on,
-            beat       => beat,
-            acento     => acento,
-            octava     => octava,
-            notas      => notas_v,
-            gates      => gates,
-            niveles    => niveles,
-            parametro  => parametro,
-            eventos    => eventos,
-            posicion   => posicion,
-            vga_r      => VGA_R,
-            vga_g      => VGA_G,
-            vga_b      => VGA_B,
-            vga_hs     => VGA_HS,
-            vga_vs     => VGA_VS
         );
 
     u_leds : entity work.leds_estado
@@ -306,7 +250,9 @@ begin
             tick_1ms   => tick_1ms,
             metro_on   => metro_on,
             beat       => beat,
+            modo       => modo,
             estado_sec => estado_sec,
+            parametro  => parametro,
             led_n      => LED
         );
 
