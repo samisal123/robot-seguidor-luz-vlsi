@@ -1,0 +1,506 @@
+Info: *******************************************************************
+Info: Running Quartus II 32-bit Shell
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Copyright (C) 1991-2013 Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, Altera MegaCore Function License 
+    Info: Agreement, or other applicable license agreement, including, 
+    Info: without limitation, that your use is for the sole purpose of 
+    Info: programming logic devices manufactured by Altera and sold by 
+    Info: Altera or its authorized distributors.  Please refer to the 
+    Info: applicable agreement for further details.
+    Info: Processing started: Mon Nov  9 22:10:19 2026
+Info: Command: quartus_sh --flow compile sintetizador
+Info: Quartus(args): compile sintetizador
+Info: Project Name = /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/sintetizador
+Info: Revision Name = sintetizador
+Info: *******************************************************************
+Info: Running Quartus II 32-bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Processing started: Mon Nov  9 22:10:22 2026
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sintetizador -c sintetizador
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 0 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/synth_pkg.vhd
+    Info (12022): Found design unit 1: synth_pkg
+    Info (12022): Found design unit 2: synth_pkg-body
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/adsr.vhd
+    Info (12022): Found design unit 1: adsr-rtl
+    Info (12023): Found entity 1: adsr
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/audio_salida.vhd
+    Info (12022): Found design unit 1: audio_salida-estructural
+    Info (12023): Found entity 1: audio_salida
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/base_tiempo.vhd
+    Info (12022): Found design unit 1: base_tiempo-rtl
+    Info (12023): Found entity 1: base_tiempo
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/control.vhd
+    Info (12022): Found design unit 1: control-rtl
+    Info (12023): Found entity 1: control
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/dds.vhd
+    Info (12022): Found design unit 1: dds-rtl
+    Info (12023): Found entity 1: dds
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/debounce.vhd
+    Info (12022): Found design unit 1: debounce-rtl
+    Info (12023): Found entity 1: debounce
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/eco.vhd
+    Info (12022): Found design unit 1: eco-rtl
+    Info (12023): Found entity 1: eco
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd
+    Info (12022): Found design unit 1: entradas_placa-estructural
+    Info (12023): Found entity 1: entradas_placa
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/forma_onda.vhd
+    Info (12022): Found design unit 1: forma_onda-rtl
+    Info (12023): Found entity 1: forma_onda
+Info (12021): Found 2 design units, including 0 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/fuente_5x7.vhd
+    Info (12022): Found design unit 1: fuente_5x7
+    Info (12022): Found design unit 2: fuente_5x7-body
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/gestor_voces.vhd
+    Info (12022): Found design unit 1: gestor_voces-rtl
+    Info (12023): Found entity 1: gestor_voces
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/interfaz_teclados.vhd
+    Info (12022): Found design unit 1: interfaz_teclados-estructural
+    Info (12023): Found entity 1: interfaz_teclados
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/leds_estado.vhd
+    Info (12022): Found design unit 1: leds_estado-rtl
+    Info (12023): Found entity 1: leds_estado
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/memoria_eventos.vhd
+    Info (12022): Found design unit 1: memoria_eventos-rtl
+    Info (12023): Found entity 1: memoria_eventos
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/metronomo.vhd
+    Info (12022): Found design unit 1: metronomo-rtl
+    Info (12023): Found entity 1: metronomo
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/mezclador.vhd
+    Info (12022): Found design unit 1: mezclador-rtl
+    Info (12023): Found entity 1: mezclador
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/reset_encendido.vhd
+    Info (12022): Found design unit 1: reset_encendido-rtl
+    Info (12023): Found entity 1: reset_encendido
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/salida_pwm.vhd
+    Info (12022): Found design unit 1: salida_pwm-rtl
+    Info (12023): Found entity 1: salida_pwm
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/secuenciador.vhd
+    Info (12022): Found design unit 1: secuenciador-rtl
+    Info (12023): Found entity 1: secuenciador
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/selector_notas.vhd
+    Info (12022): Found design unit 1: selector_notas-rtl
+    Info (12023): Found entity 1: selector_notas
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sinte_top.vhd
+    Info (12022): Found design unit 1: sinte_top-estructural
+    Info (12023): Found entity 1: sinte_top
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/sync_2ff.vhd
+    Info (12022): Found design unit 1: sync_2ff-rtl
+    Info (12023): Found entity 1: sync_2ff
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclado_scan.vhd
+    Info (12022): Found design unit 1: teclado_scan-rtl
+    Info (12023): Found entity 1: teclado_scan
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/teclas_notas.vhd
+    Info (12022): Found design unit 1: teclas_notas-rtl
+    Info (12023): Found entity 1: teclas_notas
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd
+    Info (12022): Found design unit 1: tremolo-rtl
+    Info (12023): Found entity 1: tremolo
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd
+    Info (12022): Found design unit 1: vga_ui-rtl
+    Info (12023): Found entity 1: vga_ui
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/volumen.vhd
+    Info (12022): Found design unit 1: volumen-rtl
+    Info (12023): Found entity 1: volumen
+Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/voz.vhd
+    Info (12022): Found design unit 1: voz-estructural
+    Info (12023): Found entity 1: voz
+Info (12021): Found 2 design units, including 1 entities, in source file ip/pll_25mhz.vhd
+    Info (12022): Found design unit 1: pll_25mhz-syn
+    Info (12023): Found entity 1: pll_25mhz
+Info (12021): Found 1 design units, including 1 entities, in source file sintetizador.bdf
+    Info (12023): Found entity 1: sintetizador
+Info (12127): Elaborating entity "sintetizador" for the top level hierarchy
+Info (12128): Elaborating entity "audio_salida" for hierarchy "audio_salida:u_audio"
+Info (12128): Elaborating entity "mezclador" for hierarchy "audio_salida:u_audio|mezclador:u_mez"
+Info (12128): Elaborating entity "tremolo" for hierarchy "audio_salida:u_audio|tremolo:u_tre"
+Info (12128): Elaborating entity "eco" for hierarchy "audio_salida:u_audio|eco:u_eco"
+Info (12128): Elaborating entity "volumen" for hierarchy "audio_salida:u_audio|volumen:u_vol"
+Info (12128): Elaborating entity "metronomo" for hierarchy "audio_salida:u_audio|metronomo:u_met"
+Info (12128): Elaborating entity "salida_pwm" for hierarchy "audio_salida:u_audio|salida_pwm:u_pwm"
+Info (12128): Elaborating entity "pll_25mhz" for hierarchy "pll_25mhz:u_pll"
+Info (12128): Elaborating entity "altpll" for hierarchy "pll_25mhz:u_pll|altpll:u_pll"
+Error (14157): PLL "pll" uses test-only parameter c0_test_source, but parameter must be used only in test mode File: /home/samuel/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf Line: 539
+Error (14157): PLL "pll" uses test-only parameter c1_test_source, but parameter must be used only in test mode File: /home/samuel/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf Line: 539
+Error (14157): PLL "pll" uses test-only parameter c2_test_source, but parameter must be used only in test mode File: /home/samuel/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf Line: 539
+Error (14157): PLL "pll" uses test-only parameter m_test_source, but parameter must be used only in test mode File: /home/samuel/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf Line: 539
+Error (14141): PLL "pll" has illegal or nonnumeric value 0 for inclk1_input_frequency parameter File: /home/samuel/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf Line: 539
+Error (12152): Can't elaborate user hierarchy "pll_25mhz:u_pll|altpll:u_pll" File: /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/ip/pll_25mhz.vhd Line: 38
+Info (12130): Elaborated megafunction instantiation "pll_25mhz:u_pll|altpll:u_pll"
+Info (12133): Instantiated megafunction "pll_25mhz:u_pll|altpll:u_pll" with the following parameter:
+    Info (12134): Parameter "bandwidth" = "0"
+    Info (12134): Parameter "bandwidth_type" = "AUTO"
+    Info (12134): Parameter "c0_high" = "0"
+    Info (12134): Parameter "c0_initial" = "0"
+    Info (12134): Parameter "c0_low" = "0"
+    Info (12134): Parameter "c0_mode" = "BYPASS"
+    Info (12134): Parameter "c0_ph" = "0"
+    Info (12134): Parameter "c0_test_source" = "5"
+    Info (12134): Parameter "c1_high" = "0"
+    Info (12134): Parameter "c1_initial" = "0"
+    Info (12134): Parameter "c1_low" = "0"
+    Info (12134): Parameter "c1_mode" = "BYPASS"
+    Info (12134): Parameter "c1_ph" = "0"
+    Info (12134): Parameter "c1_test_source" = "5"
+    Info (12134): Parameter "c1_use_casc_in" = "OFF"
+    Info (12134): Parameter "c2_high" = "0"
+    Info (12134): Parameter "c2_initial" = "0"
+    Info (12134): Parameter "c2_low" = "0"
+    Info (12134): Parameter "c2_mode" = "BYPASS"
+    Info (12134): Parameter "c2_ph" = "0"
+    Info (12134): Parameter "c2_test_source" = "5"
+    Info (12134): Parameter "c2_use_casc_in" = "OFF"
+    Info (12134): Parameter "c3_high" = "0"
+    Info (12134): Parameter "c3_initial" = "0"
+    Info (12134): Parameter "c3_low" = "0"
+    Info (12134): Parameter "c3_mode" = "BYPASS"
+    Info (12134): Parameter "c3_ph" = "0"
+    Info (12134): Parameter "c3_test_source" = "5"
+    Info (12134): Parameter "c3_use_casc_in" = "OFF"
+    Info (12134): Parameter "c4_high" = "0"
+    Info (12134): Parameter "c4_initial" = "0"
+    Info (12134): Parameter "c4_low" = "0"
+    Info (12134): Parameter "c4_mode" = "BYPASS"
+    Info (12134): Parameter "c4_ph" = "0"
+    Info (12134): Parameter "c4_test_source" = "5"
+    Info (12134): Parameter "c4_use_casc_in" = "OFF"
+    Info (12134): Parameter "c5_high" = "0"
+    Info (12134): Parameter "c5_initial" = "0"
+    Info (12134): Parameter "c5_low" = "0"
+    Info (12134): Parameter "c5_mode" = "BYPASS"
+    Info (12134): Parameter "c5_ph" = "0"
+    Info (12134): Parameter "c5_test_source" = "5"
+    Info (12134): Parameter "c5_use_casc_in" = "OFF"
+    Info (12134): Parameter "c6_high" = "0"
+    Info (12134): Parameter "c6_initial" = "0"
+    Info (12134): Parameter "c6_low" = "0"
+    Info (12134): Parameter "c6_mode" = "BYPASS"
+    Info (12134): Parameter "c6_ph" = "0"
+    Info (12134): Parameter "c6_test_source" = "5"
+    Info (12134): Parameter "c6_use_casc_in" = "OFF"
+    Info (12134): Parameter "c7_high" = "0"
+    Info (12134): Parameter "c7_initial" = "0"
+    Info (12134): Parameter "c7_low" = "0"
+    Info (12134): Parameter "c7_mode" = "BYPASS"
+    Info (12134): Parameter "c7_ph" = "0"
+    Info (12134): Parameter "c7_test_source" = "5"
+    Info (12134): Parameter "c7_use_casc_in" = "OFF"
+    Info (12134): Parameter "c8_high" = "0"
+    Info (12134): Parameter "c8_initial" = "0"
+    Info (12134): Parameter "c8_low" = "0"
+    Info (12134): Parameter "c8_mode" = "BYPASS"
+    Info (12134): Parameter "c8_ph" = "0"
+    Info (12134): Parameter "c8_test_source" = "5"
+    Info (12134): Parameter "c8_use_casc_in" = "OFF"
+    Info (12134): Parameter "c9_high" = "0"
+    Info (12134): Parameter "c9_initial" = "0"
+    Info (12134): Parameter "c9_low" = "0"
+    Info (12134): Parameter "c9_mode" = "BYPASS"
+    Info (12134): Parameter "c9_ph" = "0"
+    Info (12134): Parameter "c9_test_source" = "5"
+    Info (12134): Parameter "c9_use_casc_in" = "OFF"
+    Info (12134): Parameter "charge_pump_current" = "2"
+    Info (12134): Parameter "charge_pump_current_bits" = "9999"
+    Info (12134): Parameter "clk0_counter" = "G0"
+    Info (12134): Parameter "clk0_divide_by" = "2"
+    Info (12134): Parameter "clk0_duty_cycle" = "50"
+    Info (12134): Parameter "clk0_multiply_by" = "1"
+    Info (12134): Parameter "clk0_output_frequency" = "0"
+    Info (12134): Parameter "clk0_phase_shift" = "0"
+    Info (12134): Parameter "clk0_time_delay" = "0"
+    Info (12134): Parameter "clk0_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk0_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk1_counter" = "G0"
+    Info (12134): Parameter "clk1_divide_by" = "1"
+    Info (12134): Parameter "clk1_duty_cycle" = "50"
+    Info (12134): Parameter "clk1_multiply_by" = "1"
+    Info (12134): Parameter "clk1_output_frequency" = "0"
+    Info (12134): Parameter "clk1_phase_shift" = "0"
+    Info (12134): Parameter "clk1_time_delay" = "0"
+    Info (12134): Parameter "clk1_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk1_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk2_counter" = "G0"
+    Info (12134): Parameter "clk2_divide_by" = "1"
+    Info (12134): Parameter "clk2_duty_cycle" = "50"
+    Info (12134): Parameter "clk2_multiply_by" = "1"
+    Info (12134): Parameter "clk2_output_frequency" = "0"
+    Info (12134): Parameter "clk2_phase_shift" = "0"
+    Info (12134): Parameter "clk2_time_delay" = "0"
+    Info (12134): Parameter "clk2_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk2_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk3_counter" = "G0"
+    Info (12134): Parameter "clk3_divide_by" = "1"
+    Info (12134): Parameter "clk3_duty_cycle" = "50"
+    Info (12134): Parameter "clk3_multiply_by" = "1"
+    Info (12134): Parameter "clk3_phase_shift" = "0"
+    Info (12134): Parameter "clk3_time_delay" = "0"
+    Info (12134): Parameter "clk3_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk3_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk4_counter" = "G0"
+    Info (12134): Parameter "clk4_divide_by" = "1"
+    Info (12134): Parameter "clk4_duty_cycle" = "50"
+    Info (12134): Parameter "clk4_multiply_by" = "1"
+    Info (12134): Parameter "clk4_phase_shift" = "0"
+    Info (12134): Parameter "clk4_time_delay" = "0"
+    Info (12134): Parameter "clk4_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk4_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk5_counter" = "G0"
+    Info (12134): Parameter "clk5_divide_by" = "1"
+    Info (12134): Parameter "clk5_duty_cycle" = "50"
+    Info (12134): Parameter "clk5_multiply_by" = "1"
+    Info (12134): Parameter "clk5_phase_shift" = "0"
+    Info (12134): Parameter "clk5_time_delay" = "0"
+    Info (12134): Parameter "clk5_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk5_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk6_counter" = "E0"
+    Info (12134): Parameter "clk6_divide_by" = "0"
+    Info (12134): Parameter "clk6_duty_cycle" = "50"
+    Info (12134): Parameter "clk6_multiply_by" = "0"
+    Info (12134): Parameter "clk6_phase_shift" = "0"
+    Info (12134): Parameter "clk6_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk6_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk7_counter" = "E1"
+    Info (12134): Parameter "clk7_divide_by" = "0"
+    Info (12134): Parameter "clk7_duty_cycle" = "50"
+    Info (12134): Parameter "clk7_multiply_by" = "0"
+    Info (12134): Parameter "clk7_phase_shift" = "0"
+    Info (12134): Parameter "clk7_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk7_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk8_counter" = "E2"
+    Info (12134): Parameter "clk8_divide_by" = "0"
+    Info (12134): Parameter "clk8_duty_cycle" = "50"
+    Info (12134): Parameter "clk8_multiply_by" = "0"
+    Info (12134): Parameter "clk8_phase_shift" = "0"
+    Info (12134): Parameter "clk8_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk8_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "clk9_counter" = "E3"
+    Info (12134): Parameter "clk9_divide_by" = "0"
+    Info (12134): Parameter "clk9_duty_cycle" = "50"
+    Info (12134): Parameter "clk9_multiply_by" = "0"
+    Info (12134): Parameter "clk9_phase_shift" = "0"
+    Info (12134): Parameter "clk9_use_even_counter_mode" = "OFF"
+    Info (12134): Parameter "clk9_use_even_counter_value" = "OFF"
+    Info (12134): Parameter "compensate_clock" = "CLK0"
+    Info (12134): Parameter "down_spread" = "0"
+    Info (12134): Parameter "dpa_divide_by" = "1"
+    Info (12134): Parameter "dpa_divider" = "0"
+    Info (12134): Parameter "dpa_multiply_by" = "0"
+    Info (12134): Parameter "e0_high" = "1"
+    Info (12134): Parameter "e0_initial" = "1"
+    Info (12134): Parameter "e0_low" = "1"
+    Info (12134): Parameter "e0_mode" = "BYPASS"
+    Info (12134): Parameter "e0_ph" = "0"
+    Info (12134): Parameter "e0_time_delay" = "0"
+    Info (12134): Parameter "e1_high" = "1"
+    Info (12134): Parameter "e1_initial" = "1"
+    Info (12134): Parameter "e1_low" = "1"
+    Info (12134): Parameter "e1_mode" = "BYPASS"
+    Info (12134): Parameter "e1_ph" = "0"
+    Info (12134): Parameter "e1_time_delay" = "0"
+    Info (12134): Parameter "e2_high" = "1"
+    Info (12134): Parameter "e2_initial" = "1"
+    Info (12134): Parameter "e2_low" = "1"
+    Info (12134): Parameter "e2_mode" = "BYPASS"
+    Info (12134): Parameter "e2_ph" = "0"
+    Info (12134): Parameter "e2_time_delay" = "0"
+    Info (12134): Parameter "e3_high" = "1"
+    Info (12134): Parameter "e3_initial" = "1"
+    Info (12134): Parameter "e3_low" = "1"
+    Info (12134): Parameter "e3_mode" = "BYPASS"
+    Info (12134): Parameter "e3_ph" = "0"
+    Info (12134): Parameter "e3_time_delay" = "0"
+    Info (12134): Parameter "enable0_counter" = "L0"
+    Info (12134): Parameter "enable1_counter" = "L0"
+    Info (12134): Parameter "enable_switch_over_counter" = "OFF"
+    Info (12134): Parameter "extclk0_counter" = "E0"
+    Info (12134): Parameter "extclk0_divide_by" = "1"
+    Info (12134): Parameter "extclk0_duty_cycle" = "50"
+    Info (12134): Parameter "extclk0_multiply_by" = "1"
+    Info (12134): Parameter "extclk0_phase_shift" = "0"
+    Info (12134): Parameter "extclk0_time_delay" = "0"
+    Info (12134): Parameter "extclk1_counter" = "E1"
+    Info (12134): Parameter "extclk1_divide_by" = "1"
+    Info (12134): Parameter "extclk1_duty_cycle" = "50"
+    Info (12134): Parameter "extclk1_multiply_by" = "1"
+    Info (12134): Parameter "extclk1_phase_shift" = "0"
+    Info (12134): Parameter "extclk1_time_delay" = "0"
+    Info (12134): Parameter "extclk2_counter" = "E2"
+    Info (12134): Parameter "extclk2_divide_by" = "1"
+    Info (12134): Parameter "extclk2_duty_cycle" = "50"
+    Info (12134): Parameter "extclk2_multiply_by" = "1"
+    Info (12134): Parameter "extclk2_phase_shift" = "0"
+    Info (12134): Parameter "extclk2_time_delay" = "0"
+    Info (12134): Parameter "extclk3_counter" = "E3"
+    Info (12134): Parameter "extclk3_divide_by" = "1"
+    Info (12134): Parameter "extclk3_duty_cycle" = "50"
+    Info (12134): Parameter "extclk3_multiply_by" = "1"
+    Info (12134): Parameter "extclk3_phase_shift" = "0"
+    Info (12134): Parameter "extclk3_time_delay" = "0"
+    Info (12134): Parameter "feedback_source" = "EXTCLK0"
+    Info (12134): Parameter "g0_high" = "1"
+    Info (12134): Parameter "g0_initial" = "1"
+    Info (12134): Parameter "g0_low" = "1"
+    Info (12134): Parameter "g0_mode" = "BYPASS"
+    Info (12134): Parameter "g0_ph" = "0"
+    Info (12134): Parameter "g0_time_delay" = "0"
+    Info (12134): Parameter "g1_high" = "1"
+    Info (12134): Parameter "g1_initial" = "1"
+    Info (12134): Parameter "g1_low" = "1"
+    Info (12134): Parameter "g1_mode" = "BYPASS"
+    Info (12134): Parameter "g1_ph" = "0"
+    Info (12134): Parameter "g1_time_delay" = "0"
+    Info (12134): Parameter "g2_high" = "1"
+    Info (12134): Parameter "g2_initial" = "1"
+    Info (12134): Parameter "g2_low" = "1"
+    Info (12134): Parameter "g2_mode" = "BYPASS"
+    Info (12134): Parameter "g2_ph" = "0"
+    Info (12134): Parameter "g2_time_delay" = "0"
+    Info (12134): Parameter "g3_high" = "1"
+    Info (12134): Parameter "g3_initial" = "1"
+    Info (12134): Parameter "g3_low" = "1"
+    Info (12134): Parameter "g3_mode" = "BYPASS"
+    Info (12134): Parameter "g3_ph" = "0"
+    Info (12134): Parameter "g3_time_delay" = "0"
+    Info (12134): Parameter "gate_lock_counter" = "0"
+    Info (12134): Parameter "gate_lock_signal" = "NO"
+    Info (12134): Parameter "inclk0_input_frequency" = "20000"
+    Info (12134): Parameter "inclk1_input_frequency" = "0"
+    Info (12134): Parameter "intended_device_family" = "Cyclone II"
+    Info (12134): Parameter "invalid_lock_multiplier" = "5"
+    Info (12134): Parameter "l0_high" = "1"
+    Info (12134): Parameter "l0_initial" = "1"
+    Info (12134): Parameter "l0_low" = "1"
+    Info (12134): Parameter "l0_mode" = "BYPASS"
+    Info (12134): Parameter "l0_ph" = "0"
+    Info (12134): Parameter "l0_time_delay" = "0"
+    Info (12134): Parameter "l1_high" = "1"
+    Info (12134): Parameter "l1_initial" = "1"
+    Info (12134): Parameter "l1_low" = "1"
+    Info (12134): Parameter "l1_mode" = "BYPASS"
+    Info (12134): Parameter "l1_ph" = "0"
+    Info (12134): Parameter "l1_time_delay" = "0"
+    Info (12134): Parameter "lock_high" = "1"
+    Info (12134): Parameter "lock_low" = "1"
+    Info (12134): Parameter "lock_window_ui" = " 0.05"
+    Info (12134): Parameter "lock_window_ui_bits" = "UNUSED"
+    Info (12134): Parameter "loop_filter_c" = "5"
+    Info (12134): Parameter "loop_filter_c_bits" = "9999"
+    Info (12134): Parameter "loop_filter_r" = " 1.000000"
+    Info (12134): Parameter "loop_filter_r_bits" = "9999"
+    Info (12134): Parameter "lpm_hint" = "CBX_MODULE_PREFIX=pll_25mhz"
+    Info (12134): Parameter "lpm_type" = "altpll"
+    Info (12134): Parameter "m" = "0"
+    Info (12134): Parameter "m2" = "1"
+    Info (12134): Parameter "m_initial" = "0"
+    Info (12134): Parameter "m_ph" = "0"
+    Info (12134): Parameter "m_test_source" = "5"
+    Info (12134): Parameter "m_time_delay" = "0"
+    Info (12134): Parameter "n" = "1"
+    Info (12134): Parameter "n2" = "1"
+    Info (12134): Parameter "n_time_delay" = "0"
+    Info (12134): Parameter "operation_mode" = "NORMAL"
+    Info (12134): Parameter "pfd_max" = "0"
+    Info (12134): Parameter "pfd_min" = "0"
+    Info (12134): Parameter "pll_type" = "AUTO"
+    Info (12134): Parameter "port_activeclock" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_areset" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk0" = "PORT_USED"
+    Info (12134): Parameter "port_clk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk6" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk7" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk8" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk9" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad0" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkbad1" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkena0" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkena1" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkena2" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkena3" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkena4" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkena5" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkloss" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_clkswitch" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_configupdate" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_enable0" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_enable1" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclk0" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclk1" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclk2" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclk3" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclkena0" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclkena1" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclkena2" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_extclkena3" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_fbin" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_fbout" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_inclk0" = "PORT_USED"
+    Info (12134): Parameter "port_inclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_locked" = "PORT_USED"
+    Info (12134): Parameter "port_pfdena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasecounterselect" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_phasedone" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_phasestep" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_phaseupdown" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_pllena" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scanaclr" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scanclk" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scanclkena" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scandata" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scandataout" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scandone" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scanread" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_scanwrite" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_sclkout0" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_sclkout1" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_vcooverrange" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "port_vcounderrange" = "PORT_CONNECTIVITY"
+    Info (12134): Parameter "primary_clock" = "INCLK0"
+    Info (12134): Parameter "qualify_conf_done" = "OFF"
+    Info (12134): Parameter "scan_chain" = "LONG"
+    Info (12134): Parameter "scan_chain_mif_file" = "UNUSED"
+    Info (12134): Parameter "sclkout0_phase_shift" = "0"
+    Info (12134): Parameter "sclkout1_phase_shift" = "0"
+    Info (12134): Parameter "self_reset_on_gated_loss_lock" = "OFF"
+    Info (12134): Parameter "self_reset_on_loss_lock" = "OFF"
+    Info (12134): Parameter "sim_gate_lock_device_behavior" = "OFF"
+    Info (12134): Parameter "skip_vco" = "OFF"
+    Info (12134): Parameter "spread_frequency" = "0"
+    Info (12134): Parameter "ss" = "1"
+    Info (12134): Parameter "switch_over_counter" = "0"
+    Info (12134): Parameter "switch_over_on_gated_lock" = "OFF"
+    Info (12134): Parameter "switch_over_on_lossclk" = "OFF"
+    Info (12134): Parameter "switch_over_type" = "AUTO"
+    Info (12134): Parameter "using_fbmimicbidir_port" = "OFF"
+    Info (12134): Parameter "valid_lock_multiplier" = "1"
+    Info (12134): Parameter "vco_center" = "0"
+    Info (12134): Parameter "vco_divide_by" = "0"
+    Info (12134): Parameter "vco_frequency_control" = "AUTO"
+    Info (12134): Parameter "vco_max" = "0"
+    Info (12134): Parameter "vco_min" = "0"
+    Info (12134): Parameter "vco_multiply_by" = "0"
+    Info (12134): Parameter "vco_phase_shift_step" = "0"
+    Info (12134): Parameter "vco_post_scale" = "0"
+    Info (12134): Parameter "vco_range_detector_high_bits" = "UNUSED"
+    Info (12134): Parameter "vco_range_detector_low_bits" = "UNUSED"
+    Info (12134): Parameter "width_clock" = "6"
+    Info (12134): Parameter "width_phasecounterselect" = "4"
+Error: Quartus II 32-bit Analysis & Synthesis was unsuccessful. 6 errors, 1 warning
+    Error: Peak virtual memory: 370 megabytes
+    Error: Processing ended: Mon Nov  9 22:10:23 2026
+    Error: Elapsed time: 00:00:01
+    Error: Total CPU time (on all processors): 00:00:01
+Error (293001): Quartus II Full Compilation was unsuccessful. 8 errors, 1 warning
+Error: Flow compile (for project /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/sintetizador) was not successful
+Error: ERROR: Error(s) found while running an executable. See report file(s) for error message(s). Message log indicates which executable was run last.
+
