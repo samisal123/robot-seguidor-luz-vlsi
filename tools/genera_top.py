@@ -26,67 +26,64 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RTL = os.path.join(RAIZ, 'rtl')
+IP = os.path.join(RAIZ, 'quartus', 'ip')      # bloques de Quartus (PLL)
 
 # ------------------------------------------------------------
 # Red del sintetizador
 # ------------------------------------------------------------
-# Pines de la tarjeta: (nombre, direccion, ancho o None)
+# Pines de la tarjeta EP2C5T144: (nombre, direccion, ancho o None)
 PINES = [
-    ('MAX10_CLK1_50', 'in', None),
-    ('KEY', 'in', 2),
-    ('SW', 'in', 10),
+    ('CLOCK_50', 'in', None),
+    ('BTN_RESET', 'in', None),
+    ('BTN', 'in', 3),
     ('TEC1_COL', 'in', 4),
     ('TEC2_COL', 'in', 4),
-    ('LEDR', 'out', 10),
-    ('HEX0', 'out', 8),
-    ('HEX1', 'out', 8),
-    ('HEX2', 'out', 8),
-    ('HEX3', 'out', 8),
-    ('HEX4', 'out', 8),
-    ('HEX5', 'out', 8),
+    ('LED', 'out', 3),
     ('TEC1_FIL', 'out', 4),
     ('TEC2_FIL', 'out', 4),
     ('AUDIO_PWM', 'out', None),
-    ('VGA_R', 'out', 4),
-    ('VGA_G', 'out', 4),
-    ('VGA_B', 'out', 4),
+    ('VGA_R', 'out', None),
+    ('VGA_G', 'out', None),
+    ('VGA_B', 'out', None),
     ('VGA_HS', 'out', None),
     ('VGA_VS', 'out', None),
 ]
 
 # Senales internas: (nombre, ancho o None)
 SENALES = [
+    ('clk', None), ('pll_listo', None),
     ('rst', None), ('tick_fs', None), ('tick_1ms', None),
     ('accion', None), ('metro_btn', None), ('modo', 2),
-    ('teclas', 32), ('vivo', 21), ('func', 8), ('ultima', 7),
+    ('teclas', 32), ('vivo', 21), ('func', 8),
     ('forma', 2), ('atk', 2), ('dec', 2), ('sus', 2), ('rel', 2),
     ('volumen', 3), ('tempo', 2), ('efecto', 2),
     ('metro_on', None), ('metro_suena', None),
     ('octava', 3), ('parametro', 3),
     ('cmd_grabar', None), ('cmd_reproducir', None), ('cmd_parar', None),
-    ('grabado', 21), ('estado_sec', 2), ('eventos', 9), ('posicion', 9), ('llena', None),
+    ('grabado', 21), ('estado_sec', 2), ('eventos', 9), ('posicion', 9),
     ('pedidas', 21), ('notas_v', 21), ('gates', 3), ('activas', 3),
     ('muestras', 24), ('niveles', 24),
-    ('beat', None), ('acento', None), ('clip', None),
+    ('beat', None), ('acento', None),
 ]
 
 # Instancias: (nombre, entidad, columna, {puerto: senal})
 # senal puede ser 'nombre', 'nombre[a..b]', 'nombre[i]' o None (sin conectar)
-CLK = 'MAX10_CLK1_50'
+CLK = 'clk'      # 25 MHz del PLL
 INSTANCIAS = [
-    ('u_rst', 'reset_encendido', 1, {'clk': CLK, 'rst': 'rst'}),
+    ('u_pll', 'pll_25mhz', 1, {'inclk0': 'CLOCK_50', 'c0': 'clk', 'locked': 'pll_listo'}),
+    ('u_rst', 'reset_encendido', 1, {'clk': CLK, 'listo': 'pll_listo', 'boton_n': 'BTN_RESET',
+                                     'rst': 'rst'}),
     ('u_tiempo', 'base_tiempo', 1, {'clk': CLK, 'rst': 'rst',
                                     'tick_fs': 'tick_fs', 'tick_1ms': 'tick_1ms'}),
     ('u_placa', 'entradas_placa', 1, {'clk': CLK, 'rst': 'rst', 'tick_1ms': 'tick_1ms',
-                                      'key': 'KEY', 'sw': 'SW', 'accion': 'accion',
+                                      'btn': 'BTN', 'accion': 'accion',
                                       'metro_btn': 'metro_btn', 'modo': 'modo'}),
     ('u_teclados', 'interfaz_teclados', 1, {'clk': CLK, 'rst': 'rst', 'tick_1ms': 'tick_1ms',
                                             'tec1_col': 'TEC1_COL', 'tec2_col': 'TEC2_COL',
                                             'tec1_fil': 'TEC1_FIL', 'tec2_fil': 'TEC2_FIL',
                                             'teclas': 'teclas'}),
     ('u_notas', 'teclas_notas', 2, {'clk': CLK, 'rst': 'rst', 'teclas': 'teclas',
-                                    'octava': 'octava', 'notas': 'vivo', 'func': 'func',
-                                    'ultima': 'ultima'}),
+                                    'octava': 'octava', 'notas': 'vivo', 'func': 'func'}),
     ('u_control', 'control', 2, {'clk': CLK, 'rst': 'rst', 'modo': 'modo', 'func': 'func',
                                  'accion': 'accion', 'metro_btn': 'metro_btn',
                                  'estado_sec': 'estado_sec', 'forma': 'forma', 'atk': 'atk',
@@ -99,7 +96,7 @@ INSTANCIAS = [
                                   'cmd_grabar': 'cmd_grabar', 'cmd_reproducir': 'cmd_reproducir',
                                   'cmd_parar': 'cmd_parar', 'conjunto': 'vivo',
                                   'salida': 'grabado', 'estado': 'estado_sec',
-                                  'eventos': 'eventos', 'posicion': 'posicion', 'llena': 'llena'}),
+                                  'eventos': 'eventos', 'posicion': 'posicion', 'llena': None}),
     ('u_sel', 'selector_notas', 3, {'estado_sec': 'estado_sec', 'vivo': 'vivo',
                                     'grabado': 'grabado', 'pedidas': 'pedidas'}),
     ('u_gestor', 'gestor_voces', 3, {'clk': CLK, 'rst': 'rst', 'conjunto': 'pedidas',
@@ -120,13 +117,7 @@ INSTANCIAS += [
                                     'volumen': 'volumen', 'efecto': 'efecto',
                                     'metro_on': 'metro_suena', 'tempo': 'tempo',
                                     'pwm': 'AUDIO_PWM', 'beat': 'beat', 'acento': 'acento',
-                                    'clip': 'clip', 'nivel': None}),
-    ('u_hex', 'display_hex', 5, {'clk': CLK, 'modo': 'modo', 'parametro': 'parametro',
-                                 'forma': 'forma', 'atk': 'atk', 'dec': 'dec', 'sus': 'sus',
-                                 'rel': 'rel', 'volumen': 'volumen', 'tempo': 'tempo',
-                                 'efecto': 'efecto', 'octava': 'octava', 'ultima': 'ultima',
-                                 'posicion': 'posicion', 'hex0': 'HEX0', 'hex1': 'HEX1',
-                                 'hex2': 'HEX2', 'hex3': 'HEX3', 'hex4': 'HEX4', 'hex5': 'HEX5'}),
+                                    'clip': None, 'nivel': None}),
     ('u_vga', 'vga_ui', 5, {'clk': CLK, 'rst': 'rst', 'modo': 'modo', 'estado_sec': 'estado_sec',
                             'forma': 'forma', 'atk': 'atk', 'dec': 'dec', 'sus': 'sus',
                             'rel': 'rel', 'volumen': 'volumen', 'tempo': 'tempo',
@@ -137,9 +128,8 @@ INSTANCIAS += [
                             'vga_g': 'VGA_G', 'vga_b': 'VGA_B', 'vga_hs': 'VGA_HS',
                             'vga_vs': 'VGA_VS'}),
     ('u_leds', 'leds_estado', 5, {'clk': CLK, 'rst': 'rst', 'tick_1ms': 'tick_1ms',
-                                  'activas': 'activas', 'metro_on': 'metro_on', 'beat': 'beat',
-                                  'estado_sec': 'estado_sec', 'llena': 'llena',
-                                  'efecto': 'efecto', 'clip': 'clip', 'ledr': 'LEDR'}),
+                                  'metro_on': 'metro_on', 'beat': 'beat',
+                                  'estado_sec': 'estado_sec', 'led_n': 'LED'}),
 ]
 
 
@@ -148,7 +138,10 @@ INSTANCIAS += [
 # ------------------------------------------------------------
 def lee_entidad(nombre):
     """Regresa la lista de puertos [(nombre, dir, ancho o None, msb, lsb)]."""
-    texto = open(os.path.join(RTL, nombre + '.vhd'), encoding='ascii').read()
+    ruta = os.path.join(RTL, nombre + '.vhd')
+    if not os.path.exists(ruta):
+        ruta = os.path.join(IP, nombre + '.vhd')
+    texto = open(ruta, encoding='ascii').read()
     texto = re.sub(r'--[^\n]*', '', texto)
     m = re.search(r'entity\s+' + nombre + r'\s+is(.*?)end\s+entity', texto, re.S | re.I)
     if not m:
@@ -254,7 +247,8 @@ def genera_vhdl():
     w = L.append
     w('-- ============================================================')
     w('-- sinte_top.vhd')
-    w('-- Sintetizador musical digital sobre la DE10-Lite (MAX 10).')
+    w('-- Sintetizador musical digital sobre la tarjeta EP2C5T144')
+    w('-- (Cyclone II). Reloj de 50 MHz -> PLL -> 25 MHz.')
     w('-- ARCHIVO GENERADO por tools/genera_top.py junto con')
     w('-- quartus/sintetizador.bdf (el mismo circuito como diagrama de')
     w('-- bloques). Para cambiar conexiones, editar el script.')
@@ -267,9 +261,9 @@ def genera_vhdl():
     w('--                                               |')
     w('--   audio_salida: mezcla -> efectos -> volumen -> + metronomo -> PWM')
     w('--')
-    w('--   control: modos (SW9-SW8), teclas de funcion, KEY0 y KEY1,')
-    w('--   parametros y ordenes al secuenciador')
-    w('--   display_hex, vga_ui y leds_estado: interfaz de usuario')
+    w('--   control: modos (boton MODO), teclas de funcion, botones')
+    w('--   ACCION y METRONOMO, parametros y ordenes al secuenciador')
+    w('--   vga_ui y leds_estado: interfaz de usuario')
     w('-- ============================================================')
     w('library ieee;')
     w('use ieee.std_logic_1164.all;')

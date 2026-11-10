@@ -4,9 +4,9 @@ tools/genera_top.py a partir de rtl/entradas_placa.vhd.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 0 0 208 128)
+	(rect 0 0 208 112)
 	(text "entradas_placa" (rect 5 0 103 12)(font "Arial" (font_size 10)))
-	(text "inst" (rect 8 112 36 124)(font "Arial" ))
+	(text "inst" (rect 8 96 36 108)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -31,16 +31,9 @@ tools/genera_top.py a partir de rtl/entradas_placa.vhd.
 	(port
 		(pt 0 80)
 		(input)
-		(text "key[1..0]" (rect 0 0 63 12)(font "Arial" ))
-		(text "key[1..0]" (rect 21 75 84 87)(font "Arial" ))
+		(text "btn[2..0]" (rect 0 0 63 12)(font "Arial" ))
+		(text "btn[2..0]" (rect 21 75 84 87)(font "Arial" ))
 		(line (pt 0 80)(pt 16 80)(line_width 3))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "sw[9..0]" (rect 0 0 56 12)(font "Arial" ))
-		(text "sw[9..0]" (rect 21 91 77 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96)(line_width 3))
 	)
 	(port
 		(pt 208 32)
@@ -64,6 +57,6 @@ tools/genera_top.py a partir de rtl/entradas_placa.vhd.
 		(line (pt 208 64)(pt 192 64)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 192 112)(line_width 1))
+		(rectangle (rect 16 16 192 96)(line_width 1))
 	)
 )

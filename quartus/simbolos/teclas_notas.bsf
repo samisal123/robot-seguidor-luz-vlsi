@@ -49,13 +49,6 @@ tools/genera_top.py a partir de rtl/teclas_notas.vhd.
 		(text "func[7..0]" (rect 149 43 219 55)(font "Arial" ))
 		(line (pt 240 48)(pt 224 48)(line_width 3))
 	)
-	(port
-		(pt 240 64)
-		(output)
-		(text "ultima[6..0]" (rect 0 0 84 12)(font "Arial" ))
-		(text "ultima[6..0]" (rect 135 59 219 71)(font "Arial" ))
-		(line (pt 240 64)(pt 224 64)(line_width 3))
-	)
 	(drawing
 		(rectangle (rect 16 16 224 96)(line_width 1))
 	)
