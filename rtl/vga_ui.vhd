@@ -49,10 +49,11 @@
 -- El pulso beat se atiende en cada ciclo: arranca la cuenta del
 -- foco, que el cuadro siguiente muestra encendido.
 --
--- Tuberia de 4 etapas (los registros cambian cada 40 ns; la
+-- Tuberia de 5 etapas (los registros cambian cada 40 ns; la
 -- logica se reparte para que cada etapa sea corta):
 --   1 coordenadas y geometria: zona de la pantalla, celda de texto,
---     celda del titulo, tecla blanca, banderas de los graficos
+--     celda del titulo, tecla blanca (con contadores que avanzan
+--     junto con hc, sin divisiones), banderas de los graficos
 --     (foco, caja de la onda, barras), producto de la barra y
 --     lectura de la ROM de la onda (bloque M4K).
 --   2 contenido: codigo del caracter de la cuadricula, tecla negra
@@ -60,8 +61,10 @@
 --     color por zona.
 --   3 color de fondo segun la zona y letra que toca (titulo,
 --     etiqueta del piano o cuadricula).
---   4 fuente: lee la fila del caracter y elige el color final.
--- HSYNC y VSYNC pasan por las mismas 4 etapas, asi que siguen
+--   4 fuente: lee la fila del caracter de la ROM de la fuente
+--     (otro bloque M4K).
+--   5 color final.
+-- HSYNC y VSYNC pasan por las mismas 5 etapas, asi que siguen
 -- alineadas con el color.
 -- ============================================================
 library ieee;
@@ -280,12 +283,6 @@ architecture rtl of vga_ui is
         return t;
     end function;
 
-    -- divisiones sin divisor: celdas de 12 = 3 bloques de 4 pixeles,
-    -- de 24 = 3 bloques de 8 y teclas de 40 = 5 bloques de 8
-    constant DIV3  : t_tabla(0 to 255) := tabla_div(256, 3);
-    constant MOD3  : t_tabla(0 to 255) := tabla_mod(256, 3);
-    constant DIV5  : t_tabla(0 to 127) := tabla_div(128, 5);
-    constant MOD5  : t_tabla(0 to 127) := tabla_mod(128, 5);
     -- nota n -> octava y semitono
     constant DIV12 : t_tabla(0 to 127) := tabla_div(128, 12);
     constant MOD12 : t_tabla(0 to 127) := tabla_mod(128, 12);
@@ -305,6 +302,22 @@ architecture rtl of vga_ui is
     signal rom_onda : t_rom_onda := crea_rom_onda;
     attribute romstyle : string;
     attribute romstyle of rom_onda : signal is "M4K";
+
+    -- ROM de la fuente en otro bloque M4K: 64 caracteres x 8 filas
+    -- de 5 bits, direccion 8 * codigo + fila
+    type t_rom_fuente is array (0 to 511) of std_logic_vector(4 downto 0);
+    function crea_rom_fuente return t_rom_fuente is
+        variable r : t_rom_fuente;
+    begin
+        for c in 0 to 63 loop
+            for f in 0 to 7 loop
+                r(8 * c + f) := fila_fuente(c, f);
+            end loop;
+        end loop;
+        return r;
+    end function;
+    signal rom_fuente : t_rom_fuente := crea_rom_fuente;
+    attribute romstyle of rom_fuente : signal is "M4K";
 
     -- semitono (0-23) de cada tecla blanca y si tiene negra a su derecha
     constant KW : t_tabla(0 to 31) := (0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, others => 0);
@@ -416,6 +429,16 @@ architecture rtl of vga_ui is
     signal hc      : natural range 0 to H_TOT - 1 := 0;
     signal vc      : natural range 0 to V_TOT - 1 := 0;
     signal cuadros : unsigned(7 downto 0) := (others => '0');
+    -- divisiones de hc con contadores (sin tablas): siempre valen
+    --   tx_q = hc / 12, tx_m = hc mod 12 (celdas de texto)
+    --   ix_q = (hc - TIT_X) / 24, ix_m = (hc - TIT_X) mod 24 (titulo; 0 antes de TIT_X)
+    --   px_q = (hc - PIA_X) / 40, px_m = (hc - PIA_X) mod 40 (piano; 0 antes de PIA_X)
+    signal tx_q : natural range 0 to 127 := 0;
+    signal tx_m : natural range 0 to 11 := 0;
+    signal ix_q : natural range 0 to 63 := 0;
+    signal ix_m : natural range 0 to 23 := 0;
+    signal px_q : natural range 0 to 31 := 0;
+    signal px_m : natural range 0 to 39 := 0;
 
     ------------------------------------------------------------
     -- Copia de las entradas para el cuadro
@@ -559,8 +582,18 @@ architecture rtl of vga_ui is
     ------------------------------------------------------------
     -- Etapa 4: salidas
     ------------------------------------------------------------
-    signal s4_rgb    : t_color := (others => '0');
+    signal s4_bits   : std_logic_vector(4 downto 0) := (others => '0');
+    signal s4_gx     : natural range 0 to 7 := 0;
+    signal s4_fg     : t_color := (others => '0');
+    signal s4_base   : t_color := (others => '0');
+    signal s4_vis    : std_logic := '0';
     signal s4_hs, s4_vs : std_logic := '1';
+
+    ------------------------------------------------------------
+    -- Etapa 5: salidas
+    ------------------------------------------------------------
+    signal s5_rgb    : t_color := (others => '0');
+    signal s5_hs, s5_vs : std_logic := '1';
 
 begin
 
@@ -588,6 +621,45 @@ begin
                 end if;
             else
                 hc <= hc + 1;
+            end if;
+        end if;
+    end process;
+
+    -- contadores de celda: avanzan junto con hc y vuelven a 0 con el
+    -- (los del titulo y el piano se quedan en 0 hasta su x inicial)
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            if rst = '1' or hc = H_TOT - 1 then
+                tx_q <= 0;
+                tx_m <= 0;
+                ix_q <= 0;
+                ix_m <= 0;
+                px_q <= 0;
+                px_m <= 0;
+            else
+                if tx_m = 11 then
+                    tx_m <= 0;
+                    tx_q <= tx_q + 1;
+                else
+                    tx_m <= tx_m + 1;
+                end if;
+                if hc >= TIT_X then
+                    if ix_m = 23 then
+                        ix_m <= 0;
+                        ix_q <= ix_q + 1;
+                    else
+                        ix_m <= ix_m + 1;
+                    end if;
+                end if;
+                if hc >= PIA_X then
+                    if px_m = 39 then
+                        px_m <= 0;
+                        px_q <= px_q + 1;
+                    else
+                        px_m <= px_m + 1;
+                    end if;
+                end if;
             end if;
         end if;
     end process;
@@ -737,7 +809,6 @@ begin
         variable x, y : natural range 0 to 1023;
         variable xr   : natural range 0 to 1023;
         variable yr   : natural range 0 to 1023;
-        variable b    : natural range 0 to 255;
         variable pw   : natural range 0 to 31;
         variable po   : natural range 0 to 63;
         variable py   : natural range 0 to 127;
@@ -799,22 +870,15 @@ begin
             end if;
             s1_zona <= zona;
 
-            -- texto: celdas de 12x16 = 3 bloques de 4 pixeles
-            b := x / 4;
-            s1_tc  <= DIV3(b);
-            s1_tgx <= 2 * MOD3(b) + (x / 2) mod 2;
+            -- texto: celdas de 12x16, letras de 2x2 pixeles por punto
+            s1_tc  <= tx_q;
+            s1_tgx <= tx_m / 2;
             s1_tr  <= (y / 16) mod 32;
             s1_tgy <= (y / 2) mod 8;
 
-            -- titulo: celdas de 24x32 = 3 bloques de 8, letras x4
-            if x >= TIT_X then
-                xr := x - TIT_X;
-            else
-                xr := 0;
-            end if;
-            b := (xr / 8) mod 128;
-            s1_ic  <= DIV3(b);
-            s1_igx <= 2 * MOD3(b) + (xr / 4) mod 2;
+            -- titulo: celdas de 24x32, letras x4
+            s1_ic  <= ix_q;
+            s1_igx <= ix_m / 4;
             if y >= TIT_Y then
                 yr := y - TIT_Y;
             else
@@ -832,15 +896,9 @@ begin
                 s1_foco <= b2sl(dx + hw >= 16 and dx < 16 + hw);
             end if;
 
-            -- piano: teclas blancas de 40 = 5 bloques de 8 pixeles
-            if x >= PIA_X then
-                xr := x - PIA_X;
-            else
-                xr := 0;
-            end if;
-            b  := (xr / 8) mod 128;
-            pw := DIV5(b);
-            po := 8 * MOD5(b) + xr mod 8;
+            -- piano: teclas blancas de 40 pixeles
+            pw := px_q;
+            po := px_m;
             if y >= PIA_Y then
                 yr := y - PIA_Y;
             else
@@ -1309,34 +1367,55 @@ begin
     end process;
 
     ------------------------------------------------------------
-    -- Etapa 4: fuente y color final
+    -- Etapa 4: fila del caracter (lectura de la ROM de la fuente,
+    -- bloque M4K; la direccion sale de los registros de la etapa 3)
     ------------------------------------------------------------
     process (clk)
-        variable bits : std_logic_vector(4 downto 0);
-        variable px   : std_logic;
     begin
         if rising_edge(clk) then
-            bits := fila_fuente(s3_cod, s3_gy);
-            px := '0';
-            if s3_gx <= 4 then
-                px := bits(4 - s3_gx);
-            end if;
-            if s3_vis = '0' then
-                s4_rgb <= C_NEGRO;
-            elsif px = '1' then
-                s4_rgb <= s3_fg;
-            else
-                s4_rgb <= s3_base;
-            end if;
-            s4_hs <= s3_hs;
-            s4_vs <= s3_vs;
+            s4_bits <= rom_fuente(8 * s3_cod + s3_gy);
         end if;
     end process;
 
-    vga_r  <= s4_rgb(2);
-    vga_g  <= s4_rgb(1);
-    vga_b  <= s4_rgb(0);
-    vga_hs <= s4_hs;
-    vga_vs <= s4_vs;
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            s4_gx   <= s3_gx;
+            s4_fg   <= s3_fg;
+            s4_base <= s3_base;
+            s4_vis  <= s3_vis;
+            s4_hs   <= s3_hs;
+            s4_vs   <= s3_vs;
+        end if;
+    end process;
+
+    ------------------------------------------------------------
+    -- Etapa 5: color final
+    ------------------------------------------------------------
+    process (clk)
+        variable px : std_logic;
+    begin
+        if rising_edge(clk) then
+            px := '0';
+            if s4_gx <= 4 then
+                px := s4_bits(4 - s4_gx);
+            end if;
+            if s4_vis = '0' then
+                s5_rgb <= C_NEGRO;
+            elsif px = '1' then
+                s5_rgb <= s4_fg;
+            else
+                s5_rgb <= s4_base;
+            end if;
+            s5_hs <= s4_hs;
+            s5_vs <= s4_vs;
+        end if;
+    end process;
+
+    vga_r  <= s5_rgb(2);
+    vga_g  <= s5_rgb(1);
+    vga_b  <= s5_rgb(0);
+    vga_hs <= s5_hs;
+    vga_vs <= s5_vs;
 
 end architecture rtl;
