@@ -1,0 +1,11 @@
+Bajando http://security.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1_amd64.deb
+SHA-256 correcto: libpng12-0_1.2.54-1ubuntu1.1_amd64.deb
+Copiado a /home/samuel/altera/13.0sp1/quartus/linux64:
+lrwxrwxrwx 1 samuel samuel     18 Jul 10  2018 /home/samuel/altera/13.0sp1/quartus/linux64/libpng12.so.0 -> libpng12.so.0.54.0
+-rw-r--r-- 1 samuel samuel 149904 Jul 10  2018 /home/samuel/altera/13.0sp1/quartus/linux64/libpng12.so.0.54.0
+
+Bibliotecas que le faltan a linux64/quartus (debe quedar vacio):
+
+Probando la interfaz: se abre Quartus 40 s y se cierra sola
+OK: la interfaz sigue abierta despues de 40 s
+Lo que escribio Quartus en la terminal:
