@@ -7,15 +7,17 @@
 #
 # Uso: sh quartus/compilar.sh             (nivel superior: sintetizador.bdf)
 #      sh quartus/compilar.sh sinte_top   (nivel superior: rtl/sinte_top.vhd)
-# Si quartus_sh no esta en el PATH, se busca en ~/altera_lite y
-# ~/intelFPGA_lite.
+# Usa Quartus II 13.0 SP1 (la ultima version con Cyclone II). Si
+# quartus_sh no esta en el PATH, se busca en ~/altera/13.0sp1 y
+# /opt/altera/13.0sp1.
 # ============================================================
 set -u
 Q=$(cd "$(dirname "$0")" && pwd)
 LOG="$Q/../logs/compilacion.log"
 
 if ! command -v quartus_sh >/dev/null 2>&1; then
-    for d in "$HOME"/altera_lite/*/quartus/bin "$HOME"/intelFPGA_lite/*/quartus/bin; do
+    for d in "$HOME"/altera/13.0sp1/quartus/bin "$HOME"/altera/*/quartus/bin \
+             /opt/altera/13.0sp1/quartus/bin /opt/altera/*/quartus/bin; do
         [ -x "$d/quartus_sh" ] && PATH="$d:$PATH"
     done
     export PATH

@@ -1,6 +1,7 @@
 -- ============================================================
 -- sinte_top.vhd
--- Sintetizador musical digital sobre la DE10-Lite (MAX 10).
+-- Sintetizador musical digital sobre la tarjeta EP2C5T144
+-- (Cyclone II). Reloj de 50 MHz -> PLL -> 25 MHz.
 -- ARCHIVO GENERADO por tools/genera_top.py junto con
 -- quartus/sintetizador.bdf (el mismo circuito como diagrama de
 -- bloques). Para cambiar conexiones, editar el script.
@@ -13,39 +14,35 @@
 --                                               |
 --   audio_salida: mezcla -> efectos -> volumen -> + metronomo -> PWM
 --
---   control: modos (SW9-SW8), teclas de funcion, KEY0 y KEY1,
---   parametros y ordenes al secuenciador
---   display_hex, vga_ui y leds_estado: interfaz de usuario
+--   control: modos (boton MODO), teclas de funcion, botones
+--   ACCION y METRONOMO, parametros y ordenes al secuenciador
+--   vga_ui y leds_estado: interfaz de usuario
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
 
 entity sinte_top is
     port (
-        MAX10_CLK1_50 : in  std_logic;
-        KEY           : in  std_logic_vector(1 downto 0);
-        SW            : in  std_logic_vector(9 downto 0);
+        CLOCK_50      : in  std_logic;
+        BTN_RESET     : in  std_logic;
+        BTN           : in  std_logic_vector(2 downto 0);
         TEC1_COL      : in  std_logic_vector(3 downto 0);
         TEC2_COL      : in  std_logic_vector(3 downto 0);
-        LEDR          : out std_logic_vector(9 downto 0);
-        HEX0          : out std_logic_vector(7 downto 0);
-        HEX1          : out std_logic_vector(7 downto 0);
-        HEX2          : out std_logic_vector(7 downto 0);
-        HEX3          : out std_logic_vector(7 downto 0);
-        HEX4          : out std_logic_vector(7 downto 0);
-        HEX5          : out std_logic_vector(7 downto 0);
+        LED           : out std_logic_vector(2 downto 0);
         TEC1_FIL      : out std_logic_vector(3 downto 0);
         TEC2_FIL      : out std_logic_vector(3 downto 0);
         AUDIO_PWM     : out std_logic;
-        VGA_R         : out std_logic_vector(3 downto 0);
-        VGA_G         : out std_logic_vector(3 downto 0);
-        VGA_B         : out std_logic_vector(3 downto 0);
+        VGA_R         : out std_logic;
+        VGA_G         : out std_logic;
+        VGA_B         : out std_logic;
         VGA_HS        : out std_logic;
         VGA_VS        : out std_logic
     );
 end entity sinte_top;
 
 architecture estructural of sinte_top is
+    signal clk            : std_logic;
+    signal pll_listo      : std_logic;
     signal rst            : std_logic;
     signal tick_fs        : std_logic;
     signal tick_1ms       : std_logic;
@@ -55,7 +52,6 @@ architecture estructural of sinte_top is
     signal teclas         : std_logic_vector(31 downto 0);
     signal vivo           : std_logic_vector(20 downto 0);
     signal func           : std_logic_vector(7 downto 0);
-    signal ultima         : std_logic_vector(6 downto 0);
     signal forma          : std_logic_vector(1 downto 0);
     signal atk            : std_logic_vector(1 downto 0);
     signal dec            : std_logic_vector(1 downto 0);
@@ -75,7 +71,6 @@ architecture estructural of sinte_top is
     signal estado_sec     : std_logic_vector(1 downto 0);
     signal eventos        : std_logic_vector(8 downto 0);
     signal posicion       : std_logic_vector(8 downto 0);
-    signal llena          : std_logic;
     signal pedidas        : std_logic_vector(20 downto 0);
     signal notas_v        : std_logic_vector(20 downto 0);
     signal gates          : std_logic_vector(2 downto 0);
@@ -84,18 +79,26 @@ architecture estructural of sinte_top is
     signal niveles        : std_logic_vector(23 downto 0);
     signal beat           : std_logic;
     signal acento         : std_logic;
-    signal clip           : std_logic;
 begin
+
+    u_pll : entity work.pll_25mhz
+        port map (
+            inclk0 => CLOCK_50,
+            c0     => clk,
+            locked => pll_listo
+        );
 
     u_rst : entity work.reset_encendido
         port map (
-            clk => MAX10_CLK1_50,
-            rst => rst
+            clk     => clk,
+            listo   => pll_listo,
+            boton_n => BTN_RESET,
+            rst     => rst
         );
 
     u_tiempo : entity work.base_tiempo
         port map (
-            clk      => MAX10_CLK1_50,
+            clk      => clk,
             rst      => rst,
             tick_fs  => tick_fs,
             tick_1ms => tick_1ms
@@ -103,11 +106,10 @@ begin
 
     u_placa : entity work.entradas_placa
         port map (
-            clk       => MAX10_CLK1_50,
+            clk       => clk,
             rst       => rst,
             tick_1ms  => tick_1ms,
-            key       => KEY,
-            sw        => SW,
+            btn       => BTN,
             accion    => accion,
             metro_btn => metro_btn,
             modo      => modo
@@ -115,7 +117,7 @@ begin
 
     u_teclados : entity work.interfaz_teclados
         port map (
-            clk      => MAX10_CLK1_50,
+            clk      => clk,
             rst      => rst,
             tick_1ms => tick_1ms,
             tec1_col => TEC1_COL,
@@ -127,18 +129,17 @@ begin
 
     u_notas : entity work.teclas_notas
         port map (
-            clk    => MAX10_CLK1_50,
+            clk    => clk,
             rst    => rst,
             teclas => teclas,
             octava => octava,
             notas  => vivo,
-            func   => func,
-            ultima => ultima
+            func   => func
         );
 
     u_control : entity work.control
         port map (
-            clk            => MAX10_CLK1_50,
+            clk            => clk,
             rst            => rst,
             modo           => modo,
             func           => func,
@@ -164,7 +165,7 @@ begin
 
     u_sec : entity work.secuenciador
         port map (
-            clk            => MAX10_CLK1_50,
+            clk            => clk,
             rst            => rst,
             tick_1ms       => tick_1ms,
             cmd_grabar     => cmd_grabar,
@@ -175,7 +176,7 @@ begin
             estado         => estado_sec,
             eventos        => eventos,
             posicion       => posicion,
-            llena          => llena
+            llena          => open
         );
 
     u_sel : entity work.selector_notas
@@ -188,7 +189,7 @@ begin
 
     u_gestor : entity work.gestor_voces
         port map (
-            clk      => MAX10_CLK1_50,
+            clk      => clk,
             rst      => rst,
             conjunto => pedidas,
             activas  => activas,
@@ -198,7 +199,7 @@ begin
 
     u_voz0 : entity work.voz
         port map (
-            clk     => MAX10_CLK1_50,
+            clk     => clk,
             rst     => rst,
             tick_fs => tick_fs,
             nota    => notas_v(6 downto 0),
@@ -215,7 +216,7 @@ begin
 
     u_voz1 : entity work.voz
         port map (
-            clk     => MAX10_CLK1_50,
+            clk     => clk,
             rst     => rst,
             tick_fs => tick_fs,
             nota    => notas_v(13 downto 7),
@@ -232,7 +233,7 @@ begin
 
     u_voz2 : entity work.voz
         port map (
-            clk     => MAX10_CLK1_50,
+            clk     => clk,
             rst     => rst,
             tick_fs => tick_fs,
             nota    => notas_v(20 downto 14),
@@ -249,7 +250,7 @@ begin
 
     u_audio : entity work.audio_salida
         port map (
-            clk      => MAX10_CLK1_50,
+            clk      => clk,
             rst      => rst,
             tick_fs  => tick_fs,
             tick_1ms => tick_1ms,
@@ -263,37 +264,13 @@ begin
             pwm      => AUDIO_PWM,
             beat     => beat,
             acento   => acento,
-            clip     => clip,
+            clip     => open,
             nivel    => open
-        );
-
-    u_hex : entity work.display_hex
-        port map (
-            clk       => MAX10_CLK1_50,
-            modo      => modo,
-            parametro => parametro,
-            forma     => forma,
-            atk       => atk,
-            dec       => dec,
-            sus       => sus,
-            rel       => rel,
-            volumen   => volumen,
-            tempo     => tempo,
-            efecto    => efecto,
-            octava    => octava,
-            ultima    => ultima,
-            posicion  => posicion,
-            hex0      => HEX0,
-            hex1      => HEX1,
-            hex2      => HEX2,
-            hex3      => HEX3,
-            hex4      => HEX4,
-            hex5      => HEX5
         );
 
     u_vga : entity work.vga_ui
         port map (
-            clk        => MAX10_CLK1_50,
+            clk        => clk,
             rst        => rst,
             modo       => modo,
             estado_sec => estado_sec,
@@ -324,17 +301,13 @@ begin
 
     u_leds : entity work.leds_estado
         port map (
-            clk        => MAX10_CLK1_50,
+            clk        => clk,
             rst        => rst,
             tick_1ms   => tick_1ms,
-            activas    => activas,
             metro_on   => metro_on,
             beat       => beat,
             estado_sec => estado_sec,
-            llena      => llena,
-            efecto     => efecto,
-            clip       => clip,
-            ledr       => LEDR
+            led_n      => LED
         );
 
 end architecture estructural;

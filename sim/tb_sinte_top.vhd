@@ -1,25 +1,30 @@
 -- ============================================================
 -- tb_sinte_top.vhd
--- Prueba del sintetizador completo a 50 MHz reales, con dos
--- modelos de teclado en los pines del GPIO. El audio se
--- reconstruye de AUDIO_PWM contando los ciclos en alto de cada
--- ventana de 1024 ciclos (una muestra): 4 periodos de PWM dan
--- 4 * (muestra + 128); se le resta 512.
--- La frecuencia se mide con el tiempo entre cruces por cero.
+-- Prueba del sintetizador completo con el reloj de 50 MHz de la
+-- tarjeta (el modelo del PLL lo baja a 25 MHz) y dos modelos de
+-- teclado en los pines. El audio se reconstruye de AUDIO_PWM
+-- contando los ciclos de 50 MHz en alto de cada ventana de 1024
+-- (una muestra): 2 periodos de PWM de 512 dan 4 * (muestra + 128);
+-- se le resta 512. La frecuencia se mide con el tiempo entre
+-- cruces por cero. Los modos se cambian con el boton MODO.
 -- Revisa:
---   1) arranque: modo "In", octava 4, sin nota, LEDs apagados
---   2) tecla A del teclado 1: 440 Hz, "A4" en HEX1-HEX0, LEDR0
---   3) acorde de 3 teclas en los dos teclados: 3 voces (LEDR0-2)
---   4) al soltar, las voces se apagan y el audio queda en silencio
---   5) octava + (tecla B del teclado 1): A5 = 880 Hz y la A del
---      teclado 2 = A6 (en los displays), sonando las dos
---   6) configuracion: cambiar la forma a triangular y el release
---      a 20 ms desde los teclados; A4 sigue en 440 Hz
---   7) grabacion de una melodia corta (KEY0 inicia y finaliza)
---      y su reproduccion: la primera nota suena a su frecuencia y
---      la reproduccion dura lo mismo que la grabacion (+-2 ms)
---   8) metronomo con KEY1: LEDR3, destello en LEDR4 y clic en el
---      audio sin notas
+--   1) arranque: LEDs apagados y silencio
+--   2) tecla A del teclado 1: 440 Hz
+--   3) acorde de 3 teclas en los dos teclados: el pico del audio
+--      crece (suenan 3 voces)
+--   4) al soltar, el audio queda en silencio despues del release
+--   5) octava + (tecla B del teclado 1): A5 = 880 Hz en el teclado
+--      1 y A6 = 1760 Hz en el teclado 2; octava - la regresa
+--   6) configuracion (3 veces MODO): forma triangular y release de
+--      20 ms desde los teclados; de regreso en interpretacion A4
+--      sigue en 440 Hz, la onda ya no es cuadrada y calla a los
+--      50 ms de soltar
+--   7) grabacion (ACCION inicia y finaliza, LED D4) de una melodia
+--      corta y su reproduccion (LED D5): la primera nota suena a su
+--      frecuencia y la reproduccion dura lo mismo que la grabacion
+--      (+-2 ms)
+--   8) metronomo con su boton: destello en D2 y clic en el audio
+--      sin notas; al apagarlo D2 ya no destella
 --   9) VGA: periodos de HS (32 us) y VS (16.8 ms)
 -- ============================================================
 library ieee;
@@ -30,20 +35,19 @@ entity tb_sinte_top is
 end entity tb_sinte_top;
 
 architecture sim of tb_sinte_top is
-    constant T_CLK : time := 20 ns;
+    constant T_CLK : time := 20 ns;    -- 50 MHz de la tarjeta
     constant FS    : real := 48828.125;
 
     signal clk       : std_logic := '0';
-    signal KEY       : std_logic_vector(1 downto 0) := "11";
-    signal SW        : std_logic_vector(9 downto 0) := (others => '0');
-    signal LEDR      : std_logic_vector(9 downto 0);
-    signal HEX0, HEX1, HEX2, HEX3, HEX4, HEX5 : std_logic_vector(7 downto 0);
+    signal BTN_RESET : std_logic := '1';
+    signal BTN       : std_logic_vector(2 downto 0) := "111";   -- MODO, ACCION, METRONOMO
+    signal LED       : std_logic_vector(2 downto 0);            -- D2, D4, D5 ('0' = encendido)
     signal TEC1_FIL  : std_logic_vector(3 downto 0);
     signal TEC1_COL  : std_logic_vector(3 downto 0);
     signal TEC2_FIL  : std_logic_vector(3 downto 0);
     signal TEC2_COL  : std_logic_vector(3 downto 0);
     signal AUDIO_PWM : std_logic;
-    signal VGA_R, VGA_G, VGA_B : std_logic_vector(3 downto 0);
+    signal VGA_R, VGA_G, VGA_B : std_logic;
     signal VGA_HS, VGA_VS : std_logic;
 
     signal pres1 : std_logic_vector(15 downto 0) := (others => '0');
@@ -63,67 +67,26 @@ architecture sim of tb_sinte_top is
     constant T_D    : natural := 15;
     constant T_AST  : natural := 12;   -- * = A
 
-    function car (h : std_logic_vector(7 downto 0)) return character is
-        variable s : std_logic_vector(6 downto 0);
-    begin
-        s := not h(6 downto 0);
-        case s is
-            when "0111111" => return '0';
-            when "0000110" => return '1';
-            when "1011011" => return '2';
-            when "1001111" => return '3';
-            when "1100110" => return '4';
-            when "1101101" => return '5';
-            when "1111101" => return '6';
-            when "0000111" => return '7';
-            when "1111111" => return '8';
-            when "1101111" => return '9';
-            when "1110111" => return 'A';
-            when "1111100" => return 'b';
-            when "0111001" => return 'C';
-            when "1011110" => return 'd';
-            when "1111001" => return 'E';
-            when "1110001" => return 'F';
-            when "0111101" => return 'G';
-            when "0110000" => return 'I';
-            when "1010100" => return 'n';
-            when "1011100" => return 'o';
-            when "1110011" => return 'P';
-            when "1010000" => return 'r';
-            when "1111000" => return 't';
-            when "0111110" => return 'U';
-            when "0011100" => return 'u';
-            when "1000000" => return '-';
-            when "0000000" => return ' ';
-            when others    => return '?';
-        end case;
-    end function;
 begin
 
     clk <= not clk after T_CLK / 2 when not fin;
 
     dut : entity work.sinte_top
         port map (
-            MAX10_CLK1_50 => clk,
-            KEY           => KEY,
-            SW            => SW,
-            LEDR          => LEDR,
-            HEX0          => HEX0,
-            HEX1          => HEX1,
-            HEX2          => HEX2,
-            HEX3          => HEX3,
-            HEX4          => HEX4,
-            HEX5          => HEX5,
-            TEC1_FIL      => TEC1_FIL,
-            TEC1_COL      => TEC1_COL,
-            TEC2_FIL      => TEC2_FIL,
-            TEC2_COL      => TEC2_COL,
-            AUDIO_PWM     => AUDIO_PWM,
-            VGA_R         => VGA_R,
-            VGA_G         => VGA_G,
-            VGA_B         => VGA_B,
-            VGA_HS        => VGA_HS,
-            VGA_VS        => VGA_VS
+            CLOCK_50  => clk,
+            BTN_RESET => BTN_RESET,
+            BTN       => BTN,
+            TEC1_COL  => TEC1_COL,
+            TEC2_COL  => TEC2_COL,
+            LED       => LED,
+            TEC1_FIL  => TEC1_FIL,
+            TEC2_FIL  => TEC2_FIL,
+            AUDIO_PWM => AUDIO_PWM,
+            VGA_R     => VGA_R,
+            VGA_G     => VGA_G,
+            VGA_B     => VGA_B,
+            VGA_HS    => VGA_HS,
+            VGA_VS    => VGA_VS
         );
 
     teclado1 : entity work.modelo_teclado
@@ -175,19 +138,6 @@ begin
             wait for n * 1 ms;
         end procedure;
 
-        -- texto de HEX5 a HEX0
-        impure function pantalla return string is
-        begin
-            return car(HEX5) & car(HEX4) & car(HEX3) & car(HEX2) & car(HEX1) & car(HEX0);
-        end function;
-
-        procedure revisa_hex (txt : string(1 to 6); msg : string) is
-        begin
-            assert pantalla = txt
-                report "tb_sinte_top: " & msg & ": HEX = '" & pantalla & "', se esperaba '" & txt & "'"
-                severity error;
-        end procedure;
-
         -- frecuencia de p periodos (cruces por cero hacia arriba)
         procedure mide (p : natural; f : out real) is
             variable a, v   : integer;
@@ -227,6 +177,30 @@ begin
                        & integer'image(integer(esperada)) severity error;
         end procedure;
 
+        -- pico de |audio| en n muestras y fraccion (en %) de muestras
+        -- con |audio| menor que la mitad del pico (casi 0 en una
+        -- cuadrada, cerca de 50 en una triangular)
+        procedure forma_audio (n : natural; pico : out natural; medios : out natural) is
+            type t_m is array (1 to 4000) of integer;
+            variable m : t_m;
+            variable p, c : natural := 0;
+        begin
+            for i in 1 to n loop
+                wait on n_muestra;
+                m(i) := audio;
+                if abs (audio) > p then
+                    p := abs (audio);
+                end if;
+            end loop;
+            for i in 1 to n loop
+                if 2 * abs (m(i)) < p then
+                    c := c + 1;
+                end if;
+            end loop;
+            pico   := p;
+            medios := (100 * c) / n;
+        end procedure;
+
         -- pulsa una tecla 30 ms y la suelta 30 ms (el antirrebote pide 20)
         procedure pulsa (signal p : out std_logic_vector(15 downto 0); k : natural) is
         begin
@@ -237,11 +211,12 @@ begin
             espera_ms(30);
         end procedure;
 
+        -- botones del panel: 0 MODO, 1 ACCION, 2 METRONOMO
         procedure boton (n : natural) is
         begin
-            KEY(n) <= '0';
+            BTN(n) <= '0';
             espera_ms(30);
-            KEY(n) <= '1';
+            BTN(n) <= '1';
             espera_ms(30);
         end procedure;
 
@@ -257,90 +232,96 @@ begin
         variable f        : real;
         variable t_g0, t_g1, t_r0, t_r1 : time;
         variable vio_clic : boolean;
+        variable pico1, pico3, medios, pico_t, medios_t : natural;
     begin
         -- 1) arranque
         espera_ms(5);
-        revisa_hex("Ino4--", "arranque");
-        assert LEDR = "0000000000" report "tb_sinte_top: LEDs encendidos al arrancar" severity error;
+        assert LED = "111" report "tb_sinte_top: LEDs encendidos al arrancar" severity error;
         silencio(50, "arranque");
 
         -- 2) A4 en el teclado 1
         report "tb_sinte_top: paso 2 A4";
         pres1(T_AST) <= '1';
         espera_ms(30);
-        assert LEDR(0) = '1' report "tb_sinte_top: LEDR0 debe encender con una nota" severity error;
-        revisa_hex("Ino4A4", "A4");
         mide(12, f);
         revisa_f(f, 440.0, "A4");
+        forma_audio(400, pico1, medios);
+        assert medios < 10
+            report "tb_sinte_top: la forma inicial debe ser cuadrada (" & integer'image(medios) & " %)"
+            severity error;
 
         -- 3) acorde: A4 + D4 (teclado 1) + E5 (teclado 2)
         report "tb_sinte_top: paso 3 acorde";
         pres1(T_3) <= '1';
         pres2(T_5) <= '1';
         espera_ms(30);
-        assert LEDR(2 downto 0) = "111" report "tb_sinte_top: el acorde debe usar 3 voces" severity error;
+        forma_audio(2000, pico3, medios);
+        assert 2 * pico3 > 3 * pico1
+            report "tb_sinte_top: el acorde debe sonar con 3 voces (pico " & integer'image(pico3)
+                   & " contra " & integer'image(pico1) & ")" severity error;
 
         -- 4) soltar todo: release de 150 ms
         report "tb_sinte_top: paso 4 soltar";
         pres1 <= (others => '0');
         pres2 <= (others => '0');
         espera_ms(190);
-        assert LEDR(2 downto 0) = "000" report "tb_sinte_top: las voces deben apagarse" severity error;
         silencio(100, "tras soltar");
 
         -- 5) octava +: A5 en el teclado 1 y A6 en el teclado 2
         report "tb_sinte_top: paso 5 octavas";
         pulsa(pres1, T_B);
-        assert pantalla(1 to 4) = "Ino5" report "tb_sinte_top: la octava debe subir a 5" severity error;
         pres1(T_AST) <= '1';
         espera_ms(30);
-        revisa_hex("Ino5A5", "A5");
         mide(12, f);
         revisa_f(f, 880.0, "A5");
+        pres1 <= (others => '0');
+        espera_ms(190);
         pres2(T_AST) <= '1';
         espera_ms(30);
-        revisa_hex("Ino5A6", "A6 en el teclado 2");
-        assert LEDR(1 downto 0) = "11" report "tb_sinte_top: A5 y A6 deben sonar juntas" severity error;
-        pres1 <= (others => '0');
+        mide(24, f);
+        revisa_f(f, 1760.0, "A6 en el teclado 2");
         pres2 <= (others => '0');
         espera_ms(190);
         pulsa(pres1, T_A);
-        assert pantalla(3 to 4) = "o4" report "tb_sinte_top: la octava debe regresar a 4" severity error;
+        pres1(T_AST) <= '1';
+        espera_ms(30);
+        mide(12, f);
+        revisa_f(f, 440.0, "A4 al regresar la octava");
+        pres1 <= (others => '0');
+        espera_ms(190);
 
         -- 6) configuracion: forma triangular y release de 20 ms
         report "tb_sinte_top: paso 6 configuracion";
-        SW(9 downto 8) <= "11";
-        espera_ms(30);
-        revisa_hex("CFFo 0", "configuracion");
-        pulsa(pres1, T_B);                 -- forma 1 = triangular
-        revisa_hex("CFFo 1", "forma triangular");
+        boton(0);                          -- grabacion
+        boton(0);                          -- reproduccion
+        boton(0);                          -- configuracion
+        pulsa(pres1, T_B);                 -- forma: valor + = triangular
         for i in 1 to 4 loop
-            pulsa(pres1, T_D);             -- hasta release
+            pulsa(pres1, T_D);             -- parametro siguiente hasta release
         end loop;
-        revisa_hex("CFrE 1", "release");
-        pulsa(pres2, T_A);                 -- release 0 = 20 ms (teclado 2)
-        revisa_hex("CFrE 0", "release 20 ms");
-        SW(9 downto 8) <= "00";
-        espera_ms(30);
+        pulsa(pres2, T_A);                 -- release: valor - = 20 ms (teclado 2)
+        boton(0);                          -- interpretacion
         pres1(T_AST) <= '1';
         espera_ms(30);
         mide(12, f);
         revisa_f(f, 440.0, "A4 triangular");
+        forma_audio(400, pico_t, medios_t);
+        assert medios_t > 30
+            report "tb_sinte_top: la forma debe ser triangular (" & integer'image(medios_t) & " %)"
+            severity error;
         pres1 <= (others => '0');
         espera_ms(50);
-        assert LEDR(2 downto 0) = "000" report "tb_sinte_top: con release de 20 ms ya debe callar" severity error;
+        silencio(50, "con release de 20 ms");
 
         -- 7) grabacion: C4 60 ms, silencio 40 ms, E4 50 ms
         report "tb_sinte_top: paso 7 grabacion";
-        SW(9 downto 8) <= "01";
-        espera_ms(30);
-        revisa_hex("Gr   0", "modo grabacion");
-        KEY(0) <= '0';
-        wait until LEDR(5) = '1' for 40 ms;
-        assert LEDR(5) = '1' report "tb_sinte_top: KEY0 debe iniciar la grabacion" severity error;
+        boton(0);                          -- grabacion
+        BTN(1) <= '0';
+        wait until LED(1) = '0' for 40 ms;
+        assert LED(1) = '0' report "tb_sinte_top: ACCION debe iniciar la grabacion (D4)" severity error;
         t_g0 := now;
         espera_ms(10);
-        KEY(0) <= '1';
+        BTN(1) <= '1';
         espera_ms(25);
         pres1(T_1) <= '1';
         espera_ms(60);
@@ -350,45 +331,39 @@ begin
         espera_ms(50);
         pres1 <= (others => '0');
         espera_ms(30);
-        KEY(0) <= '0';
-        wait until LEDR(5) = '0' for 40 ms;
-        assert LEDR(5) = '0' report "tb_sinte_top: KEY0 debe finalizar la grabacion" severity error;
+        BTN(1) <= '0';
+        wait until LED(1) = '1' for 40 ms;
+        assert LED(1) = '1' report "tb_sinte_top: ACCION debe finalizar la grabacion" severity error;
         t_g1 := now;
         espera_ms(10);
-        KEY(0) <= '1';
+        BTN(1) <= '1';
         espera_ms(25);
-        -- silencio inicial, C4, silencio, E4, silencio final
-        revisa_hex("Gr   5", "eventos grabados");
 
         -- reproduccion
         report "tb_sinte_top: paso 7 reproduccion";
-        SW(9 downto 8) <= "10";
-        espera_ms(30);
-        revisa_hex("rP   5", "modo reproduccion");
-        KEY(0) <= '0';
-        wait until LEDR(6) = '1' for 40 ms;
-        assert LEDR(6) = '1' report "tb_sinte_top: KEY0 debe iniciar la reproduccion" severity error;
+        boton(0);                          -- reproduccion
+        BTN(1) <= '0';
+        wait until LED(2) = '0' for 40 ms;
+        assert LED(2) = '0' report "tb_sinte_top: ACCION debe iniciar la reproduccion (D5)" severity error;
         t_r0 := now;
-        wait until LEDR(0) = '1' for 100 ms;
+        wait until audio /= 0 for 100 ms;
         mide(8, f);
         revisa_f(f, 261.63, "C4 reproducido");
-        KEY(0) <= '1';
-        wait until LEDR(6) = '0' for 400 ms;
-        assert LEDR(6) = '0' report "tb_sinte_top: la reproduccion debe terminar sola" severity error;
+        BTN(1) <= '1';
+        wait until LED(2) = '1' for 400 ms;
+        assert LED(2) = '1' report "tb_sinte_top: la reproduccion debe terminar sola" severity error;
         t_r1 := now;
         assert abs ((t_r1 - t_r0) - (t_g1 - t_g0)) <= 2 ms
             report "tb_sinte_top: la reproduccion no dura lo que la grabacion" severity error;
-        espera_ms(5);
-        revisa_hex("rP   5", "fin de la reproduccion");
 
         -- 8) metronomo
         report "tb_sinte_top: paso 8 metronomo";
-        SW(9 downto 8) <= "00";
-        espera_ms(30);
-        KEY(1) <= '0';
-        wait until LEDR(4) = '1' for 40 ms;
-        assert LEDR(3) = '1' and LEDR(4) = '1'
-            report "tb_sinte_top: el metronomo debe encender y marcar el primer tiempo" severity error;
+        boton(0);                          -- configuracion
+        boton(0);                          -- interpretacion
+        BTN(2) <= '0';
+        wait until LED(0) = '0' for 40 ms;
+        assert LED(0) = '0'
+            report "tb_sinte_top: el metronomo debe encender y marcar el primer tiempo (D2)" severity error;
         vio_clic := false;
         for i in 1 to 200 loop
             wait on n_muestra;
@@ -397,10 +372,12 @@ begin
             end if;
         end loop;
         assert vio_clic report "tb_sinte_top: el metronomo no sono" severity error;
-        KEY(1) <= '1';
+        BTN(2) <= '1';
         espera_ms(30);
-        boton(1);
-        assert LEDR(3) = '0' report "tb_sinte_top: KEY1 debe apagar el metronomo" severity error;
+        boton(2);
+        wait until LED(0) = '0' for 600 ms;
+        assert LED(0) = '1' report "tb_sinte_top: con el metronomo apagado D2 no debe destellar"
+            severity error;
 
         report "tb_sinte_top: OK";
         fin <= true;

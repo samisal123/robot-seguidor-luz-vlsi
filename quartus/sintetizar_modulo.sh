@@ -18,8 +18,8 @@ rm -rf "$dir" && mkdir -p "$dir"
 
 {
     echo "project_new -overwrite $m"
-    echo 'set_global_assignment -name FAMILY "MAX 10"'
-    echo 'set_global_assignment -name DEVICE 10M50DAF484C7G'
+    echo 'set_global_assignment -name FAMILY "Cyclone II"'
+    echo 'set_global_assignment -name DEVICE EP2C5T144C8'
     echo "set_global_assignment -name TOP_LEVEL_ENTITY $m"
     echo 'set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files'
     echo 'set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL'
