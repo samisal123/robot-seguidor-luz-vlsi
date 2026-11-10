@@ -1,5 +1,5 @@
 # Regresion de los 25 testbenches de modulo: sh sim/correr.sh (todos menos sinte_top)
-# GHDL 4.1.0, 9 de noviembre de 2026, diseno para la EP2C5T144
+# GHDL 4.1.0, 9 de noviembre de 2026, diseno para la EP2C5T144 (ADSR con un solo sumador, fuente de la VGA en M4K)
 
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_adsr.vhd:281:9:@16707131ns:(report note): tb_adsr: OK
 == tb_adsr: PASA
@@ -63,7 +63,7 @@
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_tremolo.vhd:201:13:@3082991ns:(report note): periodo del LFO = 9800 muestras = 4.982461734693878 Hz
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_tremolo.vhd:231:9:@3482991ns:(report note): tb_tremolo: OK
 == tb_tremolo: PASA
-/home/claude/robot-seguidor-luz-vlsi/sim/tb_vga_ui.vhd:697:13:@116154160ns:(report note): tb_vga_ui: OK
+/home/claude/robot-seguidor-luz-vlsi/sim/tb_vga_ui.vhd:697:13:@116154200ns:(report note): tb_vga_ui: OK
 == tb_vga_ui: PASA
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_volumen.vhd:120:9:@1311251ns:(report note): casos revisados: 32779
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_volumen.vhd:121:9:@1311251ns:(report note): tb_volumen: OK
@@ -71,7 +71,7 @@
 /home/claude/robot-seguidor-luz-vlsi/sim/tb_voz.vhd:182:9:@1154791ns:(report note): tb_voz: OK
 == tb_voz: PASA
 
-real	1m22.600s
-user	0m59.202s
-sys	0m22.757s
+real	1m24.309s
+user	1m0.911s
+sys	0m22.930s
 salida: 0

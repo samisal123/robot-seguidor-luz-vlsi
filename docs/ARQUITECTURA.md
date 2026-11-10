@@ -7,8 +7,8 @@
 3. **Un módulo por archivo, un testbench por módulo**, más una prueba del sistema completo con modelos de los teclados (ver [PRUEBAS.md](PRUEBAS.md)).
 4. **Puertos solo `std_logic` y `std_logic_vector`**, para que Quartus genere el símbolo de cada módulo y el nivel superior sea un diagrama de bloques (`quartus/sintetizador.bdf`), como en el material del curso "Creación y uso de bloques en Quartus". Los códigos de modos, estados, formas de onda y efectos tienen nombre en `rtl/synth_pkg.vhd`.
 5. **Los parámetros cambian en operación** (forma de onda, envolvente, volumen, tempo, efecto, octava): son registros de `control`, no constantes; no hace falta volver a sintetizar.
-6. **Cadenas largas en etapas registradas**: la multiplicación de cada voz, la cadena de audio (9 ciclos de 512 disponibles por muestra) y la VGA (4 etapas).
-7. **Ajuste a la EP2C5 (4 608 elementos lógicos, 26 bloques M4K de 4 Kbit, 13 multiplicadores de 18 × 18).** Las tablas grandes van en bloques de memoria en lugar de lógica: incrementos de las notas y seno de cada voz, tabla de la onda de la VGA, línea de retardo del eco y memoria de eventos. La búsqueda de las 3 notas presionadas se hace en serie, una tecla por ciclo, con un solo sumador. La interfaz principal es la VGA (la tarjeta no tiene displays ni switches) y los productos usan los multiplicadores embebidos.
+6. **Cadenas largas en etapas registradas**: la multiplicación de cada voz, la cadena de audio (9 ciclos de 512 disponibles por muestra) y la VGA (5 etapas).
+7. **Ajuste a la EP2C5 (4 608 elementos lógicos, 26 bloques M4K de 4 Kbit, 13 multiplicadores de 18 × 18).** Las tablas grandes van en bloques de memoria en lugar de lógica: incrementos de las notas y seno de cada voz, tabla de la onda y fuente de la VGA, línea de retardo del eco y memoria de eventos. El ADSR de cada voz usa un solo sumador/restador y un comparador. La búsqueda de las 3 notas presionadas se hace en serie, una tecla por ciclo, con un solo sumador. La interfaz principal es la VGA (la tarjeta no tiene displays ni switches) y los productos usan los multiplicadores embebidos.
 
 ## Diagrama de bloques
 
@@ -152,6 +152,8 @@ gate ------------------------------> ADSR (24 bits) --------+
 
 **Envolvente ADSR.** Acumulador de 24 bits; el nivel son sus 8 bits altos (0 a 255). Avanza una vez por muestra con un paso por etapa: para recorrer la escala completa en T ms, `paso = 2^24 / (T · Fs / 1000) = 343 597 / T`.
 
+Cada voz tiene su propio ADSR con un solo sumador/restador: en cada muestra la etapa elige el paso, el sentido (sube en el ataque, y en el sostenido si el nivel está debajo del sustain) y la meta (el máximo, el sustain o 0). Se calcula `s = acc ± paso` con el bit de acarreo o préstamo y un comparador decide si `s` ya alcanzó la meta: si sí, el acumulador toma la meta y la FSM pasa a la siguiente etapa; si no, toma `s`.
+
 ![FSM del ADSR](img/fsm_adsr.png)
 
 Al soltar la nota en cualquier etapa pasa a LIBERACIÓN desde el nivel actual; si se vuelve a presionar durante la liberación, ataca desde ese nivel (sin regresar a 0, sin chasquido). Si el sustain cambia mientras se sostiene una nota, el nivel va al nuevo valor con la pendiente del decay.
@@ -199,7 +201,7 @@ D2 (pin 3) destella 100 ms en cada tiempo del metrónomo, D4 (pin 7) encendido m
 
 ![Pantalla VGA en los 4 modos (cuadros capturados en simulación con sim/captura_vga.vhd)](img/vga_modos.png)
 
-Es la interfaz principal de la EP2C5. `vga_ui` dibuja un pixel por ciclo del reloj de 25 MHz con una tubería de 4 etapas y un bit por color (8 colores: una resistencia de 270 Ω por color hacia el conector); las entradas se copian una vez por cuadro, así nunca se ve un cuadro partido:
+Es la interfaz principal de la EP2C5. `vga_ui` dibuja un pixel por ciclo del reloj de 25 MHz con una tubería de 5 etapas y un bit por color (8 colores: una resistencia de 270 Ω por color hacia el conector); las entradas se copian una vez por cuadro, así nunca se ve un cuadro partido:
 
 - Banda superior con el nombre del modo (azul interpretación, rojo grabación, verde reproducción, magenta configuración), estado del metrónomo, tempo en BPM y un foco que destella en cada tiempo.
 - Piano de dos octavas desde la octava base; las teclas que suenan se pintan del color de su voz.
@@ -217,9 +219,10 @@ Memoria planeada en la EP2C5 (26 bloques M4K de 4 096 bits):
 | Incrementos de las notas (una por voz) | 128 × 24 | 3 |
 | Seno (uno por voz) | 256 × 8 | 3 |
 | Onda de la VGA | 512 × 7 | 1 |
-| **Total** | | **22 de 26** |
+| Fuente de la VGA | 512 × 5 (64 caracteres de 8 filas) | 1 |
+| **Total** | | **23 de 26** |
 
-Los elementos lógicos y la Fmax se llenan con la compilación en Quartus II 13.0 SP1 (TAREA-019); ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus). Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica).
+Los elementos lógicos y la Fmax se llenan con la compilación en Quartus II 13.0 SP1; ver [PRUEBAS.md](PRUEBAS.md#compilación-en-quartus). Como referencia, el diseño para la DE10-Lite usaba 6 464 elementos lógicos (con displays, 12 bits de color y las tablas en lógica), y la primera versión para la EP2C5 dio 5 431 en una estimación con MAX 10 (TAREA-017) en la que Quartus no pudo poner las 7 tablas en memoria y las armó con lógica; después de eso, el ADSR se rehízo con un solo sumador y la fuente de la VGA pasó a un bloque M4K.
 
 ## Limitaciones conocidas
 
