@@ -11,7 +11,8 @@
 --      picos de +-127 y a no mas de 2 de la triangular ideal
 --   4) sierra: rampa creciente de -127 a 127 con un solo salto
 --   5) seno: error maximo de 1 contra 127 * sin(2 pi fase)
---   6) cambio de forma en operacion (siguiente ciclo)
+--   6) cambio de forma en operacion (la salida llega 2 ciclos
+--      despues de la fase y de la forma)
 -- ============================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -60,6 +61,7 @@ begin
             for k in 0 to 65535 loop
                 fase <= std_logic_vector(to_unsigned(k, 16)) & x"00";
                 wait until rising_edge(clk);
+                wait until rising_edge(clk);   -- 2 ciclos de latencia
                 wait for 1 ns;
                 m := to_integer(signed(muestra));
                 -- 1) rango
@@ -124,10 +126,12 @@ begin
         forma <= W_SIERRA;
         fase  <= x"FFFF00";
         wait until rising_edge(clk);
+        wait until rising_edge(clk);   -- 2 ciclos de latencia
         wait for 1 ns;
         assert to_integer(signed(muestra)) = 127 report "tb_forma_onda: sierra al final" severity error;
         fase <= x"000000";
         wait until rising_edge(clk);
+        wait until rising_edge(clk);   -- 2 ciclos de latencia
         wait for 1 ns;
         assert to_integer(signed(muestra)) = -127 report "tb_forma_onda: sierra al inicio" severity error;
 
@@ -135,14 +139,17 @@ begin
         fase  <= x"C00000";   -- tres cuartos de periodo
         forma <= W_CUADRADA;
         wait until rising_edge(clk);
+        wait until rising_edge(clk);   -- 2 ciclos de latencia
         wait for 1 ns;
         assert to_integer(signed(muestra)) = -127 report "tb_forma_onda: cambio a cuadrada" severity error;
         forma <= W_SENO;
         wait until rising_edge(clk);
+        wait until rising_edge(clk);   -- 2 ciclos de latencia
         wait for 1 ns;
         assert to_integer(signed(muestra)) = -127 report "tb_forma_onda: cambio a seno" severity error;
         forma <= W_TRIANGULAR;
         wait until rising_edge(clk);
+        wait until rising_edge(clk);   -- 2 ciclos de latencia
         wait for 1 ns;
         assert abs (to_integer(signed(muestra))) <= 1 report "tb_forma_onda: cambio a triangular" severity error;
 
