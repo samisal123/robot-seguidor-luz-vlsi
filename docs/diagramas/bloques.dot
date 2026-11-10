@@ -5,15 +5,17 @@ digraph bloques {
     node  [shape=box, style="rounded,filled", fillcolor="#eef3fb", color="#2f5597", fontname="Helvetica", fontsize=11, margin="0.12,0.06"];
     edge  [fontname="Helvetica", fontsize=9, color="#4a5560", arrowsize=0.7];
 
-    T1 [label="Teclado 1\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
-    T2 [label="Teclado 2\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
-    PL [label="SW9-SW8\nKEY0, KEY1", fillcolor="#fff4e8", color="#b5651d"];
+    OSC [label="oscilador\n50 MHz", fillcolor="#fff4e8", color="#b5651d"];
+    T1  [label="Teclado 1\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
+    T2  [label="Teclado 2\n4 x 4", fillcolor="#fff4e8", color="#b5651d"];
+    PL  [label="botones\nMODO, ACCION,\nMETRONOMO", fillcolor="#fff4e8", color="#b5651d"];
 
     subgraph cluster_fpga {
-        label="FPGA MAX 10 (DE10-Lite): reloj unico de 50 MHz con tick_fs (48.8 kHz) y tick_1ms"; style="rounded"; color="#2f5597"; fontcolor="#2f5597";
+        label="Cyclone II EP2C5T144C8: reloj unico de 25 MHz con tick_fs (48.8 kHz) y tick_1ms"; style="rounded"; color="#2f5597"; fontcolor="#2f5597";
+        PLL [label="pll_25mhz\n50 -> 25 MHz", fillcolor="#f3eefb", color="#6a4cc4"];
         IT  [label="interfaz_teclados\nbarrido + antirrebote"];
         EP  [label="entradas_placa\nsync + antirrebote"];
-        TN  [label="teclas_notas\n3 notas + funciones"];
+        TN  [label="teclas_notas\n3 notas (en serie)\n+ funciones"];
         CT  [label="control\nmodos y parametros", fillcolor="#e8f1e4", color="#2e7d32"];
         SQ  [label="secuenciador\nmemoria 256 x 37", fillcolor="#fdecea", color="#b03a2e"];
         SL  [label="selector_notas"];
@@ -22,19 +24,18 @@ digraph bloques {
         V1  [label="voz 1\nDDS + onda + ADSR"];
         V2  [label="voz 2\nDDS + onda + ADSR"];
         AU  [label="audio_salida\nmezcla, tremolo, eco,\nvolumen, metronomo, PWM", fillcolor="#e9f6ec", color="#1e7b34"];
-        DH  [label="display_hex"];
-        VG  [label="vga_ui\n640 x 480"];
+        VG  [label="vga_ui\n640 x 480, 8 colores"];
         LE  [label="leds_estado"];
     }
 
     RC  [label="filtro RC\nPAM8403, bocina", fillcolor="#fff4e8", color="#b5651d"];
-    HX  [label="HEX0-HEX5", fillcolor="#fff4e8", color="#b5651d"];
     MON [label="monitor VGA", fillcolor="#fff4e8", color="#b5651d"];
-    LD  [label="LEDR0-LEDR9", fillcolor="#fff4e8", color="#b5651d"];
+    LD  [label="LEDs D2, D4, D5", fillcolor="#fff4e8", color="#b5651d"];
 
-    {rank=source; T1; T2; PL}
-    {rank=sink; RC; HX; MON; LD}
+    {rank=source; OSC; T1; T2; PL}
+    {rank=sink; RC; MON; LD}
 
+    OSC -> PLL [label="CLOCK_50"];
     T1 -> IT; T2 -> IT; PL -> EP;
     IT -> TN [label="teclas"];
     TN -> CT [label="func"];
@@ -49,7 +50,6 @@ digraph bloques {
     V0 -> AU; V1 -> AU; V2 -> AU;
     CT -> AU [label="volumen, efecto, tempo", style=dashed];
     AU -> RC [label="AUDIO_PWM"];
-    CT -> DH [style=dashed]; SQ -> DH [style=dashed]; DH -> HX;
     CT -> VG [style=dashed]; GV -> VG [style=dashed]; SQ -> VG [style=dashed]; VG -> MON;
-    AU -> LE [label="beat, clip", style=dashed]; LE -> LD;
+    AU -> LE [label="beat", style=dashed]; SQ -> LE [style=dashed]; LE -> LD;
 }
