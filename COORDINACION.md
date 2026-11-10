@@ -36,6 +36,7 @@ Las tareas 001 a 012 fueron del robot seguidor de luz (proyecto anterior, ver el
 - [x] TAREA-024 @claude-code: Instalar Quartus II 13.0 SP1 (ya con espacio): instalado con Cyclone II; la interfaz grafica pide libpng12
 - [x] TAREA-025 @claude-code: Compilar el sintetizador para la EP2C5T144: 3 782 LE (82 %), 25 MHz con 12.3 ns de margen
 - [ ] TAREA-026 @claude-code: Hacer que abra la interfaz grafica de Quartus 13.0 (libpng12 sin sudo)
+- [ ] TAREA-027 @claude-code: Capturas de Quartus para el primer avance en una pantalla virtual (si la TAREA-026 quedo bien)
 
 ---
 
@@ -156,4 +157,17 @@ La TAREA-024 dejo Quartus II 13.0 SP1 instalado, pero `quartus --64bit` no abre 
 4. `ldd ~/altera/13.0sp1/quartus/linux64/quartus | grep "not found"` no debe mostrar nada; reporta la salida.
 5. Si la TAREA-025 ya creo `quartus/sintetizador.qpf`, abre `sh quartus/abrir_quartus.sh` en segundo plano, espera 60 s, revisa que el proceso siga vivo y guarda lo que haya escrito en la terminal; luego cierralo (`pkill -f "quartus --64bit"`). Si la pantalla esta bloqueada no importa: basta con que el proceso arranque sin errores.
 6. Resultado en `resultados/TAREA-026.md`. Si el paso 2 o 3 falla, reporta el error tal como sale y no intentes otras fuentes.
+
+## TAREA-027 @claude-code: Capturas de Quartus en una pantalla virtual
+
+Las capturas de la TAREA-020 sin que el equipo este frente a la PC. Solo si la TAREA-026 dejo funcionando `sh quartus/abrir_quartus.sh`; si no, termina con FALLO sin intentar nada.
+
+Reglas: sin sudo y sin instalar paquetes del sistema. Lo que haga falta se baja con `apt-get download` (no necesita sudo; usa los repositorios de la PC) y se extrae con `dpkg -x` dentro de `~/altera/13.0sp1/extra/`. No uses la pantalla real de la sesion (puede estar bloqueada) ni toques la configuracion del escritorio. Las capturas son de Quartus tal como se ve: no se editan ni se recortan mas alla de quitar bordes negros.
+
+1. Pantalla virtual: si no existe `Xvfb`, baja `xvfb` y sus dependencias que falten (`apt-get download`, `dpkg -x`) y corrilo con `LD_LIBRARY_PATH` apuntando a lo extraido: `Xvfb :99 -screen 0 1600x900x24 &`. Para manejar la interfaz usa `xdotool` (mismo metodo) y para capturar `import -display :99 -window root` (ImageMagick) o, si no hay, Pillow (`ImageGrab.grab(xdisplay=":99")`).
+2. `DISPLAY=:99 sh quartus/abrir_quartus.sh &` y espera a que abra el proyecto (revisa con una captura).
+3. Toma las capturas de la tabla de la TAREA-020 (`01_proyecto.png` a `14_simbolos.png`), con la ventana de Quartus maximizada. Despues de cada paso revisa la imagen (Read) y repite si no muestra lo que pide la tabla. Si alguna no se logra despues de unos intentos, saltala y anotala.
+4. Guardalas en `capturas/` del repo, agregalas con `git add capturas` en el mismo commit del resultado.
+5. Cierra Quartus y Xvfb.
+6. Resultado en `resultados/TAREA-027.md`: que se bajo y extrajo (paquetes y versiones), que capturas quedaron, cuales no y por que.
 
