@@ -1,51 +1,66 @@
 # Pruebas de mutacion: cada mutacion es un error metido a proposito en una copia del RTL;
 # cuenta como detectada si su testbench falla (assert o error en tiempo de ejecucion), no si deja de compilar.
+# Corrida del 9 de noviembre de 2026 con el diseno para la EP2C5T144 (reloj de 25 MHz, eco de 4096, VGA de 1 bit por color).
 
-## Nucleo (41): teclados, voz, gestor de voces, secuenciador, control, displays, base de tiempo
+## Nucleo (48): teclados, voz, gestor de voces, secuenciador, control, botones, LEDs, reset, base de tiempo
 [0] teclado_scan -> tb_teclado_scan: MUERTA: tb_teclado_scan: la tecla aparecio antes del antirrebote
 [1] teclado_scan -> tb_teclado_scan: MUERTA: tb_teclado_scan: las filas no siguen el orden 0,1,2,3
 [2] teclado_scan -> tb_teclado_scan: MUERTA: tb_teclado_scan: tecla 1,2 del teclado 1 no detectada a tiempo
 [3] teclas_notas -> tb_teclas_notas: MUERTA: tb_teclas_notas: tecla 1 en octava 2 dio 27
 [4] teclas_notas -> tb_teclas_notas: MUERTA: tb_teclas_notas: acorde mal ordenado
-[5] teclas_notas -> tb_teclas_notas: MUERTA: tb_teclas_notas: la funcion 0 dio 6 pulsos
-[6] dds -> tb_dds: MUERTA: tb_dds: fase tras 1000 muestras incorrecta
-[7] dds -> tb_dds: MUERTA: tb_dds: fase tras 1000 muestras incorrecta
-[8] synth_pkg -> tb_dds: MUERTA: tb_dds: la nota 26 esta desafinada
-[9] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: la triangular se aleja de la ideal
-[10] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: cuadrada debe ser 127
-[11] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: la sierra debe ser creciente dentro del periodo
-[12] adsr -> tb_adsr: MUERTA: tb_adsr: attack 0: 196 muestras, se esperaban 98
-[13] adsr -> tb_adsr: MUERTA: tb_adsr: al reatacar el nivel no debe caer
-[14] adsr -> tb_adsr: MUERTA: tb_adsr: el sustain debe subir sin saltos
-[15] adsr -> tb_adsr: MUERTA: tb_adsr: release 0: 2443 muestras, se esperaban 977
-[16] adsr -> tb_adsr: MUERTA: tb_adsr: al soltar en attack debe liberar
-[17] voz -> tb_voz: MUERTA: tb_voz: amplitud con sustain 128 incorrecta
-[18] voz -> tb_voz: MUERTA: tb_voz: amplitud con sustain 255 incorrecta
-[19] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: 64 debe volver a su voz (1) aunque la 2 este en reposo
-[20] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: 51 debe ir a una voz en reposo (1)
-[21] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: voz con gate y nota que no se pide
-[22] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: el primer ciclo debe soltar las tres
-[23] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: voz con gate y nota que no se pide
-[24] voz -> tb_voz: MUERTA: tb_voz: periodo de A4 incorrecto
-[25] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: no se deben guardar eventos de 0 ms (3 eventos)
-[26] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: con 256 eventos debe detenerse sola
-[27] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: el silencio inicial duro 6
-[28] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: sin eventos no debe reproducir
-[29] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: al terminar debe quedar en espera y en silencio
-[30] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: con cambios en el tick la reproduccion duro 5 ms en vez de 8
-[31] control -> tb_control: MUERTA: ghdl:error: bound check failure at rtl/control.vhd:151
-[32] control -> tb_control: MUERTA: tb_control: parametro anterior = 2, se esperaba 0
-[33] control -> tb_control: MUERTA: tb_control: KEY0 no hace nada en interpretacion
-[34] control -> tb_control: MUERTA: tb_control: salir de grabacion debe parar
-[35] control -> tb_control: MUERTA: tb_control: el parametro 5 no llego a su maximo
-[36] display_hex -> tb_display_hex: MUERTA: tb_display_hex: F#4: puntos incorrectos
-[37] display_hex -> tb_display_hex: MUERTA: tb_display_hex: reproduccion 40: se leyo 'rP   0', se esperaba 'rP  40'
-[38] display_hex -> tb_display_hex: MUERTA: tb_display_hex: decay: se leyo 'CFdE 2', se esperaba 'CFdE 3'
-[39] base_tiempo -> tb_base_tiempo: MUERTA: tb_base_tiempo: el rst no reinicio la cuenta de tick_fs
-[40] base_tiempo -> tb_base_tiempo: MUERTA: tb_base_tiempo: el rst no reinicio tick_fs a mitad de cuenta
+[5] teclas_notas -> tb_teclas_notas: MUERTA: tb_teclas_notas: la funcion 0 dio 60 pulsos
+[6] teclas_notas -> tb_teclas_notas: MUERTA: tb_teclas_notas: tecla 0 en octava 2 dio 25
+[7] teclas_notas -> tb_teclas_notas: MUERTA: tb_teclas_notas: tecla 30 en octava 2 dio 0
+[8] dds -> tb_dds: MUERTA: tb_dds: fase tras 1000 muestras incorrecta
+[9] dds -> tb_dds: MUERTA: tb_dds: fase tras 1000 muestras incorrecta
+[10] synth_pkg -> tb_dds: MUERTA: tb_dds: la nota 26 esta desafinada
+[11] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: la triangular se aleja de la ideal
+[12] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: cuadrada debe ser 127
+[13] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: la sierra debe ser creciente dentro del periodo
+[14] forma_onda -> tb_forma_onda: MUERTA: tb_forma_onda: el seno se aleja de la ideal
+[15] adsr -> tb_adsr: MUERTA: tb_adsr: attack 0: 196 muestras, se esperaban 98
+[16] adsr -> tb_adsr: MUERTA: tb_adsr: al reatacar el nivel no debe caer
+[17] adsr -> tb_adsr: MUERTA: tb_adsr: el sustain debe subir sin saltos
+[18] adsr -> tb_adsr: MUERTA: tb_adsr: release 0: 2443 muestras, se esperaban 977
+[19] adsr -> tb_adsr: MUERTA: tb_adsr: al soltar en attack debe liberar
+[20] voz -> tb_voz: MUERTA: tb_voz: amplitud con sustain 128 incorrecta
+[21] voz -> tb_voz: MUERTA: tb_voz: amplitud con sustain 255 incorrecta
+[22] voz -> tb_voz: MUERTA: tb_voz: periodo de A4 incorrecto
+[23] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: 64 debe volver a su voz (1) aunque la 2 este en reposo
+[24] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: 51 debe ir a una voz en reposo (1)
+[25] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: voz con gate y nota que no se pide
+[26] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: el primer ciclo debe soltar las tres
+[27] gestor_voces -> tb_gestor_voces: MUERTA: tb_gestor_voces: voz con gate y nota que no se pide
+[28] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: no se deben guardar eventos de 0 ms (3 eventos)
+[29] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: con 256 eventos debe detenerse sola
+[30] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: el silencio inicial duro 6
+[31] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: sin eventos no debe reproducir
+[32] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: al terminar debe quedar en espera y en silencio
+[33] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: con cambios en el tick la reproduccion duro 5 ms en vez de 8
+[34] control -> tb_control: MUERTA: ghdl:error: bound check failure at /tmp/claude-0/-home-claude/20e5d532-38ae-50dd-8d92-3d2d0b84ab36/scratchpad/
+[35] control -> tb_control: MUERTA: tb_control: parametro anterior = 2, se esperaba 0
+[36] control -> tb_control: MUERTA: tb_control: ACCION no hace nada en interpretacion
+[37] control -> tb_control: MUERTA: tb_control: salir de grabacion debe parar
+[38] control -> tb_control: MUERTA: tb_control: el parametro 5 no llego a su maximo
+[39] entradas_placa -> tb_entradas_placa: MUERTA: tb_entradas_placa: modo grabacion
+[40] entradas_placa -> tb_entradas_placa: MUERTA: tb_entradas_placa: modo grabacion
+[41] entradas_placa -> tb_entradas_placa: MUERTA: tb_entradas_placa: el reset debe regresar a interpretacion
+[42] leds_estado -> tb_leds_estado: MUERTA: tb_leds_estado: con el metronomo apagado D2 no debe encender (999 ciclos)
+[43] leds_estado -> tb_leds_estado: MUERTA: tb_leds_estado: todo apagado al inicio
+[44] reset_encendido -> tb_reset_encendido: MUERTA: tb_reset_encendido: el boton no subio rst
+[45] reset_encendido -> tb_reset_encendido: MUERTA: tb_reset_encendido: arranque: rst duro 16 ciclos, se esperaban 17
+[46] base_tiempo -> tb_base_tiempo: MUERTA: tb_base_tiempo: el rst no reinicio la cuenta de tick_fs
+[47] base_tiempo -> tb_base_tiempo: MUERTA: tb_base_tiempo: el rst no reinicio tick_fs a mitad de cuenta
 mutaciones vivas: []
 
 ## Audio (35): mezclador, tremolo, eco, volumen, metronomo, PWM y cadena completa
+control audio_salida  PASA 
+control eco           PASA 
+control metronomo     PASA 
+control mezclador     PASA 
+control salida_pwm    PASA 
+control tremolo       PASA 
+control volumen       PASA 
 mez_x4                   tb_mezclador     DETECTADA    mezcla(127,0,0) = 508, se esperaba 1016
 mez_sin_sat              tb_mezclador     DETECTADA    mezcla(127,127,127) = -1048, se esperaba 2032
 mez_bandera              tb_mezclador     DETECTADA    satura incorrecta con (127,127,127)
@@ -55,11 +70,11 @@ tre_prof100              tb_tremolo       DETECTADA    profundidad fuera de 50 %
 tre_sierra               tb_tremolo       DETECTADA    periodo del LFO fuera de 9800 +-1 %
 tre_sin_bypass           tb_tremolo       DETECTADA    apagado: y /= x en x = -2009
 tre_lfo_cada_ciclo       tb_tremolo       DETECTADA    la salida salto despues de una pausa: el LFO avanzo sin muestras
-eco_8191                 tb_eco           DETECTADA    muestra 8191: y = -437, se esperaba -164
-eco_realim_1             tb_eco           DETECTADA    muestra 8192: y = -874, se esperaba -601
-eco_sin_recirc           tb_eco           DETECTADA    muestra 16384: y = -1737, se esperaba -1874
+eco_4095                 tb_eco           DETECTADA    muestra 4095: y = -1111, se esperaba -838
+eco_realim_1             tb_eco           DETECTADA    muestra 4096: y = -2032, se esperaba -1948
+eco_sin_recirc           tb_eco           DETECTADA    muestra 8192: y = -1166, se esperaba -1302
 eco_lleno_sin_reset      tb_eco           DETECTADA    impulso: y(0) = 2032, se esperaba 1600
-eco_bandera              tb_eco           DETECTADA    muestra 8200: satura incorrecta
+eco_bandera              tb_eco           DETECTADA    muestra 4098: satura incorrecta
 vol_3_es_2               tb_volumen       DETECTADA    vol 3, x = 2032: y = 1016, se esperaba 1524
 vol_1_es_2               tb_volumen       DETECTADA    vol 1, x = 2032: y = 1016, se esperaba 508
 vol_5a7_cero             tb_volumen       DETECTADA    vol 5, x = -2048: y = 0, se esperaba -2048
@@ -77,7 +92,7 @@ pwm_reset_0              tb_salida_pwm    DETECTADA    el PWM no arranco despues
 aud_corrimiento_3        tb_audio_salida  DETECTADA    A: muestra 1 del PWM = 22, se esperaba 11
 aud_clic_con_volumen     tb_audio_salida  DETECTADA    B: el clic debe empezar en +48 y empezo en 0
 aud_efectos_cruzados     tb_audio_salida  DETECTADA    C: el tremolo no bajo la amplitud (50)
-aud_ambos_sin_eco        tb_audio_salida  DETECTADA    E: falta el eco en la muestra 8192 (41)
+aud_ambos_sin_eco        tb_audio_salida  DETECTADA    E: falta el eco en la muestra 4096 (29 contra 29)
 aud_clip_sin_estirar     tb_audio_salida  DETECTADA    F: clip debe durar unos 100 ms
 aud_nivel_sin_abs        tb_audio_salida  DETECTADA    nivel = 0 /= |muestra| en la muestra 19
 aud_sat_final_sin_clip   tb_audio_salida  DETECTADA    F: el clic sobre 127 debe saturar la suma final
@@ -85,60 +100,60 @@ aud_sat_final_sin_clip   tb_audio_salida  DETECTADA    F: el clic sobre 127 debe
 ## VGA (58): vga_ui
  0 H_SY 96->95                        detectada: HSYNC dura 3800000000 fs, se esperaban 96 pixeles
  1 H_FP 16->17                        detectada: VSYNC no empieza al inicio de la linea
- 2 V_TOT 525->524                     detectada: marco del panel SECUENCIADOR: pixel (300,393) = 223, se esperaba 46A
+ 2 V_TOT 525->524                     detectada: marco del panel SECUENCIADOR: pixel (300,393) = 000, se esperaba 001
  3 V_SY 2->3                          detectada: VSYNC dura 96000000000 fs, se esperaban 2 lineas
- 4 HSYNC polaridad                    detectada: HSYNC dura 26240000000 fs, se esperaban 96 pixeles
+ 4 HSYNC polaridad                    detectada: HSYNC dura 28160000000 fs, se esperaban 96 pixeles
  5 hs con una etapa menos             detectada: VSYNC no empieza al inicio de la linea
  6 sin borrado fuera de zona visible  detectada: el color no es 0 durante HSYNC
  7 titulos GRA/REP cambiados          detectada: titulo 'GRABACION     ': la letra 1 no coincide
- 8 banda por estado y no por modo     detectada: banda CONFIGURACION: pixel (300,4) = C22, se esperaba D70
+ 8 banda por estado y no por modo     detectada: banda CONFIGURACION: pixel (300,4) = 100, se esperaba 101
  9 titulo de 13 letras                detectada: titulo 'INTERPRETACION': la letra 14 no coincide
 10 titulo una linea abajo             detectada: titulo 'INTERPRETACION': la letra 1 no coincide
-11 negra derecha +2                   detectada: tecla C# con V2 (lado izquierdo): pixel (70,130) = 111, se esperaba 3D3
-12 negra izquierda sin pw-1           detectada: tecla C# con V2 (lado derecho): pixel (85,130) = 111, se esperaba 3D3
-13 tecla sin gate                     detectada: F4 con gate en 0: pixel (180,180) = 39F, se esperaba EEE
-14 octava base * 11                   detectada: tecla C con V1: pixel (60,180) = EEE, se esperaba F62
-15 color de V2 por V3                 detectada: tecla C# con V2 (lado izquierdo): pixel (70,130) = 39F, se esperaba 3D3
-16 negras de 78 lineas                detectada: tecla blanca abajo de la negra: pixel (70,176) = 3D3, se esperaba F62
-17 piano 1 pixel a la derecha         detectada: separacion entre blancas: pixel (78,200) = F62, se esperaba 333
-18 separacion de blancas 3 px         detectada: tecla C hasta su pixel 37: pixel (77,200) = 333, se esperaba F62
+11 negra derecha +2                   detectada: tecla C# con V2 (lado izquierdo): pixel (70,130) = 000, se esperaba 010
+12 negra izquierda sin pw-1           detectada: tecla C# con V2 (lado derecho): pixel (85,130) = 000, se esperaba 010
+13 tecla sin gate                     detectada: F4 con gate en 0: pixel (180,180) = 011, se esperaba 111
+14 octava base * 11                   detectada: tecla C con V1: pixel (60,180) = 111, se esperaba 100
+15 color de V2 por V3                 detectada: tecla C# con V2 (lado izquierdo): pixel (70,130) = 011, se esperaba 010
+16 negras de 78 lineas                detectada: tecla blanca abajo de la negra: pixel (70,176) = 010, se esperaba 100
+17 piano 1 pixel a la derecha         detectada: separacion entre blancas: pixel (78,200) = 100, se esperaba 000
+18 separacion de blancas 3 px         detectada: tecla C hasta su pixel 37: pixel (77,200) = 000, se esperaba 100
 19 etiqueta C5 sin +1                 detectada: etiqueta C5 de la tecla blanca 7
-20 cuadrada invertida                 detectada: cuadrada arriba: pixel (298,281) = 012, se esperaba FE3
-21 triangular sin modulo              detectada: triangular columna 32: pixel (320,312) = 257, se esperaba FE3
-22 onda volteada                      detectada: cuadrada arriba: pixel (298,281) = 012, se esperaba FE3
-23 onda de 1 pixel                    detectada: cuadrada arriba, 2 pixeles: pixel (298,282) = 012, se esperaba FE3
-24 onda sin tramos verticales         detectada: cuadrada tramo vertical: pixel (352,304) = 012, se esperaba FE3
-25 eje punteado al reves              detectada: eje punteado (raya): pixel (296,312) = 012, se esperaba 257
-26 BCD ajuste >5                      detectada: texto '123' en renglon 25, columna 39: la letra 2 no coincide (letra EEE sobre 223)
-27 BCD decenas sin ajuste             detectada: texto '123' en renglon 25, columna 39: la letra 1 no coincide (letra EEE sobre 223)
-28 eventos muestra posicion           detectada: texto '123' en renglon 25, columna 39: la letra 1 no coincide (letra EEE sobre 223)
-29 barra REP con eventos              detectada: barra reproduciendo 100/200 (primer pixel vacio): pixel (312,440) = 3C5, se esperaba 112
-30 barra <= umbral                    detectada: barra reproduciendo 100/200 (primer pixel vacio): pixel (312,440) = 3C5, se esperaba 112
-31 barra denominador 255              detectada: barra en espera 123/256 (primer pixel vacio): pixel (305,440) = 69B, se esperaba 112
-32 barra color por modo               detectada: barra grabando en CONFIGURACION 37/256 (ultimo pixel lleno): pixel (175,440) = 69B, se esperaba E33
-33 resalte en todos los modos         detectada: texto ' SUSTAIN ' en renglon 19, columna 1: la letra 1 no coincide (letra 99A sobre 223)
-34 renglon resaltado +1               detectada: texto '>SUSTAIN 100 %      ' en renglon 19, columna 1: la letra 1 no coincide (letra 000 sobre FD3)
-35 resalte 1 px mas ancho             detectada: fuera del resalte (izquierda): pixel (9,312) = FD3, se esperaba 223
-36 acento con color normal            detectada: foco en el tiempo con acento: pixel (612,32) = 4F4, se esperaba F43
-37 foco no se apaga                   detectada: foco apagado entre tiempos: pixel (612,32) = F43, se esperaba 444
-38 foco cuadrado                      detectada: fuera del foco (renglon de arriba): pixel (607,16) = 4F4, se esperaba 111
-39 punto rojo sin parpadeo            detectada: punto de grabacion apagado en el cuadro siguiente: pixel (353,407) = F11, se esperaba 223
-40 color de estado fijo               detectada: texto 'GRABANDO     ' en renglon 25, columna 15: la letra 1 no coincide (letra F44 sobre 223)
-41 columna de letra mal               detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra FFF sobre 25B)
-42 fila de letra corrida              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra FFF sobre 25B)
+20 cuadrada invertida                 detectada: cuadrada arriba: pixel (298,281) = 000, se esperaba 110
+21 triangular sin modulo              detectada: triangular columna 32: pixel (320,312) = 001, se esperaba 110
+22 onda volteada                      detectada: cuadrada arriba: pixel (298,281) = 000, se esperaba 110
+23 onda de 1 pixel                    detectada: cuadrada arriba, 2 pixeles: pixel (298,282) = 000, se esperaba 110
+24 onda sin tramos verticales         detectada: cuadrada tramo vertical: pixel (352,304) = 000, se esperaba 110
+25 eje punteado al reves              detectada: eje punteado (raya): pixel (296,312) = 000, se esperaba 001
+26 BCD ajuste >5                      detectada: texto '123' en renglon 25, columna 39: la letra 2 no coincide (letra 111 sobre 000)
+27 BCD decenas sin ajuste             detectada: texto '123' en renglon 25, columna 39: la letra 1 no coincide (letra 111 sobre 000)
+28 eventos muestra posicion           detectada: texto '123' en renglon 25, columna 39: la letra 1 no coincide (letra 111 sobre 000)
+29 barra REP con eventos              detectada: barra reproduciendo 100/200 (primer pixel vacio): pixel (312,440) = 010, se esperaba 000
+30 barra <= umbral                    detectada: barra reproduciendo 100/200 (primer pixel vacio): pixel (312,440) = 010, se esperaba 000
+31 barra denominador 255              detectada: barra en espera 123/256 (primer pixel vacio): pixel (305,440) = 011, se esperaba 000
+32 barra color por modo               detectada: barra grabando en CONFIGURACION 37/256 (ultimo pixel lleno): pixel (175,440) = 011, se esperaba 100
+33 resalte en todos los modos         detectada: texto ' SUSTAIN ' en renglon 19, columna 1: la letra 2 no coincide (letra 011 sobre 000)
+34 renglon resaltado +1               detectada: texto '>SUSTAIN 100 %      ' en renglon 19, columna 1: la letra 1 no coincide (letra 000 sobre 110)
+35 resalte 1 px mas ancho             detectada: fuera del resalte (izquierda): pixel (9,312) = 110, se esperaba 000
+36 acento con color normal            detectada: foco en el tiempo con acento: pixel (612,32) = 010, se esperaba 100
+37 foco no se apaga                   detectada: foco apagado entre tiempos: pixel (612,32) = 100, se esperaba 111
+38 foco cuadrado                      detectada: fuera del foco (renglon de arriba): pixel (607,16) = 010, se esperaba 000
+39 punto rojo sin parpadeo            detectada: punto de grabacion apagado en el cuadro siguiente: pixel (353,407) = 100, se esperaba 000
+40 color de estado fijo               detectada: texto 'GRABANDO     ' en renglon 25, columna 15: la letra 1 no coincide (letra 100 sobre 000)
+41 columna de letra mal               detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra 111 sobre 001)
+42 fila de letra corrida              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 1 no coincide (letra 111 sobre 001)
 43 letras en espejo                   detectada: titulo 'INTERPRETACION': la letra 2 no coincide
-44 sostenidos mal                     detectada: texto ' F4 ' en renglon 20, columna 39: la letra 3 no coincide (letra 99A sobre 223)
-45 octava de la nota +1               detectada: texto ' B3 ' en renglon 16, columna 39: la letra 3 no coincide (letra EEE sobre 223)
-46 volumen sin tope                   detectada: ghdl:error: bound check failure at vga_ui.vhd:622
-47 medidor <=                         detectada: volumen 2: segmento 3: pixel (194,343) = FC2, se esperaba 334
-48 nivel sin redondeo                 detectada: nivel V2 = 101: pixel 50: pixel (495,312) = 112, se esperaba 3D3
-49 etiquetas en color normal          detectada: texto 'FORMA   ' en renglon 16, columna 2: la letra 1 no coincide (letra 99A sobre 223)
-50 nota sin gate en blanco            detectada: texto ' ---' en renglon 20, columna 39: la letra 2 no coincide (letra 99A sobre 223)
-51 copia en la linea 480              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra FFF sobre 25B)
-52 METRONOMO OFF siempre              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra FFF sobre 25B)
-53 zona marco de PM a fondo           detectada: marco del panel FORMA DE ONDA: pixel (267,300) = 112, se esperaba 46A
+44 sostenidos mal                     detectada: texto ' F4 ' en renglon 20, columna 39: la letra 3 no coincide (letra 011 sobre 000)
+45 octava de la nota +1               detectada: texto ' B3 ' en renglon 16, columna 39: la letra 3 no coincide (letra 111 sobre 000)
+46 volumen sin tope                   detectada: ghdl:error: bound check failure at vga_ui.vhd:644
+47 medidor <=                         detectada: volumen 2: segmento 3: pixel (194,343) = 110, se esperaba 001
+48 nivel sin redondeo                 detectada: nivel V2 = 101: pixel 50: pixel (495,312) = 000, se esperaba 010
+49 etiquetas en color normal          detectada: texto 'FORMA   ' en renglon 16, columna 2: la letra 1 no coincide (letra 011 sobre 000)
+50 nota sin gate en blanco            detectada: texto ' ---' en renglon 20, columna 39: la letra 2 no coincide (letra 011 sobre 000)
+51 copia en la linea 480              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra 111 sobre 001)
+52 METRONOMO OFF siempre              detectada: texto 'METRONOMO ON ' en renglon 1, columna 36: la letra 12 no coincide (letra 111 sobre 001)
+53 zona marco de PM a fondo           detectada: marco del panel FORMA DE ONDA: pixel (267,300) = 000, se esperaba 001
 54 etiqueta una linea arriba          detectada: etiqueta C4 de la tecla blanca 0
-55 marco de barra de nivel V2 corrido detectada: marco de arriba de la barra de nivel 2: pixel (500,307) = 112, se esperaba 668
+55 marco de barra de nivel V2 corrido detectada: marco de arriba de la barra de nivel 2: pixel (500,307) = 000, se esperaba 001
 56 color de etiqueta fijo             detectada: etiqueta C4 de la tecla blanca 0
-57 AVANCE/MEMORIA al reves            detectada: texto 'MEMORIA' en renglon 27, columna 2: la letra 1 no coincide (letra 99A sobre 223)
+57 AVANCE/MEMORIA al reves            detectada: texto 'MEMORIA' en renglon 27, columna 2: la letra 1 no coincide (letra 011 sobre 000)
 detectadas 58 de 58

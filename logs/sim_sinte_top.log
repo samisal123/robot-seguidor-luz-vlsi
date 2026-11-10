@@ -1,13 +1,17 @@
 # Prueba del sistema completo: sh sim/correr.sh sinte_top
-# GHDL 4.1.0, 26 y 27 de octubre de 2026 (23:59 a 00:19, 1.95 s simulados)
+# GHDL 4.1.0, 9 de noviembre de 2026, diseno para la EP2C5T144 (3.39 s simulados desde el reloj de 50 MHz)
 
-sim/tb_sinte_top.vhd:268:9:@6021110ns:(report note): tb_sinte_top: paso 2 A4
-sim/tb_sinte_top.vhd:277:9:@64942070ns:(report note): tb_sinte_top: paso 3 acorde
-sim/tb_sinte_top.vhd:284:9:@94942070ns:(report note): tb_sinte_top: paso 4 soltar
-sim/tb_sinte_top.vhd:292:9:@286986230ns:(report note): tb_sinte_top: paso 5 octavas
-sim/tb_sinte_top.vhd:311:9:@670635510ns:(report note): tb_sinte_top: paso 6 configuracion
-sim/tb_sinte_top.vhd:334:9:@1198805110ns:(report note): tb_sinte_top: paso 7 grabacion
-sim/tb_sinte_top.vhd:364:9:@1518000390ns:(report note): tb_sinte_top: paso 7 reproduccion
-sim/tb_sinte_top.vhd:385:9:@1808000350ns:(report note): tb_sinte_top: paso 8 metronomo
-sim/tb_sinte_top.vhd:405:9:@1952082550ns:(report note): tb_sinte_top: OK
+sim/tb_sinte_top.vhd:243:9:@6021110ns:(report note): tb_sinte_top: paso 2 A4
+sim/tb_sinte_top.vhd:254:9:@73154550ns:(report note): tb_sinte_top: paso 3 acorde
+sim/tb_sinte_top.vhd:264:9:@144097270ns:(report note): tb_sinte_top: paso 4 soltar
+sim/tb_sinte_top.vhd:271:9:@336138230ns:(report note): tb_sinte_top: paso 5 octavas
+sim/tb_sinte_top.vhd:294:9:@1173613430ns:(report note): tb_sinte_top: paso 6 configuracion
+sim/tb_sinte_top.vhd:317:9:@1891123190ns:(report note): tb_sinte_top: paso 7 grabacion
+sim/tb_sinte_top.vhd:343:9:@2241001290ns:(report note): tb_sinte_top: paso 7 reproduccion
+sim/tb_sinte_top.vhd:360:9:@2556001210ns:(report note): tb_sinte_top: paso 8 metronomo
+sim/tb_sinte_top.vhd:382:9:@3390083190ns:(report note): tb_sinte_top: OK
 == tb_sinte_top: PASA
+
+real	24m58.174s
+user	19m15.611s
+sys	5m20.229s
