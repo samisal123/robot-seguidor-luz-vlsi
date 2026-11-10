@@ -49,6 +49,12 @@ set_global_assignment -name VHDL_INPUT_VERSION VHDL_1993
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 
+# El pin 76 (nCEO, doble proposito) lo usa el teclado 2
+# (TEC2_COL[2]); por omision Quartus lo reserva para la cadena de
+# configuracion y el Fitter falla con el error 176310. Con un solo
+# FPGA en la tarjeta nCEO no se usa, asi que queda como E/S normal.
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+
 # Fuentes VHDL de rtl/: primero los paquetes, luego lo demas
 foreach archivo [lsort [glob -nocomplain -directory ../rtl *_pkg.vhd]] {
     set_global_assignment -name VHDL_FILE $archivo
