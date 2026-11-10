@@ -1,11 +1,12 @@
 -- ============================================================
 -- tb_audio_salida.vhd
 -- Prueba de punta a punta de la etapa de audio con los ticks
--- reales (tick_fs cada 1024 ciclos, tick_1ms cada 50 000).
--- Un medidor cuenta los ciclos en alto de cada periodo del PWM
--- (ventanas de 256 ciclos desde que se suelta el reset), revisa
--- que cada periodo sea un solo pulso al inicio, que los 4 periodos
--- de cada muestra midan lo mismo y que nivel = |muestra|, y guarda
+-- reales a 25 MHz (tick_fs cada FS_DIV = 512 ciclos, tick_1ms
+-- cada 25 000). Un medidor cuenta los ciclos en alto de cada
+-- periodo del PWM (ventanas de 256 ciclos desde que se suelta el
+-- reset), revisa que cada periodo sea un solo pulso al inicio, que
+-- los 2 periodos de cada muestra midan lo mismo y que
+-- nivel = |muestra|, y guarda
 -- la muestra reconstruida (ancho - 128) de cada tick_fs.
 -- Revisa:
 --   A) voz senoidal (voz0 = seno, 1335 Hz) a volumen 100 % sin
@@ -18,10 +19,11 @@
 --      los 100 ms
 --   C) tremolo (efecto 01) con voz constante: la salida arranca en
 --      50 y baja sin subir durante 1200 muestras (LFO desde fase 0)
---   D) eco (efecto 10) con un impulso: regresa exactamente 8192
+--   D) eco (efecto 10) con un impulso: regresa exactamente 4096
 --      muestras despues a la mitad; todo lo demas vale 0
---   E) los dos (efecto 11): baja por el tremolo y 8192 muestras
---      despues sube por el eco
+--   E) los dos (efecto 11): baja por el tremolo y 4096 muestras
+--      despues sube de golpe por el eco (al menos 15 sobre la
+--      muestra anterior)
 --   F) clip: dos voces a 127 llegan a 127 sin clip; tres voces
 --      durante una sola muestra encienden clip por 99 a 100 ms; el
 --      clic sobre una senal de 127 satura la suma final y tambien
@@ -36,8 +38,9 @@ entity tb_audio_salida is
 end entity tb_audio_salida;
 
 architecture sim of tb_audio_salida is
-    constant T_CLK : time := 20 ns;
-    constant F_MUESTREO : real := 50.0e6 / 1024.0;
+    constant T_CLK : time := 40 ns;    -- 25 MHz
+    constant F_MUESTREO : real := real(CLK_HZ_SIS) / real(FS_DIV);
+    constant RETARDO    : natural := 4096;   -- eco de audio_salida
     constant MAX_MED    : natural := 16383;
 
     signal clk      : std_logic := '0';
@@ -101,9 +104,9 @@ begin
 
     -- Ticks (fase fija respecto al reset) y medidor del PWM.
     -- e = flancos desde que el DUT salio de reset (0 = el primero).
-    -- tick_fs se toma en los flancos 1024 m + 100 (muestra m); la
+    -- tick_fs se toma en los flancos 512 m + 100 (muestra m); la
     -- muestra final queda lista 9 ciclos despues y el PWM la usa en
-    -- los periodos 4m+1 a 4m+4.
+    -- los periodos 2m+1 y 2m+2.
     medidor : process (clk)
         variable e       : integer := 0;
         variable cnt     : integer := 0;
@@ -149,8 +152,8 @@ begin
                             assert cnt = 128
                                 report "PWM: el primer periodo debe tener duty 128" severity error;
                         else
-                            m := (k - 1) / 4;
-                            if (k - 1) mod 4 = 0 then
+                            m := (k - 1) / 2;
+                            if (k - 1) mod 2 = 0 then
                                 primera := cnt;
                                 if m <= MAX_MED then
                                     med(m) <= cnt - 128;
@@ -162,18 +165,18 @@ begin
                                     severity error;
                             else
                                 assert cnt = primera
-                                    report "PWM: los 4 periodos de la muestra " & integer'image(m) &
+                                    report "PWM: los 2 periodos de la muestra " & integer'image(m) &
                                            " no miden lo mismo" severity error;
                             end if;
                         end if;
                     end if;
                 end if;
-                if (e + 1) mod 1024 = 100 then
+                if (e + 1) mod FS_DIV = 100 then
                     tick_fs <= '1';
                 else
                     tick_fs <= '0';
                 end if;
-                if (e + 1) mod 50000 = 25000 then
+                if (e + 1) mod 25000 = 12500 then
                     tick_1ms <= '1';
                 else
                     tick_1ms <= '0';
@@ -338,15 +341,15 @@ begin
             else
                 voz0 <= sv8(0);
             end if;
-            exit when m = 5 + 8192 + 20;
+            exit when m = 5 + RETARDO + 20;
         end loop;
-        esperar_medida(5 + 8192 + 20);
-        for i in 0 to 5 + 8192 + 20 loop
+        esperar_medida(5 + RETARDO + 20);
+        for i in 0 to 5 + RETARDO + 20 loop
             if i = 5 then
                 assert med(i) = 50 report "D: el impulso debe salir en 50" severity error;
-            elsif i = 5 + 8192 then
+            elsif i = 5 + RETARDO then
                 assert med(i) = 25
-                    report "D: el eco debe regresar en 25 a las 8192 muestras y salio " &
+                    report "D: el eco debe regresar en 25 a las 4096 muestras y salio " &
                            integer'image(med(i)) severity error;
             else
                 assert med(i) = 0
@@ -354,7 +357,7 @@ begin
                            ", se esperaba 0" severity error;
             end if;
         end loop;
-        report "D: eco exacto 8192 muestras despues (168 ms) a la mitad";
+        report "D: eco exacto 4096 muestras despues (84 ms) a la mitad";
 
         ------------------------------------------------------------
         -- E) tremolo y eco
@@ -364,22 +367,25 @@ begin
         reiniciar;
         loop
             siguiente(m);
-            exit when m = 8300;
+            exit when m = RETARDO + 108;
         end loop;
-        esperar_medida(8300);
+        esperar_medida(RETARDO + 108);
         assert med(0) = 50 report "E: debe arrancar en 50" severity error;
         for i in 1 to 1199 loop
             assert med(i) <= med(i - 1)
                 report "E: la salida subio en la muestra " & integer'image(i) severity error;
         end loop;
         assert med(1199) <= 45 report "E: falta el tremolo" severity error;
-        for i in 8192 to 8300 loop
-            assert med(i) > 55
+        -- el eco suma la mitad de lo que salio RETARDO muestras antes
+        -- (unos 25): la salida sube de golpe respecto a la muestra previa
+        for i in RETARDO to RETARDO + 108 loop
+            assert med(i) >= med(RETARDO - 1) + 15
                 report "E: falta el eco en la muestra " & integer'image(i) & " (" &
-                       integer'image(med(i)) & ")" severity error;
+                       integer'image(med(i)) & " contra " & integer'image(med(RETARDO - 1)) & ")"
+                severity error;
         end loop;
         report "E: tremolo (50 a " & integer'image(med(1199)) & ") y eco (" &
-               integer'image(med(8192)) & " en la muestra 8192)";
+               integer'image(med(RETARDO)) & " en la muestra 4096)";
 
         ------------------------------------------------------------
         -- F) clip
