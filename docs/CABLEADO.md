@@ -93,23 +93,22 @@ pin 93 (AUDIO_PWM)
   (+) C3 10 µF electrolítico
   (-)
     |
-    +---- extremo 1 del potenciómetro
-          extremo 2 del potenciómetro ---- GND
-          pata central (cursor) ---------- L (IN) del PAM8403
+    +---------------------------- L de la entrada (input) del módulo
 
-                             PAM8403
-                             VCC (+5 V) <- riel + de la protoboard
-                             GND        <- riel - de la protoboard
+                             Módulo PAM8403 (HW-012, con perilla)
+                             power +    <- riel + de la protoboard
+                             power -    <- riel - de la protoboard
                              G de la entrada <- GND
                              R de la entrada: sin conectar
-                             L+ / L-    -> bocina 8 Ω
+                             Lout + / Lout -  -> bocina 8 Ω
 ```
 
 - **Filtro RC de 2 etapas** (R1-C1, R2-C2): convierte el PWM de 97.7 kHz en la señal de audio. Corte a −3 dB en unos 6 kHz y unos −32 dB a 97.7 kHz. Las resistencias de 1 kΩ son café, negro, rojo; los capacitores de 10 nF traen grabado 103.
 - **C3** quita la componente de DC (1.65 V, la mitad del PWM). Su lado **+** (la pata larga) va hacia el filtro.
-- **Potenciómetro**: baja el nivel antes del PAM8403, que tiene ganancia fija de 24 dB y se saturaría con la señal completa (±1.65 V). Es el volumen analógico: **empezar con el cursor del lado de GND** e ir subiendo. Si el módulo PAM8403 ya trae su propio potenciómetro, los dos se pueden dejar.
-- **Bocina**: va entre L+ y L−. Ninguna de las dos salidas del PAM8403 es tierra (es puente BTL): **nunca conectar la bocina ni L− a GND**.
-- Todas las tierras (filtro, potenciómetro, PAM8403) van al mismo GND que la tarjeta.
+- **Perilla del módulo**: el módulo HW-012 trae un potenciómetro doble con interruptor entre la entrada y el amplificador; baja el nivel para que el PAM8403 (ganancia fija de 24 dB) no se sature con la señal completa (±1.65 V). Es el volumen analógico: **empezar al mínimo** (girada hasta el clic, que además apaga el módulo) e ir subiendo.
+- **Pines del módulo**: sus agujeros (R, G, L de la entrada; power + y −; Lout y Rout) no traen pines; hay que soldarle una tira de pines o cables.
+- **Bocina**: va entre Lout + y Lout −. Ninguna de las dos salidas del PAM8403 es tierra (es puente BTL): **nunca conectar la bocina ni L− a GND**.
+- Todas las tierras (filtro y PAM8403) van al mismo GND que la tarjeta.
 
 El volumen digital (0 a 4) se cambia con la tecla D del teclado 2 o en el modo configuración.
 
@@ -128,7 +127,7 @@ El USB-Blaster va al conector **JTAG** de 10 pines de la tarjeta (la marca de la
 2. GND de la tarjeta unido al riel − de la protoboard.
 3. Teclado 1 y teclado 2 en los pines de la tabla, en el orden de la tabla.
 4. Pin 93 a R1; R1-R2-C3 en serie; C1 y C2 a GND; C3 con el + hacia R2.
-5. C3 (−) a un extremo del potenciómetro, el otro extremo a GND y el cursor a la entrada L del PAM8403.
+5. C3 (−) a la entrada L del módulo; G de la entrada a GND; perilla al mínimo.
 6. PAM8403: VCC al riel de 5 V, GND al riel de GND.
 7. Bocina entre L+ y L−, sin tocar GND.
 8. Ningún cable de 5 V va a un pin de la FPGA, y nada se conecta a los pines 26, 27, 73, 80 y 81.

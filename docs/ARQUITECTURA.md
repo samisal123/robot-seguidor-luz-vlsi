@@ -190,7 +190,7 @@ Cuenta milisegundos y marca un tiempo cada 1000, 667, 500 o 400 ms (60, 90, 120,
 
 ### Etapa analógica
 
-El PWM sale por el pin 93 de la FPGA a un filtro RC de dos etapas (1 kΩ y 10 nF cada una, −3 dB en unos 6 kHz y unos −32 dB a 97.7 kHz), un capacitor de 10 µF que quita la DC, un potenciómetro que baja el nivel (volumen analógico) y el amplificador PAM8403, que mueve una bocina de 8 Ω. Detalle en [CABLEADO.md](CABLEADO.md).
+El PWM sale por el pin 93 de la FPGA a un filtro RC de dos etapas (1 kΩ y 10 nF cada una, −3 dB en unos 6 kHz y unos −32 dB a 97.7 kHz), un capacitor de 10 µF que quita la DC, y el módulo amplificador PAM8403, cuya perilla baja el nivel (volumen analógico), que mueve una bocina de 8 Ω. Detalle en [CABLEADO.md](CABLEADO.md).
 
 ## Interfaz de usuario
 
@@ -217,7 +217,9 @@ Memoria en la EP2C5 (26 bloques M4K de 4 096 bits):
 | Seno (uno por voz) | 256 × 8 | 3 |
 | **Total** | | **21 de 26** |
 
-Compilación en Quartus II 13.0 SP1 para la EP2C5T144C8 con la VGA y los botones (TAREA-025 y TAREA-027): 3 782 elementos lógicos de 4 608 (82 %), 1 403 registros, 76 032 bits de memoria (63 %), 6 de 26 multiplicadores de 9 bits y 1 PLL; el reloj de 25 MHz cerró con 12.3 ns de margen (Fmax de 36 MHz). La VGA sola usaba 1 523 elementos lógicos. Los números de la versión sin VGA salen de la TAREA-029.
+Compilación en Quartus II 13.0 SP1 para la EP2C5T144C8 con la VGA y los botones (TAREA-025 y TAREA-027): 3 782 elementos lógicos de 4 608 (82 %), 1 403 registros, 76 032 bits de memoria (63 %), 6 de 26 multiplicadores de 9 bits y 1 PLL; el reloj de 25 MHz cerró con 12.3 ns de margen (Fmax de 36 MHz). La VGA sola usaba 1 523 elementos lógicos.
+
+Versión actual, sin VGA ni botones (14 de noviembre de 2026, [quartus/reportes/](../quartus/reportes/)): **2 340 elementos lógicos de 4 608 (51 %)**, 931 registros, 69 888 bits de memoria (58 %), 5 de 26 multiplicadores de 9 bits, 1 PLL y 22 de 89 pines. Fmax de 38.57 MHz en el modelo lento para el reloj de 25 MHz (holgura de setup 14.073 ns, de hold 0.499 ns; modelo rápido 32.134 / 0.215 ns). Sin advertencias críticas.
 
 ## Limitaciones conocidas
 

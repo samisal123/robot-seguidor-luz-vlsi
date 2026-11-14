@@ -1,6 +1,6 @@
 # Sintetizador musical digital en FPGA
 
-Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un sintetizador que se toca con dos teclados matriciales, genera las notas por síntesis digital directa (DDS) con envolvente ADSR, graba y reproduce secuencias, tiene metrónomo y suena por una bocina. Toda la lógica está en VHDL sobre una FPGA Cyclone II (tarjeta mínima EP2C5T144); afuera solo hay un filtro RC, un potenciómetro, un amplificador PAM8403 y la bocina.
+Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un sintetizador que se toca con dos teclados matriciales, genera las notas por síntesis digital directa (DDS) con envolvente ADSR, graba y reproduce secuencias, tiene metrónomo y suena por una bocina. Toda la lógica está en VHDL sobre una FPGA Cyclone II (tarjeta mínima EP2C5T144); afuera solo hay un filtro RC, un módulo amplificador PAM8403 y la bocina.
 
 ![Diagrama de bloques](docs/img/bloques.png)
 
@@ -20,7 +20,7 @@ Proyecto final de Diseño Digital VLSI (Facultad de Ingeniería, UNAM). Un sinte
 
 Características de nivel implementadas: polifonía de tres voces y efectos digitales (trémolo y eco). La interfaz VGA se quitó para no necesitar más material.
 
-**Estado:** verificado en simulación (ver [docs/PRUEBAS.md](docs/PRUEBAS.md)); la versión con VGA y botones se compiló en Quartus II 13.0 SP1 para la EP2C5T144C8 (3 782 elementos lógicos, 82 %, reloj de 25 MHz con 12.3 ns de margen) y se cargó en la tarjeta por JTAG. La versión sin VGA, con los controles en el teclado 2, se compila en la TAREA-029. Falta armar la protoboard y probarla con sonido.
+**Estado:** verificado en simulación (ver [docs/PRUEBAS.md](docs/PRUEBAS.md)), compilado en Quartus II 13.0 SP1 para la EP2C5T144C8 (2 340 elementos lógicos, 51 %; Fmax de 38.6 MHz para el reloj de 25 MHz) y cargado en la tarjeta por JTAG: el teclado 2 ya cambia de modo y los LEDs responden. Falta armar el audio en la protoboard.
 
 ## Estructura
 
