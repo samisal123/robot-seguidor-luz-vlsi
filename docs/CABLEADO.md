@@ -12,8 +12,8 @@ Las asignaciones están en `quartus/pines.tcl`.
 
 | Bloque | Pines de la FPGA | Notas |
 |---|---|---|
-| Teclado 1 (octava base) | filas 25, 31, 41, 40; columnas 43, 42, 45, 44 | pines 1 a 8 del conector del teclado, en ese orden |
-| Teclado 2 (octava base + 1) | filas 48, 47, 52, 51; columnas 58, 55, 76, 60 | pines 1 a 8 del conector del teclado, en ese orden |
+| Teclado 1 (octava base) | filas 44, 45, 42, 43; columnas 40, 41, 31, 25 | conector visto de frente, de izquierda a derecha: 25, 31, 41, 40, 43, 42, 45, 44 |
+| Teclado 2 (octava base + 1) | filas 60, 76, 55, 58; columnas 51, 52, 47, 48 | conector visto de frente, de izquierda a derecha: 48, 47, 52, 51, 58, 55, 76, 60 |
 | Audio (PWM) | 93 | entrada del filtro RC |
 | LEDs D2, D4, D5 | 3, 7, 9 | ya están en la tarjeta |
 | RESET | 144 | botón de la tarjeta |
@@ -37,13 +37,16 @@ eliminador 5 V --> jack hembra con bornera --> riel + (5 V) y riel - (GND) de la
 
 ## Teclados matriciales 4 × 4
 
-Los teclados de membrana tienen un conector hembra de 8 pines: los pines 1 a 4 son las filas y 5 a 8 las columnas. Viendo el teclado de frente con el conector abajo, el pin 1 suele ser el de la izquierda; como cambia entre fabricantes, conviene confirmarlo con el multímetro en continuidad: al presionar la tecla **1** deben unirse los pines 1 y 5, y al presionar la **D**, los pines 4 y 8. Se usan 8 jumpers macho-hembra por teclado (macho al teclado, hembra al pin de la tarjeta).
+Los teclados de membrana tienen un conector hembra de 8 pines: los pines 1 a 4 son las filas y 5 a 8 las columnas. **En los teclados del proyecto el pin 1 es el de la derecha** (viéndolos de frente con el conector abajo); se comprobó en la tarjeta el 14 de noviembre: con el orden contrario solo funcionaba la tecla A. Se usan 8 jumpers macho-hembra por teclado (macho al teclado, hembra al pin de la tarjeta). La forma fácil de conectarlos: recorrer el conector **de izquierda a derecha** y poner los jumpers en este orden:
 
-| Pin del teclado | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+| Posición en el conector (izquierda → derecha) | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
 |---|---|---|---|---|---|---|---|---|
-| Función | fila 1 | fila 2 | fila 3 | fila 4 | col. 1 | col. 2 | col. 3 | col. 4 |
+| Pin del teclado | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 |
+| Función | col. 4 | col. 3 | col. 2 | col. 1 | fila 4 | fila 3 | fila 2 | fila 1 |
 | Teclado 1 → pin FPGA | 25 | 31 | 41 | 40 | 43 | 42 | 45 | 44 |
 | Teclado 2 → pin FPGA | 48 | 47 | 52 | 51 | 58 | 55 | 76 | 60 |
+
+Si otro teclado trae el pin 1 a la izquierda, se puede confirmar con el multímetro en continuidad (al presionar la tecla **1** se unen los pines 1 y 5, y con la **D** los pines 4 y 8) y voltear el orden en `quartus/pines.tcl`. Una prueba rápida sin multímetro: si solo funciona la A, el conector está al revés.
 
 - Las filas se manejan en colector abierto: la FPGA pone en `'0'` solo la fila que lee y deja las otras en alta impedancia. Así, dos teclas presionadas en la misma columna nunca ponen en corto dos salidas.
 - Las columnas usan el pull-up interno de la Cyclone II (`WEAK_PULL_UP_RESISTOR` en `pines.tcl`); no hacen falta resistencias externas.
@@ -58,7 +61,7 @@ Mapa de teclas (igual en los dos teclados; el teclado 2 suena una octava arriba)
  *  0  #  D        A   A#  B   | D
 ```
 
-Si al tocar una tecla aparece otra nota en el piano de la pantalla, el conector quedó volteado o recorrido: revisar que el pin 1 del teclado esté en el primer pin de la tabla.
+Si al tocar una tecla suena otra nota, el conector quedó volteado o recorrido: revisar el orden de la tabla.
 
 ## Controles
 
