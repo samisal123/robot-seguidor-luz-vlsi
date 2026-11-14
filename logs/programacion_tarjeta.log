@@ -23,3 +23,12 @@ Info (209007): Configuration succeeded -- 1 device(s) configured
 Info (209011): Successfully performed operation(s)
 Info (209061): Ended Programmer operation at Tue Nov 10 12:39:26 2026
 Info: Quartus II 32-bit Programmer was successful. 0 errors, 0 warnings
+
+# 14 de noviembre de 2026: version sin VGA ni botones, con el orden de los pines de los teclados invertido
+# (en estos teclados el pin 1 del conector es el de la derecha). Compilacion: 2,339 LE (51 %).
+$ sh quartus/programar.sh
+Info (213011): Using programming file output_files/sintetizador.sof with checksum 0x0022C1BF for device EP2C5T144@1
+Info (209017): Device 1 contains JTAG ID code 0x020B10DD
+Info (209007): Configuration succeeded -- 1 device(s) configured
+Info (209011): Successfully performed operation(s)
+# Prueba: teclados 1 y 2 conectados con jumpers; audio de prueba con audifonos (pin 93 -> 1 kohm -> 10 uF -> audifonos) con caimanes: hay salida de sonido.

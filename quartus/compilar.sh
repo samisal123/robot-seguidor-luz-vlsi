@@ -36,7 +36,8 @@ if [ -f output_files/sintetizador.fit.summary ]; then
 fi
 if [ -f output_files/sintetizador.sta.rpt ]; then
     echo "==== Fmax ===="
-    grep -A 8 "Fmax Summary" output_files/sintetizador.sta.rpt | head -14
+    grep -A 5 "^; Slow Model Fmax Summary" output_files/sintetizador.sta.rpt | grep "MHz"
+    grep -A 5 "^; Slow Model Setup Summary\|^; Slow Model Hold Summary" output_files/sintetizador.sta.rpt | grep "clk\[0\]" | sed "s/^/  holgura (setup, luego hold): /"
 fi
 echo
 echo "Log completo: logs/compilacion.log"
