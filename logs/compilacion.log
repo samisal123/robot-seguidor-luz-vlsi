@@ -14,7 +14,7 @@ Info: Running Quartus II 32-bit Shell
     Info: programming logic devices manufactured by Altera and sold by 
     Info: Altera or its authorized distributors.  Please refer to the 
     Info: applicable agreement for further details.
-    Info: Processing started: Tue Nov 10 08:39:17 2026
+    Info: Processing started: Sat Nov 14 17:35:21 2026
 Info: Command: quartus_sh --flow compile sintetizador
 Info: Quartus(args): compile sintetizador
 Info: Project Name = /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/sintetizador
@@ -22,7 +22,7 @@ Info: Revision Name = sintetizador
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Nov 10 08:39:18 2026
+    Info: Processing started: Sat Nov 14 17:35:23 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sintetizador -c sintetizador
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 0 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/synth_pkg.vhd
@@ -43,21 +43,12 @@ Info (12021): Found 2 design units, including 1 entities, in source file /home/s
 Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/dds.vhd
     Info (12022): Found design unit 1: dds-rtl
     Info (12023): Found entity 1: dds
-Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/debounce.vhd
-    Info (12022): Found design unit 1: debounce-rtl
-    Info (12023): Found entity 1: debounce
 Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/eco.vhd
     Info (12022): Found design unit 1: eco-rtl
     Info (12023): Found entity 1: eco
-Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/entradas_placa.vhd
-    Info (12022): Found design unit 1: entradas_placa-estructural
-    Info (12023): Found entity 1: entradas_placa
 Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/forma_onda.vhd
     Info (12022): Found design unit 1: forma_onda-rtl
     Info (12023): Found entity 1: forma_onda
-Info (12021): Found 2 design units, including 0 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/fuente_5x7.vhd
-    Info (12022): Found design unit 1: fuente_5x7
-    Info (12022): Found design unit 2: fuente_5x7-body
 Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/gestor_voces.vhd
     Info (12022): Found design unit 1: gestor_voces-rtl
     Info (12023): Found entity 1: gestor_voces
@@ -103,9 +94,6 @@ Info (12021): Found 2 design units, including 1 entities, in source file /home/s
 Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/tremolo.vhd
     Info (12022): Found design unit 1: tremolo-rtl
     Info (12023): Found entity 1: tremolo
-Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/vga_ui.vhd
-    Info (12022): Found design unit 1: vga_ui-rtl
-    Info (12023): Found entity 1: vga_ui
 Info (12021): Found 2 design units, including 1 entities, in source file /home/samuel/proyectos/robot-seguidor-luz-vlsi/rtl/volumen.vhd
     Info (12022): Found design unit 1: volumen-rtl
     Info (12023): Found entity 1: volumen
@@ -184,9 +172,6 @@ Info (12128): Elaborating entity "reset_encendido" for hierarchy "reset_encendid
 Info (12128): Elaborating entity "sync_2ff" for hierarchy "reset_encendido:u_rst|sync_2ff:u_sync"
 Info (12128): Elaborating entity "base_tiempo" for hierarchy "base_tiempo:u_tiempo"
 Info (12128): Elaborating entity "control" for hierarchy "control:u_control"
-Info (12128): Elaborating entity "entradas_placa" for hierarchy "entradas_placa:u_placa"
-Info (12128): Elaborating entity "sync_2ff" for hierarchy "entradas_placa:u_placa|sync_2ff:u_sync"
-Info (12128): Elaborating entity "debounce" for hierarchy "entradas_placa:u_placa|debounce:u_deb_modo"
 Info (12128): Elaborating entity "secuenciador" for hierarchy "secuenciador:u_sec"
 Info (12128): Elaborating entity "memoria_eventos" for hierarchy "secuenciador:u_sec|memoria_eventos:u_mem"
 Info (12128): Elaborating entity "teclas_notas" for hierarchy "teclas_notas:u_notas"
@@ -199,21 +184,8 @@ Info (12128): Elaborating entity "forma_onda" for hierarchy "voz:u_voz0|forma_on
 Info (12128): Elaborating entity "adsr" for hierarchy "voz:u_voz0|adsr:u_adsr"
 Info (12128): Elaborating entity "gestor_voces" for hierarchy "gestor_voces:u_gestor"
 Info (12128): Elaborating entity "selector_notas" for hierarchy "selector_notas:u_sel"
-Info (12128): Elaborating entity "vga_ui" for hierarchy "vga_ui:u_vga"
 Info (12128): Elaborating entity "leds_estado" for hierarchy "leds_estado:u_leds"
-Info (19000): Inferred 10 megafunctions from design logic
-    Info (276029): Inferred altsyncram megafunction from the following design logic: "vga_ui:u_vga|rom_fuente_rtl_0" 
-        Info (286033): Parameter OPERATION_MODE set to ROM
-        Info (286033): Parameter WIDTH_A set to 5
-        Info (286033): Parameter WIDTHAD_A set to 9
-        Info (286033): Parameter NUMWORDS_A set to 512
-        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
-        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
-        Info (286033): Parameter OUTDATA_ACLR_A set to NONE
-        Info (286033): Parameter INDATA_ACLR_A set to NONE
-        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
-        Info (286033): Parameter RAM_BLOCK_TYPE set to M4K
-        Info (286033): Parameter INIT_FILE set to db/sintetizador.ram1_vga_ui_f2c38d62.hdl.mif
+Info (19000): Inferred 8 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "secuenciador:u_sec|memoria_eventos:u_mem|ram_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
         Info (286033): Parameter WIDTH_A set to 37
@@ -230,18 +202,6 @@ Info (19000): Inferred 10 megafunctions from design logic
         Info (286033): Parameter INDATA_ACLR_A set to NONE
         Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
         Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
-    Info (276029): Inferred altsyncram megafunction from the following design logic: "vga_ui:u_vga|rom_onda_rtl_0" 
-        Info (286033): Parameter OPERATION_MODE set to ROM
-        Info (286033): Parameter WIDTH_A set to 7
-        Info (286033): Parameter WIDTHAD_A set to 9
-        Info (286033): Parameter NUMWORDS_A set to 512
-        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
-        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
-        Info (286033): Parameter OUTDATA_ACLR_A set to NONE
-        Info (286033): Parameter INDATA_ACLR_A set to NONE
-        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
-        Info (286033): Parameter RAM_BLOCK_TYPE set to M4K
-        Info (286033): Parameter INIT_FILE set to db/sintetizador.ram0_vga_ui_f2c38d62.hdl.mif
     Info (276029): Inferred altsyncram megafunction from the following design logic: "audio_salida:u_audio|eco:u_eco|ram_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
         Info (286033): Parameter WIDTH_A set to 11
@@ -330,27 +290,15 @@ Info (19000): Inferred 10 megafunctions from design logic
         Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
         Info (286033): Parameter RAM_BLOCK_TYPE set to M4K
         Info (286033): Parameter INIT_FILE set to db/sintetizador.ram0_voz_1e4b2.hdl.mif
-Info (278001): Inferred 5 megafunctions from design logic
+Info (278001): Inferred 8 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "leds_estado:u_leds|Mod0"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control:u_control|Mod1"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control:u_control|Mod0"
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "audio_salida:u_audio|tremolo:u_tre|Mult0"
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "vga_ui:u_vga|Mult0"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control:u_control|Mod2"
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "voz:u_voz2|Mult0"
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "voz:u_voz1|Mult0"
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "voz:u_voz0|Mult0"
-Info (12130): Elaborated megafunction instantiation "vga_ui:u_vga|altsyncram:rom_fuente_rtl_0"
-Info (12133): Instantiated megafunction "vga_ui:u_vga|altsyncram:rom_fuente_rtl_0" with the following parameter:
-    Info (12134): Parameter "OPERATION_MODE" = "ROM"
-    Info (12134): Parameter "WIDTH_A" = "5"
-    Info (12134): Parameter "WIDTHAD_A" = "9"
-    Info (12134): Parameter "NUMWORDS_A" = "512"
-    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
-    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
-    Info (12134): Parameter "OUTDATA_ACLR_A" = "NONE"
-    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
-    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
-    Info (12134): Parameter "RAM_BLOCK_TYPE" = "M4K"
-    Info (12134): Parameter "INIT_FILE" = "db/sintetizador.ram1_vga_ui_f2c38d62.hdl.mif"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_j391.tdf
-    Info (12023): Found entity 1: altsyncram_j391
 Info (12130): Elaborated megafunction instantiation "secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0"
 Info (12133): Instantiated megafunction "secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
@@ -370,21 +318,6 @@ Info (12133): Instantiated megafunction "secuenciador:u_sec|memoria_eventos:u_me
     Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_srg1.tdf
     Info (12023): Found entity 1: altsyncram_srg1
-Info (12130): Elaborated megafunction instantiation "vga_ui:u_vga|altsyncram:rom_onda_rtl_0"
-Info (12133): Instantiated megafunction "vga_ui:u_vga|altsyncram:rom_onda_rtl_0" with the following parameter:
-    Info (12134): Parameter "OPERATION_MODE" = "ROM"
-    Info (12134): Parameter "WIDTH_A" = "7"
-    Info (12134): Parameter "WIDTHAD_A" = "9"
-    Info (12134): Parameter "NUMWORDS_A" = "512"
-    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
-    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
-    Info (12134): Parameter "OUTDATA_ACLR_A" = "NONE"
-    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
-    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
-    Info (12134): Parameter "RAM_BLOCK_TYPE" = "M4K"
-    Info (12134): Parameter "INIT_FILE" = "db/sintetizador.ram0_vga_ui_f2c38d62.hdl.mif"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_k391.tdf
-    Info (12023): Found entity 1: altsyncram_k391
 Info (12130): Elaborated megafunction instantiation "audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0"
 Info (12133): Instantiated megafunction "audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
@@ -434,6 +367,49 @@ Info (12133): Instantiated megafunction "voz:u_voz1|altsyncram:rom_rtl_0" with t
     Info (12134): Parameter "INIT_FILE" = "db/sintetizador.ram0_voz_1e4b2.hdl.mif"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_kl81.tdf
     Info (12023): Found entity 1: altsyncram_kl81
+Info (12130): Elaborated megafunction instantiation "leds_estado:u_leds|lpm_divide:Mod0"
+Info (12133): Instantiated megafunction "leds_estado:u_leds|lpm_divide:Mod0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "10"
+    Info (12134): Parameter "LPM_WIDTHD" = "10"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_q7m.tdf
+    Info (12023): Found entity 1: lpm_divide_q7m
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_1nh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_1nh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_45f.tdf
+    Info (12023): Found entity 1: alt_u_div_45f
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_lkc.tdf
+    Info (12023): Found entity 1: add_sub_lkc
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_mkc.tdf
+    Info (12023): Found entity 1: add_sub_mkc
+Info (12130): Elaborated megafunction instantiation "control:u_control|lpm_divide:Mod1"
+Info (12133): Instantiated megafunction "control:u_control|lpm_divide:Mod1" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "4"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_05m.tdf
+    Info (12023): Found entity 1: lpm_divide_05m
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_7kh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_7kh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_gve.tdf
+    Info (12023): Found entity 1: alt_u_div_gve
+Info (12130): Elaborated megafunction instantiation "control:u_control|lpm_divide:Mod0"
+Info (12133): Instantiated megafunction "control:u_control|lpm_divide:Mod0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "6"
+    Info (12134): Parameter "LPM_WIDTHD" = "6"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_HINT" = "LPM_REMAINDERPOSITIVE=FALSE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_sio.tdf
+    Info (12023): Found entity 1: lpm_divide_sio
+Info (12021): Found 1 design units, including 1 entities, in source file db/abs_divider_6ag.tdf
+    Info (12023): Found entity 1: abs_divider_6ag
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_ove.tdf
+    Info (12023): Found entity 1: alt_u_div_ove
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_hq9.tdf
+    Info (12023): Found entity 1: lpm_abs_hq9
 Info (12130): Elaborated megafunction instantiation "audio_salida:u_audio|tremolo:u_tre|lpm_mult:Mult0"
 Info (12133): Instantiated megafunction "audio_salida:u_audio|tremolo:u_tre|lpm_mult:Mult0" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHA" = "12"
@@ -447,19 +423,12 @@ Info (12133): Instantiated megafunction "audio_salida:u_audio|tremolo:u_tre|lpm_
     Info (12134): Parameter "MAXIMIZE_SPEED" = "6"
 Info (12021): Found 1 design units, including 1 entities, in source file db/mult_71t.tdf
     Info (12023): Found entity 1: mult_71t
-Info (12130): Elaborated megafunction instantiation "vga_ui:u_vga|lpm_mult:Mult0"
-Info (12133): Instantiated megafunction "vga_ui:u_vga|lpm_mult:Mult0" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHA" = "9"
-    Info (12134): Parameter "LPM_WIDTHB" = "9"
-    Info (12134): Parameter "LPM_WIDTHP" = "18"
-    Info (12134): Parameter "LPM_WIDTHR" = "18"
-    Info (12134): Parameter "LPM_WIDTHS" = "1"
-    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
-    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
-    Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
-Info (12021): Found 1 design units, including 1 entities, in source file db/mult_s5t.tdf
-    Info (12023): Found entity 1: mult_s5t
+Info (12130): Elaborated megafunction instantiation "control:u_control|lpm_divide:Mod2"
+Info (12133): Instantiated megafunction "control:u_control|lpm_divide:Mod2" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "4"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
 Info (12130): Elaborated megafunction instantiation "voz:u_voz2|lpm_mult:Mult0"
 Info (12133): Instantiated megafunction "voz:u_voz2|lpm_mult:Mult0" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHA" = "8"
@@ -473,25 +442,24 @@ Info (12133): Instantiated megafunction "voz:u_voz2|lpm_mult:Mult0" with the fol
     Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
 Info (12021): Found 1 design units, including 1 entities, in source file db/mult_nus.tdf
     Info (12023): Found entity 1: mult_nus
-Info (17049): 14 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 4406 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 13 input pins
-    Info (21059): Implemented 17 output pins
-    Info (21061): Implemented 4213 logic cells
-    Info (21064): Implemented 156 RAM segments
+Info (21057): Implemented 2782 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 10 input pins
+    Info (21059): Implemented 12 output pins
+    Info (21061): Implemented 2610 logic cells
+    Info (21064): Implemented 144 RAM segments
     Info (21065): Implemented 1 PLLs
-    Info (21062): Implemented 6 DSP elements
+    Info (21062): Implemented 5 DSP elements
 Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 394 megabytes
-    Info: Processing ended: Tue Nov 10 08:39:32 2026
-    Info: Elapsed time: 00:00:14
-    Info: Total CPU time (on all processors): 00:00:14
+    Info: Peak virtual memory: 398 megabytes
+    Info: Processing ended: Sat Nov 14 17:35:30 2026
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:07
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Fitter
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Nov 10 08:39:33 2026
+    Info: Processing started: Sat Nov 14 17:35:32 2026
 Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off sintetizador -c sintetizador
 Info: qfit2_default_script.tcl version: #1
 Info: Project  = sintetizador
@@ -524,23 +492,23 @@ Info (332111): Found 2 clocks
     Info (332111):   40.000 u_pll|u_pll|pll|clk[0]
 Info (176233): Starting register packing
 Info (176235): Finished register packing
-    Extra Info (176218): Packed 47 registers into blocks of type Embedded multiplier output
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
+    Extra Info (176218): Packed 36 registers into blocks of type Embedded multiplier output
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
 Info (170189): Fitter placement preparation operations beginning
-Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:02
+Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
 Info (170191): Fitter placement operations beginning
 Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:01
 Info (170193): Fitter routing operations beginning
-Info (170195): Router estimated average interconnect usage is 18% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 20% of the available device resources in the region that extends from location X14_Y0 to location X28_Y14
+Info (170195): Router estimated average interconnect usage is 11% of the available device resources
+    Info (170196): Router estimated peak interconnect usage is 13% of the available device resources in the region that extends from location X14_Y0 to location X28_Y14
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 1.35 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 1.27 seconds.
 Info (306004): Started post-fitting delay annotation
-Warning (306006): Found 17 output pins without output pin load capacitance assignment
+Warning (306006): Found 12 output pins without output pin load capacitance assignment
     Info (306007): Pin "TEC1_FIL[3]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "TEC1_FIL[2]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "TEC1_FIL[1]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
@@ -550,42 +518,37 @@ Warning (306006): Found 17 output pins without output pin load capacitance assig
     Info (306007): Pin "TEC2_FIL[1]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "TEC2_FIL[0]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "AUDIO_PWM" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
-    Info (306007): Pin "VGA_R" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
-    Info (306007): Pin "VGA_G" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
-    Info (306007): Pin "VGA_B" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
-    Info (306007): Pin "VGA_HS" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
-    Info (306007): Pin "VGA_VS" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LED[2]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LED[1]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LED[0]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
 Info (306005): Delay annotation completed successfully
 Info (306004): Started post-fitting delay annotation
 Info (306005): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:03
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Info (176045): Design uses memory blocks. Violating setup or hold times of memory block address registers for either read or write operations could cause memory contents to be corrupted. Make sure that all memory block address registers meet the setup and hold time requirements.
 Info (144001): Generated suppressed messages file /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/output_files/sintetizador.fit.smsg
 Info: Quartus II 32-bit Fitter was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 437 megabytes
-    Info: Processing ended: Tue Nov 10 08:39:45 2026
-    Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:11
+    Info: Peak virtual memory: 427 megabytes
+    Info: Processing ended: Sat Nov 14 17:35:41 2026
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:09
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Assembler
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Nov 10 08:39:46 2026
+    Info: Processing started: Sat Nov 14 17:35:44 2026
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off sintetizador -c sintetizador
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 345 megabytes
-    Info: Processing ended: Tue Nov 10 08:39:47 2026
+    Info: Peak virtual memory: 329 megabytes
+    Info: Processing ended: Sat Nov 14 17:35:45 2026
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 Info (293026): Skipped module PowerPlay Power Analyzer due to the assignment FLOW_ENABLE_POWER_ANALYZER
 Info: *******************************************************************
 Info: Running Quartus II 32-bit TimeQuest Timing Analyzer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Nov 10 08:39:49 2026
+    Info: Processing started: Sat Nov 14 17:35:46 2026
 Info: Command: quartus_sta sintetizador -c sintetizador
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
@@ -595,10 +558,10 @@ Info (332110): Deriving PLL clocks
 Warning (332153): Family doesn't support jitter analysis.
 Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow Model
-Info (332146): Worst-case setup slack is 12.261
+Info (332146): Worst-case setup slack is 14.073
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
-    Info (332119):    12.261         0.000 u_pll|u_pll|pll|clk[0] 
+    Info (332119):    14.073         0.000 u_pll|u_pll|pll|clk[0] 
 Info (332146): Worst-case hold slack is 0.499
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
@@ -612,10 +575,10 @@ Info (332146): Worst-case minimum pulse width slack is 10.000
     Info (332119):    16.933         0.000 u_pll|u_pll|pll|clk[0] 
 Info (332001): The selected device family is not supported by the report_metastability command.
 Info: Analyzing Fast Model
-Info (332146): Worst-case setup slack is 31.609
+Info (332146): Worst-case setup slack is 32.134
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
-    Info (332119):    31.609         0.000 u_pll|u_pll|pll|clk[0] 
+    Info (332119):    32.134         0.000 u_pll|u_pll|pll|clk[0] 
 Info (332146): Worst-case hold slack is 0.215
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
@@ -631,14 +594,14 @@ Info (332001): The selected device family is not supported by the report_metasta
 Info (332101): Design is fully constrained for setup requirements
 Info (332101): Design is fully constrained for hold requirements
 Info: Quartus II 32-bit TimeQuest Timing Analyzer was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 346 megabytes
-    Info: Processing ended: Tue Nov 10 08:39:50 2026
-    Info: Elapsed time: 00:00:01
+    Info: Peak virtual memory: 323 megabytes
+    Info: Processing ended: Sat Nov 14 17:35:48 2026
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 Info (293000): Quartus II Full Compilation was successful. 0 errors, 7 warnings
 Info (23030): Evaluation of Tcl script /home/samuel/altera/13.0sp1/quartus/common/tcl/internal/qsh_flow.tcl was successful
 Info: Quartus II 32-bit Shell was successful. 0 errors, 7 warnings
     Info: Peak virtual memory: 136 megabytes
-    Info: Processing ended: Tue Nov 10 08:39:50 2026
-    Info: Elapsed time: 00:00:33
-    Info: Total CPU time (on all processors): 00:00:32
+    Info: Processing ended: Sat Nov 14 17:35:48 2026
+    Info: Elapsed time: 00:00:27
+    Info: Total CPU time (on all processors): 00:00:25
