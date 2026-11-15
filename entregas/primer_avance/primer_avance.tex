@@ -26,9 +26,20 @@
         frame=single,backgroundcolor=\color{gray!8}}
 
 % ---- datos de la portada ----
+% Los integrantes del equipo estan en integrantes.tex, que no se sube al
+% repositorio (es publico). Sin ese archivo la portada lleva solo un nombre.
+% Con \def\concuentas{} antes de compilar se agregan los numeros de cuenta:
+%   latexmk -pdf -usepretex='\def\concuentas{}' primer_avance.tex
+\newif\ifcuentas
+\ifdefined\concuentas\cuentastrue\fi
+\newcommand{\integrante}[2]{\ifcuentas #1 & \fi #2 \\}
+\newcommand{\listaintegrantes}{\integrante{}{Basilio Illescas Andrés}}
+\InputIfFileExists{integrantes.tex}{}{}
 \newcommand{\integrantes}{%
-  Andrés Basilio Illescas\\
-}
+  {\bfseries Integrantes:}\par\smallskip
+  \begin{tabular}{\ifcuentas l\fi l}
+    \listaintegrantes
+  \end{tabular}}
 \newcommand{\repo}{https://github.com/samisal123/robot-seguidor-luz-vlsi}
 
 \pagestyle{fancy}
