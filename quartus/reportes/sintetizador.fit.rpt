@@ -1,5 +1,5 @@
 Fitter report for sintetizador
-Sat Nov 14 17:35:41 2026
+Sat Nov 14 18:07:30 2026
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -68,14 +68,14 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Fitter Status                      ; Successful - Sat Nov 14 17:35:41 2026           ;
+; Fitter Status                      ; Successful - Sat Nov 14 18:07:30 2026           ;
 ; Quartus II 32-bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; sintetizador                                    ;
 ; Top-level Entity Name              ; sintetizador                                    ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C5T144C8                                     ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 2,340 / 4,608 ( 51 % )                          ;
+; Total logic elements               ; 2,339 / 4,608 ( 51 % )                          ;
 ;     Total combinational functions  ; 2,249 / 4,608 ( 49 % )                          ;
 ;     Dedicated logic registers      ; 931 / 4,608 ( 20 % )                            ;
 ; Total registers                    ; 931                                             ;
@@ -238,16 +238,16 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 +---------------------------------------------+---------------------------+
 ; Resource                                    ; Usage                     ;
 +---------------------------------------------+---------------------------+
-; Total logic elements                        ; 2,340 / 4,608 ( 51 % )    ;
-;     -- Combinational with no register       ; 1409                      ;
-;     -- Register only                        ; 91                        ;
-;     -- Combinational with a register        ; 840                       ;
+; Total logic elements                        ; 2,339 / 4,608 ( 51 % )    ;
+;     -- Combinational with no register       ; 1408                      ;
+;     -- Register only                        ; 90                        ;
+;     -- Combinational with a register        ; 841                       ;
 ;                                             ;                           ;
 ; Logic element usage by number of LUT inputs ;                           ;
 ;     -- 4 input functions                    ; 875                       ;
 ;     -- 3 input functions                    ; 711                       ;
 ;     -- <=2 input functions                  ; 663                       ;
-;     -- Register only                        ; 91                        ;
+;     -- Register only                        ; 90                        ;
 ;                                             ;                           ;
 ; Logic elements by mode                      ;                           ;
 ;     -- normal mode                          ; 1538                      ;
@@ -272,11 +272,11 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 ; JTAGs                                       ; 0 / 1 ( 0 % )             ;
 ; ASMI blocks                                 ; 0 / 1 ( 0 % )             ;
 ; CRC blocks                                  ; 0 / 1 ( 0 % )             ;
-; Average interconnect usage (total/H/V)      ; 12% / 13% / 12%           ;
-; Peak interconnect usage (total/H/V)         ; 14% / 14% / 14%           ;
+; Average interconnect usage (total/H/V)      ; 12% / 14% / 10%           ;
+; Peak interconnect usage (total/H/V)         ; 15% / 16% / 13%           ;
 ; Maximum fan-out                             ; 955                       ;
 ; Highest non-global fan-out                  ; 495                       ;
-; Total fan-out                               ; 10430                     ;
+; Total fan-out                               ; 10433                     ;
 ; Average fan-out                             ; 3.18                      ;
 +---------------------------------------------+---------------------------+
 *  Register count does not include registers inside RAM blocks or DSP blocks.
@@ -290,16 +290,16 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 +---------------------------------------------+----------------------+--------------------------------+
 ; Difficulty Clustering Region                ; Low                  ; Low                            ;
 ;                                             ;                      ;                                ;
-; Total logic elements                        ; 2340 / 4608 ( 51 % ) ; 0 / 4608 ( 0 % )               ;
-;     -- Combinational with no register       ; 1409                 ; 0                              ;
-;     -- Register only                        ; 91                   ; 0                              ;
-;     -- Combinational with a register        ; 840                  ; 0                              ;
+; Total logic elements                        ; 2339 / 4608 ( 51 % ) ; 0 / 4608 ( 0 % )               ;
+;     -- Combinational with no register       ; 1408                 ; 0                              ;
+;     -- Register only                        ; 90                   ; 0                              ;
+;     -- Combinational with a register        ; 841                  ; 0                              ;
 ;                                             ;                      ;                                ;
 ; Logic element usage by number of LUT inputs ;                      ;                                ;
 ;     -- 4 input functions                    ; 875                  ; 0                              ;
 ;     -- 3 input functions                    ; 711                  ; 0                              ;
 ;     -- <=2 input functions                  ; 663                  ; 0                              ;
-;     -- Register only                        ; 91                   ; 0                              ;
+;     -- Register only                        ; 90                   ; 0                              ;
 ;                                             ;                      ;                                ;
 ; Logic elements by mode                      ;                      ;                                ;
 ;     -- normal mode                          ; 1538                 ; 0                              ;
@@ -326,7 +326,7 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 ;     -- Registered Output Connections        ; 0                    ; 0                              ;
 ;                                             ;                      ;                                ;
 ; Internal Connections                        ;                      ;                                ;
-;     -- Total Connections                    ; 10672                ; 958                            ;
+;     -- Total Connections                    ; 10675                ; 958                            ;
 ;     -- Registered Connections               ; 4903                 ; 0                              ;
 ;                                             ;                      ;                                ;
 ; External Connections                        ;                      ;                                ;
@@ -361,14 +361,14 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 +-------------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 ; BTN_RESET   ; 144   ; 2        ; 1            ; 14           ; 3           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
 ; CLOCK_50    ; 17    ; 1        ; 0            ; 6            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC1_COL[0] ; 43    ; 4        ; 3            ; 0            ; 2           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC1_COL[1] ; 42    ; 4        ; 1            ; 0            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC1_COL[2] ; 45    ; 4        ; 3            ; 0            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC1_COL[3] ; 44    ; 4        ; 3            ; 0            ; 1           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC2_COL[0] ; 58    ; 4        ; 12           ; 0            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC2_COL[1] ; 55    ; 4        ; 9            ; 0            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC2_COL[2] ; 76    ; 3        ; 28           ; 2            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
-; TEC2_COL[3] ; 60    ; 4        ; 14           ; 0            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC1_COL[0] ; 40    ; 4        ; 1            ; 0            ; 2           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC1_COL[1] ; 41    ; 4        ; 1            ; 0            ; 1           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC1_COL[2] ; 31    ; 1        ; 0            ; 2            ; 3           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC1_COL[3] ; 25    ; 1        ; 0            ; 5            ; 1           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC2_COL[0] ; 51    ; 4        ; 7            ; 0            ; 2           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC2_COL[1] ; 52    ; 4        ; 7            ; 0            ; 1           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC2_COL[2] ; 47    ; 4        ; 5            ; 0            ; 1           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
+; TEC2_COL[3] ; 48    ; 4        ; 5            ; 0            ; 0           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; On           ; 3.3-V LVTTL  ; Off         ; User                 ;
 +-------------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 
 
@@ -381,14 +381,14 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 ; LED[0]      ; 3     ; 1        ; 0            ; 13           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
 ; LED[1]      ; 7     ; 1        ; 0            ; 11           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
 ; LED[2]      ; 9     ; 1        ; 0            ; 11           ; 3           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC1_FIL[0] ; 25    ; 1        ; 0            ; 5            ; 1           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC1_FIL[1] ; 31    ; 1        ; 0            ; 2            ; 3           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC1_FIL[2] ; 41    ; 4        ; 1            ; 0            ; 1           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC1_FIL[3] ; 40    ; 4        ; 1            ; 0            ; 2           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC2_FIL[0] ; 48    ; 4        ; 5            ; 0            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC2_FIL[1] ; 47    ; 4        ; 5            ; 0            ; 1           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC2_FIL[2] ; 52    ; 4        ; 7            ; 0            ; 1           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; TEC2_FIL[3] ; 51    ; 4        ; 7            ; 0            ; 2           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC1_FIL[0] ; 44    ; 4        ; 3            ; 0            ; 1           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC1_FIL[1] ; 45    ; 4        ; 3            ; 0            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC1_FIL[2] ; 42    ; 4        ; 1            ; 0            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC1_FIL[3] ; 43    ; 4        ; 3            ; 0            ; 2           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC2_FIL[0] ; 60    ; 4        ; 14           ; 0            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC2_FIL[1] ; 76    ; 3        ; 28           ; 2            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC2_FIL[2] ; 55    ; 4        ; 9            ; 0            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; TEC2_FIL[3] ; 58    ; 4        ; 12           ; 0            ; 0           ; no              ; no                     ; no            ; no              ; yes        ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
 +-------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
 
 
@@ -433,13 +433,13 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 ; 22       ; 24         ; 1        ; GND+                                     ;        ;              ;         ; Row I/O    ;                 ; --       ; --           ;
 ; 23       ;            ; 1        ; VCCIO1                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 24       ; 25         ; 1        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
-; 25       ; 26         ; 1        ; TEC1_FIL[0]                              ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
+; 25       ; 26         ; 1        ; TEC1_COL[3]                              ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; On           ;
 ; 26       ; 27         ; 1        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 27       ; 28         ; 1        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 28       ; 32         ; 1        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; --       ; --           ;
 ; 29       ;            ; 1        ; VCCIO1                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 30       ; 40         ; 1        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
-; 31       ; 41         ; 1        ; TEC1_FIL[1]                              ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
+; 31       ; 41         ; 1        ; TEC1_COL[2]                              ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; On           ;
 ; 32       ; 42         ; 1        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 33       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 34       ;            ;          ; GND_PLL1                                 ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
@@ -448,27 +448,27 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 ; 37       ;            ;          ; VCCA_PLL1                                ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
 ; 38       ;            ;          ; GNDA_PLL1                                ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 39       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
-; 40       ; 43         ; 4        ; TEC1_FIL[3]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 41       ; 44         ; 4        ; TEC1_FIL[2]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 42       ; 45         ; 4        ; TEC1_COL[1]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
-; 43       ; 46         ; 4        ; TEC1_COL[0]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
-; 44       ; 47         ; 4        ; TEC1_COL[3]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
-; 45       ; 48         ; 4        ; TEC1_COL[2]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 40       ; 43         ; 4        ; TEC1_COL[0]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 41       ; 44         ; 4        ; TEC1_COL[1]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 42       ; 45         ; 4        ; TEC1_FIL[2]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
+; 43       ; 46         ; 4        ; TEC1_FIL[3]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
+; 44       ; 47         ; 4        ; TEC1_FIL[0]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
+; 45       ; 48         ; 4        ; TEC1_FIL[1]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 46       ;            ; 4        ; VCCIO4                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
-; 47       ; 49         ; 4        ; TEC2_FIL[1]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 48       ; 50         ; 4        ; TEC2_FIL[0]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
+; 47       ; 49         ; 4        ; TEC2_COL[2]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 48       ; 50         ; 4        ; TEC2_COL[3]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
 ; 49       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 50       ;            ;          ; VCCINT                                   ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
-; 51       ; 52         ; 4        ; TEC2_FIL[3]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 52       ; 53         ; 4        ; TEC2_FIL[2]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
+; 51       ; 52         ; 4        ; TEC2_COL[0]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 52       ; 53         ; 4        ; TEC2_COL[1]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
 ; 53       ; 57         ; 4        ; RESERVED_INPUT                           ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; 54       ;            ; 4        ; VCCIO4                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
-; 55       ; 58         ; 4        ; TEC2_COL[1]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 55       ; 58         ; 4        ; TEC2_FIL[2]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 56       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 57       ; 59         ; 4        ; RESERVED_INPUT                           ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 58       ; 60         ; 4        ; TEC2_COL[0]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 58       ; 60         ; 4        ; TEC2_FIL[3]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 59       ; 63         ; 4        ; RESERVED_INPUT                           ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 60       ; 64         ; 4        ; TEC2_COL[3]                              ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; On           ;
+; 60       ; 64         ; 4        ; TEC2_FIL[0]                              ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 61       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 62       ;            ;          ; VCCINT                                   ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
 ; 63       ; 72         ; 4        ; RESERVED_INPUT                           ;        ;              ;         ; Column I/O ;                 ; --       ; --           ;
@@ -484,7 +484,7 @@ The pin-out file can be found in /home/samuel/proyectos/robot-seguidor-luz-vlsi/
 ; 73       ; 84         ; 3        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 74       ; 85         ; 3        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 75       ; 86         ; 3        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
-; 76       ; 87         ; 3        ; TEC2_COL[2]                              ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; On           ;
+; 76       ; 87         ; 3        ; TEC2_FIL[1]                              ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
 ; 77       ;            ; 3        ; VCCIO3                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 78       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 79       ; 95         ; 3        ; RESERVED_INPUT                           ;        ;              ;         ; Row I/O    ;                 ; --       ; --           ;
@@ -641,7 +641,7 @@ Note: User assignments will override these defaults. The user specified values a
 +----------------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+----------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                   ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M4Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                                                                                                              ; Library Name ;
 +----------------------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+----------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |sintetizador                                ; 2340 (1)    ; 931 (0)                   ; 0 (0)         ; 69888       ; 20   ; 5            ; 3       ; 1         ; 22   ; 0            ; 1409 (1)     ; 91 (0)            ; 840 (0)          ; |sintetizador                                                                                                                    ; work         ;
+; |sintetizador                                ; 2339 (1)    ; 931 (0)                   ; 0 (0)         ; 69888       ; 20   ; 5            ; 3       ; 1         ; 22   ; 0            ; 1408 (1)     ; 90 (0)            ; 841 (0)          ; |sintetizador                                                                                                                    ; work         ;
 ;    |audio_salida:u_audio|                    ; 381 (22)    ; 211 (8)                   ; 0 (0)         ; 45056       ; 11   ; 2            ; 0       ; 1         ; 0    ; 0            ; 170 (14)     ; 20 (0)            ; 191 (8)          ; |sintetizador|audio_salida:u_audio                                                                                               ; work         ;
 ;       |eco:u_eco|                            ; 86 (86)     ; 53 (53)                   ; 0 (0)         ; 45056       ; 11   ; 0            ; 0       ; 0         ; 0    ; 0            ; 33 (33)      ; 0 (0)             ; 53 (53)          ; |sintetizador|audio_salida:u_audio|eco:u_eco                                                                                     ; work         ;
 ;          |altsyncram:ram_rtl_0|              ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 45056       ; 11   ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; |sintetizador|audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0                                                                ; work         ;
@@ -686,8 +686,8 @@ Note: User assignments will override these defaults. The user specified values a
 ;             |altsyncram_srg1:auto_generated| ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 9472        ; 3    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; |sintetizador|secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0|altsyncram_srg1:auto_generated                       ; work         ;
 ;    |selector_notas:u_sel|                    ; 21 (21)     ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 21 (21)          ; |sintetizador|selector_notas:u_sel                                                                                               ; work         ;
 ;    |teclas_notas:u_notas|                    ; 125 (125)   ; 94 (94)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 31 (31)      ; 22 (22)           ; 72 (72)          ; |sintetizador|teclas_notas:u_notas                                                                                               ; work         ;
-;    |voz:u_voz0|                              ; 266 (0)     ; 70 (0)                    ; 0 (0)         ; 5120        ; 2    ; 1            ; 1       ; 0         ; 0    ; 0            ; 195 (0)      ; 1 (0)             ; 70 (0)           ; |sintetizador|voz:u_voz0                                                                                                         ; work         ;
-;       |adsr:u_adsr|                          ; 211 (211)   ; 29 (29)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 182 (182)    ; 1 (1)             ; 28 (28)          ; |sintetizador|voz:u_voz0|adsr:u_adsr                                                                                             ; work         ;
+;    |voz:u_voz0|                              ; 265 (0)     ; 70 (0)                    ; 0 (0)         ; 5120        ; 2    ; 1            ; 1       ; 0         ; 0    ; 0            ; 194 (0)      ; 0 (0)             ; 71 (0)           ; |sintetizador|voz:u_voz0                                                                                                         ; work         ;
+;       |adsr:u_adsr|                          ; 210 (210)   ; 29 (29)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 181 (181)    ; 0 (0)             ; 29 (29)          ; |sintetizador|voz:u_voz0|adsr:u_adsr                                                                                             ; work         ;
 ;       |altsyncram:rom_rtl_0|                 ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 3072        ; 1    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; |sintetizador|voz:u_voz0|altsyncram:rom_rtl_0                                                                                    ; work         ;
 ;          |altsyncram_kl81:auto_generated|    ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 3072        ; 1    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; |sintetizador|voz:u_voz0|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated                                                     ; work         ;
 ;       |dds:u_dds|                            ; 24 (24)     ; 24 (24)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 24 (24)          ; |sintetizador|voz:u_voz0|dds:u_dds                                                                                               ; work         ;
@@ -740,11 +740,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; CLOCK_50    ; Input    ; --            ; --            ; --                    ; --  ;
 ; BTN_RESET   ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
 ; TEC2_COL[3] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-; TEC1_COL[3] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
+; TEC1_COL[3] ; Input    ; (6) 2523 ps   ; (6) 2523 ps   ; --                    ; --  ;
 ; TEC1_COL[1] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
 ; TEC1_COL[0] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-; TEC1_COL[2] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-; TEC2_COL[2] ; Input    ; (6) 2523 ps   ; (6) 2523 ps   ; --                    ; --  ;
+; TEC1_COL[2] ; Input    ; (6) 2523 ps   ; (6) 2523 ps   ; --                    ; --  ;
+; TEC2_COL[2] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
 ; TEC2_COL[1] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
 ; TEC2_COL[0] ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
 +-------------+----------+---------------+---------------+-----------------------+-----+
@@ -757,23 +757,23 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------------------------+-------------------+---------+
 ; CLOCK_50                                                      ;                   ;         ;
 ; BTN_RESET                                                     ;                   ;         ;
-;      - reset_encendido:u_rst|sync_2ff:u_sync|meta[1]~feeder   ; 1                 ; 6       ;
+;      - reset_encendido:u_rst|sync_2ff:u_sync|meta[1]          ; 1                 ; 6       ;
 ; TEC2_COL[3]                                                   ;                   ;         ;
-;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[7]~0 ; 0                 ; 6       ;
+;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[7]~0 ; 1                 ; 6       ;
 ; TEC1_COL[3]                                                   ;                   ;         ;
 ;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[3]~1 ; 0                 ; 6       ;
 ; TEC1_COL[1]                                                   ;                   ;         ;
-;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[1]~2 ; 0                 ; 6       ;
+;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[1]~2 ; 1                 ; 6       ;
 ; TEC1_COL[0]                                                   ;                   ;         ;
 ;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[0]~3 ; 0                 ; 6       ;
 ; TEC1_COL[2]                                                   ;                   ;         ;
-;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[2]~4 ; 0                 ; 6       ;
+;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[2]~4 ; 1                 ; 6       ;
 ; TEC2_COL[2]                                                   ;                   ;         ;
 ;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[6]~5 ; 0                 ; 6       ;
 ; TEC2_COL[1]                                                   ;                   ;         ;
 ;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[5]~6 ; 0                 ; 6       ;
 ; TEC2_COL[0]                                                   ;                   ;         ;
-;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[4]~7 ; 0                 ; 6       ;
+;      - interfaz_teclados:u_teclados|sync_2ff:u_sync|meta[4]~7 ; 1                 ; 6       ;
 +---------------------------------------------------------------+-------------------+---------+
 
 
@@ -783,66 +783,66 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Name                                                             ; Location           ; Fan-Out ; Usage                     ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
 +------------------------------------------------------------------+--------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
 ; CLOCK_50                                                         ; PIN_17             ; 1       ; Clock                     ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|eco:u_eco|fase~8                            ; LCCOMB_X24_Y7_N26  ; 14      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|eco:u_eco|ptr[0]~14                         ; LCCOMB_X18_Y6_N6   ; 12      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|eco:u_eco|ptr[0]~15                         ; LCCOMB_X17_Y6_N26  ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|eco:u_eco|s_y[4]~1                          ; LCCOMB_X20_Y7_N26  ; 11      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|eco:u_eco|we                                ; LCFF_X24_Y7_N29    ; 15      ; Write enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|eco:u_eco|we~0                              ; LCCOMB_X24_Y7_N28  ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|metronomo:u_met|cuenta[6]~30                ; LCCOMB_X8_Y5_N16   ; 10      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|metronomo:u_met|cuenta[6]~32                ; LCCOMB_X8_Y5_N20   ; 10      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|metronomo:u_met|env[11]~1                   ; LCCOMB_X8_Y11_N10  ; 29      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|metronomo:u_met|fase[15]~48                 ; LCCOMB_X8_Y5_N10   ; 21      ; Clock enable, Sync. clear ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|eco:u_eco|fase~8                            ; LCCOMB_X20_Y12_N10 ; 14      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|eco:u_eco|ptr[0]~14                         ; LCCOMB_X15_Y11_N22 ; 12      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|eco:u_eco|ptr[0]~15                         ; LCCOMB_X15_Y13_N26 ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|eco:u_eco|s_y[4]~1                          ; LCCOMB_X10_Y12_N2  ; 11      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|eco:u_eco|we                                ; LCFF_X20_Y12_N13   ; 15      ; Write enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|eco:u_eco|we~0                              ; LCCOMB_X20_Y12_N12 ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|metronomo:u_met|cuenta[6]~30                ; LCCOMB_X8_Y10_N0   ; 10      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|metronomo:u_met|cuenta[6]~32                ; LCCOMB_X8_Y10_N28  ; 10      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|metronomo:u_met|env[11]~1                   ; LCCOMB_X8_Y11_N26  ; 29      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|metronomo:u_met|fase[15]~48                 ; LCCOMB_X8_Y10_N10  ; 21      ; Clock enable, Sync. clear ; no     ; --                   ; --               ; --                        ;
 ; audio_salida:u_audio|metronomo:u_met|s_clic[6]~0                 ; LCCOMB_X8_Y11_N16  ; 88      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|muestra[1]~1                                ; LCCOMB_X24_Y7_N22  ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[1]~3              ; LCCOMB_X24_Y7_N18  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|tremolo:u_tre|g[8]~1                        ; LCCOMB_X19_Y11_N6  ; 28      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|tremolo:u_tre|s_y[2]~1                      ; LCCOMB_X24_Y7_N2   ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|tremolo:u_tre|v1~0                          ; LCCOMB_X19_Y11_N10 ; 11      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|tremolo:u_tre|v2~0                          ; LCCOMB_X19_Y11_N8  ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; audio_salida:u_audio|volumen:u_vol|s_y[6]~5                      ; LCCOMB_X21_Y7_N18  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; base_tiempo:u_tiempo|c_fs[1]~11                                  ; LCCOMB_X7_Y11_N10  ; 9       ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; base_tiempo:u_tiempo|c_ms[11]~23                                 ; LCCOMB_X7_Y11_N4   ; 15      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; control:u_control|r_efe[0]~0                                     ; LCCOMB_X19_Y9_N12  ; 2       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; control:u_control|r_par[1]~3                                     ; LCCOMB_X21_Y2_N24  ; 3       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; gestor_voces:u_gestor|nv[0][4]~24                                ; LCCOMB_X12_Y4_N18  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; gestor_voces:u_gestor|nv[1][5]~6                                 ; LCCOMB_X9_Y4_N16   ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; gestor_voces:u_gestor|nv[2][0]~45                                ; LCCOMB_X12_Y3_N16  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[11][0]~2 ; LCCOMB_X7_Y4_N16   ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[15][1]~5 ; LCCOMB_X7_Y4_N14   ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[3][0]~4  ; LCCOMB_X7_Y4_N20   ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[7][2]~3  ; LCCOMB_X7_Y4_N18   ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; leds_estado:u_leds|destello[1]~10                                ; LCCOMB_X8_Y7_N8    ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; leds_estado:u_leds|destello[1]~9                                 ; LCCOMB_X8_Y7_N6    ; 7       ; Sync. load                ; no     ; --                   ; --               ; --                        ;
-; leds_estado:u_leds|ms[6]~18                                      ; LCCOMB_X8_Y8_N30   ; 10      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; leds_estado:u_leds|ms[6]~19                                      ; LCCOMB_X8_Y7_N28   ; 44      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|muestra[1]~1                                ; LCCOMB_X20_Y12_N22 ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[1]~3              ; LCCOMB_X20_Y12_N18 ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|tremolo:u_tre|g[8]~1                        ; LCCOMB_X21_Y13_N6  ; 28      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|tremolo:u_tre|s_y[2]~1                      ; LCCOMB_X20_Y12_N26 ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|tremolo:u_tre|v1~0                          ; LCCOMB_X21_Y13_N10 ; 11      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|tremolo:u_tre|v2~0                          ; LCCOMB_X21_Y13_N8  ; 12      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; audio_salida:u_audio|volumen:u_vol|s_y[6]~5                      ; LCCOMB_X8_Y12_N18  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; base_tiempo:u_tiempo|c_fs[1]~11                                  ; LCCOMB_X8_Y6_N10   ; 9       ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; base_tiempo:u_tiempo|c_ms[11]~23                                 ; LCCOMB_X8_Y6_N4    ; 15      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; control:u_control|r_efe[0]~0                                     ; LCCOMB_X18_Y5_N20  ; 2       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; control:u_control|r_par[1]~3                                     ; LCCOMB_X20_Y6_N24  ; 3       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; gestor_voces:u_gestor|nv[0][4]~24                                ; LCCOMB_X21_Y9_N26  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; gestor_voces:u_gestor|nv[1][5]~6                                 ; LCCOMB_X22_Y9_N0   ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; gestor_voces:u_gestor|nv[2][0]~45                                ; LCCOMB_X21_Y10_N16 ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[11][0]~2 ; LCCOMB_X25_Y8_N24  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[15][1]~5 ; LCCOMB_X25_Y8_N22  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[3][0]~4  ; LCCOMB_X25_Y8_N28  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; interfaz_teclados:u_teclados|teclado_scan:u_scan|cuenta[7][2]~3  ; LCCOMB_X25_Y8_N18  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; leds_estado:u_leds|destello[1]~10                                ; LCCOMB_X9_Y10_N8   ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; leds_estado:u_leds|destello[1]~9                                 ; LCCOMB_X9_Y10_N30  ; 7       ; Sync. load                ; no     ; --                   ; --               ; --                        ;
+; leds_estado:u_leds|ms[6]~18                                      ; LCCOMB_X24_Y11_N22 ; 10      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; leds_estado:u_leds|ms[6]~19                                      ; LCCOMB_X9_Y10_N12  ; 44      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
 ; pll_25mhz:u_pll|altpll:u_pll|_clk0                               ; PLL_1              ; 955     ; Clock                     ; yes    ; Global Clock         ; GCLK3            ; --                        ;
-; reset_encendido:u_rst|r                                          ; LCFF_X3_Y3_N1      ; 495     ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|actual[0]~2                                   ; LCCOMB_X10_Y7_N22  ; 21      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|din[0]~1                                      ; LCCOMB_X13_Y8_N22  ; 37      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|din[25]~0                                     ; LCCOMB_X13_Y8_N10  ; 9       ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|dir[0]~3                                      ; LCCOMB_X13_Y10_N2  ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|dur_ev[11]~1                                  ; LCCOMB_X10_Y6_N2   ; 16      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|inicio[11]~3                                  ; LCCOMB_X13_Y7_N10  ; 17      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|n_ev[3]~11                                    ; LCCOMB_X13_Y8_N12  ; 9       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|p[4]~1                                        ; LCCOMB_X13_Y10_N24 ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|s_salida[4]~3                                 ; LCCOMB_X12_Y7_N12  ; 21      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; secuenciador:u_sec|we                                            ; LCFF_X13_Y8_N17    ; 3       ; Write enable              ; no     ; --                   ; --               ; --                        ;
-; teclas_notas:u_notas|base[4]~0                                   ; LCCOMB_X15_Y5_N2   ; 5       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; teclas_notas:u_notas|lugar[0][0]~1                               ; LCCOMB_X14_Y4_N4   ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; teclas_notas:u_notas|lugar[1][0]~3                               ; LCCOMB_X14_Y4_N6   ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; teclas_notas:u_notas|lugar[2][2]~4                               ; LCCOMB_X14_Y4_N16  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; teclas_notas:u_notas|s_notas[13]~1                               ; LCCOMB_X15_Y5_N0   ; 50      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz0|adsr:u_adsr|acc[3]~24                                 ; LCCOMB_X17_Y3_N16  ; 24      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz0|adsr:u_adsr|acc[3]~26                                 ; LCCOMB_X17_Y3_N26  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz0|adsr:u_adsr|llega~1                                   ; LCCOMB_X19_Y3_N6   ; 26      ; Sync. load                ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz1|adsr:u_adsr|acc[6]~24                                 ; LCCOMB_X25_Y12_N22 ; 24      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz1|adsr:u_adsr|acc[6]~26                                 ; LCCOMB_X25_Y12_N14 ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz1|adsr:u_adsr|llega~1                                   ; LCCOMB_X27_Y12_N10 ; 26      ; Sync. load                ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz1|forma_onda:u_onda|s[5]~4                              ; LCCOMB_X14_Y12_N20 ; 6       ; Sync. load                ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz2|adsr:u_adsr|acc[13]~24                                ; LCCOMB_X21_Y12_N22 ; 24      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz2|adsr:u_adsr|acc[13]~26                                ; LCCOMB_X21_Y12_N6  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
-; voz:u_voz2|adsr:u_adsr|llega~1                                   ; LCCOMB_X21_Y11_N20 ; 26      ; Sync. load                ; no     ; --                   ; --               ; --                        ;
+; reset_encendido:u_rst|r                                          ; LCFF_X3_Y5_N9      ; 495     ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|actual[0]~2                                   ; LCCOMB_X17_Y9_N6   ; 21      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|din[0]~1                                      ; LCCOMB_X8_Y7_N22   ; 37      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|din[25]~0                                     ; LCCOMB_X8_Y7_N26   ; 9       ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|dir[0]~3                                      ; LCCOMB_X10_Y5_N26  ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|dur_ev[11]~1                                  ; LCCOMB_X12_Y7_N2   ; 16      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|inicio[11]~3                                  ; LCCOMB_X15_Y9_N2   ; 17      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|n_ev[3]~11                                    ; LCCOMB_X8_Y7_N4    ; 9       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|p[4]~1                                        ; LCCOMB_X10_Y5_N24  ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|s_salida[4]~3                                 ; LCCOMB_X18_Y9_N12  ; 21      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; secuenciador:u_sec|we                                            ; LCFF_X8_Y7_N17     ; 3       ; Write enable              ; no     ; --                   ; --               ; --                        ;
+; teclas_notas:u_notas|base[4]~0                                   ; LCCOMB_X17_Y10_N18 ; 5       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; teclas_notas:u_notas|lugar[0][0]~1                               ; LCCOMB_X15_Y10_N20 ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; teclas_notas:u_notas|lugar[1][0]~3                               ; LCCOMB_X15_Y10_N22 ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; teclas_notas:u_notas|lugar[2][2]~4                               ; LCCOMB_X15_Y10_N8  ; 7       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; teclas_notas:u_notas|s_notas[13]~1                               ; LCCOMB_X17_Y10_N16 ; 50      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz0|adsr:u_adsr|acc[3]~24                                 ; LCCOMB_X24_Y8_N16  ; 24      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz0|adsr:u_adsr|acc[3]~26                                 ; LCCOMB_X24_Y8_N18  ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz0|adsr:u_adsr|llega~1                                   ; LCCOMB_X17_Y7_N6   ; 26      ; Sync. load                ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz1|adsr:u_adsr|acc[6]~24                                 ; LCCOMB_X18_Y1_N14  ; 24      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz1|adsr:u_adsr|acc[6]~26                                 ; LCCOMB_X18_Y1_N6   ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz1|adsr:u_adsr|llega~1                                   ; LCCOMB_X18_Y4_N26  ; 26      ; Sync. load                ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz1|forma_onda:u_onda|s[5]~4                              ; LCCOMB_X20_Y5_N4   ; 6       ; Sync. load                ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz2|adsr:u_adsr|acc[13]~24                                ; LCCOMB_X9_Y3_N22   ; 24      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz2|adsr:u_adsr|acc[13]~26                                ; LCCOMB_X9_Y3_N6    ; 24      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
+; voz:u_voz2|adsr:u_adsr|llega~1                                   ; LCCOMB_X13_Y3_N12  ; 26      ; Sync. load                ; no     ; --                   ; --               ; --                        ;
 +------------------------------------------------------------------+--------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
 
 
@@ -1863,20 +1863,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter RAM Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-+---------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
-; Name                                                                                                    ; Type ; Mode             ; Clock Mode   ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Port A Input Registers ; Port A Output Registers ; Port B Input Registers ; Port B Output Registers ; Size  ; Implementation Port A Depth ; Implementation Port A Width ; Implementation Port B Depth ; Implementation Port B Width ; Implementation Bits ; M4Ks ; MIF                                              ; Location                                                                                                                             ; Mixed Width RDW Mode ; Port A RDW Mode ; Port B RDW Mode ;
-+---------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
-; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ALTSYNCRAM           ; AUTO ; Simple Dual Port ; Single Clock ; 4096         ; 11           ; 4096         ; 11           ; yes                    ; no                      ; yes                    ; no                      ; 45056 ; 4096                        ; 11                          ; 4096                        ; 11                          ; 45056               ; 11   ; None                                             ; M4K_X23_Y11, M4K_X23_Y4, M4K_X23_Y10, M4K_X11_Y4, M4K_X11_Y7, M4K_X23_Y9, M4K_X23_Y7, M4K_X11_Y5, M4K_X23_Y8, M4K_X23_Y5, M4K_X23_Y6 ; Old data             ; Don't care      ; Don't care      ;
-; secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0|altsyncram_srg1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; Single Clock ; 256          ; 37           ; 256          ; 37           ; yes                    ; no                      ; yes                    ; no                      ; 9472  ; 256                         ; 37                          ; 256                         ; 37                          ; 9472                ; 3    ; None                                             ; M4K_X11_Y9, M4K_X11_Y6, M4K_X11_Y3                                                                                                   ; Old data             ; Don't care      ; Don't care      ;
-; voz:u_voz0|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated|ALTSYNCRAM                               ; M4K  ; ROM              ; Single Clock ; 128          ; 24           ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 3072  ; 128                         ; 24                          ; --                          ; --                          ; 3072                ; 1    ; db/sintetizador.ram0_voz_1e4b2.hdl.mif           ; M4K_X11_Y8                                                                                                                           ; Don't care           ; Don't care      ; Don't care      ;
-; voz:u_voz0|forma_onda:u_onda|altsyncram:rom_rtl_0|altsyncram_lj91:auto_generated|ALTSYNCRAM             ; M4K  ; ROM              ; Single Clock ; 256          ; 8            ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 2048  ; 256                         ; 8                           ; --                          ; --                          ; 2048                ; 1    ; db/sintetizador.ram0_forma_onda_3efc7ec3.hdl.mif ; M4K_X11_Y10                                                                                                                          ; Don't care           ; Don't care      ; Don't care      ;
-; voz:u_voz1|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated|ALTSYNCRAM                               ; M4K  ; ROM              ; Single Clock ; 128          ; 24           ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 3072  ; 128                         ; 24                          ; --                          ; --                          ; 3072                ; 1    ; db/sintetizador.ram0_voz_1e4b2.hdl.mif           ; M4K_X11_Y11                                                                                                                          ; Don't care           ; Don't care      ; Don't care      ;
-; voz:u_voz1|forma_onda:u_onda|altsyncram:rom_rtl_0|altsyncram_lj91:auto_generated|ALTSYNCRAM             ; M4K  ; ROM              ; Single Clock ; 256          ; 8            ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 2048  ; 256                         ; 8                           ; --                          ; --                          ; 2048                ; 1    ; db/sintetizador.ram0_forma_onda_3efc7ec3.hdl.mif ; M4K_X11_Y12                                                                                                                          ; Don't care           ; Don't care      ; Don't care      ;
-; voz:u_voz2|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated|ALTSYNCRAM                               ; M4K  ; ROM              ; Single Clock ; 128          ; 24           ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 3072  ; 128                         ; 24                          ; --                          ; --                          ; 3072                ; 1    ; db/sintetizador.ram0_voz_1e4b2.hdl.mif           ; M4K_X23_Y3                                                                                                                           ; Don't care           ; Don't care      ; Don't care      ;
-; voz:u_voz2|forma_onda:u_onda|altsyncram:rom_rtl_0|altsyncram_lj91:auto_generated|ALTSYNCRAM             ; M4K  ; ROM              ; Single Clock ; 256          ; 8            ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 2048  ; 256                         ; 8                           ; --                          ; --                          ; 2048                ; 1    ; db/sintetizador.ram0_forma_onda_3efc7ec3.hdl.mif ; M4K_X23_Y12                                                                                                                          ; Don't care           ; Don't care      ; Don't care      ;
-+---------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter RAM Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
++---------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
+; Name                                                                                                    ; Type ; Mode             ; Clock Mode   ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Port A Input Registers ; Port A Output Registers ; Port B Input Registers ; Port B Output Registers ; Size  ; Implementation Port A Depth ; Implementation Port A Width ; Implementation Port B Depth ; Implementation Port B Width ; Implementation Bits ; M4Ks ; MIF                                              ; Location                                                                                                                                   ; Mixed Width RDW Mode ; Port A RDW Mode ; Port B RDW Mode ;
++---------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
+; audio_salida:u_audio|eco:u_eco|altsyncram:ram_rtl_0|altsyncram_e1h1:auto_generated|ALTSYNCRAM           ; AUTO ; Simple Dual Port ; Single Clock ; 4096         ; 11           ; 4096         ; 11           ; yes                    ; no                      ; yes                    ; no                      ; 45056 ; 4096                        ; 11                          ; 4096                        ; 11                          ; 45056               ; 11   ; None                                             ; M4K_X11_Y12, M4K_X11_Y13, M4K_X11_Y8, M4K_X23_Y13, M4K_X11_Y11, M4K_X11_Y10, M4K_X23_Y10, M4K_X23_Y11, M4K_X23_Y8, M4K_X23_Y12, M4K_X23_Y9 ; Old data             ; Don't care      ; Don't care      ;
+; secuenciador:u_sec|memoria_eventos:u_mem|altsyncram:ram_rtl_0|altsyncram_srg1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; Single Clock ; 256          ; 37           ; 256          ; 37           ; yes                    ; no                      ; yes                    ; no                      ; 9472  ; 256                         ; 37                          ; 256                         ; 37                          ; 9472                ; 3    ; None                                             ; M4K_X11_Y3, M4K_X11_Y7, M4K_X11_Y6                                                                                                         ; Old data             ; Don't care      ; Don't care      ;
+; voz:u_voz0|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated|ALTSYNCRAM                               ; M4K  ; ROM              ; Single Clock ; 128          ; 24           ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 3072  ; 128                         ; 24                          ; --                          ; --                          ; 3072                ; 1    ; db/sintetizador.ram0_voz_1e4b2.hdl.mif           ; M4K_X23_Y6                                                                                                                                 ; Don't care           ; Don't care      ; Don't care      ;
+; voz:u_voz0|forma_onda:u_onda|altsyncram:rom_rtl_0|altsyncram_lj91:auto_generated|ALTSYNCRAM             ; M4K  ; ROM              ; Single Clock ; 256          ; 8            ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 2048  ; 256                         ; 8                           ; --                          ; --                          ; 2048                ; 1    ; db/sintetizador.ram0_forma_onda_3efc7ec3.hdl.mif ; M4K_X23_Y5                                                                                                                                 ; Don't care           ; Don't care      ; Don't care      ;
+; voz:u_voz1|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated|ALTSYNCRAM                               ; M4K  ; ROM              ; Single Clock ; 128          ; 24           ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 3072  ; 128                         ; 24                          ; --                          ; --                          ; 3072                ; 1    ; db/sintetizador.ram0_voz_1e4b2.hdl.mif           ; M4K_X23_Y4                                                                                                                                 ; Don't care           ; Don't care      ; Don't care      ;
+; voz:u_voz1|forma_onda:u_onda|altsyncram:rom_rtl_0|altsyncram_lj91:auto_generated|ALTSYNCRAM             ; M4K  ; ROM              ; Single Clock ; 256          ; 8            ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 2048  ; 256                         ; 8                           ; --                          ; --                          ; 2048                ; 1    ; db/sintetizador.ram0_forma_onda_3efc7ec3.hdl.mif ; M4K_X23_Y3                                                                                                                                 ; Don't care           ; Don't care      ; Don't care      ;
+; voz:u_voz2|altsyncram:rom_rtl_0|altsyncram_kl81:auto_generated|ALTSYNCRAM                               ; M4K  ; ROM              ; Single Clock ; 128          ; 24           ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 3072  ; 128                         ; 24                          ; --                          ; --                          ; 3072                ; 1    ; db/sintetizador.ram0_voz_1e4b2.hdl.mif           ; M4K_X11_Y9                                                                                                                                 ; Don't care           ; Don't care      ; Don't care      ;
+; voz:u_voz2|forma_onda:u_onda|altsyncram:rom_rtl_0|altsyncram_lj91:auto_generated|ALTSYNCRAM             ; M4K  ; ROM              ; Single Clock ; 256          ; 8            ; --           ; --           ; yes                    ; no                      ; --                     ; --                      ; 2048  ; 256                         ; 8                           ; --                          ; --                          ; 2048                ; 1    ; db/sintetizador.ram0_forma_onda_3efc7ec3.hdl.mif ; M4K_X11_Y5                                                                                                                                 ; Don't care           ; Don't care      ; Don't care      ;
++---------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+--------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
 Note: Fitter may spread logical memories into multiple blocks to improve timing. The actual required RAM blocks can be found in the Fitter Resource Usage section.
 
 
@@ -1904,12 +1904,12 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +----------------------------------------------------------------------------------------+----------------------------+--------------------+---------------------+--------------------------------+-----------------------+-----------------------+-------------------+-----------------+
 ; audio_salida:u_audio|tremolo:u_tre|lpm_mult:Mult0|mult_71t:auto_generated|mac_out2     ; Simple Multiplier (18-bit) ; DSPOUT_X16_Y12_N2  ;                     ; No                             ;                       ;                       ;                   ; yes             ;
 ;    audio_salida:u_audio|tremolo:u_tre|lpm_mult:Mult0|mult_71t:auto_generated|mac_mult1 ;                            ; DSPMULT_X16_Y12_N0 ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
-; voz:u_voz1|lpm_mult:Mult0|mult_nus:auto_generated|mac_out2                             ; Simple Multiplier (9-bit)  ; DSPOUT_X16_Y10_N2  ;                     ; No                             ;                       ;                       ;                   ; yes             ;
-;    voz:u_voz1|lpm_mult:Mult0|mult_nus:auto_generated|mac_mult1                         ;                            ; DSPMULT_X16_Y10_N0 ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
-; voz:u_voz0|lpm_mult:Mult0|mult_nus:auto_generated|mac_out2                             ; Simple Multiplier (9-bit)  ; DSPOUT_X16_Y10_N3  ;                     ; No                             ;                       ;                       ;                   ; yes             ;
-;    voz:u_voz0|lpm_mult:Mult0|mult_nus:auto_generated|mac_mult1                         ;                            ; DSPMULT_X16_Y10_N1 ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
-; voz:u_voz2|lpm_mult:Mult0|mult_nus:auto_generated|mac_out2                             ; Simple Multiplier (9-bit)  ; DSPOUT_X16_Y11_N2  ;                     ; No                             ;                       ;                       ;                   ; yes             ;
-;    voz:u_voz2|lpm_mult:Mult0|mult_nus:auto_generated|mac_mult1                         ;                            ; DSPMULT_X16_Y11_N0 ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
+; voz:u_voz1|lpm_mult:Mult0|mult_nus:auto_generated|mac_out2                             ; Simple Multiplier (9-bit)  ; DSPOUT_X16_Y5_N2   ;                     ; No                             ;                       ;                       ;                   ; yes             ;
+;    voz:u_voz1|lpm_mult:Mult0|mult_nus:auto_generated|mac_mult1                         ;                            ; DSPMULT_X16_Y5_N0  ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
+; voz:u_voz0|lpm_mult:Mult0|mult_nus:auto_generated|mac_out2                             ; Simple Multiplier (9-bit)  ; DSPOUT_X16_Y5_N3   ;                     ; No                             ;                       ;                       ;                   ; yes             ;
+;    voz:u_voz0|lpm_mult:Mult0|mult_nus:auto_generated|mac_mult1                         ;                            ; DSPMULT_X16_Y5_N1  ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
+; voz:u_voz2|lpm_mult:Mult0|mult_nus:auto_generated|mac_out2                             ; Simple Multiplier (9-bit)  ; DSPOUT_X16_Y4_N2   ;                     ; No                             ;                       ;                       ;                   ; yes             ;
+;    voz:u_voz2|lpm_mult:Mult0|mult_nus:auto_generated|mac_mult1                         ;                            ; DSPMULT_X16_Y4_N0  ; Signed              ;                                ; no                    ; no                    ; no                ;                 ;
 +----------------------------------------------------------------------------------------+----------------------------+--------------------+---------------------+--------------------------------+-----------------------+-----------------------+-------------------+-----------------+
 
 
@@ -1918,21 +1918,21 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +-----------------------------+-------------------------+
 ; Other Routing Resource Type ; Usage                   ;
 +-----------------------------+-------------------------+
-; Block interconnects         ; 3,223 / 15,666 ( 21 % ) ;
-; C16 interconnects           ; 6 / 812 ( < 1 % )       ;
-; C4 interconnects            ; 1,427 / 11,424 ( 12 % ) ;
-; Direct links                ; 590 / 15,666 ( 4 % )    ;
+; Block interconnects         ; 3,232 / 15,666 ( 21 % ) ;
+; C16 interconnects           ; 8 / 812 ( < 1 % )       ;
+; C4 interconnects            ; 1,207 / 11,424 ( 11 % ) ;
+; Direct links                ; 654 / 15,666 ( 4 % )    ;
 ; Global clocks               ; 1 / 8 ( 13 % )          ;
-; Local interconnects         ; 1,243 / 4,608 ( 27 % )  ;
-; R24 interconnects           ; 15 / 652 ( 2 % )        ;
-; R4 interconnects            ; 1,789 / 13,328 ( 13 % ) ;
+; Local interconnects         ; 1,236 / 4,608 ( 27 % )  ;
+; R24 interconnects           ; 31 / 652 ( 5 % )        ;
+; R4 interconnects            ; 1,948 / 13,328 ( 15 % ) ;
 +-----------------------------+-------------------------+
 
 
 +-----------------------------------------------------------------------------+
 ; LAB Logic Elements                                                          ;
 +---------------------------------------------+-------------------------------+
-; Number of Logic Elements  (Average = 13.22) ; Number of LABs  (Total = 177) ;
+; Number of Logic Elements  (Average = 13.21) ; Number of LABs  (Total = 177) ;
 +---------------------------------------------+-------------------------------+
 ; 1                                           ; 3                             ;
 ; 2                                           ; 4                             ;
@@ -1948,19 +1948,19 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 ; 12                                          ; 12                            ;
 ; 13                                          ; 10                            ;
 ; 14                                          ; 18                            ;
-; 15                                          ; 24                            ;
-; 16                                          ; 78                            ;
+; 15                                          ; 25                            ;
+; 16                                          ; 77                            ;
 +---------------------------------------------+-------------------------------+
 
 
 +--------------------------------------------------------------------+
 ; LAB-wide Signals                                                   ;
 +------------------------------------+-------------------------------+
-; LAB-wide Signals  (Average = 1.54) ; Number of LABs  (Total = 177) ;
+; LAB-wide Signals  (Average = 1.53) ; Number of LABs  (Total = 177) ;
 +------------------------------------+-------------------------------+
 ; 1 Clock                            ; 128                           ;
 ; 1 Clock enable                     ; 53                            ;
-; 1 Sync. clear                      ; 51                            ;
+; 1 Sync. clear                      ; 49                            ;
 ; 1 Sync. load                       ; 13                            ;
 ; 2 Clock enables                    ; 27                            ;
 +------------------------------------+-------------------------------+
@@ -1969,11 +1969,11 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +------------------------------------------------------------------------------+
 ; LAB Signals Sourced                                                          ;
 +----------------------------------------------+-------------------------------+
-; Number of Signals Sourced  (Average = 17.51) ; Number of LABs  (Total = 177) ;
+; Number of Signals Sourced  (Average = 17.53) ; Number of LABs  (Total = 177) ;
 +----------------------------------------------+-------------------------------+
 ; 0                                            ; 0                             ;
-; 1                                            ; 5                             ;
-; 2                                            ; 1                             ;
+; 1                                            ; 4                             ;
+; 2                                            ; 2                             ;
 ; 3                                            ; 1                             ;
 ; 4                                            ; 11                            ;
 ; 5                                            ; 2                             ;
@@ -1987,17 +1987,17 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 ; 13                                           ; 7                             ;
 ; 14                                           ; 3                             ;
 ; 15                                           ; 3                             ;
-; 16                                           ; 17                            ;
-; 17                                           ; 8                             ;
-; 18                                           ; 10                            ;
-; 19                                           ; 8                             ;
-; 20                                           ; 7                             ;
+; 16                                           ; 18                            ;
+; 17                                           ; 7                             ;
+; 18                                           ; 11                            ;
+; 19                                           ; 6                             ;
+; 20                                           ; 8                             ;
 ; 21                                           ; 10                            ;
 ; 22                                           ; 7                             ;
-; 23                                           ; 11                            ;
-; 24                                           ; 16                            ;
+; 23                                           ; 12                            ;
+; 24                                           ; 13                            ;
 ; 25                                           ; 6                             ;
-; 26                                           ; 7                             ;
+; 26                                           ; 9                             ;
 ; 27                                           ; 5                             ;
 ; 28                                           ; 5                             ;
 ; 29                                           ; 0                             ;
@@ -2143,9 +2143,9 @@ Info (332111): Found 2 clocks
 Info (176233): Starting register packing
 Info (176235): Finished register packing
     Extra Info (176218): Packed 36 registers into blocks of type Embedded multiplier output
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:03
 Info (170189): Fitter placement preparation operations beginning
-Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
+Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:02
 Info (170191): Fitter placement operations beginning
 Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:01
@@ -2156,7 +2156,7 @@ Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 1.27 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 1.29 seconds.
 Info (306004): Started post-fitting delay annotation
 Warning (306006): Found 12 output pins without output pin load capacitance assignment
     Info (306007): Pin "TEC1_FIL[3]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
@@ -2174,14 +2174,14 @@ Warning (306006): Found 12 output pins without output pin load capacitance assig
 Info (306005): Delay annotation completed successfully
 Info (306004): Started post-fitting delay annotation
 Info (306005): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:03
 Info (176045): Design uses memory blocks. Violating setup or hold times of memory block address registers for either read or write operations could cause memory contents to be corrupted. Make sure that all memory block address registers meet the setup and hold time requirements.
 Info (144001): Generated suppressed messages file /home/samuel/proyectos/robot-seguidor-luz-vlsi/quartus/output_files/sintetizador.fit.smsg
 Info: Quartus II 32-bit Fitter was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 427 megabytes
-    Info: Processing ended: Sat Nov 14 17:35:41 2026
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:09
+    Info: Peak virtual memory: 431 megabytes
+    Info: Processing ended: Sat Nov 14 18:07:30 2026
+    Info: Elapsed time: 00:00:15
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +----------------------------+

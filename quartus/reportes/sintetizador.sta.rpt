@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for sintetizador
-Sat Nov 14 17:35:48 2026
+Sat Nov 14 18:07:36 2026
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -90,7 +90,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +------------------+--------+--------------------------+
 ; SDC File Path    ; Status ; Read at                  ;
 +------------------+--------+--------------------------+
-; sintetizador.sdc ; OK     ; Sat Nov 14 17:35:47 2026 ;
+; sintetizador.sdc ; OK     ; Sat Nov 14 18:07:35 2026 ;
 +------------------+--------+--------------------------+
 
 
@@ -109,7 +109,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-----------+-----------------+------------------------+------+
 ; Fmax      ; Restricted Fmax ; Clock Name             ; Note ;
 +-----------+-----------------+------------------------+------+
-; 38.57 MHz ; 38.57 MHz       ; u_pll|u_pll|pll|clk[0] ;      ;
+; 38.06 MHz ; 38.06 MHz       ; u_pll|u_pll|pll|clk[0] ;      ;
 +-----------+-----------------+------------------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -119,7 +119,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +------------------------+--------+---------------+
 ; Clock                  ; Slack  ; End Point TNS ;
 +------------------------+--------+---------------+
-; u_pll|u_pll|pll|clk[0] ; 14.073 ; 0.000         ;
+; u_pll|u_pll|pll|clk[0] ; 13.723 ; 0.000         ;
 +------------------------+--------+---------------+
 
 
@@ -154,112 +154,112 @@ No paths to report.
 +------------------------+--------+---------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Slow Model Setup: 'u_pll|u_pll|pll|clk[0]'                                                                                                                                  ;
-+--------+----------------------------------+--------------------------------------+------------------------+------------------------+--------------+------------+------------+
-; Slack  ; From Node                        ; To Node                              ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
-+--------+----------------------------------+--------------------------------------+------------------------+------------------------+--------------+------------+------------+
-; 14.073 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.994     ;
-; 14.104 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.968     ;
-; 14.159 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 25.905     ;
-; 14.190 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 25.879     ;
-; 14.254 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.807     ;
-; 14.285 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.781     ;
-; 14.369 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.692     ;
-; 14.400 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.666     ;
-; 14.453 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.031      ; 25.618     ;
-; 14.484 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.036      ; 25.592     ;
-; 14.507 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.560     ;
-; 14.566 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.495     ;
-; 14.570 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 25.494     ;
-; 14.593 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 25.471     ;
-; 14.596 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.465     ;
-; 14.597 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.469     ;
-; 14.601 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 25.468     ;
-; 14.627 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.439     ;
-; 14.636 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 25.428     ;
-; 14.638 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 25.426     ;
-; 14.667 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 25.402     ;
-; 14.669 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 25.400     ;
-; 14.670 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.391     ;
-; 14.675 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.386     ;
-; 14.675 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.386     ;
-; 14.688 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.373     ;
-; 14.701 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.365     ;
-; 14.706 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.360     ;
-; 14.706 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 25.360     ;
-; 14.781 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.286     ;
-; 14.781 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.286     ;
-; 14.781 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.286     ;
-; 14.781 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.286     ;
-; 14.781 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 25.286     ;
-; 14.803 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.258     ;
-; 14.812 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.260     ;
-; 14.812 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.260     ;
-; 14.812 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.260     ;
-; 14.812 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.260     ;
-; 14.812 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.260     ;
-; 14.887 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.031      ; 25.184     ;
-; 14.988 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 25.084     ;
-; 15.000 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.061     ;
-; 15.004 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 25.060     ;
-; 15.030 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 25.031     ;
-; 15.070 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.994     ;
-; 15.072 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.992     ;
-; 15.074 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.995     ;
-; 15.088 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 24.977     ;
-; 15.104 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 24.957     ;
-; 15.109 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 24.952     ;
-; 15.109 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 24.952     ;
-; 15.169 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.897     ;
-; 15.174 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 24.888     ;
-; 15.215 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 24.852     ;
-; 15.215 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 24.852     ;
-; 15.215 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 24.852     ;
-; 15.215 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 24.852     ;
-; 15.215 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 24.852     ;
-; 15.269 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.790     ;
-; 15.284 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.782     ;
-; 15.305 ; voz:u_voz0|adsr:u_adsr|acc[13]   ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 24.742     ;
-; 15.338 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.726     ;
-; 15.338 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.726     ;
-; 15.338 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.726     ;
-; 15.368 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.036      ; 24.708     ;
-; 15.369 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.700     ;
-; 15.369 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.700     ;
-; 15.369 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.700     ;
-; 15.384 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.675     ;
-; 15.398 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 24.667     ;
-; 15.468 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.601     ;
-; 15.481 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.585     ;
-; 15.484 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 24.578     ;
-; 15.485 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.584     ;
-; 15.511 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.555     ;
-; 15.551 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.518     ;
-; 15.553 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.029      ; 24.516     ;
-; 15.579 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.480     ;
-; 15.581 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.478     ;
-; 15.585 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.481     ;
-; 15.585 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 24.477     ;
-; 15.590 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.476     ;
-; 15.590 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.026      ; 24.476     ;
-; 15.611 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.448     ;
-; 15.651 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 24.411     ;
-; 15.653 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 24.409     ;
-; 15.685 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.374     ;
-; 15.690 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.369     ;
-; 15.690 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.369     ;
-; 15.694 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.019      ; 24.365     ;
-; 15.696 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 24.376     ;
-; 15.696 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 24.376     ;
-; 15.696 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 24.376     ;
-; 15.696 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 24.376     ;
-; 15.696 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.032      ; 24.376     ;
-; 15.735 ; teclas_notas:u_notas|s_notas[14] ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.304     ;
-; 15.772 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.292     ;
-; 15.772 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.292     ;
-; 15.772 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 24.292     ;
-+--------+----------------------------------+--------------------------------------+------------------------+------------------------+--------------+------------+------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Setup: 'u_pll|u_pll|pll|clk[0]'                                                                                                                            ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; Slack  ; From Node                        ; To Node                        ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; 13.723 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.005      ; 26.322     ;
+; 14.128 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 25.929     ;
+; 14.128 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 25.929     ;
+; 14.200 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.005      ; 25.845     ;
+; 14.426 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.626     ;
+; 14.426 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.626     ;
+; 14.426 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.626     ;
+; 14.426 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.626     ;
+; 14.426 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.626     ;
+; 14.474 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.582     ;
+; 14.481 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.575     ;
+; 14.481 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.575     ;
+; 14.481 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.575     ;
+; 14.481 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.575     ;
+; 14.481 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.575     ;
+; 14.556 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 25.501     ;
+; 14.556 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 25.501     ;
+; 14.693 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.008     ; 25.339     ;
+; 14.854 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.198     ;
+; 14.854 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.198     ;
+; 14.854 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.198     ;
+; 14.854 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.198     ;
+; 14.854 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 25.198     ;
+; 14.951 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.105     ;
+; 14.958 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.098     ;
+; 14.958 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.098     ;
+; 14.958 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.098     ;
+; 14.958 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.098     ;
+; 14.958 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 25.098     ;
+; 15.040 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.008     ; 24.992     ;
+; 15.098 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 24.946     ;
+; 15.098 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 24.946     ;
+; 15.150 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 24.907     ;
+; 15.150 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 24.907     ;
+; 15.155 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.005      ; 24.890     ;
+; 15.172 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 24.885     ;
+; 15.172 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 24.885     ;
+; 15.177 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.005      ; 24.868     ;
+; 15.259 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.792     ;
+; 15.351 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.700     ;
+; 15.396 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.643     ;
+; 15.396 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.643     ;
+; 15.396 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.643     ;
+; 15.396 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.643     ;
+; 15.396 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.643     ;
+; 15.444 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.599     ;
+; 15.445 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 24.599     ;
+; 15.445 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 24.599     ;
+; 15.448 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.604     ;
+; 15.448 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.604     ;
+; 15.448 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.604     ;
+; 15.448 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.604     ;
+; 15.448 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.604     ;
+; 15.451 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.592     ;
+; 15.451 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.592     ;
+; 15.451 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.592     ;
+; 15.451 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.592     ;
+; 15.451 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.592     ;
+; 15.470 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.582     ;
+; 15.470 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.582     ;
+; 15.470 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.582     ;
+; 15.470 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.582     ;
+; 15.470 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.012      ; 24.582     ;
+; 15.549 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.502     ;
+; 15.549 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.502     ;
+; 15.549 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.502     ;
+; 15.549 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.502     ;
+; 15.549 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.502     ;
+; 15.687 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.364     ;
+; 15.743 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.296     ;
+; 15.743 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.296     ;
+; 15.743 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.296     ;
+; 15.743 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.296     ;
+; 15.743 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.296     ;
+; 15.791 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.252     ;
+; 15.798 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.245     ;
+; 15.798 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.245     ;
+; 15.798 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.245     ;
+; 15.798 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.245     ;
+; 15.798 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 24.245     ;
+; 15.801 ; teclas_notas:u_notas|s_notas[8]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.008     ; 24.231     ;
+; 15.828 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.011      ; 24.223     ;
+; 15.883 ; teclas_notas:u_notas|s_notas[7]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.008     ; 24.149     ;
+; 15.906 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.150     ;
+; 15.913 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.143     ;
+; 15.913 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.143     ;
+; 15.913 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.143     ;
+; 15.913 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.143     ;
+; 15.913 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.143     ;
+; 15.928 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.128     ;
+; 15.935 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.121     ;
+; 15.935 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.121     ;
+; 15.935 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.121     ;
+; 15.935 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.121     ;
+; 15.935 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.016      ; 24.121     ;
+; 15.952 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.001     ; 24.087     ;
+; 15.957 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.002      ; 24.085     ;
+; 15.957 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.002      ; 24.085     ;
+; 15.962 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 24.068     ;
+; 15.986 ; teclas_notas:u_notas|s_notas[0]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 24.063     ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -269,74 +269,74 @@ No paths to report.
 +-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
 ; 0.499 ; reset_encendido:u_rst|cuenta[0]                              ; reset_encendido:u_rst|cuenta[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; reset_encendido:u_rst|cuenta[1]                              ; reset_encendido:u_rst|cuenta[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; reset_encendido:u_rst|cuenta[2]                              ; reset_encendido:u_rst|cuenta[2]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; reset_encendido:u_rst|cuenta[3]                              ; reset_encendido:u_rst|cuenta[3]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; reset_encendido:u_rst|cuenta[2]                              ; reset_encendido:u_rst|cuenta[2]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_modo[0]                                  ; control:u_control|r_modo[0]                                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_modo[1]                                  ; control:u_control|r_modo[1]                                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_par[0]                                   ; control:u_control|r_par[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; control:u_control|r_vol[0]                                   ; control:u_control|r_vol[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; control:u_control|r_forma[1]                                 ; control:u_control|r_forma[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_forma[0]                                 ; control:u_control|r_forma[0]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_forma[1]                                 ; control:u_control|r_forma[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; teclas_notas:u_notas|j[4]                                    ; teclas_notas:u_notas|j[4]                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; teclas_notas:u_notas|cuantas[1]                              ; teclas_notas:u_notas|cuantas[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; teclas_notas:u_notas|cuantas[0]                              ; teclas_notas:u_notas|cuantas[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_oct[2]                                   ; control:u_control|r_oct[2]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; secuenciador:u_sec|est.TOCAR                                 ; secuenciador:u_sec|est.TOCAR                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; control:u_control|r_atk[0]                                   ; control:u_control|r_atk[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_sus[0]                                   ; control:u_control|r_sus[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_sus[1]                                   ; control:u_control|r_sus[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_atk[0]                                   ; control:u_control|r_atk[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_dec[0]                                   ; control:u_control|r_dec[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_rel[0]                                   ; control:u_control|r_rel[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.499 ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_efe[0]                                   ; control:u_control|r_efe[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_efe[1]                                   ; control:u_control|r_efe[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; audio_salida:u_audio|eco:u_eco|lleno                         ; audio_salida:u_audio|eco:u_eco|lleno                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
+; 0.499 ; control:u_control|r_vol[0]                                   ; control:u_control|r_vol[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_metro                                    ; control:u_control|r_metro                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; control:u_control|r_tempo[1]                                 ; control:u_control|r_tempo[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
@@ -344,29 +344,29 @@ No paths to report.
 ; 0.499 ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
 ; 0.499 ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.805      ;
-; 0.738 ; audio_salida:u_audio|muestra[0]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[0]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.044      ;
-; 0.740 ; audio_salida:u_audio|tremolo:u_tre|v1                        ; audio_salida:u_audio|tremolo:u_tre|v2                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.046      ;
+; 0.734 ; audio_salida:u_audio|tremolo:u_tre|act_r                     ; audio_salida:u_audio|tremolo:u_tre|act_r2                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.040      ;
+; 0.737 ; audio_salida:u_audio|muestra[2]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[2]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.043      ;
 ; 0.741 ; audio_salida:u_audio|metronomo:u_met|cuenta[9]               ; audio_salida:u_audio|metronomo:u_met|cuenta[9]               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
-; 0.741 ; leds_estado:u_leds|destello[6]                               ; leds_estado:u_leds|destello[6]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
-; 0.742 ; audio_salida:u_audio|tremolo:u_tre|act_r                     ; audio_salida:u_audio|tremolo:u_tre|act_r2                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.048      ;
-; 0.742 ; audio_salida:u_audio|tremolo:u_tre|x_r[11]                   ; audio_salida:u_audio|tremolo:u_tre|x_r2[11]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.048      ;
-; 0.743 ; teclas_notas:u_notas|f_ant[4]                                ; teclas_notas:u_notas|s_func[4]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.049      ;
-; 0.745 ; secuenciador:u_sec|actual[19]                                ; secuenciador:u_sec|din[35]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.051      ;
-; 0.746 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; teclas_notas:u_notas|foto[19]                                ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.052      ;
+; 0.741 ; audio_salida:u_audio|muestra[3]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[3]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.047      ;
+; 0.742 ; audio_salida:u_audio|muestra[6]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[6]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.048      ;
+; 0.743 ; audio_salida:u_audio|muestra[4]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[4]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.049      ;
+; 0.744 ; secuenciador:u_sec|actual[7]                                 ; secuenciador:u_sec|din[23]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.050      ;
+; 0.744 ; audio_salida:u_audio|muestra[0]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[0]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.050      ;
+; 0.745 ; audio_salida:u_audio|tremolo:u_tre|v1                        ; audio_salida:u_audio|tremolo:u_tre|v2                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.051      ;
+; 0.746 ; secuenciador:u_sec|actual[18]                                ; secuenciador:u_sec|din[34]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.052      ;
 ; 0.746 ; secuenciador:u_sec|actual[13]                                ; secuenciador:u_sec|din[29]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.052      ;
-; 0.746 ; audio_salida:u_audio|tremolo:u_tre|x_r2[7]                   ; audio_salida:u_audio|tremolo:u_tre|s_y[7]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.052      ;
-; 0.746 ; audio_salida:u_audio|muestra[3]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[3]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.052      ;
-; 0.746 ; audio_salida:u_audio|muestra[4]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[4]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.052      ;
-; 0.747 ; teclas_notas:u_notas|f_ant[7]                                ; teclas_notas:u_notas|s_func[7]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.053      ;
 ; 0.747 ; teclas_notas:u_notas|lugar[2][0]                             ; teclas_notas:u_notas|s_notas[14]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.053      ;
-; 0.747 ; audio_salida:u_audio|tremolo:u_tre|x_r[9]                    ; audio_salida:u_audio|tremolo:u_tre|x_r2[9]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.053      ;
-; 0.747 ; audio_salida:u_audio|tremolo:u_tre|x_r2[10]                  ; audio_salida:u_audio|tremolo:u_tre|s_y[10]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.053      ;
-; 0.747 ; audio_salida:u_audio|muestra[2]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[2]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.053      ;
-; 0.748 ; teclas_notas:u_notas|f_ant[3]                                ; teclas_notas:u_notas|s_func[3]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.054      ;
-; 0.748 ; teclas_notas:u_notas|lugar[2][1]                             ; teclas_notas:u_notas|s_notas[15]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.054      ;
-; 0.748 ; voz:u_voz2|dds:u_dds|acc[23]                                 ; voz:u_voz2|dds:u_dds|acc[23]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.054      ;
 ; 0.748 ; audio_salida:u_audio|tremolo:u_tre|fase[19]                  ; audio_salida:u_audio|tremolo:u_tre|fase[19]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.054      ;
-; 0.748 ; audio_salida:u_audio|tremolo:u_tre|x_r2[3]                   ; audio_salida:u_audio|tremolo:u_tre|s_y[3]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.054      ;
+; 0.749 ; teclas_notas:u_notas|lugar[2][1]                             ; teclas_notas:u_notas|s_notas[15]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.055      ;
+; 0.749 ; secuenciador:u_sec|actual[11]                                ; secuenciador:u_sec|din[27]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.055      ;
+; 0.750 ; secuenciador:u_sec|actual[12]                                ; secuenciador:u_sec|din[28]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.056      ;
+; 0.750 ; audio_salida:u_audio|tremolo:u_tre|x_r[11]                   ; audio_salida:u_audio|tremolo:u_tre|x_r2[11]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.056      ;
+; 0.750 ; leds_estado:u_leds|destello[6]                               ; leds_estado:u_leds|destello[6]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.056      ;
+; 0.751 ; audio_salida:u_audio|tremolo:u_tre|s_val                     ; audio_salida:u_audio|eco:u_eco|fase.CALCULA                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.057      ;
+; 0.751 ; audio_salida:u_audio|tremolo:u_tre|x_r[9]                    ; audio_salida:u_audio|tremolo:u_tre|x_r2[9]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.057      ;
+; 0.752 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; teclas_notas:u_notas|s_func[1]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.058      ;
+; 0.752 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; teclas_notas:u_notas|foto[18]                                ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.058      ;
+; 0.752 ; secuenciador:u_sec|actual[9]                                 ; secuenciador:u_sec|din[25]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 1.058      ;
 +-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
 
 
@@ -504,7 +504,7 @@ Nothing to report.
 +------------------------+--------+---------------+
 ; Clock                  ; Slack  ; End Point TNS ;
 +------------------------+--------+---------------+
-; u_pll|u_pll|pll|clk[0] ; 32.134 ; 0.000         ;
+; u_pll|u_pll|pll|clk[0] ; 31.927 ; 0.000         ;
 +------------------------+--------+---------------+
 
 
@@ -539,112 +539,112 @@ No paths to report.
 +------------------------+--------+---------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fast Model Setup: 'u_pll|u_pll|pll|clk[0]'                                                                                                                                  ;
-+--------+----------------------------------+--------------------------------------+------------------------+------------------------+--------------+------------+------------+
-; Slack  ; From Node                        ; To Node                              ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
-+--------+----------------------------------+--------------------------------------+------------------------+------------------------+--------------+------------+------------+
-; 32.134 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.916      ;
-; 32.134 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.916      ;
-; 32.165 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 7.889      ;
-; 32.165 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 7.889      ;
-; 32.209 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 7.850      ;
-; 32.216 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.833      ;
-; 32.216 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.833      ;
-; 32.216 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.833      ;
-; 32.216 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.833      ;
-; 32.216 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.833      ;
-; 32.227 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.829      ;
-; 32.230 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.823      ;
-; 32.240 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.031      ; 7.823      ;
-; 32.247 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.806      ;
-; 32.247 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.806      ;
-; 32.247 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.806      ;
-; 32.247 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.806      ;
-; 32.247 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.806      ;
-; 32.257 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.793      ;
-; 32.257 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.793      ;
-; 32.258 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.802      ;
-; 32.261 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.796      ;
-; 32.304 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.752      ;
-; 32.304 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.752      ;
-; 32.304 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.752      ;
-; 32.304 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.752      ;
-; 32.304 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.752      ;
-; 32.321 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.732      ;
-; 32.332 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 7.727      ;
-; 32.335 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.725      ;
-; 32.335 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.725      ;
-; 32.335 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.725      ;
-; 32.335 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.725      ;
-; 32.335 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.725      ;
-; 32.339 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.710      ;
-; 32.339 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.710      ;
-; 32.339 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.710      ;
-; 32.339 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.710      ;
-; 32.339 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.710      ;
-; 32.350 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.706      ;
-; 32.352 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.705      ;
-; 32.353 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.700      ;
-; 32.361 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.692      ;
-; 32.363 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.690      ;
-; 32.392 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.665      ;
-; 32.394 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.663      ;
-; 32.422 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 7.632      ;
-; 32.422 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.022      ; 7.632      ;
-; 32.427 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.629      ;
-; 32.427 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.629      ;
-; 32.427 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.629      ;
-; 32.427 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.629      ;
-; 32.427 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.629      ;
-; 32.444 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.609      ;
-; 32.449 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.601      ;
-; 32.449 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.601      ;
-; 32.455 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.598      ;
-; 32.455 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.598      ;
-; 32.455 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.598      ;
-; 32.484 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.569      ;
-; 32.486 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.567      ;
-; 32.486 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.571      ;
-; 32.486 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.571      ;
-; 32.486 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[0][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.571      ;
-; 32.490 ; voz:u_voz0|adsr:u_adsr|acc[13]   ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.549      ;
-; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.031      ; 7.566      ;
-; 32.504 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.549      ;
-; 32.504 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.549      ;
-; 32.504 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.549      ;
-; 32.504 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.549      ;
-; 32.504 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.549      ;
-; 32.515 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.545      ;
-; 32.518 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.539      ;
-; 32.524 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.027      ; 7.535      ;
-; 32.531 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.518      ;
-; 32.531 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.518      ;
-; 32.531 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.518      ;
-; 32.531 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.518      ;
-; 32.531 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.017      ; 7.518      ;
-; 32.542 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.514      ;
-; 32.545 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[0][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.508      ;
-; 32.565 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.485      ;
-; 32.565 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.018      ; 7.485      ;
-; 32.578 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.475      ;
-; 32.578 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.475      ;
-; 32.578 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][5]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.021      ; 7.475      ;
-; 32.592 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.468      ;
-; 32.592 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.468      ;
-; 32.592 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.468      ;
-; 32.592 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.468      ;
-; 32.592 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.028      ; 7.468      ;
-; 32.609 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[0][6]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.025      ; 7.448      ;
-; 32.619 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][4]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.437      ;
-; 32.619 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.437      ;
-; 32.619 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.437      ;
-; 32.619 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][0]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.437      ;
-; 32.619 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][1]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.024      ; 7.437      ;
-; 32.621 ; teclas_notas:u_notas|s_notas[14] ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.007     ; 7.404      ;
-; 32.621 ; teclas_notas:u_notas|s_notas[14] ; gestor_voces:u_gestor|nv[1][3]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.007     ; 7.404      ;
-; 32.628 ; teclas_notas:u_notas|s_notas[15] ; gestor_voces:u_gestor|nv[1][2]       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.007     ; 7.397      ;
-+--------+----------------------------------+--------------------------------------+------------------------+------------------------+--------------+------------+------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Setup: 'u_pll|u_pll|pll|clk[0]'                                                                                                                            ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; Slack  ; From Node                        ; To Node                        ; Launch Clock           ; Latch Clock            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
+; 31.927 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 8.108      ;
+; 32.088 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.014      ; 7.958      ;
+; 32.088 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.014      ; 7.958      ;
+; 32.119 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.003      ; 7.916      ;
+; 32.168 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.874      ;
+; 32.168 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.874      ;
+; 32.168 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.874      ;
+; 32.168 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.874      ;
+; 32.168 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.874      ;
+; 32.173 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.872      ;
+; 32.173 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.872      ;
+; 32.173 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.872      ;
+; 32.173 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.872      ;
+; 32.173 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.872      ;
+; 32.173 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.872      ;
+; 32.251 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.771      ;
+; 32.280 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.014      ; 7.766      ;
+; 32.280 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.014      ; 7.766      ;
+; 32.359 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.663      ;
+; 32.360 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.682      ;
+; 32.360 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.682      ;
+; 32.360 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.682      ;
+; 32.360 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.682      ;
+; 32.360 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.010      ; 7.682      ;
+; 32.365 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.680      ;
+; 32.365 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.680      ;
+; 32.365 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.680      ;
+; 32.365 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.680      ;
+; 32.365 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.680      ;
+; 32.365 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.013      ; 7.680      ;
+; 32.412 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.621      ;
+; 32.412 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.621      ;
+; 32.425 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.604      ;
+; 32.440 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.589      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.482 ; secuenciador:u_sec|est.ESPERA    ; gestor_voces:u_gestor|nv[0][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.559      ;
+; 32.492 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.537      ;
+; 32.492 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.537      ;
+; 32.492 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.537      ;
+; 32.492 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.537      ;
+; 32.492 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.537      ;
+; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.535      ;
+; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.535      ;
+; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.535      ;
+; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.535      ;
+; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.535      ;
+; 32.497 ; teclas_notas:u_notas|s_notas[10] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.535      ;
+; 32.520 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.513      ;
+; 32.520 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.001      ; 7.513      ;
+; 32.531 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.509      ;
+; 32.531 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.509      ;
+; 32.546 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.494      ;
+; 32.546 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.008      ; 7.494      ;
+; 32.600 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.429      ;
+; 32.600 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.429      ;
+; 32.600 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.429      ;
+; 32.600 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.429      ;
+; 32.600 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.429      ;
+; 32.605 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.427      ;
+; 32.605 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.427      ;
+; 32.605 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.427      ;
+; 32.605 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.427      ;
+; 32.605 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.427      ;
+; 32.605 ; teclas_notas:u_notas|s_notas[11] ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.000      ; 7.427      ;
+; 32.611 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.425      ;
+; 32.611 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.425      ;
+; 32.611 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.425      ;
+; 32.611 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.425      ;
+; 32.611 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.425      ;
+; 32.623 ; teclas_notas:u_notas|s_notas[8]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.008     ; 7.401      ;
+; 32.626 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.410      ;
+; 32.626 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.410      ;
+; 32.626 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.410      ;
+; 32.626 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.410      ;
+; 32.626 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[1][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.004      ; 7.410      ;
+; 32.629 ; teclas_notas:u_notas|s_notas[7]  ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.008     ; 7.395      ;
+; 32.640 ; teclas_notas:u_notas|s_notas[13] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.003     ; 7.389      ;
+; 32.651 ; teclas_notas:u_notas|s_notas[12] ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.009     ; 7.372      ;
+; 32.671 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.368      ;
+; 32.671 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.368      ;
+; 32.671 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.368      ;
+; 32.671 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.368      ;
+; 32.671 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.368      ;
+; 32.671 ; teclas_notas:u_notas|s_notas[3]  ; gestor_voces:u_gestor|nv[2][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.368      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][6] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][2] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.674 ; secuenciador:u_sec|est.GRABANDO  ; gestor_voces:u_gestor|nv[0][4] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.009      ; 7.367      ;
+; 32.680 ; gestor_voces:u_gestor|nv[2][3]   ; gestor_voces:u_gestor|nv[2][5] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; -0.010     ; 7.342      ;
+; 32.686 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][1] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.353      ;
+; 32.686 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][0] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.353      ;
+; 32.686 ; teclas_notas:u_notas|s_notas[2]  ; gestor_voces:u_gestor|nv[2][3] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 40.000       ; 0.007      ; 7.353      ;
++--------+----------------------------------+--------------------------------+------------------------+------------------------+--------------+------------+------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -654,74 +654,74 @@ No paths to report.
 +-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
 ; 0.215 ; reset_encendido:u_rst|cuenta[0]                              ; reset_encendido:u_rst|cuenta[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; reset_encendido:u_rst|cuenta[1]                              ; reset_encendido:u_rst|cuenta[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; reset_encendido:u_rst|cuenta[2]                              ; reset_encendido:u_rst|cuenta[2]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; reset_encendido:u_rst|cuenta[3]                              ; reset_encendido:u_rst|cuenta[3]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; reset_encendido:u_rst|cuenta[2]                              ; reset_encendido:u_rst|cuenta[2]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; audio_salida:u_audio|eco:u_eco|fase.REPOSO                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[0]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; interfaz_teclados:u_teclados|teclado_scan:u_scan|fila[1]     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[15] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[3]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[7]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[11] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[27] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[23] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[31] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_modo[0]                                  ; control:u_control|r_modo[0]                                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_modo[1]                                  ; control:u_control|r_modo[1]                                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_par[0]                                   ; control:u_control|r_par[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; control:u_control|r_vol[0]                                   ; control:u_control|r_vol[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; control:u_control|r_forma[1]                                 ; control:u_control|r_forma[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_forma[0]                                 ; control:u_control|r_forma[0]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_forma[1]                                 ; control:u_control|r_forma[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; teclas_notas:u_notas|j[4]                                    ; teclas_notas:u_notas|j[4]                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[0]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[12] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[8]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[4]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[14] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[5]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[1]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[13] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[9]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[10] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[6]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[2]  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[30] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[22] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[26] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[18] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[24] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[20] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[28] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[16] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[21] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[29] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[17] ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; teclas_notas:u_notas|cuantas[1]                              ; teclas_notas:u_notas|cuantas[1]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; teclas_notas:u_notas|cuantas[0]                              ; teclas_notas:u_notas|cuantas[0]                              ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_oct[2]                                   ; control:u_control|r_oct[2]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; secuenciador:u_sec|est.TOCAR                                 ; secuenciador:u_sec|est.TOCAR                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; control:u_control|r_atk[0]                                   ; control:u_control|r_atk[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_sus[0]                                   ; control:u_control|r_sus[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_sus[1]                                   ; control:u_control|r_sus[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_atk[0]                                   ; control:u_control|r_atk[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_dec[0]                                   ; control:u_control|r_dec[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_rel[0]                                   ; control:u_control|r_rel[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz0|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz0|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz0|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz0|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz1|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz1|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz1|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz1|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; voz:u_voz2|adsr:u_adsr|est.ATAQUE                            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; voz:u_voz2|adsr:u_adsr|est.DECAIMIENTO                       ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; voz:u_voz2|adsr:u_adsr|est.SOSTENIDO                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.215 ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; voz:u_voz2|adsr:u_adsr|est.LIBERACION                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_efe[0]                                   ; control:u_control|r_efe[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_efe[1]                                   ; control:u_control|r_efe[1]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; audio_salida:u_audio|eco:u_eco|lleno                         ; audio_salida:u_audio|eco:u_eco|lleno                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.215 ; control:u_control|r_vol[0]                                   ; control:u_control|r_vol[0]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; audio_salida:u_audio|eco:u_eco|s_y[0]                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_metro                                    ; control:u_control|r_metro                                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; control:u_control|r_tempo[1]                                 ; control:u_control|r_tempo[1]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
@@ -729,29 +729,29 @@ No paths to report.
 ; 0.215 ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; audio_salida:u_audio|metronomo:u_met|num[0]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; audio_salida:u_audio|metronomo:u_met|num[1]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
 ; 0.215 ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; audio_salida:u_audio|volumen:u_vol|s_y[11]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.367      ;
-; 0.238 ; audio_salida:u_audio|tremolo:u_tre|v1                        ; audio_salida:u_audio|tremolo:u_tre|v2                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
-; 0.238 ; audio_salida:u_audio|tremolo:u_tre|x_r[11]                   ; audio_salida:u_audio|tremolo:u_tre|x_r2[11]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.237 ; audio_salida:u_audio|tremolo:u_tre|act_r                     ; audio_salida:u_audio|tremolo:u_tre|act_r2                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.389      ;
 ; 0.238 ; audio_salida:u_audio|metronomo:u_met|cuenta[9]               ; audio_salida:u_audio|metronomo:u_met|cuenta[9]               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
-; 0.238 ; audio_salida:u_audio|muestra[0]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[0]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
-; 0.238 ; leds_estado:u_leds|destello[6]                               ; leds_estado:u_leds|destello[6]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
-; 0.239 ; audio_salida:u_audio|tremolo:u_tre|act_r                     ; audio_salida:u_audio|tremolo:u_tre|act_r2                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.391      ;
-; 0.240 ; voz:u_voz2|dds:u_dds|acc[23]                                 ; voz:u_voz2|dds:u_dds|acc[23]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.392      ;
+; 0.238 ; audio_salida:u_audio|muestra[3]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[3]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.390      ;
+; 0.239 ; audio_salida:u_audio|muestra[2]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[2]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.391      ;
+; 0.240 ; secuenciador:u_sec|actual[7]                                 ; secuenciador:u_sec|din[23]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.392      ;
 ; 0.240 ; audio_salida:u_audio|tremolo:u_tre|fase[19]                  ; audio_salida:u_audio|tremolo:u_tre|fase[19]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.392      ;
-; 0.241 ; secuenciador:u_sec|actual[13]                                ; secuenciador:u_sec|din[29]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
-; 0.241 ; audio_salida:u_audio|tremolo:u_tre|x_r2[7]                   ; audio_salida:u_audio|tremolo:u_tre|s_y[7]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
-; 0.241 ; audio_salida:u_audio|tremolo:u_tre|x_r[8]                    ; audio_salida:u_audio|tremolo:u_tre|x_r2[8]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
-; 0.241 ; audio_salida:u_audio|tremolo:u_tre|x_r[9]                    ; audio_salida:u_audio|tremolo:u_tre|x_r2[9]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
-; 0.241 ; audio_salida:u_audio|muestra[3]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[3]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
-; 0.241 ; audio_salida:u_audio|muestra[4]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[4]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
-; 0.242 ; audio_salida:u_audio|eco:u_eco|s_val                         ; audio_salida:u_audio|volumen:u_vol|s_val                     ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
-; 0.242 ; teclas_notas:u_notas|f_ant[4]                                ; teclas_notas:u_notas|s_func[4]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
-; 0.242 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[25] ; teclas_notas:u_notas|foto[19]                                ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
+; 0.240 ; audio_salida:u_audio|muestra[4]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[4]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.392      ;
+; 0.240 ; audio_salida:u_audio|muestra[6]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[6]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.392      ;
+; 0.241 ; audio_salida:u_audio|tremolo:u_tre|v1                        ; audio_salida:u_audio|tremolo:u_tre|v2                        ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
+; 0.241 ; audio_salida:u_audio|tremolo:u_tre|x_r[11]                   ; audio_salida:u_audio|tremolo:u_tre|x_r2[11]                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
+; 0.241 ; audio_salida:u_audio|muestra[0]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[0]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.393      ;
 ; 0.242 ; teclas_notas:u_notas|lugar[2][0]                             ; teclas_notas:u_notas|s_notas[14]                             ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
-; 0.242 ; secuenciador:u_sec|actual[19]                                ; secuenciador:u_sec|din[35]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
-; 0.242 ; audio_salida:u_audio|tremolo:u_tre|x_r2[3]                   ; audio_salida:u_audio|tremolo:u_tre|s_y[3]                    ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
-; 0.242 ; audio_salida:u_audio|tremolo:u_tre|x_r2[10]                  ; audio_salida:u_audio|tremolo:u_tre|s_y[10]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
-; 0.242 ; audio_salida:u_audio|muestra[2]                              ; audio_salida:u_audio|salida_pwm:u_pwm|duty_reg[2]            ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
+; 0.242 ; secuenciador:u_sec|actual[18]                                ; secuenciador:u_sec|din[34]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
+; 0.242 ; secuenciador:u_sec|actual[13]                                ; secuenciador:u_sec|din[29]                                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
+; 0.242 ; audio_salida:u_audio|tremolo:u_tre|x_r[9]                    ; audio_salida:u_audio|tremolo:u_tre|x_r2[9]                   ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.394      ;
+; 0.243 ; audio_salida:u_audio|eco:u_eco|we                            ; audio_salida:u_audio|eco:u_eco|s_val                         ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.395      ;
 ; 0.243 ; base_tiempo:u_tiempo|c_ms[14]                                ; base_tiempo:u_tiempo|c_ms[14]                                ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.395      ;
+; 0.243 ; voz:u_voz2|dds:u_dds|acc[23]                                 ; voz:u_voz2|dds:u_dds|acc[23]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.395      ;
+; 0.243 ; voz:u_voz0|dds:u_dds|acc[23]                                 ; voz:u_voz0|dds:u_dds|acc[23]                                 ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.395      ;
+; 0.243 ; audio_salida:u_audio|metronomo:u_met|fase[15]                ; audio_salida:u_audio|metronomo:u_met|fase[15]                ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.395      ;
+; 0.243 ; leds_estado:u_leds|destello[6]                               ; leds_estado:u_leds|destello[6]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.395      ;
+; 0.244 ; audio_salida:u_audio|tremolo:u_tre|s_val                     ; audio_salida:u_audio|eco:u_eco|fase.CALCULA                  ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.396      ;
+; 0.244 ; interfaz_teclados:u_teclados|teclado_scan:u_scan|estable[19] ; teclas_notas:u_notas|s_func[4]                               ; u_pll|u_pll|pll|clk[0] ; u_pll|u_pll|pll|clk[0] ; 0.000        ; 0.000      ; 0.396      ;
 +-------+--------------------------------------------------------------+--------------------------------------------------------------+------------------------+------------------------+--------------+------------+------------+
 
 
@@ -889,9 +889,9 @@ Nothing to report.
 +-------------------------+--------+-------+----------+---------+---------------------+
 ; Clock                   ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
 +-------------------------+--------+-------+----------+---------+---------------------+
-; Worst-case Slack        ; 14.073 ; 0.215 ; N/A      ; N/A     ; 10.000              ;
+; Worst-case Slack        ; 13.723 ; 0.215 ; N/A      ; N/A     ; 10.000              ;
 ;  clk50                  ; N/A    ; N/A   ; N/A      ; N/A     ; 10.000              ;
-;  u_pll|u_pll|pll|clk[0] ; 14.073 ; 0.215 ; N/A      ; N/A     ; 16.933              ;
+;  u_pll|u_pll|pll|clk[0] ; 13.723 ; 0.215 ; N/A      ; N/A     ; 16.933              ;
 ; Design-wide TNS         ; 0.0    ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
 ;  clk50                  ; N/A    ; N/A   ; N/A      ; N/A     ; 0.000               ;
 ;  u_pll|u_pll|pll|clk[0] ; 0.000  ; 0.000 ; N/A      ; N/A     ; 0.000               ;
@@ -950,7 +950,7 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 Info: *******************************************************************
 Info: Running Quartus II 32-bit TimeQuest Timing Analyzer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Nov 14 17:35:46 2026
+    Info: Processing started: Sat Nov 14 18:07:34 2026
 Info: Command: quartus_sta sintetizador -c sintetizador
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
@@ -960,10 +960,10 @@ Info (332110): Deriving PLL clocks
 Warning (332153): Family doesn't support jitter analysis.
 Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow Model
-Info (332146): Worst-case setup slack is 14.073
+Info (332146): Worst-case setup slack is 13.723
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
-    Info (332119):    14.073         0.000 u_pll|u_pll|pll|clk[0] 
+    Info (332119):    13.723         0.000 u_pll|u_pll|pll|clk[0] 
 Info (332146): Worst-case hold slack is 0.499
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
@@ -977,10 +977,10 @@ Info (332146): Worst-case minimum pulse width slack is 10.000
     Info (332119):    16.933         0.000 u_pll|u_pll|pll|clk[0] 
 Info (332001): The selected device family is not supported by the report_metastability command.
 Info: Analyzing Fast Model
-Info (332146): Worst-case setup slack is 32.134
+Info (332146): Worst-case setup slack is 31.927
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
-    Info (332119):    32.134         0.000 u_pll|u_pll|pll|clk[0] 
+    Info (332119):    31.927         0.000 u_pll|u_pll|pll|clk[0] 
 Info (332146): Worst-case hold slack is 0.215
     Info (332119):     Slack End Point TNS Clock 
     Info (332119): ========= ============= =====================
@@ -997,7 +997,7 @@ Info (332101): Design is fully constrained for setup requirements
 Info (332101): Design is fully constrained for hold requirements
 Info: Quartus II 32-bit TimeQuest Timing Analyzer was successful. 0 errors, 2 warnings
     Info: Peak virtual memory: 323 megabytes
-    Info: Processing ended: Sat Nov 14 17:35:48 2026
+    Info: Processing ended: Sat Nov 14 18:07:36 2026
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 
