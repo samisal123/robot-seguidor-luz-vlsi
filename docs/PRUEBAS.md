@@ -86,7 +86,7 @@ Con Quartus II 13.0 SP1 (la última versión que soporta Cyclone II). Crea el pr
 
 ### Resultado de la compilación
 
-9 de noviembre de 2026, Quartus II 13.0 SP1 Web Edition, EP2C5T144C8, nivel superior `sintetizador.bdf` ([resultados/TAREA-025.md](../resultados/TAREA-025.md), log completo en [logs/TAREA-025.log](../logs/TAREA-025.log) y reportes de Quartus en [quartus/reportes/](../quartus/reportes/)): síntesis, Fitter, ensamblador y TimeQuest terminan sin errores y sin advertencias críticas.
+9 de noviembre de 2026, Quartus II 13.0 SP1 Web Edition, EP2C5T144C8, nivel superior `sintetizador.bdf` (log completo en [logs/TAREA-025.log](../logs/TAREA-025.log) y reportes de Quartus en [quartus/reportes/](../quartus/reportes/)): síntesis, Fitter, ensamblador y TimeQuest terminan sin errores y sin advertencias críticas.
 
 | Recurso | Usado | Disponible | % |
 |---|---|---|---|
@@ -101,7 +101,7 @@ Tiempos del reloj de 25 MHz del PLL (periodo de 40 ns): Fmax de 36.05 MHz en el 
 
 Para que compilara en la 13.0 SP1 hubo dos ajustes: el PLL declara el componente `altpll` con solo los genéricos que usa, como lo escribe el MegaWizard (con la declaración de `altera_mf_components` Quartus fallaba con el error 14157), y el pin 76, que es nCEO en la Cyclone II, se libera como E/S normal (`CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION`) porque lo usa el teclado 2.
 
-Antes de tener la 13.0 SP1, la estimación con MAX 10 dio 3 805 elementos lógicos (TAREA-021). La compilación anterior para la DE10-Lite está en `resultados/TAREA-013.md`.
+Antes de tener la 13.0 SP1, la estimación con MAX 10 dio 3 805 elementos lógicos ([logs/TAREA-021_fit.log](../logs/TAREA-021_fit.log)). La compilación anterior para la DE10-Lite está en [logs/TAREA-013.log](../logs/TAREA-013.log).
 
 ## Pruebas en la tarjeta
 

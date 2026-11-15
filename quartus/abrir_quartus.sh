@@ -5,7 +5,7 @@
 # el proyecto del sintetizador. Antes hay que compilar una vez
 # con quartus/compilar.sh (crea quartus/sintetizador.qpf).
 # La version de 64 bits es la que tiene todas sus bibliotecas en
-# esta PC (libpng12 se agrega en quartus/linux64, ver TAREA-026).
+# esta PC (libpng12 se agrega en quartus/linux64, con quartus/arreglar_interfaz.sh).
 #
 # Uso: sh quartus/abrir_quartus.sh
 # ============================================================

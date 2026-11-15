@@ -2,7 +2,7 @@
 # ============================================================
 # arreglar_interfaz.sh
 # Hace que abra la interfaz grafica de Quartus II 13.0 SP1 de 64
-# bits en la PC del laboratorio (TAREA-026). Lo unico que le falta
+# bits en la PC del laboratorio. Lo unico que le falta
 # es libpng12.so.0, que Linux Mint ya no trae: se toma del paquete
 # oficial de Ubuntu 16.04 (libpng12-0 1.2.54), se revisa su SHA-256
 # contra el indice firmado de Ubuntu y se copia dentro de

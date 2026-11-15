@@ -4,7 +4,7 @@
 # Arma el PDF del primer avance solo con diagramas de bloques y
 # capturas de Quartus: una portada, el diagrama general de bloques
 # (docs/img/bloques.png) y las capturas de la carpeta capturas/
-# (ver TAREA-020 en COORDINACION.md), una por pagina con su titulo.
+# (las toma tools/tomar_capturas.sh), una por pagina con su titulo.
 #
 # Uso: python3 tools/arma_avance.py [--equipo "Nombre 1" "Nombre 2" ...]
 #      Deja el PDF en entregas/primer_avance.pdf
@@ -87,7 +87,7 @@ def main():
     a = ap.parse_args()
     capturas = sorted(glob.glob(os.path.join(RAIZ, 'capturas', '*.png')))
     if not capturas:
-        sys.exit('No hay capturas en capturas/*.png (ver TAREA-020)')
+        sys.exit('No hay capturas en capturas/*.png (ver tools/tomar_capturas.sh)')
     os.makedirs(os.path.dirname(a.salida), exist_ok=True)
     ancho, alto = landscape(A4)
     c = canvas.Canvas(a.salida, pagesize=(ancho, alto))

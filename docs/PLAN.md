@@ -10,7 +10,7 @@
 - **Compilado para la EP2C5 (9 de noviembre):** Quartus II 13.0 SP1 compila el diagrama de bloques sin errores ni advertencias críticas: 3 782 elementos lógicos (82 %), 63 % de la memoria y el reloj de 25 MHz con 12.3 ns de margen ([PRUEBAS.md](PRUEBAS.md#resultado-de-la-compilación)).
 - **Tarjeta programada (10 de noviembre):** el USB-Blaster ya carga el diseño en la EP2C5T144 por JTAG ([logs/programacion_tarjeta.log](../logs/programacion_tarjeta.log)).
 - **Sin VGA ni botones (10 de noviembre):** el equipo decidió no comprar más material. MODO, ACCIÓN, METRÓNOMO y VOLUMEN pasaron a las teclas A a D del teclado 2 (las 24 teclas de nota se quedan) y los 3 LEDs muestran el modo y, en configuración, el parámetro elegido. Se quitó la interfaz VGA, que era uno de los extras: la calificación máxima posible queda en 120 (base más polifonía y efectos).
-- **Siguiente:** compilar y repetir las capturas sin VGA (TAREA-029), armar el PDF del primer avance, comprar protoboard y jumpers ([MATERIALES.md](MATERIALES.md)), cablear ([CABLEADO.md](CABLEADO.md)) y hacer las pruebas en la tarjeta ([PRUEBAS.md](PRUEBAS.md#pruebas-en-la-tarjeta)).
+- **Siguiente:** entregar el primer avance, comprar protoboard y jumpers ([MATERIALES.md](MATERIALES.md)), cablear ([CABLEADO.md](CABLEADO.md)) y hacer las pruebas en la tarjeta ([PRUEBAS.md](PRUEBAS.md#pruebas-en-la-tarjeta)).
 
 ## Requisitos y cómo se cubren
 

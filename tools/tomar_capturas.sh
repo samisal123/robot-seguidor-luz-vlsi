@@ -2,7 +2,7 @@
 # ============================================================
 # tomar_capturas.sh
 # Guia para tomar las capturas de Quartus del primer avance
-# (TAREA-020). Para cada captura dice que dejar en la pantalla de
+# Para cada captura dice que dejar en la pantalla de
 # Quartus; al presionar Enter cuenta unos segundos para que se
 # cambie a la ventana de Quartus y toma la pantalla completa en
 # capturas/NN_nombre.png. Despues se puede repetir o seguir.

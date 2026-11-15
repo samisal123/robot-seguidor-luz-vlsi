@@ -27,7 +27,6 @@ sim/*.ghw
 *.cf
 
 # Watcher
-watcher.log
 
 # Sistema operativo
 .DS_Store
