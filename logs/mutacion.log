@@ -2,6 +2,7 @@
 # cuenta como detectada si su testbench falla (assert o error en tiempo de ejecucion), no si deja de compilar.
 # Nucleo: corrida del 10 de noviembre de 2026, sin VGA ni botones (MODO, ACCION, METRONOMO y VOLUMEN en el teclado 2).
 # Audio: corrida del 9 de noviembre de 2026; los modulos de audio y sus testbenches no cambiaron desde entonces.
+# Control: vuelto a correr el 14 de noviembre de 2026 con el mismo RTL; las 9 mutaciones siguen muertas.
 
 ## Nucleo (52): teclados, voz, gestor de voces, secuenciador, control, LEDs, reset, base de tiempo
 [0] teclado_scan -> tb_teclado_scan: MUERTA: tb_teclado_scan: la tecla aparecio antes del antirrebote
@@ -38,7 +39,7 @@
 [31] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: sin eventos no debe reproducir
 [32] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: al terminar debe quedar en espera y en silencio
 [33] secuenciador -> tb_secuenciador: MUERTA: tb_secuenciador: con cambios en el tick la reproduccion duro 5 ms en vez de 8
-[34] control -> tb_control: MUERTA: ghdl:error: bound check failure at /tmp/claude-0/-home-claude/20e5d532-38ae-50dd-8d92-3d2d0b84ab36/scratchpad/
+[34] control -> tb_control: MUERTA: ghdl:error: bound check failure at /var/tmp/sinte/w/34/sim/../rtl/control.vhd:161
 [35] control -> tb_control: MUERTA: tb_control: parametro anterior = 2, se esperaba 0
 [36] control -> tb_control: MUERTA: tb_control: ACCION no hace nada en interpretacion
 [37] control -> tb_control: MUERTA: tb_control: salir de grabacion debe parar
