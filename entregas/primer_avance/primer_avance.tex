@@ -66,7 +66,7 @@
   \vspace{0.3cm}
   Repositorio: \url{\repo}\par
   \vfill
-  10 de noviembre de 2026
+  14 de noviembre de 2026
 \end{titlepage}
 
 % ------------------------------------------------------------
@@ -110,16 +110,16 @@
     Concepto & Valor \\
     \midrule
     Dispositivo & EP2C5T144C8 (Cyclone II) \\
-    Elementos lógicos & 3\,782 de 4\,608 (82\,\%) \\
-    Funciones combinacionales & 3\,631 de 4\,608 (79\,\%) \\
-    Registros & 1\,403 de 4\,608 (30\,\%) \\
-    Bits de memoria & 76\,032 de 119\,808 (63\,\%) \\
-    Multiplicadores de 9 bits & 6 de 26 (23\,\%) \\
+    Elementos lógicos & 2\,339 de 4\,608 (51\,\%) \\
+    Funciones combinacionales & 2\,249 de 4\,608 (49\,\%) \\
+    Registros & 931 de 4\,608 (20\,\%) \\
+    Bits de memoria & 69\,888 de 119\,808 (58\,\%) \\
+    Multiplicadores de 9 bits & 5 de 26 (19\,\%) \\
     PLL & 1 de 2 \\
-    Pines & 30 de 89 (34\,\%) \\
+    Pines & 22 de 89 (25\,\%) \\
     Reloj del diseño & 25 MHz (PLL a partir de 50 MHz) \\
-    Fmax & 36.05 MHz \\
-    Holgura de setup / hold & 12.261 ns / 0.499 ns \\
+    Fmax & 38.06 MHz \\
+    Holgura de setup / hold & 13.723 ns / 0.499 ns \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -134,8 +134,12 @@
 % ------------------------------------------------------------
 \section{Programación de la tarjeta}
 
-La tarjeta se programó por JTAG con el USB-Blaster. Salida del programador de Quartus (sin los avisos de licencia):
+La tarjeta se programó por JTAG con el USB-Blaster desde la PC del laboratorio. Cadena JTAG detectada:
 
-\lstinputlisting[firstline=5]{../../logs/programacion_tarjeta.log}
+\lstinputlisting[firstline=5,lastline=10]{../../logs/programacion_tarjeta.log}
+
+Carga de la versión actual (14 de noviembre de 2026), salida del programador de Quartus sin los avisos de licencia:
+
+\lstinputlisting[firstline=29,lastline=33]{../../logs/programacion_tarjeta.log}
 
 \end{document}
