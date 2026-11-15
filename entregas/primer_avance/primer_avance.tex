@@ -10,7 +10,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish,es-noquoting]{babel}
 \usepackage{lmodern}
-\usepackage[a4paper,landscape,margin=1.6cm]{geometry}
+\usepackage[a4paper,margin=2cm]{geometry}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{float}
@@ -37,13 +37,13 @@
 \rhead{\small Proyecto final: sintetizador musical. Primer avance}
 \cfoot{\small\thepage}
 
-% una captura por pagina, lo mas grande posible
+% una captura a lo ancho, dos por pagina
 \newcommand{\captura}[2]{%
   \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth,height=0.76\textheight,keepaspectratio]{#1}
+    \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{#1}
     \caption{#2}
-  \end{figure}\clearpage}
+  \end{figure}}
 
 \begin{document}
 
@@ -74,7 +74,7 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{bloques.png}
+  \includegraphics[angle=90,height=0.82\textheight,width=\linewidth,keepaspectratio]{bloques.png}
   \caption{Diagrama general de bloques del sintetizador en la Cyclone II.}
 \end{figure}
 \clearpage
@@ -123,7 +123,6 @@
     \bottomrule
   \end{tabular}
 \end{table}
-\clearpage
 
 \captura{07_flow_summary.png}{Resumen de la compilación (Flow Summary).}
 \captura{08_recursos_entidad.png}{Recursos por módulo (Fitter, Resource Utilization by Entity).}
